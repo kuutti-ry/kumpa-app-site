@@ -23,7 +23,7 @@ export interface Person {
 export const TEAM: readonly Person[] = [
   {
     name: "Nikolai",
-    roles: ["Lead", "Chairman of the Board"],
+    roles: ["Lead", "Chair of the Board"],
     photo: "/team/nikolai.jpg",
     linkedin: "https://www.linkedin.com/in/nikolaidenissov/",
     github: "https://github.com/superseacat",
