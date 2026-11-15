@@ -17,6 +17,7 @@ import {
 import { drawFlags } from "../lib/flag.ts";
 import { opened } from "../lib/home.ts";
 import { type RouteProps, routes } from "../lib/routes.ts";
+import { drawTeam } from "../lib/team.ts";
 import { SITE } from "../site.ts";
 
 // Every page of the site is made here; src/lib/routes.ts says which there are.
@@ -29,10 +30,11 @@ const { locale, slug, alternates, view } = Astro.props;
 const shelf = await legalShelf(locale);
 
 // A text as the content layer rendered it, with the flag of Finland drawn
-// where the author wrote its emoji (src/lib/flag.ts). Nothing else runs on it.
+// where the author wrote its emoji (src/lib/flag.ts) and the team where About
+// Us says `@team` (src/lib/team.ts). Nothing else runs on it.
 const htmlOf = (entry: { id: string; rendered?: { html: string } }): string => {
   if (entry.rendered === undefined) throw new Error(`${entry.id} was not rendered`);
-  return drawFlags(entry.rendered.html);
+  return drawTeam(drawFlags(entry.rendered.html), locale);
 };
 const html =
   view.kind === "page" ? htmlOf(view.page) : view.kind === "text" ? htmlOf(view.text) : null;

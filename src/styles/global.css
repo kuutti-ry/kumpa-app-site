@@ -632,6 +632,70 @@ body:has(> .site-header) {
   height: auto;
 }
 
+/* --- The team (About Us, src/lib/team.ts) ------------------------------ */
+
+/*
+ * Faces in circles, each with its name, role and marks under it: three to a
+ * line at most, two on a 320 px screen, one where the text is large there.
+ */
+.team {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(max(8.5rem, calc((100% - 2rem) / 3)), 1fr));
+  gap: 2rem 1rem;
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.team > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.team-face {
+  display: block;
+  width: 7.5rem;
+  aspect-ratio: 1;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  background: hsl(var(--muted));
+}
+
+/* Somebody whose face has not come yet: their initials, in the same circle. */
+.team-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--step-2);
+  font-weight: 650;
+  color: hsl(var(--muted-foreground));
+  border: 1px solid hsl(var(--border));
+}
+
+.team-name {
+  margin: 0.75rem 0 0;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.team-role {
+  margin: 0.15rem 0 0;
+  font-size: var(--step--1);
+  color: hsl(var(--muted-foreground));
+}
+
+.team-links {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 0.25rem;
+  color: hsl(var(--muted-foreground));
+}
+
 /* --- Gaiane's structure (/ga/, docs/decisions.md 16) --------------------- */
 
 /* Words for a screen reader alone. */

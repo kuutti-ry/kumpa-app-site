@@ -158,6 +158,11 @@ for (const path of pages) {
   if (!/<meta name="viewport" content="width=device-width, initial-scale=1"/.test(html)) {
     problems.push(`${page}: no viewport for a phone`);
   }
+  // A text's markers (src/lib/reuse.ts, src/lib/team.ts) are replaced before a
+  // page is written: one left standing is a page that lost its wiring.
+  for (const [, marker = ""] of html.matchAll(/<p>(@(?:reuse|team))\b/g)) {
+    problems.push(`${page}: ${marker} was never replaced`);
+  }
 }
 
 // The sitemap: every page a search engine may index, and no page it is told to leave alone.

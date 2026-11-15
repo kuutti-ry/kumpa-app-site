@@ -47,6 +47,8 @@ Changing these needs a unanimous decision in two meetings, at least thirty days 
 
 ## Who we are
 
+@team
+
 **The board** was elected at the founding meeting on 1 October 2026 and has three members. Its chair is Nikolai Denissov. It runs the association: its members, its meetings and its books.
 
 **Volunteers:** mostly alumni of Aalto University, and some who study there now.
