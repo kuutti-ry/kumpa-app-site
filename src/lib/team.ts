@@ -5,7 +5,8 @@ import { MARKS } from "./marks.ts";
 /** A person of the team as About Us shows them: a face, a name, a role, and where to find them. */
 export interface Person {
   name: string;
-  role: string;
+  /** The role, a line each: a board member's place on the board under it. */
+  roles: readonly string[];
   /** The face under public/, cut square around it; null draws the initials instead. */
   photo: string | null;
   linkedin?: string;
@@ -22,7 +23,7 @@ export interface Person {
 export const TEAM: readonly Person[] = [
   {
     name: "Nikolai",
-    role: "Tech Lead",
+    roles: ["Lead", "Chairman of the Board"],
     photo: "/team/nikolai.jpg",
     linkedin: "https://www.linkedin.com/in/nikolaidenissov/",
     github: "https://github.com/superseacat",
@@ -30,7 +31,7 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Olli",
-    role: "Member of the Board",
+    roles: ["Lead", "Member of the Board"],
     photo: "/team/olli.jpg",
     linkedin: "https://www.linkedin.com/in/olli-kiljunen/",
     github: "https://github.com/OlliKiljunen",
@@ -38,21 +39,21 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Denis",
-    role: "Volunteer",
+    roles: ["Developer"],
     photo: "/team/denis.jpg",
     linkedin: "https://www.linkedin.com/in/dereden/",
     github: "https://github.com/Dereden399",
   },
   {
     name: "Egor",
-    role: "Developer",
+    roles: ["Developer"],
     photo: "/team/egor.jpg",
     linkedin: "https://www.linkedin.com/in/egor-kovalenko-046b36262/",
     github: "https://github.com/Egor1o",
   },
   {
     name: "Gaiane",
-    role: "Design",
+    roles: ["Design"],
     photo: "/team/gaiane.jpg",
     linkedin: "https://www.linkedin.com/in/gaiane-pogosova/",
     github: "https://github.com/gaianep",
@@ -60,7 +61,7 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Hilal",
-    role: "Volunteer",
+    roles: ["Volunteer"],
     photo: "/team/hilal.jpg",
     linkedin: "https://www.linkedin.com/in/hilalnurgercek/",
     github: "https://github.com/hilalnurgercek",
@@ -68,14 +69,14 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Hilma",
-    role: "Advisor",
+    roles: ["Advisor"],
     photo: null,
     linkedin: "https://www.linkedin.com/in/hilma-kokkoniemi/",
     github: "https://github.com/himpu-k",
   },
   {
     name: "Ilya",
-    role: "Tech Advisor",
+    roles: ["Tech Advisor"],
     photo: "/team/ilya.jpg",
     linkedin: "https://www.linkedin.com/in/ilya-nekrasov/",
     github: "https://github.com/ilya-wd",
@@ -83,14 +84,14 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Jaakko",
-    role: "Volunteer",
+    roles: ["Volunteer"],
     photo: "/team/jaakko.jpg",
     linkedin: "https://www.linkedin.com/in/jaakkonakaza/",
     github: "https://github.com/jaakkonakaza",
   },
   {
     name: "Nanna",
-    role: "Volunteer",
+    roles: ["Volunteer"],
     photo: "/team/nanna.jpg",
     linkedin: "https://www.linkedin.com/in/nanna-ruotsalainen-095306294/",
     github: "https://github.com/nannaruotsalainen",
@@ -98,7 +99,7 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Sini",
-    role: "CX Lead",
+    roles: ["CX Lead"],
     photo: null,
     linkedin: "https://www.linkedin.com/in/sini-parkkinen-100/",
     email: "sini@kuutti.app",
@@ -151,7 +152,7 @@ function card(person: Person, locale: Locale): string {
       icon(`mailto:${person.email}`, t(locale, "team.mail", { name: person.name }), ENVELOPE, true),
   ].filter(Boolean);
   return (
-    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${escaped(person.role)}</p>` +
+    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map(escaped).join("<br>")}</p>` +
     (links.length > 0 ? `<ul class="channels team-links">${links.join("")}</ul>` : "") +
     "</li>"
   );

@@ -8,13 +8,13 @@ import { drawTeam, type Person, TEAM } from "../src/lib/team.ts";
 
 const ada: Person = {
   name: "Ada Lovelace",
-  role: "Chair",
+  roles: ["Lead", "Chair"],
   photo: "/team/ada.jpg",
   linkedin: "https://www.linkedin.com/in/ada/",
   github: "https://github.com/ada",
   email: "ada@kuutti.app",
 };
-const bo: Person = { name: 'Bo <B> & "Co"', role: "Design", photo: null };
+const bo: Person = { name: 'Bo <B> & "Co"', roles: ["Design"], photo: null };
 
 test("the marker becomes the team, each with a face, a name and a role, in the order given", () => {
   const html = drawTeam("<h2>Who we are</h2>\n<p>@team</p>\n<p>The board.</p>", "en", [ada, bo]);
@@ -25,7 +25,10 @@ test("the marker becomes the team, each with a face, a name and a role, in the o
     html,
     /<img class="team-face" src="\/team\/ada\.jpg" alt="" width="400" height="400"/,
   );
-  assert.match(html, /<p class="team-name">Ada Lovelace<\/p><p class="team-role">Chair<\/p>/);
+  assert.match(
+    html,
+    /<p class="team-name">Ada Lovelace<\/p><p class="team-role">Lead<br>Chair<\/p>/,
+  );
 });
 
 test("each way to reach a person is a mark with its words for a screen reader, and only the ways they have", () => {
@@ -68,8 +71,9 @@ test("the maintainer first, Olli second, the rest by first name", () => {
   );
 });
 
-test("every face is in the site, and every way to reach a person is a profile or a kuutti.app address", () => {
+test("everybody has a role, every face is in the site, and every way to reach a person is a profile or a kuutti.app address", () => {
   for (const person of TEAM) {
+    assert.ok(person.roles.length > 0, `${person.name} has no role`);
     if (person.photo !== null) {
       assert.ok(
         existsSync(join("public", person.photo)),
