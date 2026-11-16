@@ -14,4 +14,4 @@ Business ID 3659478-7. The association's [entry](https://tietopalvelu.ytj.fi/yri
 
 ## Elsewhere
 
-The association is on [LinkedIn](https://www.linkedin.com/company/145260967/), [GitHub](https://github.com/kuutti-ry), [TikTok](https://www.tiktok.com/@kuutti_ry) and [Instagram](https://www.instagram.com/kuutti_ry/).
+The association is on [LinkedIn](https://www.linkedin.com/company/kumpa-fi/), [GitHub](https://github.com/kuutti-ry), [TikTok](https://www.tiktok.com/@kumpa_fi) and [Instagram](https://www.instagram.com/kumpa_fi/).

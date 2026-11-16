@@ -68,6 +68,19 @@ test("every channel of the association is an https address with a mark the foote
   }
 });
 
+test("the contact page names every channel at the footer's address, and no other of those services", () => {
+  const contact = readFileSync(
+    join(import.meta.dirname, "..", "src", "content", "pages", "en", "contact.md"),
+    "utf8",
+  );
+  const linked = [...contact.matchAll(/\]\((https:\/\/[^)\s]+)\)/g)].map((match) => match[1]);
+  const hosts = new Set(SITE.social.map((channel) => new URL(channel.href).host));
+  assert.deepEqual(
+    linked.filter((href) => hosts.has(new URL(href ?? "").host)).sort(),
+    SITE.social.map((channel) => channel.href).sort(),
+  );
+});
+
 test("the home page says what the association is and what it makes, and the footer names it as the register does, with an address to write to", () => {
   assert.equal(t("en", "home.title"), "Kuutti ry");
   assert.equal(t("en", "home.mission"), "Our mission");
