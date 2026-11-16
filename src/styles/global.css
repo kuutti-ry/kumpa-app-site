@@ -6,9 +6,10 @@
  * system's "increase contrast".
  *
  * No framework. Inter, the placeholder's typeface, is served by the site
- * itself (public/fonts, SIL Open Font License 1.1), never from another host;
- * fluid sizes, and a column that is as wide as a line should be long.
- * Nothing here needs a script.
+ * itself (public/fonts, SIL Open Font License 1.1), never from another host,
+ * and so is Saiga, Kuutti's own, where a build has it: it draws the headings
+ * and the header (--display, below). Fluid sizes, and a column that is as
+ * wide as a line should be long. Nothing here needs a script.
  */
 
 @font-face {
@@ -110,6 +111,20 @@ main {
   max-width: var(--wide);
   margin: 0 auto;
   padding: var(--gap);
+}
+
+/*
+ * Saiga, Kuutti's typeface, draws the headings and the header, as it does in
+ * the app; what is read stays in Inter (docs/decisions.md, 28). --display is
+ * set by /fonts/saiga.css, which a page links only where the build has
+ * Saiga's files: anywhere else these are in Inter as well.
+ */
+h1,
+h2,
+h3,
+h4,
+.site-header {
+  font-family: var(--display, var(--font));
 }
 
 h1,
