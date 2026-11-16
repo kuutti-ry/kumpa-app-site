@@ -1,6 +1,6 @@
 ---
 title: Support us
-description: How to help Kuutti - as a member, with your time, and why the association asks the public for no money.
+description: How to help Kuutti ry - as a member, with your time, and why the association asks the public for no money.
 ---
 
 ## As a member
@@ -13,9 +13,9 @@ The association does not ask the public for money, and there is no donate button
 
 ## With your time
 
-Kuutti is built by volunteers, and there is room for more:
+Kumpa is built by volunteers, and there is room for more:
 
-- **Ideas.** A feature you miss, or a change you want: [open a proposal](https://github.com/kuutti-ry/kuutti-app/issues/new?template=proposal.yml) on GitHub. The form says what Kuutti never builds.
+- **Ideas.** A feature you miss, or a change you want: [open a proposal](https://github.com/kuutti-ry/kuutti-app/issues/new?template=proposal.yml) on GitHub. The form says what is never built into Kumpa.
 - **Code and design.** The work is in the open at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app), and the issues say what is being built.
 - **Language.** The app and this site are written in English first and translated by a machine. Every Finnish and Swedish text needs a native reader before it is released.
 - **Research.** If you study relationships or loneliness and want to work with data that people gave knowingly, the association wants to hear from you.

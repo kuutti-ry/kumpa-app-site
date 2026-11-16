@@ -1,6 +1,6 @@
 # kuutti-app-site
 
-The website of Kuutti ry at [kuutti.app](https://kuutti.app): what Kuutti is, who is behind it, and the texts that bind the association and the people who use the app. The app itself is at [kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
+The website of Kuutti ry at [kuutti.app](https://kuutti.app): what Kumpa is, who is behind it, and the texts that bind the association and the people who use the app. The app itself is at [kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
 
 A static site. It sets no cookie, runs no script and loads nothing from anybody else; a check holds it to that on every build. What is read is in Inter, the site's own file under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). The headings and the header are in Saiga, Kuutti's typeface, whose files are never in this repository: the build on Amplify fetches them, and a build without them is in Inter throughout (`docs/decisions.md`, 18 and 28).
 

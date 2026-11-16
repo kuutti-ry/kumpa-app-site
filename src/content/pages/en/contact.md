@@ -4,7 +4,7 @@ description: How to reach Kuutti ry - by e-mail, by post, and on its channels.
 nav: 6
 ---
 
-[hello@kuutti.app](mailto:hello@kuutti.app) reaches the association: questions about Kuutti or the association, requests about your personal data, membership, and the press.
+[hello@kuutti.app](mailto:hello@kuutti.app) reaches the association: questions about Kumpa or the association, requests about your personal data, membership, and the press.
 
 Kuutti ry, Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo, Finland.
 

@@ -263,3 +263,12 @@ The maintainer's word, in two parts. On 08/11/2026 (kuutti-ry/kuutti-app#208): t
 - **The site's other pages are as they were, but one.** They still call the app Kuutti: the maintainer's word was about the legal documents, and the name on the rest of the site is his next word. "Research" said that the privacy policy had the whole of how research works and held the association to naming a partner. The policy has neither now, so the page says where the wording of the yes is, that the app does not ask the question until there is a partner, and that the policy names a partner before any data goes to it.
 - **The app follows** in a pull request of its own: the same three versions, its summaries naming Kuutti ry and Kumpa, the sensitive answers word for word as here, its line about the language that counts turned to English, and its check comparing the text in the language `versions.json` names. Between this site's deploy and that merge the app's check is red and `pnpm check:app-versions` reports the app as behind, as 14 expects.
 - **Still the maintainer's.** `docs/open-questions.md` lists, under "What the texts of 16/11/2026 found", where the texts say something the code or the association does not do yet, and what no text can settle.
+
+## 30. Kumpa on every page, Kuutti ry beside the logo (2026-11-16)
+
+The maintainer's word of 16/11/2026, after 29: the app is called Kumpa outside the legal texts too, here and in the app (kuutti-ry/kuutti-app#700). It sets aside 29's "They still call the app Kuutti".
+
+- **The app is Kumpa** wherever a page speaks of it, and on the stores' badges. What the association is and does stays Kuutti ry's.
+- **The site's name is Kuutti ry**, beside the logo and after every page's title, where it was Kuutti: the logo is the association's seal, and kuutti.app its official website (15). The home page's sentence says that the association makes Kumpa. This point and the next are the agent's reading of the word.
+- **Never Kuutti alone** in what a visitor reads. The domain and its addresses, the repositories, the code and the docs keep Kuutti, the project's name.
+- **Left as it was**: the legal texts and their earlier versions (29), the bylaws, and the research opt-in's draft, which still says Kuutti and is the maintainer's (`docs/open-questions.md`).

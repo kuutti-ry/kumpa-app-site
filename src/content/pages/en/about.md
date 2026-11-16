@@ -12,7 +12,7 @@ Kuutti ry is a registered non-profit association in Espoo, Finland. It was found
 
 ## What it does
 
-Kuutti ry develops Kuutti, a free app for meeting people in Finland, and will run it itself. It prepares for research into relationships and loneliness, keeps an open community of volunteers, and publishes what it builds. [Our work](/work/) says how, and where each of these stands.
+Kuutti ry develops Kumpa, a free app for meeting people in Finland, and will run it itself. It prepares for research into relationships and loneliness, keeps an open community of volunteers, and publishes what it builds. [Our work](/work/) says how, and where each of these stands.
 
 ## In the register
 
@@ -69,7 +69,7 @@ The association may receive membership fees, grants, donations and bequests. Its
 
 ### Why do I sign in with my bank?
 
-So that every account is one real adult, and so that somebody who was banned stays banned. The bank confirms who you are and nothing else: Kuutti sees nothing of your account or your money.
+So that every account is one real adult, and so that somebody who was banned stays banned. The bank confirms who you are and nothing else: Kumpa sees nothing of your account or your money.
 
 ### Can I join the association?
 
