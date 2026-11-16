@@ -73,7 +73,7 @@ const legal = defineCollection({
      * The version a person agrees to in the app, by the app's name
      * (consent_version there): every text of a kind the app records carries
      * it, and the build holds the body of the language that binds to the row
-     * of src/consent-versions.ts (kuutti-ry/kuutti-app#208).
+     * of src/consent-versions.ts (kuutti-ry/kumpa-app#208).
      */
     consent_version: consentVersion.optional(),
     /** The day a text was entered in a public register: the bylaws, in the Register of Associations. */

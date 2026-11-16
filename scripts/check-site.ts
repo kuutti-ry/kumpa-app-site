@@ -205,7 +205,7 @@ if (!robots.split("\n").includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) {
   problems.push("/robots.txt does not name the sitemap");
 }
 
-// What the app's CI reads (kuutti-ry/kuutti-app#208): a version per kind, at an anchor that is there.
+// What the app's CI reads (kuutti-ry/kumpa-app#208): a version per kind, at an anchor that is there.
 const versionsFile = join(dist, "legal", "versions.json");
 const versions: unknown = existsSync(versionsFile)
   ? JSON.parse(readFileSync(versionsFile, "utf8"))

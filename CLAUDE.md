@@ -1,8 +1,8 @@
 # Kuutti: the website
 
-The website of Kuutti ry (kuutti.app): what Kumpa is, who is behind it, and the legal texts. A static site made with Astro. The app is another repository, `kuutti-ry/kuutti-app`, and its `CLAUDE.md` carries the project's standing rules; what is here is what this site needs of them, and what is the site's own. Where the two disagree about the project, the app's repository wins.
+The website of Kuutti ry (kuutti.app): what Kumpa is, who is behind it, and the legal texts. A static site made with Astro. The app is another repository, `kuutti-ry/kumpa-app`, and its `CLAUDE.md` carries the project's standing rules; what is here is what this site needs of them, and what is the site's own. Where the two disagree about the project, the app's repository wins.
 
-The site's issues live in the app's repository (`kuutti-ry/kuutti-app#53` is the site).
+The site's issues live in the app's repository (`kuutti-ry/kumpa-app#53` is the site).
 
 ## Commands
 
@@ -38,7 +38,7 @@ As in the app's repository:
 - Every commit is signed off (`git commit -s`). Enable the hooks once per clone: `git config core.hooksPath .githooks` (the sign-off, and no font file but Inter's).
 - Linear history: no merge commits, no force-push, never touch the ruleset or the repository's settings.
 - Subject line imperative and under 72 characters; the body says what and why.
-- Every pull request body carries `Refs kuutti-ry/kuutti-app#n`. Never a closing keyword: an issue closes when the maintainer has looked at the result.
+- Every pull request body carries `Refs kuutti-ry/kumpa-app#n`. Never a closing keyword: an issue closes when the maintainer has looked at the result.
 - Commit only what was asked. No `dist/`, no `.astro/`, no unrelated lockfile churn.
 
 ## Code and content
@@ -50,7 +50,7 @@ As in the app's repository:
 - The headings and the header are in Saiga where a build has its files, and what is read is in Inter (`docs/decisions.md`, 28). `--display` in `src/styles/global.css` is the one place that says what is drawn in Saiga. CI's builds have no file of it (rule 9), so a change to how it looks is looked at in a build that has them.
 - `/sitemap.xml` names the pages that may be indexed; `src/lib/sitemap.ts` makes it from the content, and it is never written by hand (`docs/decisions.md` 11).
 - The site's own words (navigation, notices, the footer) are in `src/i18n/ui.ts`, in every language of the site, and a test holds that none is missing.
-- The app is Kumpa and the association Kuutti ry, never Kuutti alone, in everything a visitor reads: the pages, the site's own words and the legal texts. The name beside the logo and after a page's title is the association's. The docs and the code keep Kuutti, the project's name, as the repositories and the address do (the maintainer's word of 16/11/2026, `docs/decisions.md` 30).
+- The app is Kumpa and the association Kuutti ry, never Kuutti alone, in everything a visitor reads: the pages, the site's own words and the legal texts. The name beside the logo and after a page's title is the association's. The docs and the code keep Kuutti, the project's name, as the address does; the repositories are Kumpa's, `kumpa-app` and `kumpa-app-site` (the maintainer's word of 16/11/2026, `docs/decisions.md` 30).
 - A legal text a person agrees to in the app carries `consent_version` (quoted), the app's version of it. The build refuses a heading or a body of the wording that counts (the one that says `binding: true`; the Finnish where none does), or a status or binding, that changed without a new version and its row at the end of `src/consent-versions.ts`; a row is never changed or removed, and its version keeps its anchor on the page, the earlier text copied whole to `src/content/earlier/<language>/<kind>/<version>.md`: a new version asks everybody again, so it is the maintainer's bump, never an agent's own. The site's version lands first, the app's follows (`docs/decisions.md`, 14 and 29).
 - Links inside the site are written in full, with the language's prefix where it has one and a trailing slash (`/legal/privacy/`); the build checks that each leads somewhere.
 - Dates and numbers are written as Finland writes them, in every language.

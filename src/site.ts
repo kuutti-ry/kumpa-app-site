@@ -26,14 +26,14 @@ export const SITE = {
    */
   postalAddressJoined: "Tontunmäentie 22E, 02200 Espoo",
   /** Where the app's source is published (AGPL-3.0). */
-  appSource: "https://github.com/kuutti-ry/kuutti-app",
+  appSource: "https://github.com/kuutti-ry/kumpa-app",
   /**
    * Where anybody proposes a feature: the app repository's Proposal form, open
    * to every GitHub account (the maintainer's word of 27/10/2026).
    */
-  proposals: "https://github.com/kuutti-ry/kuutti-app/issues/new?template=proposal.yml",
+  proposals: "https://github.com/kuutti-ry/kumpa-app/issues/new?template=proposal.yml",
   /** Where this site's source is published (AGPL-3.0). */
-  siteSource: "https://github.com/kuutti-ry/kuutti-app-site" as string | null,
+  siteSource: "https://github.com/kuutti-ry/kumpa-app-site" as string | null,
   /**
    * The address people write to, the association's only one on the site (the
    * team's own are on About Us, src/lib/team.ts): a user of the

@@ -8,7 +8,7 @@ Supporting research into relationships and loneliness is part of Kuutti ry's pur
 
 ## The questions
 
-Every event Kumpa can record for research names the question it answers, in [a public list](https://github.com/kuutti-ry/kuutti-app/blob/main/packages/schema/src/research.ts). Among them:
+Every event Kumpa can record for research names the question it answers, in [a public list](https://github.com/kuutti-ry/kumpa-app/blob/main/packages/schema/src/research.ts). Among them:
 
 - How many people step away for a while rather than leave, and how long do their breaks last?
 - How often does a like become a match?
@@ -29,7 +29,7 @@ An event holds what happened, the hour in which it happened, your age as a band 
 - **Nobody stands out.** The copy for researchers holds a combination of age band, gender and the like only when at least ten people share it. Under ten, the details are withheld or made coarser, and an event that is still under ten is left out.
 - **Researchers get that copy and nothing else.** Their access reads those files alone, every read is logged, and their agreement with the association forbids trying to find out who anybody is.
 
-[How the copy works](https://github.com/kuutti-ry/kuutti-app/blob/main/docs/research/README.md) is public, down to its columns.
+[How the copy works](https://github.com/kuutti-ry/kumpa-app/blob/main/docs/research/README.md) is public, down to its columns.
 
 ## Where it stands
 

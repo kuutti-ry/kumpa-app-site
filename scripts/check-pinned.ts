@@ -1,6 +1,6 @@
 /**
  * `pnpm check:pinned -- --base <git ref>`: src/consent-versions.ts against the
- * base's (kuutti-ry/kuutti-app#208). A row pins the text people agreed to
+ * base's (kuutti-ry/kumpa-app#208). A row pins the text people agreed to
  * under its version, so it is added at the end and never changed or removed;
  * the build alone cannot tell a row edited to fit a changed text from a new
  * one. CI's lint job runs it against origin/main.
