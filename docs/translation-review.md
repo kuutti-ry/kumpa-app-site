@@ -4,4 +4,4 @@ Nothing, for now: the site is English only (docs/decisions.md, 8). The Finnish a
 
 ## Not to be translated by a machine
 
-The bylaws, the terms of use and the privacy policy. They exist in the languages people wrote them in, and are read in those: the bylaws in Finnish, under the English pages.
+The bylaws, the terms of use and the privacy policy. They exist in the languages they were written in, and are read in those: the bylaws in Finnish, under the English pages; the terms and the policy in English, the text that binds (docs/decisions.md, 29).

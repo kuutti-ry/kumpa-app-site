@@ -3,9 +3,11 @@ import type { Pinned } from "./lib/consent.ts";
 /**
  * Every version of each kind the site has published, oldest first, with the
  * fingerprint of the text it was published with (`pinnedText` in
- * src/lib/consent.ts, kuutti-ry/kuutti-app#208): the Finnish heading and body,
- * and a legal text's status and binding, or a draft's own while its Finnish
- * is not written (the terms and the privacy policy are English drafts).
+ * src/lib/consent.ts, kuutti-ry/kuutti-app#208): the heading and body of the
+ * language that counts (`countedWording`), and a legal text's status and
+ * binding. From 2026-11-1 that language is English for the terms, the privacy
+ * policy and the sensitive answers (docs/decisions.md, 29); the rows before
+ * it pin a consent's Finnish and a draft's English.
  *
  * The newest row of a kind is the version its page carries, and the build
  * refuses a text whose fingerprint is not that row's: a changed text is a new
@@ -19,15 +21,17 @@ import type { Pinned } from "./lib/consent.ts";
  * The first rows are the app's versions of 17/10/2026, when the pin began.
  */
 export const PINNED: Pinned = {
-  terms: { "2026-09-draft-1": "65b7fa7d00ed9290" },
+  terms: { "2026-09-draft-1": "65b7fa7d00ed9290", "2026-11-1": "13f1db8e5c4d2762" },
   privacy: {
     "2026-09-draft-1": "422ac16a1df3d859",
     "2026-10-draft-2": "9231ba2d5b6e0f69",
     "2026-10-draft-3": "abf9ef52d956699c",
+    "2026-11-1": "f36ec6f61ad90862",
   },
   research: { "2026-09-draft-1": "0cd317fd8cc2d703" },
   special_category: {
     "2026-10-draft-2": "bb0b1aa5f3054f7e",
     "2026-11-draft-3": "72ae16e637a87e1b",
+    "2026-11-1": "a8e3b255c654d9b5",
   },
 };

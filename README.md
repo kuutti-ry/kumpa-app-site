@@ -51,8 +51,8 @@ A page is a Markdown file. To add a page, add it in every language of the site u
 English only for now (`docs/decisions.md`, 8), at the root (`/about/`). The code is written for any number of languages: a language that comes back is an entry in `src/i18n/locales.ts`, its words in `src/i18n/ui.ts` and its pages under `src/content`, at the language's prefix (`/sv/about/`).
 
 - **English is the source.** Finnish and Swedish written by a machine, an agent included, carry `machine: true`, and the page says so to its reader. A native reader who has read a page replaces the flag with `reviewedBy`.
-- **A legal text is never translated by a machine.** It exists in the languages it was written in by people, and the legal page links to those. The Finnish text is the one that counts.
-- **A text a person agrees to in the app has a version.** Its front matter names `consent_version`, the build holds its Finnish heading and body (or a draft's), and a legal text's status and binding, to that version's row in `src/consent-versions.ts`, and publishes the versions at `/legal/versions.json` for the app's CI (`docs/decisions.md`, 14). A changed text is a new version and a new row.
+- **A legal text is never translated by a machine into a language it did not exist in.** The legal page links to each text in the languages it exists in. The Finnish of the bylaws binds; the English of the terms of use, the privacy policy and the consents does (`docs/decisions.md`, 29).
+- **A text a person agrees to in the app has a version.** Its front matter names `consent_version`, the build holds the heading and body of the wording that counts, and a legal text's status and binding, to that version's row in `src/consent-versions.ts`, and publishes the versions at `/legal/versions.json` for the app's CI (`docs/decisions.md`, 14 and 29). A changed text is a new version and a new row.
 
 ## Hosting
 

@@ -6,11 +6,13 @@
  * - Every Finnish and Swedish page says who wrote it: `machine: true`, or
  *   `reviewedBy` with the native reader's name. English is the source and
  *   carries neither.
- * - A legal text is never machine-written into a language: it has no
- *   `machine` key at all. A text adopted (filed or in force) has exactly one
- *   binding language, and a text in force names its version or the day it
- *   was registered; a draft may still be waiting for its binding text, and
- *   never has two.
+ * - A legal text is never a machine's translation into a language it did
+ *   not exist in, so it has no `machine` key at all: the key marks a page
+ *   that waits for a native reader, and a legal text is not published on
+ *   those terms (docs/decisions.md, 29). A text adopted (filed or in force)
+ *   has exactly one binding language, and a text in force names its version
+ *   or the day it was registered; a draft may still be waiting for its
+ *   binding text, and never has two.
  * - A text a person agrees to in the app (src/lib/consent.ts) names its
  *   `consent_version`, the same in every language, and no other text does.
  *   A consent read on another text's page (src/content/consents) is one of
@@ -113,7 +115,9 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
   }
   for (const text of versions) {
     if (text.front.has("machine")) {
-      problems.push(`${text.file}: a legal text is written by people; it has no "machine" key`);
+      problems.push(
+        `${text.file}: a legal text is not published as a machine's translation; it has no "machine" key`,
+      );
     }
     if (
       text.front.get("status") === "in_force" &&
@@ -147,7 +151,7 @@ for (const text of consents) {
   }
   if (text.front.has("machine")) {
     problems.push(
-      `${text.file}: a consent's wording is written by people; it has no "machine" key`,
+      `${text.file}: a consent's wording is the app's own, not a page awaiting review; it has no "machine" key`,
     );
   }
 }

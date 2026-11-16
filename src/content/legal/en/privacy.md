@@ -1,185 +1,99 @@
 ---
 title: Privacy policy
-description: What Kuutti keeps about the people who use it, why, for how long, who else handles it, and what you can do about it.
+description: How Kuutti ry processes personal data in the Kumpa app and on this website.
 order: 3
-status: draft
-consent_version: "2026-10-draft-3"
-dated: 2026-11-01
-binding: false
+status: in_force
+consent_version: "2026-11-1"
+dated: 2026-11-16
+binding: true
 ---
 
-This text describes the app as it is built today. The app is not open yet, and some of what is described here is not switched on yet. Before the app opens, this text is written in Finnish, read by a lawyer, and given a version; the Finnish text is then the one that counts.
+## 1. Controller
 
-## 1. Who is responsible
+The controller is Kuutti ry (business ID 3659478-7), Tontunmäentie 22 E, 02200 Espoo, Finland ("the association"). This policy covers the personal data that the association processes in the Kumpa app ("Kumpa") and on this website. Requests and questions about personal data are sent to the address above.
 
-The controller of your personal data is **Kuutti ry** (business ID 3659478-7), a non-profit association in Espoo, Finland. It was entered in the Register of Associations on 6 October 2026.
+## 2. Personal data and its sources
 
-An address for questions and for requests about your data is published here before the app opens. The association has not named a data protection officer.
+**From the identification service.** When you identify yourself, the identification broker service of Telia Finland Oyj sends the association your personal identity code, your name and your date of birth, and the time, method, assurance level and reference identifiers of the identification. The association stores an identifier computed from the identity code, from which the code cannot be recovered; the year and month of your birth; and the time, method, assurance level and reference identifiers of your latest identification. It does not store the identity code, the name or the date of birth.
 
-## 2. In short
+**From you.** Your gender; your place of residence, as a postal code area or a municipality; whom you seek, the ages you seek and your other preferences; your display name and the texts and answers of your profile, which can include the political parties you could vote for and your religion; your photos and their captions; the messages and photos you send; contact details that you store in order to share them; your e-mail address, if you give one; and the reports and feedback you send.
 
-- You sign in with a Finnish bank's identification. Kuutti learns that you are one real adult and keeps a code that stands for you. It does not keep your personal identity code or your name.
-- What you tell about yourself, and your photos, are kept so that they can be shown to other people who use Kuutti. Nothing is shown outside the app.
-- Nothing is sold, nothing is used for advertising, and the app carries no tracking or analytics code.
-- You can download everything and delete your account yourself, in the app, at any time.
-- Research is a separate question with a separate yes, and you can take the yes back.
+**From your use of Kumpa.** The users presented to you and your decisions on them; your matches; the marks you put on other users; invitations and the rewards from them; records of the profiles shown to you and of the photos delivered to your device; your sessions and devices, including a notification token and, on an iPhone, a key that identifies the installation of the app; your consents and settings; the result of the automated check of your photos and a description of each photo generated from it; reports about you, blocks, warnings and restrictions; entries in the server log; error reports; and your network address.
 
-## 3. What Kuutti keeps about you
+**From your use of this website.** Your network address and the pages you request.
 
-### When you identify yourself
+Identification, your gender, your place of residence, whom you seek and the ages you seek are required for using Kumpa. A display name, photos and a description of yourself are required before you are presented to other users. All other data is optional.
 
-Identification is done by your bank, through the identification service of Telia Finland Oyj. From what the service sends, Kuutti keeps:
+## 3. Purposes and legal bases
 
-- a code computed from your personal identity code with a secret key. The same person always gives the same code, and the code cannot be turned back into the identity code. It is what makes one person one account;
-- the year and the month of your birth, to know that you are an adult and to show your age;
-- the record of the identification: when it was done, at what level of assurance, with which bank, and the identification service's own references to it (its name for you, for the session and for the message it sent). These references mean nothing by themselves. They exist so that, if the police ask with a legal ground, the identification service can say whom a reference belongs to;
-- whether the person is in good standing, suspended or banned; how many times the person has deleted an account and the day from which a new one is possible; and how many times a sign-in was refused.
-
-With every new sign-in the record of the identification is replaced by the newest one.
-
-### Your account and your profile
-
-- your gender, as you state it yourself: woman, man or non-binary;
-- whom you seek and the ages you seek;
-- where you live, as one place and no more exactly: your postal area if enough people live there and enough are left in the rest of your municipality, otherwise your municipality, or the nearest municipality with enough people. You give your postal code and Kuutti keeps that place, and when you last changed it. You can change it at any time, and the earlier place is not kept;
-- which name your card shows: the nearest town, or your postal area's name if you chose it and enough people live there;
-- the name you want to be called by, what you write about yourself, and your answers to the questions of the profile: languages, what you are looking for, the kind of relationship, children, smoking, alcohol, education and field;
-- your e-mail address, if you give one. It is optional: a way for Kuutti to reach you, confirmed with a code, shown to nobody and never used to sign in;
-- the contacts you store to share in a conversation, if you store any: a phone number, WhatsApp, Telegram, Instagram or Snapchat. Nobody sees one until you share it, and then only the other person of that conversation;
-- when the account was made and its state.
-
-People you are shown to see that name, and how far you are from them as a word (nearby, close, around or far), counted between your two places when the card is added to a round. They never see a postal code or kilometres. Each card of a round keeps its word as it stood that day, also after one of you has moved.
-
-Your gender together with whom you seek tells something about your sexual orientation. That is data the law protects specially, and Kuutti asks for your explicit consent before it uses it.
-
-### Your photos
-
-A photo you upload is checked, turned over into a new file without the location, the camera's data or anything else the original carried, and kept in three sizes. The original is never kept.
-
-With each photo Kuutti keeps its state (waiting, approved, waiting for a person, rejected), the reason if it was rejected, and the result of the automatic check described in section 6.
-
-### Your devices
-
-For each device you are signed in on: whether it is an iPhone, an Android phone or a browser; the beginning of the text by which the app names itself and the system to the server; when you signed in and when the session was last used. The keys of a session are kept only as codes computed from them.
-
-If you let Kuutti send notifications to a phone, Kuutti also keeps, for that session, the phone's push token, the code by which Expo, Apple and Google deliver notifications to the app on that phone, and the language the notifications are written in. The token says nothing about you to them. It is deleted when you sign out on that phone, when the session ends in any other way, and when your account is deleted. Your copy of your data says which of your devices has one, but not the token.
-
-Kuutti keeps **no IP address** in its database. The server uses the address of a request, in its memory only, to refuse a sender that asks too much too fast.
-
-### What you did
-
-- **Photos you were given.** Every time the app is handed the address of a photo, Kuutti records who asked, which photo, which size and when. It limits how many photos one person can fetch in a day, and it is what would show who took a photo if one turns up somewhere else.
-- **Cards you were shown.** Which photos were on the cards you were served, and the last day of each.
-- **Your consents.** Which text you agreed to (terms, privacy, research), which version of it, in which language it was shown to you, when, and when you withdrew it if you did.
-
-### Research, if you said yes
-
-If you consent to research, events about how you use Kuutti are recorded under a separate research identifier that is not your account's. An event holds: what happened, the hour in which it happened (not the minute), the area of the service, which is the same for everybody, your age as a band of years, your gender and the answers of your profile that come from fixed lists. It never holds anything you wrote yourself, your name, your photos, where you live or whom you seek.
-
-### What the server writes down
-
-For each request the server's log has a line with the account's number, the kind of request, the outcome and how long it took. The log never holds a personal identity code, the code computed from it, what somebody wrote, gender, where somebody lives, or whom somebody seeks.
-
-If the app or the server fails, a report of the error is sent to an error service. The server's report carries the request's number and its route, and nothing else of the request or of you; the app's report carries nothing that names you or your phone. An error's own message can quote what was typed into the field that failed.
-
-## 4. What Kuutti never keeps
-
-- your personal identity code
-- your name, as the bank gives it
-- your date of birth: only the year and the month
-- your legal sex
-- your address, or where your phone is: the app never asks for them
-- the original of a photo, and anything a photo file carried besides the picture
-
-## 5. Why, and on what ground
-
-| What for | Ground |
+| Purpose | Legal basis |
 |---|---|
-| To give you the service you asked for: your account, your profile, showing you to others and others to you | The contract between you and the association (the terms of use) |
-| To use what reveals your sexual orientation in matching | Your explicit consent |
-| To keep one person to one account and to make a ban hold, also after an account is deleted | The association's legitimate interest in a service whose users are real and safe from those who were removed |
-| To keep the service safe: limits on photo fetches, the record of photo fetches, the check of photos, the logs and the error reports | The association's legitimate interest in the safety of the service and of the people in it |
-| Research | Your consent, given separately, which you can withdraw at any time |
-| To be able to answer a lawful request of an authority | A legal obligation |
+| Providing the service: the account and the profile, presenting users to each other, conversations and notifications | Performance of the contract between you and the association (Article 6(1)(b) of the General Data Protection Regulation) |
+| Using whom you seek for matching and for statistics shown in Kumpa in which no person can be identified; showing the parties and the religion on your profile | Your explicit consent (Articles 6(1)(a) and 9(2)(a)) |
+| Ensuring that each user is one adult person; enforcing suspensions, permanent closures and the waiting period after deletion | Legitimate interest (Article 6(1)(f)): a service in which every account belongs to one identified adult |
+| Preventing misuse and moderating content: the check of photos, reports, limits on use, logs and error reports | Legitimate interest: the safety of the users and of the service |
+| Statistics on the use of the service | Legitimate interest: maintaining and developing the service |
+| Notices about the service, in Kumpa, by notification and by e-mail | Legitimate interest: informing users about the service |
+| Keeping the reference identifiers of your latest identification, so that an authority with a legal right to the information can identify a user | Legitimate interest: making the investigation of offences committed through the service possible |
+| Disclosing data to an authority | Legal obligation (Article 6(1)(c)) |
+| Delivering this website | Legitimate interest: publishing information about the association and Kumpa |
 
-Kuutti makes no decision about you by machine alone that has legal effects for you. The automatic check rejects a photo it is sure of and tells you why, and sends what it is unsure of to a person. A photo nobody has decided on within 14 days is rejected as not reviewed.
+The personal identity code is processed to identify you unambiguously, as section 29 of the Data Protection Act (1050/2018) permits.
 
-## 6. Who else handles your data
+**Automated decisions.** A profile photo is rejected automatically if an automated image analysis finds in it, with high confidence, nudity, violence or other prohibited content, no face, or more than one face. In uncertain cases a moderator decides, and a photo that has waited 14 days for that decision is rejected. You are shown the reason for a rejection and can ask a moderator to review an automatic one, except where nudity has been found with very high confidence. A photo sent in a conversation is not delivered if the analysis finds prohibited content in it with high confidence.
 
-The association uses these others to run the service. They handle the data on the association's behalf and by its instructions, except where it is said otherwise.
+What other users see of an account is limited automatically, without notice to its user, if several users report the account within a short period, or if it sends messages or requests photos or profiles at a rate that indicates misuse. The limit remains in force until a moderator has reviewed the account.
 
-| Who | What | Where |
-|---|---|---|
-| **Amazon Web Services** | The servers, the database, the photos and their delivery, the server's logs, the automatic check of photos, the e-mail Kuutti sends | The European Union (Frankfurt). Photos are delivered through Amazon's delivery network, which has nodes outside the EU as well |
-| **Telia Finland Oyj** | Identification with your bank. Telia and your bank act in their own name here, under the law on strong electronic identification | Not yet confirmed by Telia |
-| **Sentry** (Functional Software, Inc.) | Reports of errors in the app and on the server | The European Union (Germany) |
-| **Expo** (650 Industries, Inc.) | Updates of the app: at every start the app asks Expo's servers whether there is a newer version. Notifications: for each one, the phone's push token, the one line the phone shows ("You have a new message", "You have a new match" or "Today's round is ready") and which of those it is, never what a message says, who sent it or which conversation it is about | Not stated by Expo in what the association has |
-| **Apple and Google** | Delivering the app to your phone, and delivering Kuutti's notifications to it, which Expo hands to them | By their own terms |
+## 4. Recipients
 
-**The automatic check of photos.** One of the three sizes of a photo, without any data of the original file, is sent to Amazon's image recognition service in Frankfurt, which answers with labels of what it sees and with the number of faces. Kuutti keeps the answer with the photo; the labels are never shown to you or to anybody but moderators. The service answers and keeps nothing for the association. Amazon's terms allow it to use what is sent to such services to improve them unless its customer refuses; the association refuses before the app opens.
+The following process personal data on the association's behalf:
 
-**Research partners.** Research events are used by researchers the association works with. No partner is named yet; one is named here, with what it receives, before any data goes to it.
+- Amazon Web Services EMEA SARL: the servers, the database, the storage and delivery of photos, the automated image analysis, logs, e-mail, and the hosting of this website;
+- Functional Software, Inc. (Sentry): error reports;
+- 650 Industries, Inc. (Expo): the delivery of app updates and notifications.
 
-**Nobody else.** The association does not sell data, does not hand it over for commercial purposes, and shows no advertising. Its bylaws forbid all three.
+The following receive personal data as controllers of their own:
 
-## 7. Data outside the EU and the EEA
+- Telia Finland Oyj and the provider of the means of identification you use, for your identification;
+- Apple and Google, for the distribution of the app and the delivery of notifications to your device.
 
-Kuutti keeps your data in the European Union. These are the cases in which data can be handled outside it, as far as the association knows today:
+Other users see your profile, your age, your photos and the descriptions generated from them, the name of your area, your approximate distance from them, and the messages and contact details you send them.
 
-- A photo is delivered to the phone that asks for it through a delivery network, from the node nearest to that phone. If somebody opens the app outside Europe, the photos they are allowed to see reach them through a node outside Europe.
-- When the app asks for updates, Expo's servers see the phone's address on the network. The app sends nothing about your account there.
-- A notification goes through Expo's servers and then Apple's or Google's, which can be outside the EU: the phone's push token, the line the phone shows and which kind it is. Never what a message says, who sent it, which conversation it is about, or anything else about you.
-- Apple and Google learn that you installed the app.
+Personal data is disclosed to the police or to another authority where the law requires it.
 
-Where a transfer needs a safeguard under the data protection regulation, the association relies on the standard contractual clauses of the European Commission or on a decision of the Commission that the receiving country protects data adequately.
+## 5. Transfers outside the European Union and the European Economic Area
 
-## 8. How long
+The association's servers, database and photo storage are in Germany, and error reports are stored in Germany. Personal data is transferred outside the European Union and the European Economic Area as follows:
 
-| What | How long |
+- app updates and notifications are delivered through the services of 650 Industries, Inc., Apple and Google in the United States;
+- traffic between your device and Kumpa passes through the content delivery network of Amazon Web Services at the node nearest to you, which is outside the European Economic Area if you are.
+
+The transfers are based on an adequacy decision of the European Commission, which for the United States covers recipients certified under the EU–U.S. Data Privacy Framework, and otherwise on the Commission's standard contractual clauses. A copy of the clauses can be requested from the association.
+
+## 6. Retention
+
+| Data | Retention period |
 |---|---|
-| Your profile, photos, preferences and sessions | Until you delete them or your account |
-| Where you live | Until you change it or delete your account |
-| Your e-mail address and your contacts | Until you remove them or delete your account |
-| The distance word on a card of a round | Until you or the other person deletes an account; a shorter period is not decided yet |
-| The record of photos you were given, and of cards you were shown | Until you delete your account |
-| A session you signed out of | 30 days |
-| A session you do not use | 90 days |
-| A phone's push token | Until the session it belongs to ends, or the phone tells Expo it no longer takes Kuutti's notifications |
-| Research events | At most 90 days |
-| The server's log | 30 days |
-| Backups of the database | 35 days |
-| The log of what moderators did and saw | 5 years |
-| Your consents | Until you delete your account |
-| The code computed from your identity code, the record of your identification, and whether the person is banned | For as long as the service exists. It is what keeps one person to one account and a ban in force |
+| Account, profile, preferences, photos and the results of their check, stored contact details, e-mail address, consents, marks, invitations, feedback, and warnings and restrictions that have ended | Until you delete your account, or earlier where you delete the data yourself |
+| Messages | Until the accounts of both participants have been deleted |
+| Records of the users presented to you and of your decisions on them | 1 year |
+| Record of the photos delivered to your device | 1 year |
+| Record of the profiles shown to you | Until your account or the photo shown is deleted |
+| Reports, with a copy of the messages and photos reported | 1 year from the report, including after either account has been deleted |
+| Record of automatically rejected photos | 1 year |
+| Sessions | Until 90 days have passed without use, and no longer than 1 year after the identification; an ended session, for 30 days after it ended |
+| Server log | 30 days |
+| Error reports | No longer than 90 days |
+| Backup copies of the database | 35 days |
+| Record of the actions of moderators and administrators | 5 years |
+| The identifier computed from your identity code; the data of your latest identification; suspensions and permanent closures in force; blocks; the dates on which your accounts were created and deleted; the number of your deletions and of your refused sign-ins | For as long as the service is provided |
+| An e-mail address to which delivery has failed | For as long as the service is provided |
+| Access log of this website | For as long as the association uses the same hosting provider |
 
-When you delete your account, what goes and what stays is described in [Deleting your account](/delete-account/).
+## 7. Your rights
 
-If the association is dissolved, the personal data of the people who used the service is destroyed and is not passed on to anybody. That is in the association's bylaws.
+You have the right to access your personal data and to receive a copy of it; to have it rectified or erased; to have its processing restricted; to object to processing that is based on a legitimate interest; and to receive the data you have provided in a machine-readable format. You can withdraw a consent at any time. Withdrawal does not affect the lawfulness of processing carried out before it. If you withdraw the consent to sensitive answers, those answers are erased and you cannot be matched with other users until you consent again.
 
-## 9. What you can do
+You can exercise these rights in Kumpa or by writing to the association. The association may ask you to prove your identity.
 
-- **See and take with you what is kept about you.** In the app, under *Your account*, *Download my data* gives you a file with what Kuutti holds about you.
-- **Correct it.** You can change your profile, your photos, your preferences and where you live in the app.
-- **Delete it.** *Delete my account* deletes at once; see above for what stays.
-- **Withdraw a consent.** You can take back your consent to research in the app at any time. It does not undo what was done before.
-- **Stop notifications.** In the app, under *Notifications*, each kind can be switched off for all your phones; in a phone's own settings, all of Kuutti's for that phone.
-- **Object, or ask for the handling to be restricted**, where the ground is the association's legitimate interest.
-- **Complain.** If you think your data is handled against the law, you can complain to the Office of the Data Protection Ombudsman, [tietosuoja.fi](https://tietosuoja.fi/en/home).
-
-For anything the app does not do for you, write to the address in section 1. The association answers within a month. It has to be sure that a request comes from the person it concerns, so it can ask you to identify yourself.
-
-## 10. Authorities
-
-The association gives data to the police or to another authority only when the law obliges it to, and only what the request lawfully asks for. The association does not know your name. What it can give is the record of an identification, with which the identification service can name the person to the authority.
-
-## 11. Age
-
-Kuutti is for adults. A person under 18 cannot make an account: age is read from the identification, and the sign-in is refused.
-
-## 12. This website
-
-This website sets no cookies, runs no scripts and loads nothing from anybody else. It is served by Amazon Web Services, which sees the address on the network of whoever asks for a page, as every web server does.
-
-## 13. Changes
-
-Every wording of this text has a version and a date. When the text changes in a way that matters to you, the app shows you the new text and asks again.
+You have the right to lodge a complaint with the Office of the Data Protection Ombudsman, [tietosuoja.fi](https://tietosuoja.fi/en/home).

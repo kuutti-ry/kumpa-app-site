@@ -1,7 +1,8 @@
 ---
 title: Sensitive answers
-consent_version: "2026-11-draft-3"
-dated: 2026-11-03
+consent_version: "2026-11-1"
+dated: 2026-11-16
+binding: true
 ---
 
-DRAFT: Whom you seek, the parties you could vote for and your religion are special categories of personal data. If you say yes, Kuutti stores the answers you give to these questions: whom you seek to match you and, counted together with everyone else's answers, for the shares on the home screen; your own answer is never shown to anyone; the parties and the religion on your card, when you choose to fill them in. None of them ever goes into a log or a research event, and you can withdraw this consent at any time, which removes the answers. Without your yes these questions stay unanswered.
+Whom you seek, the political parties you could vote for and your religion are special categories of personal data. By consenting, you allow Kuutti ry to process the answers you give to these questions in the Kumpa app. Whom you seek is used for matching and for statistics shown in the app in which no person can be identified; it is not shown to other users. The parties and the religion are shown on your profile. You can withdraw the consent at any time in the app; withdrawal erases the answers. Without the consent the answers cannot be stored, and matching cannot start without the answer to whom you seek.
