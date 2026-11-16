@@ -62,15 +62,15 @@ Writing the texts that are in force meant reading the app's code and infrastruct
 9. **Answers that a strict reading could count as special categories**, outside the consent: the label a person gives a non-binary gender, monogamy, and smoking, drinking and the attitude to drugs.
 10. **Whether the server's proxy logs network addresses** is not known; the app's runbook for disclosures leaves it open. The policy names the network address among the data either way.
 11. **The earlier drafts stay on the pages**, folded, because every published version is kept (decision 14). Nobody but the association's own testers agreed to one. Dropping them means removing rows from `src/consent-versions.ts`, which `pnpm check:pinned` refuses today.
-12. **The name.** Settled since: the rest of the site and the app's own texts say Kumpa too (decision 30, kuutti-ry/kuutti-app#700). Left: the research opt-in's draft, which still says Kuutti, and the name under the app's icon and in the stores, which follows at the app's next native build.
+12. **The name.** Settled since: the rest of the site and the app's own texts say Kumpa too (decision 30, kuutti-ry/kumpa-app#700). Left: the research opt-in's draft, which still says Kuutti, and the name under the app's icon and in the stores, which follows at the app's next native build.
 
 ## About the site itself
 
 | question | what is done meanwhile |
 |---|---|
-| **The repository's name**, and when it is published | published 28/09/2026 as `kuutti-fi/kuutti-app-site` (`kuutti-ry/kuutti-app-site` since the organisation was renamed on 03/10/2026), public like the app's, on the maintainer's word after he had looked at the site |
+| **The repository's name**, and when it is published | published 28/09/2026 as `kuutti-fi/kuutti-app-site` (`kuutti-ry/kuutti-app-site` since the organisation was renamed on 03/10/2026, `kuutti-ry/kumpa-app-site` since the maintainer renamed the repositories for Kumpa on 16/11/2026), public like the app's, on the maintainer's word after he had looked at the site |
 | **The move of Amplify Hosting** to the new repository | done 28/09/2026: a new app, `kuutti-app-site`, created in the console and connected to this repository, `kuutti.app` moved to it, the old app deleted; `amplify.yml` and `customHttp.yml` work as written. The setup is in the app repository's `infra/README.md`, "The website" |
-| **Removing `site/`** from the app's repository, with its `amplify.yml` and the mentions in `CLAUDE.md` and ADR-001 | kuutti-ry/kuutti-app#109 |
+| **Removing `site/`** from the app's repository, with its `amplify.yml` and the mentions in `CLAUDE.md` and ADR-001 | kuutti-ry/kumpa-app#109 |
 | **The pond counter's numbers on the home page.** The API has a public `GET /ponds/counter` and allows the site's origin | not shown: it needs a script in the browser, and the site runs none (rule 1, decision 27) |
 | **Gaiane's structure** at `/ga/`: whether, and when, it becomes the site's | removed on 16/11/2026, on the maintainer's word, with the pond demo (decision 27) |
 | **How far Saiga goes on the site.** Decision 28 (16/11/2026, on the maintainer's word) puts it on every page; that it draws the headings and the header and no more was the agent's choice | what is read is in Inter. The token for Saiga's files is in the Amplify app (`FONTS_TOKEN`, decision 18), and previews of pull requests stay off there |

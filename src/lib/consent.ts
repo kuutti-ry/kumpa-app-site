@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { DEFAULT_LOCALE, pathOf, TEXT_LANGUAGES, type TextLanguage } from "../i18n/locales.ts";
 
 /**
- * One version per kind, two renderings (kuutti-ry/kuutti-app#208): the app
+ * One version per kind, two renderings (kuutti-ry/kumpa-app#208): the app
  * shows a summary of each text a person agrees to and records its version;
  * the site holds the full text under the same version. Each repository pins
  * its own text to the version by a fingerprint, and the two agree through
@@ -303,7 +303,7 @@ export function versionsDocument(
  * the app's build holds its wordings to (`pnpm i18n:build`, ADR-010 §4).
  */
 export const APP_VERSIONS_URL =
-  "https://raw.githubusercontent.com/kuutti-ry/kuutti-app/main/packages/i18n/src/generated/consent.ts";
+  "https://raw.githubusercontent.com/kuutti-ry/kumpa-app/main/packages/i18n/src/generated/consent.ts";
 
 /**
  * CONSENT_VERSIONS out of the app's generated consent.ts. Its keys and values

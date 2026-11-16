@@ -1,5 +1,5 @@
 /**
- * The site's consent versions against the app's (kuutti-ry/kuutti-app#208),
+ * The site's consent versions against the app's (kuutti-ry/kumpa-app#208),
  * the mirror of the app's own check of /legal/versions.json. Run by
  * `pnpm check:app-versions` and by CI.
  *

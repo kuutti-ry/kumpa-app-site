@@ -552,7 +552,7 @@ test("the app's versions are fetched from its main on GitHub, and a failed answe
   assert.deepEqual(asked, [APP_VERSIONS_URL]);
   assert.match(
     APP_VERSIONS_URL,
-    /^https:\/\/raw\.githubusercontent\.com\/kuutti-ry\/kuutti-app\/main\/packages\/i18n\/src\/generated\/consent\.ts$/,
+    /^https:\/\/raw\.githubusercontent\.com\/kuutti-ry\/kumpa-app\/main\/packages\/i18n\/src\/generated\/consent\.ts$/,
   );
   await assert.rejects(fetchAppVersions(answering(404, "404: Not Found")), /answered 404/);
   await assert.rejects(fetchAppVersions(answering(200, "<html>")), /no CONSENT_VERSIONS object/);

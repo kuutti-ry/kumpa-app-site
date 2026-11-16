@@ -16,7 +16,7 @@ export const SAIGA_DIR = "public/fonts/saiga";
 
 /** Where the files come from: the association's private repository, at a commit. */
 export const SAIGA_SOURCE = {
-  repository: "kuutti-ry/kuutti-app-fonts",
+  repository: "kuutti-ry/kumpa-app-fonts",
   commit: "8d672e73e430a182fa19bbdbabe26eb93c8638db",
   folder: "Saiga/WOFF2",
 } as const;

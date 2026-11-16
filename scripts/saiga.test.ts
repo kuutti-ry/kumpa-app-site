@@ -170,6 +170,6 @@ test("no font but Inter's may be committed, whatever its name", () => {
     fontProblem("src/styles/x.css", made(inlined)),
     "src/styles/x.css: a font written into the file",
   );
-  assert.equal(fontProblem("README.md", made("# kuutti-app-site")), null);
+  assert.equal(fontProblem("README.md", made("# kumpa-app-site")), null);
   assert.equal(fontProblem("empty", new Uint8Array()), null);
 });

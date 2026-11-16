@@ -40,7 +40,7 @@ jobs:
       # wrote each Finnish and Swedish text, no legal text by a machine.
       - run: pnpm lint
       # A row of src/consent-versions.ts pins a text people agreed to: against
-      # main's table, none is changed, removed or moved (kuutti-ry/kuutti-app#208).
+      # main's table, none is changed, removed or moved (kuutti-ry/kumpa-app#208).
       # On a push to main it compares main with itself, after its pull request did.
       - run: pnpm check:pinned -- --base origin/main
       - name: No private key in tracked files
@@ -72,7 +72,7 @@ jobs:
       # every page, and /legal/versions.json leads to every version it names.
       - run: pnpm check:site
       # The mirror of the app's check of /legal/versions.json
-      # (kuutti-ry/kuutti-app#208): the app's CONSENT_VERSIONS on main, read
+      # (kuutti-ry/kumpa-app#208): the app's CONSENT_VERSIONS on main, read
       # from GitHub without a token, is at the site's newest versions, or at an
       # earlier one while the app follows a new text.
       - run: pnpm check:app-versions
@@ -98,7 +98,7 @@ jobs:
       - name: the body references an issue without closing it
         run: |
           if ! grep -Eq '#[0-9]+' <<< "$PR_BODY"; then
-            echo '::error::The pull request body names no issue. Add "Refs kuutti-ry/kuutti-app#<n>" or "Refs #<n>".'
+            echo '::error::The pull request body names no issue. Add "Refs kuutti-ry/kumpa-app#<n>" or "Refs #<n>".'
             exit 1
           fi
           if grep -Eiq '\b(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\b[[:space:]]*([a-z0-9._-]+/[a-z0-9._-]+)?#[0-9]+' <<< "$PR_BODY"; then

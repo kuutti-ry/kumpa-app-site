@@ -7,7 +7,7 @@ const ORIGIN = new URL(import.meta.env.SITE ?? "https://kuutti.app");
 
 // The version of each text a person agrees to in the app, with the
 // fingerprint of the text, where it is read and the day of its wording
-// (kuutti-ry/kuutti-app#208). The app's CI reads this file and fails when its
+// (kuutti-ry/kumpa-app#208). The app's CI reads this file and fails when its
 // CONSENT_VERSIONS differs. The build fails here when a text changed without
 // its version (src/consent-versions.ts), so a moved text is never published
 // under the version people agreed to. It fails as well when a version people

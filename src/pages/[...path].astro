@@ -94,7 +94,7 @@ const filed = view.kind === "text" && view.text.data.status === "filed";
 const textLanguage = view.kind === "text" ? writtenIn(view.text.id).language : locale;
 // A text a person agrees to in the app names its version where the app's link
 // lands (#<kind>-<version>), and the privacy page carries the consents the app
-// asks apart, in their own words and languages (kuutti-ry/kuutti-app#208).
+// asks apart, in their own words and languages (kuutti-ry/kumpa-app#208).
 const textSlug = view.kind === "text" ? writtenIn(view.text.id).slug : "";
 const consentVersion = view.kind === "text" ? view.text.data.consent_version : undefined;
 const versionAnchor =

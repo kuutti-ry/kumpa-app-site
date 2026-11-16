@@ -10,7 +10,7 @@ Kuutti ry works towards its mission in four ways: it builds a free service for m
 
 The association develops Kumpa, an app for meeting people in Finland, and will run it itself: the bylaws forbid handing the service to anybody else. There is nothing to pay for in it and no advertising, and every account is one real adult, identified through a Finnish bank.
 
-Kumpa is in development and not open to the public yet. Built so far: signing in with a bank, the profile and the check of photos, the daily round, matches, conversations, reports and blocks, and the panel in which the association's moderators work. It is tested in an environment of its own, with invented people. What remains before the first beta in the App Store and Google Play is in the project's public [milestones](https://github.com/kuutti-ry/kuutti-app/milestones).
+Kumpa is in development and not open to the public yet. Built so far: signing in with a bank, the profile and the check of photos, the daily round, matches, conversations, reports and blocks, and the panel in which the association's moderators work. It is tested in an environment of its own, with invented people. What remains before the first beta in the App Store and Google Play is in the project's public [milestones](https://github.com/kuutti-ry/kumpa-app/milestones).
 
 [How the app works](/app/).
 
@@ -26,14 +26,14 @@ Kumpa is built by volunteers, mostly alumni of Aalto University and some who stu
 
 Anybody can take part:
 
-- **Propose a feature**, through [a public form](https://github.com/kuutti-ry/kuutti-app/issues/new?template=proposal.yml). It says what is never built into Kumpa.
-- **Run the whole service on your own computer.** [The guide for contributors](https://github.com/kuutti-ry/kuutti-app/blob/main/CONTRIBUTING.md) sets it up in about fifteen minutes, with a stand-in for the bank.
-- **Help with code, design or language.** [How to help](/support-us/#with-your-time) says what is needed, and everyone taking part follows the [code of conduct](https://github.com/kuutti-ry/kuutti-app/blob/main/CODE_OF_CONDUCT.md).
+- **Propose a feature**, through [a public form](https://github.com/kuutti-ry/kumpa-app/issues/new?template=proposal.yml). It says what is never built into Kumpa.
+- **Run the whole service on your own computer.** [The guide for contributors](https://github.com/kuutti-ry/kumpa-app/blob/main/CONTRIBUTING.md) sets it up in about fifteen minutes, with a stand-in for the bank.
+- **Help with code, design or language.** [How to help](/support-us/#with-your-time) says what is needed, and everyone taking part follows the [code of conduct](https://github.com/kuutti-ry/kumpa-app/blob/main/CODE_OF_CONDUCT.md).
 
 ## What it publishes
 
 What the association builds for Kumpa, it shares.
 
 - **[tunnistus-oidc](https://github.com/kuutti-ry/tunnistus-oidc)** is a free toolkit that lets other Finnish online services sign people in with strong identification, a bank or mobile ID, through Telia's identification service. It has been [on npm](https://www.npmjs.com/package/@kuutti-ry/tunnistus-oidc) since 23 October 2026, under the MIT licence, so a public body, a non-profit or a company may use it without paying and without having to publish its own code. The association wrote it for Kumpa; it is not an official Telia product.
-- **The source code** of [the app and its server](https://github.com/kuutti-ry/kuutti-app) and of [this site](https://github.com/kuutti-ry/kuutti-app-site), under the GNU Affero General Public License: anybody can read how they work, and whoever changes them has to publish the changes too.
-- **[The decisions](https://github.com/kuutti-ry/kuutti-app/tree/main/docs/adr)**, each with its reasons, for other services to learn from: for example [how far a person's home may be shown](https://github.com/kuutti-ry/kuutti-app/blob/main/docs/adr/061-one-home-no-ponds.md) without giving away somebody who lives in a small place.
+- **The source code** of [the app and its server](https://github.com/kuutti-ry/kumpa-app) and of [this site](https://github.com/kuutti-ry/kumpa-app-site), under the GNU Affero General Public License: anybody can read how they work, and whoever changes them has to publish the changes too.
+- **[The decisions](https://github.com/kuutti-ry/kumpa-app/tree/main/docs/adr)**, each with its reasons, for other services to learn from: for example [how far a person's home may be shown](https://github.com/kuutti-ry/kumpa-app/blob/main/docs/adr/061-one-home-no-ponds.md) without giving away somebody who lives in a small place.

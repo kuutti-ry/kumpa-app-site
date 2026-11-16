@@ -3,7 +3,7 @@ import type { Pinned } from "./lib/consent.ts";
 /**
  * Every version of each kind the site has published, oldest first, with the
  * fingerprint of the text it was published with (`pinnedText` in
- * src/lib/consent.ts, kuutti-ry/kuutti-app#208): the heading and body of the
+ * src/lib/consent.ts, kuutti-ry/kumpa-app#208): the heading and body of the
  * language that counts (`countedWording`), and a legal text's status and
  * binding. From 2026-11-1 that language is English for the terms, the privacy
  * policy and the sensitive answers (docs/decisions.md, 29); the rows before

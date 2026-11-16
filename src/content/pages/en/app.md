@@ -6,7 +6,7 @@ nav: 3
 
 Kumpa is a free app for meeting people and forming relationships, made in Finland 🇫🇮 for Finland 🇫🇮. It is made by an association, not a company, and it is built so that it works best when you stop needing it.
 
-Kumpa is in development, in public: the source code and the work in progress are at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app). It comes to the App Store and Google Play first as a beta.
+Kumpa is in development, in public: the source code and the work in progress are at [github.com/kuutti-ry/kumpa-app](https://github.com/kuutti-ry/kumpa-app). It comes to the App Store and Google Play first as a beta.
 
 ## How it works
 
@@ -59,4 +59,4 @@ Kumpa is built by volunteers, in the open, in one public repository.
 - Identification goes through the Finnish Trust Network, by way of Telia's identification service.
 - The app speaks Finnish, Swedish and English, follows the text size and contrast you have chosen on your phone, and every decision in it is a button, not a swipe.
 
-The source, the decisions and the open questions are at [github.com/kuutti-ry/kuutti-app](https://github.com/kuutti-ry/kuutti-app).
+The source, the decisions and the open questions are at [github.com/kuutti-ry/kumpa-app](https://github.com/kuutti-ry/kumpa-app).
