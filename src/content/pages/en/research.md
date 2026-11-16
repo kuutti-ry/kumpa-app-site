@@ -4,17 +4,17 @@ description: How Kuutti ry supports research into relationships and loneliness -
 nav: 4
 ---
 
-Supporting research into relationships and loneliness is part of Kuutti ry's purpose. Both are studied too little with data that people gave knowingly, so Kuutti is built from the start to let a person choose to take part, and to keep what they give from being traced back to them.
+Supporting research into relationships and loneliness is part of Kuutti ry's purpose. Both are studied too little with data that people gave knowingly, so Kumpa is built from the start to let a person choose to take part, and to keep what they give from being traced back to them.
 
 ## The questions
 
-Every event Kuutti can record for research names the question it answers, in [a public list](https://github.com/kuutti-ry/kuutti-app/blob/main/packages/schema/src/research.ts). Among them:
+Every event Kumpa can record for research names the question it answers, in [a public list](https://github.com/kuutti-ry/kuutti-app/blob/main/packages/schema/src/research.ts). Among them:
 
 - How many people step away for a while rather than leave, and how long do their breaks last?
 - How often does a like become a match?
 - How many matches fall silent, after how many messages?
 - How far into a conversation do people share a contact of their own, to meet outside the app?
-- What do people say when they tell Kuutti they have found somebody, here or elsewhere?
+- What do people say when they tell Kumpa they have found somebody, here or elsewhere?
 
 ## What taking part means
 
@@ -33,7 +33,7 @@ An event holds what happened, the hour in which it happened, your age as a band 
 
 ## Where it stands
 
-Kuutti is not open to the public yet, so no real person's data has gone to any researcher; the copy is tested with invented people. The association has no research partner yet, and until it has one the app does not ask the question. Before any data goes to a partner, the privacy policy names it and what it receives.
+Kumpa is not open to the public yet, so no real person's data has gone to any researcher; the copy is tested with invented people. The association has no research partner yet, and until it has one the app does not ask the question. Before any data goes to a partner, the privacy policy names it and what it receives.
 
 ## Working with the association
 

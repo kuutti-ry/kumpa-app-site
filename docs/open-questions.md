@@ -62,7 +62,7 @@ Writing the texts that are in force meant reading the app's code and infrastruct
 9. **Answers that a strict reading could count as special categories**, outside the consent: the label a person gives a non-binary gender, monogamy, and smoking, drinking and the attitude to drugs.
 10. **Whether the server's proxy logs network addresses** is not known; the app's runbook for disclosures leaves it open. The policy names the network address among the data either way.
 11. **The earlier drafts stay on the pages**, folded, because every published version is kept (decision 14). Nobody but the association's own testers agreed to one. Dropping them means removing rows from `src/consent-versions.ts`, which `pnpm check:pinned` refuses today.
-12. **The name.** Only the legal texts say Kumpa. The rest of the site, the app's own texts and the research opt-in's draft say Kuutti.
+12. **The name.** Settled since: the rest of the site and the app's own texts say Kumpa too (decision 30, kuutti-ry/kuutti-app#700). Left: the research opt-in's draft, which still says Kuutti, and the name under the app's icon and in the stores, which follows at the app's next native build.
 
 ## About the site itself
 

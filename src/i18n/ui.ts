@@ -8,20 +8,20 @@ import type { Locale, TextLanguage } from "./locales.ts";
  */
 export const UI = {
   en: {
-    "site.name": "Kuutti",
+    "site.name": "Kuutti ry",
     skip: "Skip to the content",
     "nav.label": "Pages",
     "nav.menu": "Menu",
     "home.soon": "Not in the stores yet.",
     "home.title": "Kuutti ry",
     "home.description":
-      "A non-profit association working to reduce loneliness in Finland, and the maker of Kuutti, a free app for meeting people.",
+      "A non-profit association working to reduce loneliness in Finland, and the maker of Kumpa, a free app for meeting people.",
     "home.mission": "Our mission",
     "home.readOn": "Read on: {title}",
     "home.more": "More",
     "home.ideas": "Anybody can propose a feature, and help build it:",
     "home.propose": "open a proposal on GitHub",
-    "store.label": "Kuutti in the app stores",
+    "store.label": "Kumpa in the app stores",
     "store.apple": "Download on the App Store",
     "store.google": "Get it on Google Play",
     "store.soon": "{store}: coming soon",

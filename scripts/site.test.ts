@@ -86,7 +86,7 @@ test("the home page says what the association is and what it makes, and the foot
   assert.equal(t("en", "home.mission"), "Our mission");
   assert.equal(
     t("en", "home.description"),
-    "A non-profit association working to reduce loneliness in Finland, and the maker of Kuutti, a free app for meeting people.",
+    "A non-profit association working to reduce loneliness in Finland, and the maker of Kumpa, a free app for meeting people.",
   );
   assert.equal(t("en", "home.soon"), "Not in the stores yet.");
   assert.equal(

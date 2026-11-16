@@ -2,7 +2,7 @@
   "name": "kuutti-app-site",
   "version": "0.0.0",
   "private": true,
-  "description": "The website of Kuutti ry: what Kuutti is, who is behind it, and its legal texts. Static, no scripts, no third parties.",
+  "description": "The website of Kuutti ry: what Kumpa is, who is behind it, and its legal texts. Static, no scripts, no third parties.",
   "license": "AGPL-3.0-only",
   "type": "module",
   "engines": {
