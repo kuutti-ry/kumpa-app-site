@@ -25,7 +25,6 @@ If you cannot sign in any more, you can ask for the deletion by writing to [hell
 - your e-mail address and the contacts you stored, if you had any
 - the consents you gave
 - the devices you were signed in on
-- the link between you and the research events, if you took part in research
 
 This cannot be undone.
 
@@ -35,7 +34,7 @@ This cannot be undone.
 - **An empty account row.** Without your age, your gender or your area: it only says that an account existed and was deleted.
 - **The log of staff actions**, for five years. It records what moderators did and saw, not what you did.
 
-Research events that were recorded while you took part stay, but nothing connects them to you any more. Where somebody else was shown one of your photos, the record of that stays with them; it names the photo by a number, and the photo is gone.
+Where somebody else was shown one of your photos, the record of that stays with them; it names the photo by a number, and the photo is gone.
 
 The server's log keeps one line about the deletion, with the account's number and how much was deleted, for 30 days.
 

@@ -10,7 +10,7 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **A contact address.** `hello@kuutti.app` since decision 19, a user at the association's Google Workspace since 30/10/2026 and the association's only address on the site (decision 22; the team's own are on "About Us", 25); who reads it is the board's to arrange. The privacy policy and the terms give the association's postal address and not this one: the maintainer's word of 08/11/2026 (decision 29) | the footer, the home page, "About Us", "Research", "Membership", "Contact", "Help" and "Deleting your account" give it (`contactEmail` in `src/site.ts`) |
+| **A contact address.** `hello@kuutti.app` since decision 19, a user at the association's Google Workspace since 30/10/2026 and the association's only address on the site (decision 22; the team's own are on "About Us", 25); who reads it is the board's to arrange. The privacy policy and the terms give the association's postal address and not this one: the maintainer's word of 08/11/2026 (decision 29) | the footer, the home page, "About Us", "Membership", "Contact", "Help" and "Deleting your account" give it (`contactEmail` in `src/site.ts`) |
 | **A privacy contact**, by name or by role | the privacy policy gives the association's postal address for requests about personal data, on the maintainer's word of 08/11/2026 (decision 29), and names no person and no officer |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
 | **The team**: a photo of Hilma, the roles of Gaiane, Jaakko and Nanna, and whether the board's third member is named | "About Us" shows eleven people (decision 25): Hilma by a first letter, Jaakko and Nanna as "Volunteer", Gaiane as "Design"; the board "has three members" |
@@ -25,7 +25,6 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 |---|---|
 | **The bylaws are registered** (06/10/2026), as worded in the correction notice of that day | in force, in Finnish, at `/legal/bylaws/` (`status: in_force`, `registered: 2026-10-06`). The notice's "sanotunmääräajan" in 8 is shown as "sanotun määräajan"; whether the registered text has the typo too is unchecked |
 | **Finnish texts of the terms and of the privacy policy** | none: the English is in force and binds, on the maintainer's word of 08/11/2026 (decision 29). A Finnish one is never a machine's translation (rule 3) |
-| **The research opt-in.** Its wording is the app's draft of 26/09/2026 (`legal.research.*` in its `messages.yaml`), Finnish and English, and still calls the app Kuutti. The app does not ask it until the association has a research partner, and a final wording needs the partner and what it receives. Whether the kind waits as a draft or leaves the app until then is the maintainer's: the app's release check refuses a draft legal text, this one too | on the privacy page under "Separate consents", as a draft version, with "Kumpa does not ask for this consent at present." (decision 29) |
 | **The Finnish wording of the sensitive answers** is a model's, like the English, which counts. No native reader has read it | shown after the English on the privacy page; the app shows it to its Finnish readers |
 | **A lawyer's reading** of the terms and the privacy policy: none, on the maintainer's word of 08/11/2026 (decision 29). What a lawyer would look at first is below, under "What the texts of 16/11/2026 found" | in force as a model wrote them |
 | **Finnish and Swedish of the pages** were written by a machine | out of the site for now (decision 8); `docs/translation-review.md` |
@@ -62,7 +61,7 @@ Writing the texts that are in force meant reading the app's code and infrastruct
 9. **Answers that a strict reading could count as special categories**, outside the consent: the label a person gives a non-binary gender, monogamy, and smoking, drinking and the attitude to drugs.
 10. **Whether the server's proxy logs network addresses** is not known; the app's runbook for disclosures leaves it open. The policy names the network address among the data either way.
 11. **The earlier drafts stay on the pages**, folded, because every published version is kept (decision 14). Nobody but the association's own testers agreed to one. Dropping them means removing rows from `src/consent-versions.ts`, which `pnpm check:pinned` refuses today.
-12. **The name.** Settled since: the rest of the site and the app's own texts say Kumpa too (decision 30, kuutti-ry/kumpa-app#700). Left: the research opt-in's draft, which still says Kuutti, and the name under the app's icon and in the stores, which follows at the app's next native build.
+12. **The name.** Settled since: the rest of the site and the app's own texts say Kumpa too (decision 30, kuutti-ry/kumpa-app#700). Left: the name under the app's icon and in the stores, which follows at the app's next native build.
 
 ## About the site itself
 

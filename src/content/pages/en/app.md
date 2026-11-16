@@ -45,10 +45,6 @@ Kumpa never stores your personal identity code, your name, your legal sex or you
 
 The whole of it is in the [privacy policy](/legal/privacy/).
 
-## Research
-
-Loneliness and relationships are studied too little with data that people gave knowingly. If you say yes, and only then, events about how you use Kumpa are kept under a separate identifier for researchers. They never contain what you wrote to anybody, and you can withdraw at any time. [How research works in Kumpa](/research/).
-
 ## How it is built
 
 Kumpa is built by volunteers, in the open, in one public repository.

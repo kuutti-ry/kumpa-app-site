@@ -265,7 +265,6 @@ const holdsAnchor = (text: (typeof earlier)[number]) => {
                   {t(locale, "doc.dated", { date: formatDate(locale, consent.dated) })}
                   {` · ${t(locale, versionKey(isDraftVersion(consent.version)), { version: consent.version })}`}
                 </p>
-                {!consent.asked && <p>{t(locale, "consents.notAsked")}</p>}
                 {consent.wordings.map((wording) => (
                   <>
                     <p>

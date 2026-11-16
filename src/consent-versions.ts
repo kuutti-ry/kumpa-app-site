@@ -19,6 +19,9 @@ import type { Pinned } from "./lib/consent.ts";
  * earlier row only while it follows (scripts/check-app-versions.ts).
  *
  * The first rows are the app's versions of 17/10/2026, when the pin began.
+ * The research opt-in's one row, a draft that only the association's testers
+ * agreed to, went with its kind on the maintainer's word of 16/11/2026
+ * (docs/decisions.md, 31; kuutti-ry/kumpa-app#208).
  */
 export const PINNED: Pinned = {
   terms: { "2026-09-draft-1": "65b7fa7d00ed9290", "2026-11-1": "13f1db8e5c4d2762" },
@@ -28,7 +31,6 @@ export const PINNED: Pinned = {
     "2026-10-draft-3": "abf9ef52d956699c",
     "2026-11-1": "f36ec6f61ad90862",
   },
-  research: { "2026-09-draft-1": "0cd317fd8cc2d703" },
   special_category: {
     "2026-10-draft-2": "bb0b1aa5f3054f7e",
     "2026-11-draft-3": "72ae16e637a87e1b",

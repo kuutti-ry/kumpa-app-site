@@ -250,22 +250,6 @@ if (typeof versions !== "object" || versions === null) {
           `${pathname}: ${kind} is published as counted in "${String(language)}", and the page does not say that wording, and it alone, is the one that counts`,
         );
       }
-      // A consent the app does not ask (`asked: false` in a wording's front
-      // matter) says so in its part of the page, and no other consent does.
-      const consents = join(import.meta.dirname, "..", "src", "content", "consents");
-      const notAsked = readdirSync(consents).some((folder) => {
-        const wording = join(consents, folder, `${kind}.md`);
-        if (!existsSync(wording)) return false;
-        const [, front = ""] = /^---\n([\s\S]*?)\n---\n/.exec(readFileSync(wording, "utf8")) ?? [];
-        return /^asked:\s*false\s*$/m.test(front);
-      });
-      if (own.includes(t(DEFAULT_LOCALE, "consents.notAsked")) !== notAsked) {
-        problems.push(
-          notAsked
-            ? `${pathname}: the app does not ask for ${kind}, and the page does not say so`
-            : `${pathname}: the app asks for ${kind}, and the page says that it does not`,
-        );
-      }
     }
   }
 }

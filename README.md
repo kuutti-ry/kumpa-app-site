@@ -31,7 +31,7 @@ pnpm dev          # http://127.0.0.1:4321
 ```
 src/content/pages/<language>/<slug>.md    the pages: the app, the association, support us, help, deleting an account
 src/content/legal/<language>/<slug>.md    the legal texts: bylaws, terms of use, privacy policy
-src/content/consents/<language>/<kind>.md the app's research and sensitive-answers consents, read on the privacy page
+src/content/consents/<language>/<kind>.md the app's sensitive-answers consent, read on the privacy page
 src/consent-versions.ts                   every version of each text a person agrees to, with its fingerprint
 src/i18n/                                 the languages, and the site's own words (navigation, notices)
 src/site.ts                               what the site knows: addresses, channels, store links

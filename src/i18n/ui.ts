@@ -49,7 +49,6 @@ export const UI = {
     "consents.title": "Separate consents",
     "consents.intro":
       "Consents given in Kumpa apart from the terms of use and this policy. Each has a version of its own, and its wording is given here as Kumpa shows it.",
-    "consents.notAsked": "Kumpa does not ask for this consent at present.",
     "consents.wording": "The wording {language}:",
     "consents.counts": "The wording {language}, the one that counts:",
     "doc.dated": "Wording of {date}",
