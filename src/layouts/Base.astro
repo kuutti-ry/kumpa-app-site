@@ -59,15 +59,13 @@ const shareImage = new URL(fingerprinted("/kuutti.png"), site).href;
     <meta property="og:type" content="website" />
     <meta property="og:image" content={shareImage} />
     <meta name="referrer" content="no-referrer" />
-    <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#content">{t(locale, "skip")}</a>
-    {/* Gaiane's structure (/ga/) brings a header and a footer of its own. */}
-    <slot name="header"><Header locale={locale} slug={slug} /></slot>
+    <Header locale={locale} slug={slug} />
     <main id="content" tabindex="-1">
       <slot />
     </main>
-    <slot name="footer"><Footer locale={locale} /></slot>
+    <Footer locale={locale} />
   </body>
 </html>

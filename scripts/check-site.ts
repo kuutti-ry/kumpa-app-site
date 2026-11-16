@@ -2,9 +2,7 @@
  * What the built site must hold (dist/, after `pnpm build`). Run by
  * `pnpm check:site` and by CI.
  *
- * - No script, no frame, no form: the site runs nothing in the browser, but
- *   for the pond demo (docs/decisions.md, 17): the pages of SCRIPTED run
- *   their own file and nothing else, nothing written in the page.
+ * - No script, no frame, no form: the site runs nothing in the browser.
  * - Nothing is loaded from anybody else: every stylesheet, image, font and
  *   icon is the site's own. Links to other sites are links, not loads.
  * - Every link inside the site leads to a page or a file that exists, and an
@@ -25,7 +23,6 @@ import { join, relative } from "node:path";
 import { PINNED } from "../src/consent-versions.ts";
 import { DEFAULT_LOCALE, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { anchorOf, CONSENT_KINDS, isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
-import { SCRIPTED } from "../src/site.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
 if (!existsSync(dist)) {
@@ -56,23 +53,10 @@ const attribute = (tag: string, name: string) =>
 for (const path of pages) {
   const page = `/${relative(dist, path)}`;
   const html = readFileSync(path, "utf8");
-
-  for (const banned of ["iframe", "form", "object", "embed"]) {
-    if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
-  }
-  // A script only on a page of SCRIPTED, only its own file, and nothing inline.
   const here = page.replace(/index\.html$/, "");
-  const scripts = [...html.matchAll(/(<script\b[^>]*>)([\s\S]*?)<\/script>/gi)];
-  if (scripts.length !== (html.match(/<script[\s>]/gi)?.length ?? 0)) {
-    problems.push(`${page}: a <script> that is never closed`);
-  }
-  for (const [, tag = "", body = ""] of scripts) {
-    const src = attribute(tag, "src");
-    if (src === undefined || src !== SCRIPTED[here] || body.trim() !== "") {
-      problems.push(`${page}: a <script>; only a page of SCRIPTED runs one, and only its own file`);
-    } else if (!existsSync(join(dist, src))) {
-      problems.push(`${page}: ${src} is not in the site`);
-    }
+
+  for (const banned of ["script", "iframe", "form", "object", "embed"]) {
+    if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
   }
   if (/\son[a-z]+="/i.test(html.replace(/\scontent="[^"]*"/g, ""))) {
     problems.push(`${page}: an inline event handler`);
@@ -158,9 +142,9 @@ for (const path of pages) {
   if (!/<meta name="viewport" content="width=device-width, initial-scale=1"/.test(html)) {
     problems.push(`${page}: no viewport for a phone`);
   }
-  // A text's markers (src/lib/reuse.ts, src/lib/team.ts) are replaced before a
-  // page is written: one left standing is a page that lost its wiring.
-  for (const [, marker = ""] of html.matchAll(/<p>(@(?:reuse|team))\b/g)) {
+  // A text's marker (src/lib/team.ts) is replaced before a page is written:
+  // one left standing is a page that lost its wiring.
+  for (const [, marker = ""] of html.matchAll(/<p>(@team)\b/g)) {
     problems.push(`${page}: ${marker} was never replaced`);
   }
 }
@@ -250,5 +234,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script but the pond's own file, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, and every pinned version has its anchor`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, and every pinned version has its anchor`,
 );
