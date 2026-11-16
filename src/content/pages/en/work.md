@@ -16,9 +16,7 @@ Kumpa is in development and not open to the public yet. Built so far: signing in
 
 ## Research into relationships and loneliness
 
-Supporting this research is part of the association's purpose, and its [bylaws](/legal/bylaws/) let it give money to universities and public research institutes in the European Union. Kumpa is built so that a person can choose, with a separate yes, to let events about their use of the app be kept for researchers, under an identifier of their own and without anything they wrote. The service is not open yet, so no real person's data has gone to any researcher.
-
-[What taking part means, and how people stay anonymous](/research/).
+Supporting this research is part of the association's purpose, and its [bylaws](/legal/bylaws/) let it give money to universities and public research institutes in the European Union. The association has no research partner yet, and Kumpa records nothing for research.
 
 ## An open community of volunteers
 

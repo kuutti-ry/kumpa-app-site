@@ -54,7 +54,6 @@ const pinnedFor = (wordings: Wording[]): Pinned => {
   return {
     terms: row("terms"),
     privacy: row("privacy"),
-    research: row("research"),
     special_category: row("special_category"),
   };
 };
@@ -71,24 +70,23 @@ const appModule = (versions: Record<string, string>) =>
 
 const APP_TODAY = {
   privacy: "2026-11-1",
-  research: "2026-09-draft-1",
   special_category: "2026-11-1",
   terms: "2026-11-1",
 };
 
-test("the kinds are the app's four, and each is read on a legal text", () => {
-  assert.deepEqual([...CONSENT_KINDS], ["terms", "privacy", "research", "special_category"]);
+test("the kinds are the app's three, and each is read on a legal text", () => {
+  assert.deepEqual([...CONSENT_KINDS], ["terms", "privacy", "special_category"]);
   for (const kind of CONSENT_KINDS) assert.equal(isConsentKind(kind), true);
-  for (const other of ["", "bylaws", "Terms", "special-category", "toString"]) {
+  // The research opt-in went with research (kuutti-ry/kumpa-app#208, decision 31).
+  for (const other of ["", "bylaws", "Terms", "special-category", "toString", "research"]) {
     assert.equal(isConsentKind(other), false, other);
   }
-  assert.equal(TEXT_OF.research, "privacy");
   assert.equal(TEXT_OF.special_category, "privacy");
   assert.equal(TEXT_OF.terms, "terms");
 });
 
 test("a version's anchor names the kind and the version", () => {
-  assert.equal(anchorOf("research", "2026-09-draft-1"), "research-2026-09-draft-1");
+  assert.equal(anchorOf("terms", "2026-09-draft-1"), "terms-2026-09-draft-1");
   assert.equal(anchorOf("special_category", "2026-10-draft-2"), "special_category-2026-10-draft-2");
 });
 
@@ -122,7 +120,7 @@ test("a version pins the heading and the body, and a legal text's status and bin
     pinnedText({ title: "Terms", body: "Text.", standing: { status: "draft", binding: false } }),
     "# Terms\nstatus: draft, binding: false\n\nText.",
   );
-  // The app's check:legal-versions computes the research and sensitive-answers
+  // The app's check:legal-versions computes the sensitive answers'
   // fingerprint from its legal.<kind>.title and summary, in the language
   // versions.json names; its test holds the same pair to the same value
   // (legal-versions.test.ts there).
@@ -190,11 +188,11 @@ test("a consent's heading that moved without its version is refused like its bod
   const wordings = content();
   const pinned = pinnedFor(wordings);
   const retitled = wordings.map((w) =>
-    w.kind === "research" ? { ...w, title: "Tutkimussuostumus" } : w,
+    w.kind === "special_category" ? { ...w, title: "Arkaluonteiset vastaukset" } : w,
   );
   assert.match(
     pinProblems(retitled, pinned)[0] ?? "",
-    /^research: the fi text of version v1 changed/,
+    /^special_category: the fi text of version v1 changed/,
   );
 });
 
@@ -216,10 +214,10 @@ test("a draft that comes into force, or comes to bind, under its version is refu
 });
 
 test("an English translation's edit moves nothing, a Finnish one does", () => {
-  const wordings = [...content(), wording("research", "en", "research text")];
+  const wordings = [...content(), wording("special_category", "en", "special_category text")];
   const pinned = pinnedFor(wordings);
   const english = wordings.map((w) =>
-    w.kind === "research" && w.language === "en" ? { ...w, body: "other text" } : w,
+    w.kind === "special_category" && w.language === "en" ? { ...w, body: "other text" } : w,
   );
   assert.deepEqual(pinProblems(english, pinned), []);
 });
@@ -279,9 +277,9 @@ test("a new version needs its row at the end, and an old one cannot come back as
 test("a new version of an unchanged text says so with the row it offers", () => {
   const wordings = content();
   const pinned = pinnedFor(wordings);
-  const bumped = wordings.map((w) => (w.kind === "research" ? { ...w, version: "v2" } : w));
+  const bumped = wordings.map((w) => (w.kind === "special_category" ? { ...w, version: "v2" } : w));
   assert.deepEqual(pinProblems(bumped, pinned), [
-    `research: version v2 has no row; add "v2": "${pinned.research.v1}" at the end of research in src/consent-versions.ts. Its text is v1's, unchanged: if the text was to change, change it first`,
+    `special_category: version v2 has no row; add "v2": "${pinned.special_category.v1}" at the end of special_category in src/consent-versions.ts. Its text is v1's, unchanged: if the text was to change, change it first`,
   ]);
 });
 
@@ -303,17 +301,17 @@ test("every version before a kind's newest keeps its text as its row pins it", (
     [],
   );
   // A kept consent whose English said it counted is held to its English.
-  const english = { ...wording("research", "en", "research text"), binds: true };
-  const finnish = wording("research", "fi", "research teksti");
+  const english = { ...wording("special_category", "en", "special_category text"), binds: true };
+  const finnish = wording("special_category", "fi", "special_category teksti");
   const counted: Pinned = {
     ...pinned,
-    research: { v1: fingerprintOf(english), v2: "0000000000000000" },
+    special_category: { v1: fingerprintOf(english), v2: "0000000000000000" },
   };
   assert.deepEqual(earlierProblems([finnish, english], counted), []);
   assert.deepEqual(earlierProblems([{ ...finnish, body: "muutettu" }, english], counted), []);
   assert.match(
     earlierProblems([finnish, { ...english, body: "edited" }], counted)[0] ?? "",
-    /^research: the kept en text of version v1 is not the one its row pins/,
+    /^special_category: the kept en text of version v1 is not the one its row pins/,
   );
 });
 
@@ -352,31 +350,43 @@ test("a kept text that was edited, that is the newest, or that has no row is ref
 });
 
 test("a row stays as the base has it: never changed, removed or moved, and new ones at the end", () => {
-  const base: Pinned = { ...PINNED, research: { a: "1111111111111111", b: "2222222222222222" } };
+  const base: Pinned = {
+    ...PINNED,
+    special_category: { a: "1111111111111111", b: "2222222222222222" },
+  };
   assert.deepEqual(historyProblems(base, base), []);
   assert.deepEqual(historyProblems({}, PINNED), [], "before the pin began");
   assert.deepEqual(
-    historyProblems(base, { ...base, research: { ...base.research, c: "3333333333333333" } }),
+    historyProblems(base, {
+      ...base,
+      special_category: { ...base.special_category, c: "3333333333333333" },
+    }),
     [],
   );
   assert.deepEqual(
-    historyProblems(base, { ...base, research: { a: "1111111111111111", b: "9999999999999999" } }),
+    historyProblems(base, {
+      ...base,
+      special_category: { a: "1111111111111111", b: "9999999999999999" },
+    }),
     [
-      "research: the row of b changed (2222222222222222, now 9999999999999999); a row is never changed: people agreed to the text it pins. A changed text is a new version, with a row of its own at the end",
+      "special_category: the row of b changed (2222222222222222, now 9999999999999999); a row is never changed: people agreed to the text it pins. A changed text is a new version, with a row of its own at the end",
     ],
   );
-  assert.deepEqual(historyProblems(base, { ...base, research: { b: "2222222222222222" } }), [
-    "research: the row of a is gone; a row is never removed",
-    "research: the row of b moved; a new row is added at the end",
-  ]);
+  assert.deepEqual(
+    historyProblems(base, { ...base, special_category: { b: "2222222222222222" } }),
+    [
+      "special_category: the row of a is gone; a row is never removed",
+      "special_category: the row of b moved; a new row is added at the end",
+    ],
+  );
   assert.deepEqual(
     historyProblems(base, {
       ...base,
-      research: { c: "3333333333333333", a: "1111111111111111", b: "2222222222222222" },
+      special_category: { c: "3333333333333333", a: "1111111111111111", b: "2222222222222222" },
     }),
     [
-      "research: the row of a moved; a new row is added at the end",
-      "research: the row of b moved; a new row is added at the end",
+      "special_category: the row of a moved; a new row is added at the end",
+      "special_category: the row of b moved; a new row is added at the end",
     ],
   );
 });
@@ -386,10 +396,10 @@ test("a kind without a text, without a version, or with two versions is refused"
   const pinned = pinnedFor(wordings);
   assert.deepEqual(
     pinProblems(
-      wordings.filter((w) => w.kind !== "research"),
+      wordings.filter((w) => w.kind !== "special_category"),
       pinned,
     ),
-    ["research: no text on the site"],
+    ["special_category: no text on the site"],
   );
   const unversioned = wordings.map((w) => (w.kind === "terms" ? { ...w, version: undefined } : w));
   assert.deepEqual(pinProblems(unversioned, pinned), ["terms: no consent_version"]);
@@ -415,11 +425,11 @@ test("versions.json names each kind's version, fingerprint, language, address an
   const wordings = content();
   const document = versionsDocument(wordings, pinnedFor(wordings), ORIGIN);
   assert.deepEqual(Object.keys(document), [...CONSENT_KINDS]);
-  assert.deepEqual(document.research, {
+  assert.deepEqual(document.privacy, {
     version: "v1",
-    hash: fingerprintOf({ title: "research", body: "research teksti" }),
+    hash: fingerprintOf({ title: "privacy", body: "privacy teksti" }),
     language: "fi",
-    url: "https://kuutti.app/legal/privacy/#research-v1",
+    url: "https://kuutti.app/legal/privacy/#privacy-v1",
     dated: "2026-10-06",
   });
   assert.equal(document.terms.url, "https://kuutti.app/legal/terms/#terms-v1");
@@ -439,7 +449,7 @@ test("versions.json names the language that counts and its fingerprint, which th
   const document = versionsDocument(wordings, pinned, ORIGIN);
   assert.equal(document.special_category.language, "en");
   assert.equal(document.special_category.hash, fingerprintOf(english));
-  assert.equal(document.research.language, "fi");
+  assert.equal(document.privacy.language, "fi");
 });
 
 test("versions.json is not written for a text that moved without its version", () => {
@@ -501,16 +511,12 @@ test("the app at the site's newest versions agrees", () => {
   const pinned: Pinned = {
     terms: { a: "1" },
     privacy: { a: "2" },
-    research: { a: "3" },
     special_category: { b: "4" },
   };
-  assert.deepEqual(
-    mirror(pinned, { terms: "a", privacy: "a", research: "a", special_category: "b" }),
-    {
-      problems: [],
-      behind: [],
-    },
-  );
+  assert.deepEqual(mirror(pinned, { terms: "a", privacy: "a", special_category: "b" }), {
+    problems: [],
+    behind: [],
+  });
 });
 
 test("the app at an earlier version of the site's is following, not wrong", () => {
@@ -531,9 +537,9 @@ test("the app ahead of the site, without a kind, or with a kind of its own, disa
   assert.deepEqual(ahead.problems, [
     `privacy: the app is at 2027-01-1, a version the site never published (the site is at ${Object.keys(PINNED.privacy).at(-1)}). The site's text and its version come first; the app follows`,
   ]);
-  const { research: _, ...withoutResearch } = APP_TODAY;
-  assert.deepEqual(mirror(PINNED, withoutResearch).problems, [
-    "research: the app has no version (the site is at 2026-09-draft-1)",
+  const { special_category: _, ...withoutSensitive } = APP_TODAY;
+  assert.deepEqual(mirror(PINNED, withoutSensitive).problems, [
+    `special_category: the app has no version (the site is at ${Object.keys(PINNED.special_category).at(-1)})`,
   ]);
   assert.deepEqual(mirror(PINNED, { ...APP_TODAY, marketing: "v1" }).problems, [
     "marketing: a kind of the app's that the site does not know",

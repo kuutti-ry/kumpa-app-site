@@ -198,10 +198,10 @@ export async function earlierTexts(): Promise<EarlierText[]> {
 }
 
 /**
- * The consents a legal text carries besides its own (the research opt-in and
- * the sensitive answers, on the privacy page), each in every language it is
- * written in, the wording that counts first (`countedWording`), with its
- * version and the day of its wording, and whether the app asks for it.
+ * The consents a legal text carries besides its own (the sensitive answers,
+ * on the privacy page), each in every language it is written in, the wording
+ * that counts first (`countedWording`), with its version and the day of its
+ * wording.
  * The title is the reader's language's where the wording has it.
  */
 export async function consentsOn(
@@ -213,7 +213,6 @@ export async function consentsOn(
     title: string;
     version: string;
     dated: Date;
-    asked: boolean;
     wordings: { language: TextLanguage; title: string; html: string; counts: boolean }[];
   }[]
 > {
@@ -239,7 +238,6 @@ export async function consentsOn(
         title: named.data.title,
         version: counted.data.consent_version,
         dated: counted.data.dated,
-        asked: own.every((entry) => entry.data.asked),
         wordings: [counted, ...own.filter((entry) => entry !== counted)].map((entry) => {
           if (entry.rendered === undefined) throw new Error(`${entry.id} was not rendered`);
           return {

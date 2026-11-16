@@ -13,7 +13,7 @@ import { DEFAULT_LOCALE, pathOf, TEXT_LANGUAGES, type TextLanguage } from "../i1
  */
 
 /** The kinds of consent the app records, by the app's names (CONSENT_VERSIONS there). */
-export const CONSENT_KINDS = ["terms", "privacy", "research", "special_category"] as const;
+export const CONSENT_KINDS = ["terms", "privacy", "special_category"] as const;
 export type ConsentKind = (typeof CONSENT_KINDS)[number];
 
 export const isConsentKind = (value: string): value is ConsentKind =>
@@ -21,13 +21,12 @@ export const isConsentKind = (value: string): value is ConsentKind =>
 
 /**
  * The legal text each kind is read in. The terms and the privacy policy are
- * texts of their own; the research opt-in and the sensitive answers, which
- * the app asks apart, are read on the privacy page (src/content/consents).
+ * texts of their own; the sensitive answers, which the app asks apart, are
+ * read on the privacy page (src/content/consents).
  */
 export const TEXT_OF: Readonly<Record<ConsentKind, string>> = {
   terms: "terms",
   privacy: "privacy",
-  research: "privacy",
   special_category: "privacy",
 };
 
@@ -39,7 +38,7 @@ export const TEXT_OF: Readonly<Record<ConsentKind, string>> = {
  */
 export const CONSENT_VERSION = /^(?=[0-9a-z.-]*[a-z.-])[0-9a-z][0-9a-z.-]*$/;
 
-/** The anchor of a kind's version on its page, which the app links to: `research-2026-09-draft-1`. */
+/** The anchor of a kind's version on its page, which the app links to: `special_category-2026-11-1`. */
 export const anchorOf = (kind: ConsentKind, version: string): string => `${kind}-${version}`;
 
 /**
@@ -84,8 +83,8 @@ export type Wording = {
  * What a version is pinned to: the heading, a legal text's status and whether
  * it binds, and the body, so that none of them changes under a version people
  * agreed to (a draft that comes into force is a new version too). A consent's
- * is `# <title>`, a blank line and the body: for the research opt-in and the
- * sensitive answers, the app's legal.<kind>.title and summary, which the
+ * is `# <title>`, a blank line and the body: for the sensitive answers, the
+ * app's legal.<kind>.title and summary, which the
  * app's `pnpm check:legal-versions` fingerprints the same way, in the
  * language /legal/versions.json names, and holds to the hash it publishes.
  */

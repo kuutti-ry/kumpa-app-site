@@ -97,8 +97,8 @@ const legal = defineCollection({
 });
 
 /**
- * The research opt-in and the sensitive answers: consents apart from the
- * terms and the privacy policy, whose wording is read on the privacy page.
+ * The sensitive answers: a consent apart from the terms and the privacy
+ * policy, whose wording is read on the privacy page.
  * The body is the wording as the app has it (legal.<kind>.summary in the
  * app's messages.yaml), in the languages it is written in.
  */
@@ -116,8 +116,6 @@ const consents = defineCollection({
      * before 2026-11-1 was pinned (`countedWording` in lib/consent.ts).
      */
     binding: z.boolean().default(false),
-    /** False while the app does not ask for the consent: the page says so above the wording. */
-    asked: z.boolean().default(true),
   }),
 });
 
