@@ -44,10 +44,10 @@ export const SITE = {
   contactEmail: "hello@kuutti.app" as string | null,
   /** The association's channels, as full addresses; the footer links to each by its mark. */
   social: [
-    { name: "LinkedIn", href: "https://www.linkedin.com/company/145260967/", mark: "linkedin" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/company/kumpa-fi/", mark: "linkedin" },
     { name: "GitHub", href: "https://github.com/kuutti-ry", mark: "github" },
-    { name: "TikTok", href: "https://www.tiktok.com/@kuutti_ry", mark: "tiktok" },
-    { name: "Instagram", href: "https://www.instagram.com/kuutti_ry/", mark: "instagram" },
+    { name: "TikTok", href: "https://www.tiktok.com/@kumpa_fi", mark: "tiktok" },
+    { name: "Instagram", href: "https://www.instagram.com/kumpa_fi/", mark: "instagram" },
   ] as { name: string; href: string; mark: Mark }[],
   /**
    * Code from Finland (Koodia Suomesta ry), whose community member Kuutti ry
