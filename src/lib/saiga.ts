@@ -19,7 +19,7 @@ export const SAIGA_SOURCE = {
 } as const;
 
 /**
- * The weights Gaiane's structure uses (/ga/, decision 16), each with the
+ * The weights Gaiane's structure used (decisions 16 and 27), each with the
  * SHA-256 of the file Spoke delivered (Saiga 1.002). Saiga has no 600: the
  * headings' 650 is drawn in Bold.
  */

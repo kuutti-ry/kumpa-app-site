@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { drawTeam, type Person, TEAM } from "../src/lib/team.ts";
 
-// The team on About Us, and through it on /ga/about/ (src/lib/team.ts).
+// The team on About Us (src/lib/team.ts).
 
 const ada: Person = {
   name: "Ada Lovelace",

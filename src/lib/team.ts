@@ -160,7 +160,7 @@ function card(person: Person, locale: Locale): string {
 
 /**
  * The HTML of a rendered text with the team drawn where the author wrote
- * `@team` as a paragraph of its own (About Us, and through it /ga/about/), so
+ * `@team` as a paragraph of its own (About Us), so
  * that the page carries no HTML (the site's rule) and the team has one copy.
  * The marker anywhere else is refused, never shown.
  */

@@ -7,7 +7,7 @@ import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.t
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { MARKS } from "../src/lib/marks.ts";
-import { SCRIPTED, SITE } from "../src/site.ts";
+import { SITE } from "../src/site.ts";
 
 test("the default language has no prefix, another has its own, and every path ends with a slash", () => {
   assert.equal(pathOf(DEFAULT_LOCALE, ""), "/");
@@ -91,7 +91,7 @@ test("the home page says what the association is and what it makes, and the foot
   assert.match(SITE.contactEmail ?? "", /^[a-z]+@kuutti\.app$/);
 });
 
-test("the content security policy lets nothing run but the files of SCRIPTED, each named in full", () => {
+test("the content security policy lets nothing run", () => {
   const headers = readFileSync(join(import.meta.dirname, "..", "customHttp.yml"), "utf8");
   const policies = [...headers.matchAll(/key: Content-Security-Policy\s+value: "([^"]*)"/g)];
   assert.equal(policies.length, 1, "one policy for every address");
@@ -101,18 +101,11 @@ test("the content security policy lets nothing run but the files of SCRIPTED, ea
       return [name, sources];
     }),
   );
+  // Nothing is allowed that is not named, and no script is named
+  // (docs/decisions.md, 27): the same at every address the site answers at.
   assert.deepEqual(directives.get("default-src"), ["'none'"]);
-  // The site answers at kuutti.app, its home, and at kumpa.fi
-  // (docs/decisions.md, 26); a source with a path names one host.
-  assert.deepEqual(
-    directives.get("script-src")?.toSorted(),
-    ["https://kuutti.app", "https://kumpa.fi"]
-      .flatMap((origin) => Object.values(SCRIPTED).map((file) => `${origin}${file}`))
-      .toSorted(),
-  );
-  for (const [page, file] of Object.entries(SCRIPTED)) {
-    assert.match(page, /^\/.*\/$/, `${page} is a page's address`);
-    assert.match(file, /^\/[\w/-]+\.js$/, `${file} is a file of the site`);
+  for (const scripts of ["script-src", "script-src-elem", "script-src-attr", "worker-src"]) {
+    assert.equal(directives.has(scripts), false, `${scripts} would let something run`);
   }
 });
 

@@ -220,5 +220,13 @@ The maintainer's word of 15/11/2026: show the people of Kuutti on "About Us", ea
 The maintainer's word of 16/11/2026: the site is served at `kumpa.fi` too, the same pages from the same build, and `kuutti.app` stays its home.
 
 - **One home.** Canonical links, the sitemap, `robots.txt` and `/legal/versions.json` keep naming `kuutti.app` (`site` in `astro.config.ts`), so a search engine counts each page once and the app's check reads what it read before. Nothing on the site names `kumpa.fi`.
-- **The policy names the pond's file at each address.** A source with a path names one host, so `script-src` is `https://kuutti.app/ga/pond/pond.js https://kumpa.fi/ga/pond/pond.js`: the file is still named in full (rule 1), once per address, which sets aside 17's single source. A test holds the policy to `SCRIPTED` at both. With the one source, the pond would not have run at `kumpa.fi`.
+- **One policy.** The content security policy names no host (27 took out the one source that did), so it is the same at both addresses.
 - **Not decided here.** What the second address is for, and whether the home ever moves to it, is the maintainer's.
+
+## 27. Gaiane's structure and the pond demo are removed (2026-11-16)
+
+The maintainer's word of 16/11/2026: "wipe any /ga stuff". Everything of `/ga/` is gone from the site: its six pages (16), the pond demo and its script (17), the download page with its QR code and the stores' dimmed badges (13), and what existed only for them (the reuse of a page's part by `@reuse`, the arrow on a link that leaves the site, their words and styles, their checks and tests). This sets aside 13's download page, 16 and 17; their records above stay as what was decided then.
+
+- **The site runs no script again.** Rule 1 has no exception: `SCRIPTED` is gone, `pnpm check:site` refuses a script on any page, and the content security policy has no `script-src`, so `default-src 'none'` holds for scripts too. A test holds the policy to that.
+- **What stays.** The site's own header keeps its folded menu, which it shared with the structure's. `StoreBadges.astro` and `stores` in `src/site.ts` stay for the home page's badge once there is a listing (19), on no page until then. `@team` stays, on About Us alone (25).
+- **Saiga.** No page is set in it now: `/ga/` was the only one that linked `/fonts/saiga.css` (18). The fetch, the pinned sums and the guard that keeps the files out of this repository are as they were; whether the site moves to Saiga or the fetch goes too is the maintainer's (`docs/open-questions.md`).

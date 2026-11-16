@@ -55,19 +55,10 @@ export const SITE = {
    */
   codeFromFinland: "https://koodiasuomesta.fi/en/",
   /**
-   * The app's listings in the stores. Null until the app is published: the
-   * download page of Gaiane's structure then shows that store's badge dimmed,
-   * not as a link (src/components/StoreBadges.astro). The home page shows no
-   * badge until there is a listing (docs/decisions.md, 19).
+   * The app's listings in the stores. Null until the app is published: a
+   * store's badge is then dimmed, not a link (src/components/StoreBadges.astro),
+   * and the home page shows no badge until there is a listing
+   * (docs/decisions.md, 19).
    */
   stores: { apple: null as string | null, google: null as string | null },
 } as const;
-
-/**
- * The pages that run a script, by their address, each with the one file it
- * runs: the pond demo alone, on the maintainer's word of 24/10/2026
- * (docs/decisions.md, 17). The content security policy (customHttp.yml)
- * allows these files and nothing else, and scripts/check-site.ts holds that
- * no other page has a script.
- */
-export const SCRIPTED: Readonly<Record<string, string>> = { "/ga/pond/": "/ga/pond/pond.js" };
