@@ -42,6 +42,13 @@ export const CONSENT_VERSION = /^(?=[0-9a-z.-]*[a-z.-])[0-9a-z][0-9a-z.-]*$/;
 /** The anchor of a kind's version on its page, which the app links to: `research-2026-09-draft-1`. */
 export const anchorOf = (kind: ConsentKind, version: string): string => `${kind}-${version}`;
 
+/**
+ * Whether a version is a draft's, by its name, as the app's release check
+ * reads it (`isDraftLegal` there): a consent has no status of its own, and
+ * its page may be in force while the consent is not.
+ */
+export const isDraftVersion = (version: string): boolean => version.includes("draft");
+
 const normal = (text: string): string => text.replace(/\r\n?/g, "\n").trim();
 
 /**
@@ -65,6 +72,12 @@ export type Wording = {
   body: string;
   /** A legal text of its own (the terms, the privacy policy): its status, and whether this language binds. */
   standing?: { status: string; binding: boolean };
+  /**
+   * A consent's wording that says it is the one that counts (`binding` in its
+   * front matter). Not part of what is pinned: a consent's fingerprint is of
+   * its heading and body alone, as the app computes it.
+   */
+  binds?: boolean;
 };
 
 /**
@@ -72,9 +85,9 @@ export type Wording = {
  * it binds, and the body, so that none of them changes under a version people
  * agreed to (a draft that comes into force is a new version too). A consent's
  * is `# <title>`, a blank line and the body: for the research opt-in and the
- * sensitive answers, the app's legal.<kind>.title and summary, whose Finnish
- * the app's `pnpm check:legal-versions` fingerprints the same way and holds
- * to the hash /legal/versions.json publishes.
+ * sensitive answers, the app's legal.<kind>.title and summary, which the
+ * app's `pnpm check:legal-versions` fingerprints the same way, in the
+ * language /legal/versions.json names, and holds to the hash it publishes.
  */
 export function pinnedText(wording: Pick<Wording, "title" | "body" | "standing">): string {
   const standing = wording.standing
@@ -94,11 +107,19 @@ export const fingerprintOf = (wording: Pick<Wording, "title" | "body" | "standin
 export type Pinned = Readonly<Record<ConsentKind, Readonly<Record<string, string>>>>;
 
 /**
- * The text a kind's version is pinned to: the Finnish one, which binds; until
- * it is written, a draft's one language (the English drafts of the terms and
- * the privacy policy). Null when there is no telling which.
+ * The text a kind's version is pinned to: the one that says it binds, which
+ * from 2026-11-1 is the English of the terms, the privacy policy and the
+ * sensitive answers (docs/decisions.md, 29). Where none says so, the Finnish
+ * one, as every version before that was pinned, or a text's only language.
+ * Null when there is no telling which: two say they bind, or none does among
+ * several without a Finnish one.
  */
-export function countedWording(wordings: readonly Wording[]): Wording | null {
+export function countedWording<W extends Pick<Wording, "language" | "standing" | "binds">>(
+  wordings: readonly W[],
+): W | null {
+  const binding = wordings.filter((wording) => wording.standing?.binding ?? wording.binds ?? false);
+  if (binding.length > 1) return null;
+  if (binding[0]) return binding[0];
   const finnish = wordings.find((wording) => wording.language === "fi");
   if (finnish) return finnish;
   return wordings.length === 1 ? (wordings[0] ?? null) : null;
@@ -129,7 +150,9 @@ export function pinProblems(wordings: readonly Wording[], pinned: Pinned): strin
     }
     const counted = countedWording(own);
     if (counted === null) {
-      problems.push(`${kind}: no Finnish text, and more than one other; which one binds?`);
+      problems.push(
+        `${kind}: no telling which text counts: two say they bind, or none does among several without a Finnish one`,
+      );
       continue;
     }
     const hash = fingerprintOf(counted);
@@ -236,7 +259,7 @@ export type PublishedVersion = {
   version: string;
   /** The fingerprint of the text the version is pinned to (`fingerprintOf`). */
   hash: string;
-  /** The language of that text: Finnish, or a draft's own while its Finnish is not written. */
+  /** The language of that text, the one that counts (`countedWording`). */
   language: TextLanguage;
   /** Where the text is read, at the anchor of its version. */
   url: string;
@@ -345,8 +368,8 @@ export async function fetchAppVersions(
 }
 
 /**
- * The site's versions against the app's. The site leads, since its Finnish
- * text is the one that binds: the app may still be at an earlier version of
+ * The site's versions against the app's. The site leads, since its text is
+ * the one that binds: the app may still be at an earlier version of
  * the site's while its pull request follows a new text (`behind`), and the
  * app's own CI fails until it does. A version the site never published, a
  * kind one side lacks, are problems.

@@ -16,6 +16,7 @@ import {
   fingerprintOf,
   historyProblems,
   isConsentKind,
+  isDraftVersion,
   mirror,
   type Pinned,
   pinnedText,
@@ -69,10 +70,10 @@ const appModule = (versions: Record<string, string>) =>
   'export const CONSENT_TEXT_HASHES: Readonly<Record<string, string>> = {\n  "terms": "a947eb54ce1338cd",\n};\n';
 
 const APP_TODAY = {
-  privacy: "2026-09-draft-1",
+  privacy: "2026-11-1",
   research: "2026-09-draft-1",
-  special_category: "2026-11-draft-3",
-  terms: "2026-09-draft-1",
+  special_category: "2026-11-1",
+  terms: "2026-11-1",
 };
 
 test("the kinds are the app's four, and each is read on a legal text", () => {
@@ -89,6 +90,15 @@ test("the kinds are the app's four, and each is read on a legal text", () => {
 test("a version's anchor names the kind and the version", () => {
   assert.equal(anchorOf("research", "2026-09-draft-1"), "research-2026-09-draft-1");
   assert.equal(anchorOf("special_category", "2026-10-draft-2"), "special_category-2026-10-draft-2");
+});
+
+test("a version is a draft's by its name, as the app's release check reads it", () => {
+  for (const draft of ["2026-09-draft-1", "2026-11-draft-3", "draft"]) {
+    assert.equal(isDraftVersion(draft), true, draft);
+  }
+  for (const final of ["2026-11-1", "v1", "2027-01-2"]) {
+    assert.equal(isDraftVersion(final), false, final);
+  }
 });
 
 test("a fingerprint is 16 hex digits of the text, whatever its line ends and blank edges", () => {
@@ -113,8 +123,9 @@ test("a version pins the heading and the body, and a legal text's status and bin
     "# Terms\nstatus: draft, binding: false\n\nText.",
   );
   // The app's check:legal-versions computes the research and sensitive-answers
-  // fingerprint from its Finnish legal.<kind>.title and summary; its test
-  // holds the same pair to the same value (legal-versions.test.ts there).
+  // fingerprint from its legal.<kind>.title and summary, in the language
+  // versions.json names; its test holds the same pair to the same value
+  // (legal-versions.test.ts there).
   assert.equal(
     fingerprintOf({ title: "Tutkimus", body: "LUONNOS: teksti.\r\n" }),
     "3db7397d9d6d2d5c",
@@ -131,7 +142,7 @@ test("a version pins the heading and the body, and a legal text's status and bin
   }
 });
 
-test("the Finnish text is the counted one; without it, a draft's only language", () => {
+test("the counted text is the one that says it binds; else the Finnish, or a text's only language", () => {
   const fi = wording("terms", "fi", "ehdot");
   const en = wording("terms", "en", "terms");
   const sv = wording("terms", "sv", "villkor");
@@ -139,6 +150,22 @@ test("the Finnish text is the counted one; without it, a draft's only language",
   assert.equal(countedWording([en]), en);
   assert.equal(countedWording([en, sv]), null);
   assert.equal(countedWording([]), null);
+  // A consent's wording that says it counts is counted, whatever stands beside it.
+  const counts = { ...en, binds: true };
+  assert.equal(countedWording([fi, counts, sv]), counts);
+  assert.equal(countedWording([counts, sv]), counts);
+  assert.equal(countedWording([fi, { ...en, binds: false }]), fi, "no say is no say");
+  // A legal text says it by its standing, and a standing that does not bind says nothing.
+  const bound = { ...en, standing: { status: "in_force", binding: true } };
+  const unbound = { ...fi, standing: { status: "in_force", binding: false } };
+  assert.equal(countedWording([unbound, bound]), bound);
+  assert.equal(
+    countedWording([unbound, { ...en, standing: { status: "draft", binding: false } }]),
+    unbound,
+  );
+  // Two that say so: no telling which.
+  assert.equal(countedWording([{ ...fi, binds: true }, counts]), null);
+  assert.equal(countedWording([{ ...unbound, standing: bound.standing }, bound]), null);
 });
 
 test("texts pinned to their versions publish without a problem", () => {
@@ -197,6 +224,27 @@ test("an English translation's edit moves nothing, a Finnish one does", () => {
   assert.deepEqual(pinProblems(english, pinned), []);
 });
 
+test("where the English says it counts, its edit is refused and a Finnish one moves nothing", () => {
+  const english = { ...wording("special_category", "en", "sensitive answers"), binds: true };
+  const wordings = [...content(), english];
+  const pinned: Pinned = {
+    ...pinnedFor(wordings),
+    special_category: { v1: fingerprintOf(english) },
+  };
+  assert.deepEqual(pinProblems(wordings, pinned), []);
+  const finnish = wordings.map((w) =>
+    w.kind === "special_category" && w.language === "fi" ? { ...w, body: "muutettu" } : w,
+  );
+  assert.deepEqual(pinProblems(finnish, pinned), []);
+  const edited = wordings.map((w) => (w === english ? { ...w, body: "sensitive answers." } : w));
+  assert.match(
+    pinProblems(edited, pinned)[0] ?? "",
+    /^special_category: the en text of version v1 changed/,
+  );
+  // The say itself is not pinned: a consent's fingerprint is the app's, of its heading and body.
+  assert.equal(fingerprintOf(english), fingerprintOf({ title: english.title, body: english.body }));
+});
+
 test("an English draft without a Finnish text is pinned by its own body", () => {
   const wordings = content().map((w) =>
     w.kind === "terms" ? { ...w, language: "en" as const, body: "DRAFT terms" } : w,
@@ -253,6 +301,19 @@ test("every version before a kind's newest keeps its text as its row pins it", (
   assert.deepEqual(
     earlierProblems([...kept, wording("privacy", "en", "translated, edited")], bumped),
     [],
+  );
+  // A kept consent whose English said it counted is held to its English.
+  const english = { ...wording("research", "en", "research text"), binds: true };
+  const finnish = wording("research", "fi", "research teksti");
+  const counted: Pinned = {
+    ...pinned,
+    research: { v1: fingerprintOf(english), v2: "0000000000000000" },
+  };
+  assert.deepEqual(earlierProblems([finnish, english], counted), []);
+  assert.deepEqual(earlierProblems([{ ...finnish, body: "muutettu" }, english], counted), []);
+  assert.match(
+    earlierProblems([finnish, { ...english, body: "edited" }], counted)[0] ?? "",
+    /^research: the kept en text of version v1 is not the one its row pins/,
   );
 });
 
@@ -341,7 +402,13 @@ test("a kind without a text, without a version, or with two versions is refused"
     wording("terms", "en", "terms"),
     wording("terms", "sv", "villkor"),
   ];
-  assert.match(pinProblems(unbound, pinned)[0] ?? "", /^terms: no Finnish text, and more than one/);
+  assert.match(pinProblems(unbound, pinned)[0] ?? "", /^terms: no telling which text counts/);
+  const twice = [
+    ...wordings.filter((w) => w.kind !== "terms"),
+    { ...wording("terms", "fi", "ehdot"), binds: true },
+    { ...wording("terms", "en", "terms"), binds: true },
+  ];
+  assert.match(pinProblems(twice, pinned)[0] ?? "", /^terms: no telling which text counts/);
 });
 
 test("versions.json names each kind's version, fingerprint, language, address and day", () => {
@@ -360,6 +427,19 @@ test("versions.json names each kind's version, fingerprint, language, address an
     document.special_category.url,
     "https://kuutti.app/legal/privacy/#special_category-v1",
   );
+});
+
+test("versions.json names the language that counts and its fingerprint, which the app holds", () => {
+  const english = { ...wording("special_category", "en", "sensitive answers"), binds: true };
+  const wordings = [...content(), english];
+  const pinned: Pinned = {
+    ...pinnedFor(wordings),
+    special_category: { v1: fingerprintOf(english) },
+  };
+  const document = versionsDocument(wordings, pinned, ORIGIN);
+  assert.equal(document.special_category.language, "en");
+  assert.equal(document.special_category.hash, fingerprintOf(english));
+  assert.equal(document.research.language, "fi");
 });
 
 test("versions.json is not written for a text that moved without its version", () => {
@@ -436,20 +516,20 @@ test("the app at the site's newest versions agrees", () => {
 test("the app at an earlier version of the site's is following, not wrong", () => {
   const pinned: Pinned = {
     ...PINNED,
-    privacy: { ...PINNED.privacy, "2026-11-1": "0123456789abcdef" },
+    privacy: { ...PINNED.privacy, "2027-01-1": "0123456789abcdef" },
   };
   const { problems, behind } = mirror(pinned, APP_TODAY);
   assert.deepEqual(problems, []);
   assert.deepEqual(behind, [
-    "privacy: the app is at 2026-09-draft-1, an earlier version of the site's; it follows with 2026-11-1",
+    "privacy: the app is at 2026-11-1, an earlier version of the site's; it follows with 2027-01-1",
   ]);
 });
 
 test("the app ahead of the site, without a kind, or with a kind of its own, disagrees", () => {
-  const ahead = mirror(PINNED, { ...APP_TODAY, privacy: "2026-11-1" });
+  const ahead = mirror(PINNED, { ...APP_TODAY, privacy: "2027-01-1" });
   assert.deepEqual(ahead.behind, []);
   assert.deepEqual(ahead.problems, [
-    `privacy: the app is at 2026-11-1, a version the site never published (the site is at ${Object.keys(PINNED.privacy).at(-1)}). The site's text and its version come first; the app follows`,
+    `privacy: the app is at 2027-01-1, a version the site never published (the site is at ${Object.keys(PINNED.privacy).at(-1)}). The site's text and its version come first; the app follows`,
   ]);
   const { research: _, ...withoutResearch } = APP_TODAY;
   assert.deepEqual(mirror(PINNED, withoutResearch).problems, [

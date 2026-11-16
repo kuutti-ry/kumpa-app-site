@@ -3,7 +3,13 @@ import Notice from "../components/Notice.astro";
 import { pathOf } from "../i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
-import { anchorOf, isConsentKind, TEXT_OF } from "../lib/consent.ts";
+import {
+  anchorOf,
+  countedWording,
+  isConsentKind,
+  isDraftVersion,
+  TEXT_OF,
+} from "../lib/consent.ts";
 import {
   allPages,
   consentsOn,
@@ -94,9 +100,10 @@ const consentVersion = view.kind === "text" ? view.text.data.consent_version : u
 const versionAnchor =
   isConsentKind(textSlug) && consentVersion ? anchorOf(textSlug, consentVersion) : undefined;
 const consents = view.kind === "text" ? await consentsOn(locale, textSlug) : [];
-// A draft's version is the one the app records for the draft; the text in
-// force will be given its own (the drafts say so), so the line says which.
-const versionKey = draft ? "doc.draftVersion" : "doc.version";
+// A draft's version is the one the app records for the draft, and the line
+// says so: of the text by its status, and of a consent by its version's name,
+// since a consent may still be a draft on a page that is in force.
+const versionKey = (isDraft: boolean) => (isDraft ? "doc.draftVersion" : "doc.version");
 // The versions people agreed to before the newest, of this text and of the
 // consents it carries, each kept as it was under its own anchor, newest first
 // (docs/decisions.md, 14). Closed until opened: the app's link to one lands
@@ -106,9 +113,13 @@ const earlier =
     ? (await earlierTexts()).filter((text) => TEXT_OF[text.kind] === textSlug)
     : [];
 // A consent is kept in each language it is written in, and a version has one
-// anchor: on the first of them, the Finnish that counts.
-const holdsAnchor = (text: (typeof earlier)[number]) =>
-  earlier.find((kept) => kept.kind === text.kind && kept.version === text.version) === text;
+// anchor: on the one of them that counted.
+const holdsAnchor = (text: (typeof earlier)[number]) => {
+  const kept = earlier.filter(
+    (other) => other.kind === text.kind && other.version === text.version,
+  );
+  return (countedWording(kept) ?? kept[0]) === text;
+};
 ---
 
 <Base
@@ -224,7 +235,7 @@ const holdsAnchor = (text: (typeof earlier)[number]) =>
         <h1>{view.text.data.title}</h1>
         <p class="meta" id={versionAnchor}>
           {t(locale, "doc.dated", { date: formatDate(locale, view.text.data.dated) })}
-          {consentVersion && ` · ${t(locale, versionKey, { version: consentVersion })}`}
+          {consentVersion && ` · ${t(locale, versionKey(draft), { version: consentVersion })}`}
           {view.text.data.registered &&
             ` · ${t(locale, "doc.registered", { date: formatDate(locale, view.text.data.registered) })}`}
           {view.text.data.businessId &&
@@ -252,12 +263,13 @@ const holdsAnchor = (text: (typeof earlier)[number]) =>
                 <h3 id={anchorOf(consent.kind, consent.version)}>{consent.title}</h3>
                 <p class="meta">
                   {t(locale, "doc.dated", { date: formatDate(locale, consent.dated) })}
-                  {` · ${t(locale, versionKey, { version: consent.version })}`}
+                  {` · ${t(locale, versionKey(isDraftVersion(consent.version)), { version: consent.version })}`}
                 </p>
+                {!consent.asked && <p>{t(locale, "consents.notAsked")}</p>}
                 {consent.wordings.map((wording) => (
                   <>
                     <p>
-                      {t(locale, wording.language === "fi" ? "consents.counts" : "consents.wording", {
+                      {t(locale, wording.counts ? "consents.counts" : "consents.wording", {
                         language: LANGUAGE_IN[locale][wording.language],
                       })}
                     </p>
@@ -285,7 +297,7 @@ const holdsAnchor = (text: (typeof earlier)[number]) =>
                 <summary>
                   {text.title}
                   {` · ${t(locale, "doc.dated", { date: formatDate(locale, text.dated) })}`}
-                  {` · ${t(locale, (text.standing ? text.standing.status === "draft" : draft) ? "doc.draftVersion" : "doc.version", { version: text.version })}`}
+                  {` · ${t(locale, versionKey(text.standing ? text.standing.status === "draft" : isDraftVersion(text.version)), { version: text.version })}`}
                 </summary>
                 <Fragment set:html={drawFlags(text.html)} />
               </details>

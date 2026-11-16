@@ -29,7 +29,7 @@ export const UI = {
     "legal.description":
       "The association's bylaws, the terms of use of the app, and how personal data is handled.",
     "legal.intro":
-      "The texts that bind the association and the people who use Kuutti. A text is shown in the languages it was written in; a legal text is never translated by a machine.",
+      "The texts that bind the association and the people who use Kumpa. Each is shown in the languages it exists in.",
     "legal.language": "in {language}",
     "legal.draft": "Draft",
     "legal.filed": "Filed for registration",
@@ -46,9 +46,10 @@ export const UI = {
     "notice.machine.title": "Translated by a machine",
     "notice.machine.body":
       "This page has not yet been read by a native speaker. If something reads wrong, the English page is the source.",
-    "consents.title": "The consents asked for in the app",
+    "consents.title": "Separate consents",
     "consents.intro":
-      "Besides the terms of use and this text, the app asks for two consents, each with a yes and a version of its own. Their wording is given here as the app has it, in the languages it is written in.",
+      "Consents given in Kumpa apart from the terms of use and this policy. Each has a version of its own, and its wording is given here as Kumpa shows it.",
+    "consents.notAsked": "Kumpa does not ask for this consent at present.",
     "consents.wording": "The wording {language}:",
     "consents.counts": "The wording {language}, the one that counts:",
     "doc.dated": "Wording of {date}",

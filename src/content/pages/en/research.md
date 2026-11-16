@@ -20,7 +20,7 @@ Every event Kuutti can record for research names the question it answers, in [a 
 
 Research is a separate question in the app, with a separate yes, and without that yes nothing is recorded for it. You can take the yes back in the app at any time; that does not undo what was done before.
 
-An event holds what happened, the hour in which it happened, your age as a band of years, your gender and answers from fixed lists. It never holds anything you wrote yourself, your name, your photos, where you live or whom you seek. The [privacy policy](/legal/privacy/) has all of it, and the wording of the yes, which is still a draft.
+An event holds what happened, the hour in which it happened, your age as a band of years, your gender and answers from fixed lists. It never holds anything you wrote yourself, your name, your photos, where you live or whom you seek. The wording of the yes, which is still a draft, is on the page of the [privacy policy](/legal/privacy/).
 
 ## How people stay anonymous
 
@@ -33,7 +33,7 @@ An event holds what happened, the hour in which it happened, your age as a band 
 
 ## Where it stands
 
-Kuutti is not open to the public yet, so no real person's data has gone to any researcher; the copy is tested with invented people. The privacy policy holds the association to naming a research partner, with what it receives, before any data goes to it.
+Kuutti is not open to the public yet, so no real person's data has gone to any researcher; the copy is tested with invented people. The association has no research partner yet, and until it has one the app does not ask the question. Before any data goes to a partner, the privacy policy names it and what it receives.
 
 ## Working with the association
 

@@ -15,9 +15,9 @@ import { CONSENT_VERSION } from "./lib/consent.ts";
 //                                              it was once a newer one replaced it
 //
 // A page exists in every language of the site (src/i18n/locales.ts). A legal
-// text exists in the languages it was written in by people, and in no other:
-// it is never translated by a machine (the app's rule for its consent texts,
-// and this site's).
+// text exists in the languages it was written in, and in no other: it is
+// never translated by a machine into a language it does not exist in
+// (docs/decisions.md, 29).
 
 /**
  * A version as the app names it, and as an anchor of the page carries it:
@@ -72,8 +72,8 @@ const legal = defineCollection({
     /**
      * The version a person agrees to in the app, by the app's name
      * (consent_version there): every text of a kind the app records carries
-     * it, and the build holds its Finnish body, or a draft's, to the row of
-     * src/consent-versions.ts (kuutti-ry/kuutti-app#208).
+     * it, and the build holds the body of the language that binds to the row
+     * of src/consent-versions.ts (kuutti-ry/kuutti-app#208).
      */
     consent_version: consentVersion.optional(),
     /** The day a text was entered in a public register: the bylaws, in the Register of Associations. */
@@ -97,10 +97,10 @@ const legal = defineCollection({
 });
 
 /**
- * The research opt-in and the sensitive answers: the app asks for each apart,
- * and its wording is read on the privacy page. The body is the wording as the
- * app has it (legal.<kind>.summary in the app's messages.yaml), in the
- * languages it is written in, never translated.
+ * The research opt-in and the sensitive answers: consents apart from the
+ * terms and the privacy policy, whose wording is read on the privacy page.
+ * The body is the wording as the app has it (legal.<kind>.summary in the
+ * app's messages.yaml), in the languages it is written in.
  */
 const consents = defineCollection({
   loader: glob({ pattern: "*/*.md", base: "./src/content/consents" }),
@@ -110,6 +110,14 @@ const consents = defineCollection({
     consent_version: consentVersion,
     /** The day of the wording: when the app's text took this form. */
     dated: z.coerce.date(),
+    /**
+     * Whether this language's wording is the one that counts. Where no
+     * language of a consent says so, its Finnish does, as every version
+     * before 2026-11-1 was pinned (`countedWording` in lib/consent.ts).
+     */
+    binding: z.boolean().default(false),
+    /** False while the app does not ask for the consent: the page says so above the wording. */
+    asked: z.boolean().default(true),
   }),
 });
 
@@ -130,6 +138,7 @@ const earlier = defineCollection({
     dated: z.coerce.date(),
     /** A legal text of its own (the terms, the privacy policy): as its standing was; absent for a consent. */
     status: z.enum(["draft", "filed", "in_force"]).optional(),
+    /** Whether this language bound: a legal text's standing, or a consent's wording that counted. */
     binding: z.boolean().optional(),
   }),
 });

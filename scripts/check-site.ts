@@ -13,7 +13,10 @@
  * - The sitemap names every page search engines may index and no other, and
  *   robots.txt names the sitemap.
  * - /legal/versions.json names every kind of the app's, and each address
- *   leads to a page of the site and to the anchor of its version there.
+ *   leads to a page of the site and to the anchor of its version there. A
+ *   consent read on another text's page says there which of its wordings
+ *   counts: the one in the language this file gives the app. One the app
+ *   does not ask says so there, and no other does.
  * - Every version of src/consent-versions.ts, not only the newest, has its
  *   one anchor on its page: people agreed to it, and the app's builds in their
  *   hands link to it until they are updated.
@@ -23,7 +26,8 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { PINNED } from "../src/consent-versions.ts";
-import { DEFAULT_LOCALE, LOCALES, pathOf } from "../src/i18n/locales.ts";
+import { DEFAULT_LOCALE, isTextLanguage, LOCALES, pathOf } from "../src/i18n/locales.ts";
+import { LANGUAGE_IN, t } from "../src/i18n/ui.ts";
 import { anchorOf, CONSENT_KINDS, isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
 import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
 
@@ -228,6 +232,40 @@ if (typeof versions !== "object" || versions === null) {
     if (!file) problems.push(`/legal/versions.json: ${kind} leads nowhere (${url})`);
     else if (anchor === "" || !new RegExp(`\\sid="${anchor}"`).test(readFileSync(file, "utf8"))) {
       problems.push(`/legal/versions.json: ${kind} names an anchor that is not there (${url})`);
+    } else if (TEXT_OF[kind] !== kind) {
+      // The consent's own part of the page: from its anchor to the next heading.
+      const [, after = ""] = readFileSync(file, "utf8").split(new RegExp(`\\sid="${anchor}"`));
+      const [own = ""] = after.split(/<h[23][\s>]/);
+      const language =
+        typeof entry === "object" && entry !== null && "language" in entry ? entry.language : null;
+      const counts =
+        typeof language === "string" && isTextLanguage(language)
+          ? t(DEFAULT_LOCALE, "consents.counts", {
+              language: LANGUAGE_IN[DEFAULT_LOCALE][language],
+            })
+          : null;
+      const said = t(DEFAULT_LOCALE, "consents.counts").split("{language}").at(-1) ?? "";
+      if (counts === null || !own.includes(counts) || own.split(said).length !== 2) {
+        problems.push(
+          `${pathname}: ${kind} is published as counted in "${String(language)}", and the page does not say that wording, and it alone, is the one that counts`,
+        );
+      }
+      // A consent the app does not ask (`asked: false` in a wording's front
+      // matter) says so in its part of the page, and no other consent does.
+      const consents = join(import.meta.dirname, "..", "src", "content", "consents");
+      const notAsked = readdirSync(consents).some((folder) => {
+        const wording = join(consents, folder, `${kind}.md`);
+        if (!existsSync(wording)) return false;
+        const [, front = ""] = /^---\n([\s\S]*?)\n---\n/.exec(readFileSync(wording, "utf8")) ?? [];
+        return /^asked:\s*false\s*$/m.test(front);
+      });
+      if (own.includes(t(DEFAULT_LOCALE, "consents.notAsked")) !== notAsked) {
+        problems.push(
+          notAsked
+            ? `${pathname}: the app does not ask for ${kind}, and the page does not say so`
+            : `${pathname}: the app asks for ${kind}, and the page says that it does not`,
+        );
+      }
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   byLanguage,
   CONSENT_KINDS,
   type ConsentKind,
+  countedWording,
   isConsentKind,
   TEXT_OF,
   type Wording,
@@ -139,8 +140,9 @@ export async function wordings(): Promise<Wording[]> {
   const consents = (await getCollection("consents")).flatMap((entry): Wording[] => {
     const { language, slug } = writtenIn(entry.id);
     if (!isConsentKind(slug)) throw new Error(`consent "${entry.id}" is not a kind of the app's`);
-    const { consent_version: version, dated, title } = entry.data;
-    return [{ kind: slug, language, version, dated, title, body: bodyOf(entry) }];
+    const { consent_version: version, dated, title, binding } = entry.data;
+    const binds = binding ? { binds: true } : {};
+    return [{ kind: slug, language, version, dated, title, ...binds, body: bodyOf(entry) }];
   });
   return [...texts, ...consents];
 }
@@ -173,13 +175,21 @@ export async function earlierTexts(): Promise<EarlierText[]> {
         throw new Error(`kept text "${entry.id}" says it is ${consent_version}`);
       }
       if (entry.rendered === undefined) throw new Error(`${entry.id} was not rendered`);
+      // A legal text's standing is part of what its row pins; a kept consent
+      // only says whether its wording was the one that counted.
+      const counted =
+        status !== undefined && binding !== undefined
+          ? { standing: { status, binding } }
+          : binding
+            ? { binds: true }
+            : {};
       return {
         kind,
         language,
         version,
         dated,
         title,
-        ...(status !== undefined && binding !== undefined ? { standing: { status, binding } } : {}),
+        ...counted,
         body: bodyOf(entry),
         html: entry.rendered.html,
       };
@@ -190,7 +200,8 @@ export async function earlierTexts(): Promise<EarlierText[]> {
 /**
  * The consents a legal text carries besides its own (the research opt-in and
  * the sensitive answers, on the privacy page), each in every language it is
- * written in, Finnish first, with its version and the day of its wording.
+ * written in, the wording that counts first (`countedWording`), with its
+ * version and the day of its wording, and whether the app asks for it.
  * The title is the reader's language's where the wording has it.
  */
 export async function consentsOn(
@@ -202,7 +213,8 @@ export async function consentsOn(
     title: string;
     version: string;
     dated: Date;
-    wordings: { language: TextLanguage; title: string; html: string }[];
+    asked: boolean;
+    wordings: { language: TextLanguage; title: string; html: string; counts: boolean }[];
   }[]
 > {
   const entries = await getCollection("consents");
@@ -210,20 +222,32 @@ export async function consentsOn(
     const own = byLanguage(
       entries
         .filter((entry) => writtenIn(entry.id).slug === kind)
-        .map((entry) => ({ ...entry, language: writtenIn(entry.id).language })),
+        .map((entry) => ({
+          ...entry,
+          language: writtenIn(entry.id).language,
+          binds: entry.data.binding,
+        })),
     );
-    const first = own[0];
-    if (!first) return [];
-    const named = own.find((entry) => entry.language === locale) ?? first;
+    // Where there is no telling which counts, the build has already failed
+    // (`pinProblems`); the first is then only what this falls back on.
+    const counted = countedWording(own) ?? own[0];
+    if (!counted) return [];
+    const named = own.find((entry) => entry.language === locale) ?? counted;
     return [
       {
         kind,
         title: named.data.title,
-        version: first.data.consent_version,
-        dated: first.data.dated,
-        wordings: own.map((entry) => {
+        version: counted.data.consent_version,
+        dated: counted.data.dated,
+        asked: own.every((entry) => entry.data.asked),
+        wordings: [counted, ...own.filter((entry) => entry !== counted)].map((entry) => {
           if (entry.rendered === undefined) throw new Error(`${entry.id} was not rendered`);
-          return { language: entry.language, title: entry.data.title, html: entry.rendered.html };
+          return {
+            language: entry.language,
+            title: entry.data.title,
+            html: entry.rendered.html,
+            counts: entry === counted,
+          };
         }),
       },
     ];

@@ -1,72 +1,69 @@
 ---
 title: Terms of use
-description: What the association promises the people who use Kuutti, and what they promise the association and each other.
+description: The agreement between Kuutti ry and a person who uses the Kumpa app.
 order: 2
-status: draft
-consent_version: "2026-09-draft-1"
-dated: 2026-10-01
-binding: false
+status: in_force
+consent_version: "2026-11-1"
+dated: 2026-11-16
+binding: true
 ---
 
-The app is not open yet. Before it opens, these terms are written in Finnish, read by a lawyer, and given a version; the Finnish text is then the one that counts.
+## 1. Parties
 
-## 1. What this is
+These terms are an agreement between Kuutti ry (business ID 3659478-7), Tontunmäentie 22 E, 02200 Espoo, Finland ("the association"), and you as a user of the Kumpa app ("Kumpa"). The agreement takes effect when you accept these terms in Kumpa.
 
-Kuutti is a service for meeting people, run by Kuutti ry (business ID 3659478-7), a non-profit association in Espoo, Finland ("the association"). These terms are the agreement between you and the association about your use of it.
+## 2. The service
 
-## 2. What the association promises
+Kumpa is a service through which adults in Finland can meet each other. It is free of charge. The association may change the service or end it.
 
-- Kuutti is free. There is nothing to buy in it, and no paid way to be seen more than somebody else.
-- Kuutti shows no advertising.
-- Your data is not sold and is not handed over for commercial purposes. What is kept, and why, is in the [privacy policy](/legal/privacy/).
-- The source code of the service is public.
+## 3. Eligibility
 
-## 3. Who can use Kuutti
+You must be at least 18 years old and identify yourself with a Finnish means of strong electronic identification. You may have one account, and only you may use it.
 
-- You are at least 18 years old.
-- You identify yourself with a Finnish bank's identification. Kuutti is meant for people who live in Finland.
-- You have one account. It is yours alone: you do not let anybody else use it, and you do not make one for anybody else.
+## 4. Your obligations
 
-## 4. What you promise
+You must:
 
-- What you tell about yourself is true.
-- Your photos are of you. You upload no photo of somebody else without them, and none that you have no right to use.
-- You treat the people you meet with respect. You do not threaten, harass, or pressure anybody, and you do not ask anybody for money.
-- You write no address, phone number or user name of another service into your profile.
-- You do not copy, store or pass on other people's photos or profiles, by hand or by machine, and you take no screenshots of them to show elsewhere.
-- You use Kuutti yourself, through the app. You do not use it with a program of your own, and you do not use it to sell or advertise anything.
-- You are not looking for people under 18.
+- give true information about yourself;
+- upload only photos that show you and that you have the right to use;
+- use Kumpa only through the app, not by automated means and not for a commercial purpose.
+
+You must not:
+
+- threaten, harass or pressure anyone, or ask anyone for money;
+- put an address, a telephone number or a user name of another service in your profile;
+- copy, store or pass on another user's photos or profile, by screenshot or by any other means;
+- seek contact with anyone under 18;
+- publish or send content that is unlawful or infringes another person's rights.
 
 ## 5. Your content
 
-What you write and the photos you upload stay yours. You give the association the right to keep them and to show them to other people who use Kuutti, for as long as they are in the service, and for nothing else. The right ends when you delete the content or your account.
+You keep the rights to the texts and photos you put in Kumpa. You grant the association the right to store them and to show them to other users, solely to provide the service and for as long as they are in Kumpa.
 
-Photos are checked before they are shown to anybody. A photo can be rejected; you are told why, and you can upload another.
+## 6. Moderation
 
-## 6. If something is wrong
+Photos are checked by automated means before they are shown to other users and when they are sent in a conversation. A profile photo can be rejected automatically or by a moderator, and you are shown the reason. You can ask a moderator to review an automatic rejection, except where nudity has been identified with very high confidence. A photo sent in a conversation is not delivered if the check rejects it.
 
-You can report a person or a photo in the app. Moderators are volunteers of the association; they see what was reported and what they need to decide, and what they do is recorded.
+Automated rules can limit, without notice, what other users see of an account until a moderator has reviewed it.
 
-## 7. Closing an account
+Moderators review the reports that users make. If you breach these terms, the association may remove content, give you a warning, limit what other users see of your account, suspend your account for a fixed period or close it permanently. A person whose account has been closed permanently may not open a new one.
 
-The association can remove content, suspend an account or close it when these terms are broken. A ban concerns the person, not the account: somebody who was banned cannot make a new account.
+## 7. Term and termination
 
-You are told when that happens, and why. How a decision is appealed is added here before the app opens.
+You can end this agreement at any time by deleting your account. A new account can be opened 30 days after the deletion at the earliest. The agreement also ends if the association closes your account permanently or ends the service.
 
-You can delete your account at any time, in the app. A new account is possible 30 days after the deletion. See [Deleting your account](/delete-account/).
+## 8. Liability
 
-## 8. What the association does not promise
+Kumpa is provided as it is, with no warranty of availability or of any result. The association is not responsible for what users publish, send or do. The association is liable for damage only if it has caused the damage intentionally or through gross negligence. Nothing in these terms limits the rights you have under mandatory law.
 
-Kuutti is made by volunteers and offered as it is. The association does its best to keep it working and safe, and it cannot promise that it always works, that you meet somebody, or that everybody you meet is who you hoped for. Every account belongs to an identified adult; what that person says about themselves is theirs to answer for.
+## 9. Personal data
 
-When you meet somebody, take the care you would take with any stranger.
+The association processes personal data as described in the [privacy policy](/legal/privacy/).
 
-Nothing in these terms takes away a right that the law gives you as a consumer.
+## 10. Changes
 
-## 9. Changes
+Each version of these terms has an identifier and a date. A new version applies to you once you have accepted it in Kumpa, and continued use of Kumpa requires that acceptance.
 
-Every wording of these terms has a version and a date. When the terms change, the app shows you the new text and asks whether you agree. If you do not, you can delete your account.
+## 11. Governing law and disputes
 
-## 10. Law and disputes
-
-Finnish law applies to these terms. If you and the association disagree and cannot settle it, you can take the matter to the Consumer Disputes Board, [kuluttajariita.fi](https://www.kuluttajariita.fi/en/), or to the district court of your home.
+Finnish law applies to this agreement. Disputes are resolved by the District Court of Länsi-Uusimaa, unless mandatory law gives you the right to bring the matter before another court.
