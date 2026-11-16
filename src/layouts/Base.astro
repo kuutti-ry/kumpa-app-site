@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import { DEFAULT_LOCALE, type Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
+import { hasSaiga } from "../lib/saiga.ts";
 
 interface Props {
   locale: Locale;
@@ -27,6 +28,9 @@ const own = alternates[locale];
 // fingerprint of the file and changes with it (src/lib/fingerprint.ts).
 const icon = fingerprinted("/favicon.png");
 const shareImage = new URL(fingerprinted("/kuutti.png"), site).href;
+// Saiga on every page, where the build has its files (docs/decisions.md, 18
+// and 28): they are never in the repository, and without them a page stays in Inter.
+const saiga = hasSaiga();
 ---
 
 <!doctype html>
@@ -52,6 +56,7 @@ const shareImage = new URL(fingerprinted("/kuutti.png"), site).href;
         />
       )
     }
+    {saiga && <link rel="stylesheet" href="/fonts/saiga.css" />}
     <link rel="icon" type="image/png" href={icon} />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={heading} />

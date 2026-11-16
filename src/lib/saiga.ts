@@ -1,3 +1,6 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
 /**
  * Saiga, Kuutti's typeface, by Spoke Type, licensed to Kuutti ry by e-mail on
  * 20-21/10/2026 for Kuutti's own media, the website among them
@@ -19,9 +22,10 @@ export const SAIGA_SOURCE = {
 } as const;
 
 /**
- * The weights Gaiane's structure used (decisions 16 and 27), each with the
- * SHA-256 of the file Spoke delivered (Saiga 1.002). Saiga has no 600: the
- * headings' 650 is drawn in Bold.
+ * The faces the site's pages may ask for, each with the SHA-256 of the file
+ * Spoke delivered (Saiga 1.002). The headings and the header are drawn in
+ * two of them today (docs/decisions.md, 28): Regular for the navigation, and
+ * Bold for the headings, since Saiga has no 600 and their 650 is drawn in Bold.
  */
 export const SAIGA_FILES = [
   {
@@ -49,3 +53,12 @@ export const SAIGA_FILES = [
     sha256: "c072666c13379a24c24b1350d921626f92334d6d04c2e572a125e8f908ea4951",
   },
 ] as const;
+
+/**
+ * Whether a build has Saiga: every file, where a page would ask for it. With
+ * one missing the pages stay in Inter, never half in each. The layout links
+ * Saiga's style sheet by this, and `pnpm check:site` holds the built pages to
+ * the same (docs/decisions.md, 28).
+ */
+export const hasSaiga = (root: string = process.cwd()): boolean =>
+  SAIGA_FILES.every(({ file }) => existsSync(join(root, SAIGA_DIR, file)));

@@ -17,12 +17,15 @@
  * - Every version of src/consent-versions.ts, not only the newest, has its
  *   one anchor on its page: people agreed to it, and the app's builds in their
  *   hands link to it until they are updated.
+ * - Saiga's style sheet is linked on every page of a build that has Saiga's
+ *   files, and on no page of a build that has not (docs/decisions.md, 28).
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { PINNED } from "../src/consent-versions.ts";
 import { DEFAULT_LOCALE, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { anchorOf, CONSENT_KINDS, isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
+import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
 if (!existsSync(dist)) {
@@ -49,6 +52,12 @@ const fileOf = (address: string): string | null => {
 
 const attribute = (tag: string, name: string) =>
   new RegExp(`\\s${name}="([^"]*)"`, "i").exec(tag)?.[1];
+
+// Saiga is in a build with every one of its files, as a page's layout reads
+// it (hasSaiga in src/lib/saiga.ts): Amplify's build fetches them, CI's does not.
+const saiga = SAIGA_FILES.every(
+  ({ file }) => fileOf(`${SAIGA_DIR.replace(/^public/, "")}/${file}`) !== null,
+);
 
 for (const path of pages) {
   const page = `/${relative(dist, path)}`;
@@ -80,6 +89,22 @@ for (const path of pages) {
     else if (address.startsWith("/") && !existsSync(join(dist, address.split(/[?#]/)[0] ?? ""))) {
       problems.push(`${page}: ${address} is not in the site`);
     }
+  }
+
+  // Saiga on every page or on none (docs/decisions.md, 28): a build that has
+  // the files and a page without the style sheet has lost its typeface
+  // unseen, and a page that asks for it without the files draws nothing from it.
+  const linked = [...html.matchAll(/<link\b[^>]*>/gi)].some(
+    ([tag]) =>
+      attribute(tag, "rel") === "stylesheet" && attribute(tag, "href") === "/fonts/saiga.css",
+  );
+  if (saiga && !linked) {
+    problems.push(
+      `${page}: the build has Saiga's files, and the page does not link /fonts/saiga.css`,
+    );
+  }
+  if (!saiga && linked) {
+    problems.push(`${page}: links /fonts/saiga.css, and the build has not every file of Saiga`);
   }
 
   // The share image, which a messenger fetches for a link's preview: a file of the site.
@@ -234,5 +259,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, and every pinned version has its anchor`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
 );

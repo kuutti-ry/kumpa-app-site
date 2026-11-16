@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { SAIGA_FILES, SAIGA_SOURCE } from "../src/lib/saiga.ts";
+import { hasSaiga, SAIGA_DIR, SAIGA_FILES, SAIGA_SOURCE } from "../src/lib/saiga.ts";
 import { fontProblem } from "./check-fonts.ts";
 import { fetchSaiga } from "./saiga.ts";
 
@@ -92,6 +93,65 @@ test("the style sheet names every file of SAIGA_FILES, with its weight and style
     faces,
     SAIGA_FILES.map(({ file, weight, style }) => ({ file, weight, style })),
   );
+});
+
+test("a build has Saiga with every file where a page asks for it, and not with one missing", () => {
+  const names = SAIGA_FILES.map(({ file }) => file);
+  const roots: string[] = [];
+  /** A site's root of the test's own: empty files under these names, never a byte of the typeface. */
+  const root = (files: readonly string[] | null) => {
+    const dir = mkdtempSync(join(tmpdir(), "saiga-"));
+    roots.push(dir);
+    if (files === null) return dir;
+    mkdirSync(join(dir, SAIGA_DIR), { recursive: true });
+    for (const file of files) writeFileSync(join(dir, SAIGA_DIR, file), "");
+    return dir;
+  };
+  try {
+    assert.equal(hasSaiga(root(names)), true);
+    assert.equal(hasSaiga(root([...names, "Saiga-Light.woff2"])), true, "one more than is asked");
+    for (const missing of names) {
+      const rest = names.filter((name) => name !== missing);
+      assert.equal(hasSaiga(root(rest)), false, `without ${missing}`);
+    }
+    assert.equal(hasSaiga(root(["Saiga-Light.woff2"])), false, "a file of another name");
+    assert.equal(hasSaiga(root([])), false, "an empty folder");
+    assert.equal(hasSaiga(root(null)), false, "no folder");
+    // With no root named, the folder the build runs in: what the layout asks.
+    const here = process.cwd();
+    try {
+      process.chdir(root(names));
+      assert.equal(hasSaiga(), true, "where the build runs");
+      process.chdir(root([]));
+      assert.equal(hasSaiga(), false, "where the build runs, without the files");
+    } finally {
+      process.chdir(here);
+    }
+  } finally {
+    for (const dir of roots) rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("what is drawn in Saiga reads the one value Saiga's style sheet sets, so a build without the files asks for none", () => {
+  const read = (...path: string[]) =>
+    readFileSync(join(import.meta.dirname, "..", ...path), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+  const rules = (css: string, word: string) =>
+    [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+      .filter(([, , body = ""]) => body.includes(word))
+      .map(([, selectors = "", body = ""]) => [
+        selectors.split(",").map((selector) => selector.trim()),
+        body.trim(),
+      ]);
+  // Saiga first, then the site's own stack: Inter stays behind it.
+  assert.deepEqual(rules(read("public", "fonts", "saiga.css"), "--display"), [
+    [[":root"], "--display: Saiga, var(--font);"],
+  ]);
+  // The headings and the header (docs/decisions.md, 28), in the site's own stack where nothing sets the value.
+  const site = read("src", "styles", "global.css");
+  assert.deepEqual(rules(site, "--display"), [
+    [["h1", "h2", "h3", "h4", ".site-header"], "font-family: var(--display, var(--font));"],
+  ]);
+  assert.doesNotMatch(site, /saiga/i, "the site's own style sheet asks for no file of Saiga");
 });
 
 test("no font but Inter's may be committed, whatever its name", () => {
