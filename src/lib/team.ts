@@ -100,7 +100,7 @@ export const TEAM: readonly Person[] = [
   {
     name: "Sini",
     roles: ["CX Lead"],
-    photo: null,
+    photo: "/team/sini.jpg",
     linkedin: "https://www.linkedin.com/in/sini-parkkinen-100/",
     email: "sini@kuutti.app",
   },
