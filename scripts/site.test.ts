@@ -102,10 +102,12 @@ test("the content security policy lets nothing run but the files of SCRIPTED, ea
     }),
   );
   assert.deepEqual(directives.get("default-src"), ["'none'"]);
+  // The site answers at kuutti.app, its home, and at kumpa.fi
+  // (docs/decisions.md, 26); a source with a path names one host.
   assert.deepEqual(
     directives.get("script-src")?.toSorted(),
-    Object.values(SCRIPTED)
-      .map((file) => `https://kuutti.app${file}`)
+    ["https://kuutti.app", "https://kumpa.fi"]
+      .flatMap((origin) => Object.values(SCRIPTED).map((file) => `${origin}${file}`))
       .toSorted(),
   );
   for (const [page, file] of Object.entries(SCRIPTED)) {

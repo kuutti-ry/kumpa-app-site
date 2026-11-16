@@ -214,3 +214,11 @@ The maintainer's word of 15/11/2026: show the people of Kuutti on "About Us", ea
 - **The marks.** LinkedIn's and GitHub's are the footer's (Simple Icons, CC0); the envelope is drawn here. Each is a 44 px target with words for a screen reader ("Olli on LinkedIn", "E-mail Olli"), and only the ways a person has are drawn.
 - **Their own addresses.** Nikolai, Olli, Gaiane, Hilal, Ilya, Nanna and Sini have mailboxes at the association's Google Workspace: users and not aliases, on his word, so Google for Nonprofits' rule of 22 holds. They are on "About Us", in the team; `hello@kuutti.app` stays the association's address everywhere else. This sets aside 22's "one address".
 - **Three to a line** at most, two on a 320 px screen, and one at large text there.
+
+## 26. The same site at kumpa.fi (2026-11-16)
+
+The maintainer's word of 16/11/2026: the site is served at `kumpa.fi` too, the same pages from the same build, and `kuutti.app` stays its home.
+
+- **One home.** Canonical links, the sitemap, `robots.txt` and `/legal/versions.json` keep naming `kuutti.app` (`site` in `astro.config.ts`), so a search engine counts each page once and the app's check reads what it read before. Nothing on the site names `kumpa.fi`.
+- **The policy names the pond's file at each address.** A source with a path names one host, so `script-src` is `https://kuutti.app/ga/pond/pond.js https://kumpa.fi/ga/pond/pond.js`: the file is still named in full (rule 1), once per address, which sets aside 17's single source. A test holds the policy to `SCRIPTED` at both. With the one source, the pond would not have run at `kumpa.fi`.
+- **Not decided here.** What the second address is for, and whether the home ever moves to it, is the maintainer's.
