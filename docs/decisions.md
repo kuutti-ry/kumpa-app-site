@@ -113,6 +113,8 @@ The anchor of a version is on the line that names it (the text's own) or on the 
 
 **The wording that says it binds is the one pinned** (2026-11-16, decision 29). From `2026-11-1` the English of the terms, the privacy policy and the sensitive answers is the text that counts. A consent's wording says so as a legal text does, with `binding: true`, and the fingerprint, the row and `versions.json` follow that wording; a kept consent's anchor is on the wording that counted in its day. Where no wording of a kind says so, the Finnish counts, which is how every earlier row was pinned, so none of them moved. The app's check compares its own text in the language `versions.json` names. For these three kinds this sets aside "Its Finnish text is the one that binds" above; the research opt-in is still pinned to its Finnish.
 
+**The earlier versions on a page of their own, and the file at kumpa.fi** (2026-11-17, decision 32). The kept versions moved from their text's page to `/legal/earlier/`, under the same anchors, and `pnpm check:site` wants each row's anchor once: a kind's newest on its text's page, every one before it on that page. The build writes `https://kumpa.fi/legal/versions.json`. The rest of this decision stands.
+
 ## 15. The association as the register has it, and a home page that says what Kuutti is (2026-10-23)
 
 Google for Nonprofits could not confirm that kuutti.app is Kuutti ry's (23/10/2026). What it asks of a nonprofit's site: that it is not mainly placeholder content ("Coming Soon", "Under Construction"), and that it shows the details the organisation registered with, such as its charity ID, a physical street address and a clear statement of its mission. The maintainer's word the same day: add what Google wants; the address is in the register for whoever looks, so it is no secret. That sets 12 aside, and 8 in part.
@@ -227,6 +229,8 @@ The maintainer's word of 16/11/2026: the site is served at `kumpa.fi` too, the s
 - **One policy.** The content security policy names no host (27 took out the one source that did), so it is the same at both addresses.
 - **Not decided here.** What the second address is for, and whether the home ever moves to it, is the maintainer's.
 
+**The home moved** (2026-11-17, decision 32): `kumpa.fi` is the home, and `kuutti.app` serves the same pages.
+
 ## 27. Gaiane's structure and the pond demo are removed (2026-11-16)
 
 The maintainer's word of 16/11/2026: "wipe any /ga stuff". Everything of `/ga/` is gone from the site: its six pages (16), the pond demo and its script (17), the download page with its QR code and the stores' dimmed badges (13), and what existed only for them (the reuse of a page's part by `@reuse`, the arrow on a link that leaves the site, their words and styles, their checks and tests). This sets aside 13's download page, 16 and 17; their records above stay as what was decided then.
@@ -282,3 +286,12 @@ The maintainer's word of 16/11/2026, in a session (kuutti-ry/kumpa-app#208): "re
 - **No notice for a consent that is not asked.** It existed for the research opt-in alone, so `asked` in a consent's front matter goes, and with it its line on the privacy page, its guard in `pnpm check:site` and the words `consents.notAsked`.
 - **What stays.** The association's purpose stays, in the bylaws and on "About Us", "Our work" and "Support us", where a researcher who wants to work with the association is asked to write. So do the earlier drafts of the privacy policy, which describe research as it was proposed then (14).
 - **The order.** The app went first: its check of `versions.json` lets the site publish the research kind until this deploys (`RETIRED_KINDS` there, to be removed after). `pnpm check:app-versions` passes here only once the app's `main` has no research kind, so this merges after the app's change.
+
+## 32. The earlier versions on a page of their own, and the site's home at kumpa.fi (2026-11-17)
+
+The maintainer's word of 17/11/2026, in a session (kuutti-ry/kumpa-app#208 and #190), as the app is prepared for Apple's and Google's review: the texts in force are to read as in force, with no draft on their pages; the earlier versions go to a page of their own that keeps their anchors. Then "latest home of the doc is: https://kumpa.fi/legal/", for the whole site. It sets aside 14's "The earlier versions stay on the page" and 26's "`kuutti.app` stays its home".
+
+- **A page of earlier versions.** `/legal/earlier/` shows, per text, each kept version, newest first, closed until opened, with the version's anchor on it, and a link to the version in force. The terms' and the privacy policy's pages show the text in force and nothing kept. The legal shelf links the page; it is out of the sitemap and not indexed, like a draft. Nothing kept is removed, no row of `src/consent-versions.ts` changes, and `earlierProblems` holds the kept texts as before.
+- **An anchor in one place.** `pnpm check:site` wants every row's anchor exactly once: a kind's newest version on its text's page, where `versions.json` sends the app, and every one before it on `/legal/earlier/`. A build of the app that still links an earlier version's anchor on the text's page lands at the top of the text in force; only the association's testers have such builds, and only they agreed to an earlier version.
+- **kumpa.fi is the home.** `site` in `astro.config.ts` is `https://kumpa.fi`: canonical links, the sitemap, `robots.txt` and `/legal/versions.json` name it, and "About Us" calls it the official website. `pnpm check:site` refuses a sitemap address at any other origin. `kuutti.app` keeps serving the same build, so a link to it still lands; the association's e-mail addresses are unchanged.
+- **The order.** The site goes first. Once it is deployed, the addresses in `versions.json` are at `kumpa.fi`, and the app's check, which builds its own from `kuutti.app`, fails until the app's pull request follows (kuutti-ry/kumpa-app#208), so the two are opened together and merged one after the other.

@@ -8,7 +8,7 @@ nav: 1
 
 That is the purpose in section 2 of the association's [bylaws](/legal/bylaws/), which are public, in Finnish. In their words, it is to promote safe, free and equal opportunities for everyone to meet other people and form relationships in Finland; to reduce loneliness; to support research into relationships and loneliness; and to keep an open community in which volunteers develop the service.
 
-Kuutti ry is a registered non-profit association in Espoo, Finland. It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kuutti.app, is its official website.
+Kuutti ry is a registered non-profit association in Espoo, Finland. It was founded on 1 October 2026 and entered in the Register of Associations on 6 October 2026. This site, kumpa.fi, is its official website.
 
 ## What it does
 

@@ -42,6 +42,13 @@ export const CONSENT_VERSION = /^(?=[0-9a-z.-]*[a-z.-])[0-9a-z][0-9a-z.-]*$/;
 export const anchorOf = (kind: ConsentKind, version: string): string => `${kind}-${version}`;
 
 /**
+ * The page of the earlier versions (docs/decisions.md, 32): each kind's newest
+ * version is on its text's own page and every one before it here, under its
+ * anchor, so a text in force is read alone.
+ */
+export const EARLIER = "legal/earlier";
+
+/**
  * Whether a version is a draft's, by its name, as the app's release check
  * reads it (`isDraftLegal` there): a consent has no status of its own, and
  * its page may be in force while the consent is not.

@@ -5,7 +5,7 @@ import { DEFAULT_LOCALE, LOCALES } from "./src/i18n/locales.ts";
 // runs in the browser. The default language has no prefix, any other lives
 // under its code; for now there is English only (docs/decisions.md, 8).
 export default defineConfig({
-  site: "https://kuutti.app",
+  site: "https://kumpa.fi",
   output: "static",
   trailingSlash: "always",
   // The stylesheet is a file of its own, never inline: the site's content

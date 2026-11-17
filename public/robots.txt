@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kuutti.app/sitemap.xml
+Sitemap: https://kumpa.fi/sitemap.xml
