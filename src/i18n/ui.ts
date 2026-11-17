@@ -29,7 +29,7 @@ export const UI = {
     "legal.description":
       "The association's bylaws, the terms of use of the app, and how personal data is handled.",
     "legal.intro":
-      "The texts that bind the association and the people who use Kumpa. Each is shown in the languages it exists in.",
+      "The texts that bind the association and the people who use Kumpa, and how we assessed the risks to their privacy. Each is shown in the languages it exists in.",
     "legal.language": "in {language}",
     "legal.draft": "Draft",
     "legal.filed": "Filed for registration",
