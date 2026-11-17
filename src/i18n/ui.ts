@@ -56,8 +56,11 @@ export const UI = {
     "doc.draftVersion": "Draft version {version}",
     "doc.registered": "Registered {date}",
     "earlier.title": "Earlier versions",
+    "earlier.description":
+      "The versions of the terms of use, the privacy policy and the consents that came before the ones in force.",
     "earlier.intro":
       "Whoever agreed to an earlier version in the app agreed to its text as it stood then. Each is kept here, as it was, under its version.",
+    "earlier.current": "{title}: the version in force",
     "doc.businessId": "Business ID {businessId}",
     "footer.address": "Kuutti ry, {address}, Finland.",
     "footer.businessId": "Business ID {businessId}.",

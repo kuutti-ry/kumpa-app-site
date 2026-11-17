@@ -44,23 +44,25 @@ Drafting it in September and October 2026 meant reading what the app keeps. Thes
 8. **What Telia keeps, and where**, is an open question to Telia. **What the app's update check tells Expo, and where**, is not in the repository.
 9. **An error's message can quote what was typed**, and goes to the error service as it is.
 10. **No procedure for a personal data breach** was found (72 hours to the ombudsman), and **no way to appeal a ban**. The terms in force promise neither.
-11. A **data protection impact assessment** before the first real person, as the founding notes plan.
+11. A **data protection impact assessment** before the first real person, as the founding notes plan. 17/11/2026: drafted by an agent from the app's repository, as a document in the maintainer's Drive; dating it and reading it as its reviewer are his (kuutti-ry/kumpa-app#190).
 
 ## What the texts of 16/11/2026 found
 
 Writing the texts that are in force meant reading the app's code and infrastructure again (the app's commit 935dc8b7). The texts say what is so, or what is decided. These are the places where the code or the association does not do it yet, and what no text can settle. They are the maintainer's, and most belong to the app's repository.
 
-1. **The log of staff actions is kept for good by the code.** The policy says 5 years, the decided period; nothing deletes a row, and a trigger refuses it. No row is five years old before 2031.
-2. **Copies of the database beyond the 35 days.** The policy says that backup copies are kept for 35 days. A snapshot taken by hand before a release's migration has no stated end, and production keeps a last snapshot if the database is ever deleted.
-3. **An e-mail address that bounced** stays on the mail service's suppression list with no end. The policy says so: "for as long as the service is provided".
-4. **This website's access log** is kept by Amplify Hosting until the app there is deleted. The policy says so in its own words.
-5. **Error reports: "no longer than 90 days".** Sentry keeps them for 30 or 90 days by plan, and the association's plan is written down nowhere.
-6. **Expo.** No data processing agreement with Expo was found. Its privacy policy names the Data Privacy Framework and standard contractual clauses, which the policy's paragraph on transfers relies on. Production sends no notification yet. Apple's and Google's terms for transfers were not read.
-7. **A limit on what others see is applied without telling the person, and a suspension or a closure comes with no statement of reasons and no appeal.** The terms and the policy say the first openly. If the Digital Services Act applies to a free service of an association, its Article 17 asks every host for a statement of reasons to the person. Articles 20 and 27 (a complaint system, the main parameters of the order people are shown in) do not bind a micro or small enterprise (Article 19).
-8. **Photos sent in a conversation are checked by a machine.** Whether that fits the confidentiality of communications was not assessed.
-9. **Answers that a strict reading could count as special categories**, outside the consent: the label a person gives a non-binary gender, monogamy, and smoking, drinking and the attitude to drugs.
-10. **Whether the server's proxy logs network addresses** is not known; the app's runbook for disclosures leaves it open. The policy names the network address among the data either way.
-11. **The earlier drafts stay on the pages**, folded, because every published version is kept (decision 14). Nobody but the association's own testers agreed to one. Dropping them means removing rows from `src/consent-versions.ts`, which `pnpm check:pinned` refuses today.
+The maintainer's dispositions of 17/11/2026 (kuutti-ry/kumpa-app#190) follow each item. None changes a text: `2026-11-1` stands.
+
+1. **The log of staff actions is kept for good by the code.** The policy says 5 years, the decided period; nothing deletes a row, and a trigger refuses it. No row is five years old before 2031. **17/11/2026:** stands until then; the app's trigger carries a `shortcut:` note naming 2031, and the deletion is kuutti-ry/kumpa-app#714.
+2. **Copies of the database beyond the 35 days.** The policy says that backup copies are kept for 35 days. A snapshot taken by hand before a release's migration has no stated end, and production keeps a last snapshot if the database is ever deleted. **17/11/2026:** the app's runbooks say that a snapshot taken by hand, and the last one of a deleted database, is deleted within 35 days.
+3. **An e-mail address that bounced** stays on the mail service's suppression list with no end. The policy says so: "for as long as the service is provided". **17/11/2026:** stands; the policy says so.
+4. **This website's access log** is kept by Amplify Hosting until the app there is deleted. The policy says so in its own words. **17/11/2026:** stands; the policy says so.
+5. **Error reports: "no longer than 90 days".** Sentry keeps them for 30 or 90 days by plan, and the association's plan is written down nowhere. **17/11/2026:** true on either plan; the app's docs name the plan.
+6. **Expo.** No data processing agreement with Expo was found. Its privacy policy names the Data Privacy Framework and standard contractual clauses, which the policy's paragraph on transfers relies on. Production sends no notification yet. Apple's and Google's terms for transfers were not read. **17/11/2026:** a request for Expo's agreement is drafted in the maintainer's mailbox; sending it is his.
+7. **A limit on what others see is applied without telling the person, and a suspension or a closure comes with no statement of reasons and no appeal.** The terms and the policy say the first openly. If the Digital Services Act applies to a free service of an association, its Article 17 asks every host for a statement of reasons to the person. Articles 20 and 27 (a complaint system, the main parameters of the order people are shown in) do not bind a micro or small enterprise (Article 19). **17/11/2026:** kuutti-ry/kumpa-app#715: whether it applies and, if it does, the reason and how to contest it.
+8. **Photos sent in a conversation are checked by a machine.** Whether that fits the confidentiality of communications was not assessed. **17/11/2026:** stands; the impact assessment (item 11 above) weighs it.
+9. **Answers that a strict reading could count as special categories**, outside the consent: the label a person gives a non-binary gender, monogamy, and smoking, drinking and the attitude to drugs. **17/11/2026:** stand outside the consent; the impact assessment gives the reading.
+10. **Whether the server's proxy logs network addresses** is not known; the app's runbook for disclosures leaves it open. The policy names the network address among the data either way. **17/11/2026:** stands.
+11. **The earlier drafts stayed on the pages**, folded, because every published version is kept (decision 14). Nobody but the association's own testers agreed to one. Settled 17/11/2026 (decision 32): they are on `/legal/earlier/`, under their anchors, and no row is removed.
 12. **The name.** Settled since: the rest of the site and the app's own texts say Kumpa too (decision 30, kuutti-ry/kumpa-app#700). Left: the name under the app's icon and in the stores, which follows at the app's next native build.
 
 ## About the site itself

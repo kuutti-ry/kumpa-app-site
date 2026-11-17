@@ -3,7 +3,7 @@ import { PINNED } from "../../consent-versions.ts";
 import { earlierProblems, versionsDocument } from "../../lib/consent.ts";
 import { earlierTexts, wordings } from "../../lib/content.ts";
 
-const ORIGIN = new URL(import.meta.env.SITE ?? "https://kuutti.app");
+const ORIGIN = new URL(import.meta.env.SITE ?? "https://kumpa.fi");
 
 // The version of each text a person agrees to in the app, with the
 // fingerprint of the text, where it is read and the day of its wording

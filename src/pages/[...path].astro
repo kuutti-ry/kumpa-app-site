@@ -6,6 +6,7 @@ import Base from "../layouts/Base.astro";
 import {
   anchorOf,
   countedWording,
+  EARLIER,
   isConsentKind,
   isDraftVersion,
   TEXT_OF,
@@ -85,9 +86,11 @@ const head =
     ? { title: t(locale, "home.title"), description: t(locale, "home.description") }
     : view.kind === "shelf"
       ? { title: t(locale, "legal.title"), description: t(locale, "legal.description") }
-      : view.kind === "page"
-        ? { title: view.page.data.title, description: view.page.data.description }
-        : { title: view.text.data.title, description: view.text.data.description };
+      : view.kind === "earlier"
+        ? { title: t(locale, "earlier.title"), description: t(locale, "earlier.description") }
+        : view.kind === "page"
+          ? { title: view.page.data.title, description: view.page.data.description }
+          : { title: view.text.data.title, description: view.text.data.description };
 const draft = view.kind === "text" && view.text.data.status === "draft";
 const filed = view.kind === "text" && view.text.data.status === "filed";
 // A legal text is read in the language it was written in, whatever the site speaks.
@@ -104,14 +107,19 @@ const consents = view.kind === "text" ? await consentsOn(locale, textSlug) : [];
 // says so: of the text by its status, and of a consent by its version's name,
 // since a consent may still be a draft on a page that is in force.
 const versionKey = (isDraft: boolean) => (isDraft ? "doc.draftVersion" : "doc.version");
-// The versions people agreed to before the newest, of this text and of the
+// The versions people agreed to before the newest, of each text and of the
 // consents it carries, each kept as it was under its own anchor, newest first
-// (docs/decisions.md, 14). Closed until opened: the app's link to one lands
-// on its line.
-const earlier =
-  view.kind === "text"
-    ? (await earlierTexts()).filter((text) => TEXT_OF[text.kind] === textSlug)
-    : [];
+// (docs/decisions.md, 14). They are on a page of their own, so that a text in
+// force is read alone (32), grouped by the text they came before and closed
+// until opened: a link to one lands on its line.
+const earlier = view.kind === "earlier" ? await earlierTexts() : [];
+const earlierOf = shelf
+  .map((text) => ({
+    ...text,
+    href: pathOf(locale, `${LEGAL}/${text.slug}`),
+    kept: earlier.filter((kept) => TEXT_OF[kept.kind] === text.slug),
+  }))
+  .filter((text) => text.kept.length > 0);
 // A consent is kept in each language it is written in, and a version has one
 // anchor: on the one of them that counted.
 const holdsAnchor = (text: (typeof earlier)[number]) => {
@@ -128,7 +136,7 @@ const holdsAnchor = (text: (typeof earlier)[number]) => {
   title={head.title}
   description={head.description}
   alternates={alternates}
-  noindex={draft}
+  noindex={draft || view.kind === "earlier"}
 >
   {
     view.kind === "home" && (
@@ -225,6 +233,40 @@ const holdsAnchor = (text: (typeof earlier)[number]) => {
             </li>
           ))}
         </ul>
+        <p>
+          <a href={pathOf(locale, EARLIER)}>{t(locale, "earlier.title")}</a>:{" "}
+          {t(locale, "earlier.description")}
+        </p>
+      </section>
+    )
+  }
+
+  {
+    view.kind === "earlier" && (
+      <section class="prose">
+        <h1>{t(locale, "earlier.title")}</h1>
+        <p class="lead">{t(locale, "earlier.intro")}</p>
+        {earlierOf.map((text) => (
+          <>
+            <h2 id={text.slug}>{text.title}</h2>
+            <p>
+              <a href={text.href}>{t(locale, "earlier.current", { title: text.title })}</a>
+            </p>
+            {text.kept.map((kept) => (
+              <details
+                id={holdsAnchor(kept) ? anchorOf(kept.kind, kept.version) : undefined}
+                lang={kept.language === locale ? undefined : kept.language}
+              >
+                <summary>
+                  {kept.title}
+                  {` · ${t(locale, "doc.dated", { date: formatDate(locale, kept.dated) })}`}
+                  {` · ${t(locale, versionKey(kept.standing ? kept.standing.status === "draft" : isDraftVersion(kept.version)), { version: kept.version })}`}
+                </summary>
+                <Fragment set:html={drawFlags(kept.html)} />
+              </details>
+            ))}
+          </>
+        ))}
       </section>
     )
   }
@@ -281,25 +323,6 @@ const holdsAnchor = (text: (typeof earlier)[number]) => {
                   </>
                 ))}
               </>
-            ))}
-          </>
-        )}
-        {earlier.length > 0 && (
-          <>
-            <h2>{t(locale, "earlier.title")}</h2>
-            <p>{t(locale, "earlier.intro")}</p>
-            {earlier.map((text) => (
-              <details
-                id={holdsAnchor(text) ? anchorOf(text.kind, text.version) : undefined}
-                lang={text.language === textLanguage ? undefined : text.language}
-              >
-                <summary>
-                  {text.title}
-                  {` · ${t(locale, "doc.dated", { date: formatDate(locale, text.dated) })}`}
-                  {` · ${t(locale, versionKey(text.standing ? text.standing.status === "draft" : isDraftVersion(text.version)), { version: text.version })}`}
-                </summary>
-                <Fragment set:html={drawFlags(text.html)} />
-              </details>
             ))}
           </>
         )}

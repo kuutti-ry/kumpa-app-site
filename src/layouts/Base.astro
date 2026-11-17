@@ -18,7 +18,7 @@ interface Props {
   noindex?: boolean;
 }
 const { locale, slug, title, description, alternates, noindex = false } = Astro.props;
-const site = Astro.site ?? new URL("https://kuutti.app");
+const site = Astro.site ?? new URL("https://kumpa.fi");
 const name = t(locale, "site.name");
 // The home page is titled by the name alone, as the placeholder was.
 const heading = slug === "" ? title : `${title} · ${name}`;

@@ -1,4 +1,5 @@
 import { isLocale, LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
+import { EARLIER } from "./consent.ts";
 import {
   allLegal,
   allPages,
@@ -15,6 +16,8 @@ export type View =
   | { kind: "home" }
   | { kind: "page"; page: Page }
   | { kind: "shelf" }
+  /** The earlier versions of the texts a person agrees to (docs/decisions.md, 32). */
+  | { kind: "earlier" }
   | {
       kind: "text";
       text: LegalText;
@@ -69,6 +72,10 @@ export async function routes(): Promise<Route[]> {
       params: { path: param(pathOf(locale, LEGAL)) },
       props: { locale, slug: LEGAL, alternates: everywhere(LEGAL), view: { kind: "shelf" } },
     });
+    found.push({
+      params: { path: param(pathOf(locale, EARLIER)) },
+      props: { locale, slug: EARLIER, alternates: everywhere(EARLIER), view: { kind: "earlier" } },
+    });
   }
   const pagePlaces = pages.map((page) => placeOf(page.id));
   for (const page of pages) {
@@ -87,6 +94,7 @@ export async function routes(): Promise<Route[]> {
   for (const text of texts) {
     const { language, slug } = writtenIn(text.id);
     const full = `${LEGAL}/${slug}`;
+    if (full === EARLIER) throw new Error(`a legal text cannot be called "${slug}"`);
     const versions = texts.filter((other) => writtenIn(other.id).slug === slug);
     const languages = versions.map((other) => writtenIn(other.id).language);
     const binding = versions.find((other) => other.data.binding);

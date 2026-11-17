@@ -28,7 +28,14 @@ import { join, relative } from "node:path";
 import { PINNED } from "../src/consent-versions.ts";
 import { DEFAULT_LOCALE, isTextLanguage, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { LANGUAGE_IN, t } from "../src/i18n/ui.ts";
-import { anchorOf, CONSENT_KINDS, isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
+import {
+  anchorOf,
+  CONSENT_KINDS,
+  type ConsentKind,
+  EARLIER,
+  isConsentKind,
+  TEXT_OF,
+} from "../src/lib/consent.ts";
 import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -37,7 +44,7 @@ if (!existsSync(dist)) {
   process.exit(1);
 }
 
-const ORIGIN = "https://kuutti.app";
+const ORIGIN = "https://kumpa.fi";
 const problems: string[] = [];
 const pages: string[] = [];
 (function walk(dir: string) {
@@ -184,7 +191,11 @@ const sitemap = existsSync(join(dist, "sitemap.xml"))
   : "";
 if (sitemap === "") problems.push("/sitemap.xml is not there");
 const listed = new Set(
-  [...sitemap.matchAll(/<loc>https:\/\/kuutti\.app(\/[^<]*)<\/loc>/g)].map(([, at = ""]) => at),
+  [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].flatMap(([, loc = ""]) => {
+    if (loc.startsWith(`${ORIGIN}/`)) return [loc.slice(ORIGIN.length)];
+    problems.push(`/sitemap.xml: ${loc} is not at the site's address, ${ORIGIN}`);
+    return [];
+  }),
 );
 for (const address of listed) {
   if (!fileOf(address)) problems.push(`/sitemap.xml: ${ORIGIN}${address} leads nowhere`);
@@ -254,16 +265,23 @@ if (typeof versions !== "object" || versions === null) {
   }
 }
 
-// A version people agreed to keeps its text on its page under its own anchor,
+// A version people agreed to keeps its text on the site under its own anchor,
 // since production records consents to it until the next release of the API
-// and the stores: the newest on the text's own line, each earlier one in the
-// page's earlier versions, from src/content/earlier (docs/decisions.md, 14).
-for (const kind of CONSENT_KINDS) {
-  const path = pathOf(DEFAULT_LOCALE, `legal/${TEXT_OF[kind]}`);
+// and the stores (docs/decisions.md, 14): the newest on the text's own line,
+// each earlier one on the page of earlier versions, from src/content/earlier,
+// and never on the text's page, which shows the text in force alone (32).
+const anchorsIn = (path: string, kind: ConsentKind, version: string): number => {
   const file = fileOf(path);
   const html = file ? readFileSync(file, "utf8") : "";
-  for (const version of Object.keys(PINNED[kind])) {
-    const anchors = html.split(` id="${anchorOf(kind, version)}"`).length - 1;
+  return html.split(` id="${anchorOf(kind, version)}"`).length - 1;
+};
+for (const kind of CONSENT_KINDS) {
+  const own = pathOf(DEFAULT_LOCALE, `legal/${TEXT_OF[kind]}`);
+  const kept = pathOf(DEFAULT_LOCALE, EARLIER);
+  const versions = Object.keys(PINNED[kind]);
+  for (const version of versions) {
+    const [path, other] = version === versions.at(-1) ? [own, kept] : [kept, own];
+    const anchors = anchorsIn(path, kind, version);
     if (anchors === 0) {
       problems.push(
         `${path}: no anchor for ${kind} ${version}; a version people agreed to keeps its text on the site under its anchor`,
@@ -271,6 +289,11 @@ for (const kind of CONSENT_KINDS) {
     } else if (anchors > 1) {
       problems.push(
         `${path}: ${anchors} anchors for ${kind} ${version}; the app's link to it leads to one place`,
+      );
+    }
+    if (anchorsIn(other, kind, version) > 0) {
+      problems.push(
+        `${other}: an anchor for ${kind} ${version}, which belongs on ${path}; a text in force is read alone, and each earlier version on ${kept}`,
       );
     }
   }
@@ -281,5 +304,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
 );

@@ -26,7 +26,7 @@ import {
   type Wording,
 } from "../src/lib/consent.ts";
 
-const ORIGIN = new URL("https://kuutti.app");
+const ORIGIN = new URL("https://kumpa.fi");
 const DAY = new Date("2026-10-06T00:00:00Z");
 
 const wording = (
@@ -429,13 +429,13 @@ test("versions.json names each kind's version, fingerprint, language, address an
     version: "v1",
     hash: fingerprintOf({ title: "privacy", body: "privacy teksti" }),
     language: "fi",
-    url: "https://kuutti.app/legal/privacy/#privacy-v1",
+    url: "https://kumpa.fi/legal/privacy/#privacy-v1",
     dated: "2026-10-06",
   });
-  assert.equal(document.terms.url, "https://kuutti.app/legal/terms/#terms-v1");
+  assert.equal(document.terms.url, "https://kumpa.fi/legal/terms/#terms-v1");
   assert.equal(
     document.special_category.url,
-    "https://kuutti.app/legal/privacy/#special_category-v1",
+    "https://kumpa.fi/legal/privacy/#special_category-v1",
   );
 });
 
