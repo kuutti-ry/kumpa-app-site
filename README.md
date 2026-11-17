@@ -64,4 +64,4 @@ The rules of the app's repository hold here: `main` only through a pull request,
 
 ## Licence
 
-The code is under the GNU Affero General Public License, version 3 (`LICENSE`), like the app. The name Kuutti and the logo are the association's and are not licensed with the code. The App Store and Google Play badges in `public/badges/` are Apple's and Google's, as they publish them for marketing, and the Code from Finland badge beside them is Koodia Suomesta ry's, as it gives it to its members; none is licensed with the code either.
+The code is under the GNU Affero General Public License, version 3 (`LICENSE`), like the app. The name Kuutti and the logo are the association's and are not licensed with the code. The App Store and Google Play badges in `public/badges/` are Apple's and Google's, as they publish them for marketing, and the Code from Finland badges beside them, in English and in Finnish, are Koodia Suomesta ry's, as it gives them to its members; none is licensed with the code either.
