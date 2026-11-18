@@ -44,7 +44,7 @@ Drafting it in September and October 2026 meant reading what the app keeps. Thes
 8. **What Telia keeps, and where**, is an open question to Telia. **What the app's update check tells Expo, and where**, is not in the repository.
 9. **An error's message can quote what was typed**, and goes to the error service as it is.
 10. **No procedure for a personal data breach** was found (72 hours to the ombudsman), and **no way to appeal a ban**. The terms in force promise neither.
-11. A **data protection impact assessment** before the first real person, as the founding notes plan. 17/11/2026: drafted by an agent from the app's repository, as a document in the maintainer's Drive; dating it and reading it as its reviewer are his (kuutti-ry/kumpa-app#190).
+11. A **data protection impact assessment** before the first real person, as the founding notes plan. 17/11/2026: drafted by an agent from the app's repository, as a document in the maintainer's Drive; dating it and reading it as its reviewer are his (kuutti-ry/kumpa-app#190). **18/11/2026:** settled. The maintainer put the assessment in the draft minutes of the board's next meeting himself, and the summary is in force (decision 35).
 
 ## What the texts of 16/11/2026 found
 

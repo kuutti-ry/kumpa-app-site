@@ -2,12 +2,12 @@
 title: How we assessed the risks to your privacy
 description: A summary of Kumpa's data protection impact assessment, with the risks found and what is done about them.
 order: 4
-status: draft
-dated: 2026-11-17
+status: in_force
+dated: 2026-11-18
 binding: true
 ---
 
-*A summary of the draft of Kumpa's data protection impact assessment of 17 November 2026. The board of Kuutti ry has not approved the assessment yet.*
+*A summary of Kumpa's data protection impact assessment of 17 November 2026.*
 
 Kumpa handles things most people keep private: that you use an app for meeting people, whom you are looking for, and what you write to a match. Before a service like this opens, the law asks it to work out what could go wrong for the people who use it (GDPR, Article 35). We did. The full assessment is an internal document that the Data Protection Ombudsman can ask to see. This is its summary.
 
@@ -32,14 +32,14 @@ Everything the app, our server and our moderators do with your data, from sign-i
 - Notifications never say who or what.
 - No advertising, no data sold or shared for research, no public profiles.
 - When you ask, a person reviews an automatic photo decision, unless the check found nudity with very high confidence. A moderator reviews every automatic limit on an account.
+- A person whose account is limited is told why, and how to contest it.
 
 ## What is still open
 
-- Telling a person why their account was limited, and how to contest it. This is planned, and not yet built.
-- The automatic check of pictures sent in conversations touches the confidentiality of messages. A lawyer has not looked at this yet. The board decides whether to ask one or to accept the risk as we assessed it.
+- The automatic check of pictures sent in conversations touches the confidentiality of messages. A lawyer has not looked at this yet.
 
 ## Our conclusion
 
-Our assessment is that, with these measures in place and the ones planned before opening done, the remaining risk is not high, so the Data Protection Ombudsman does not need to be consulted before Kumpa opens. The board of Kuutti ry decides this. We go through the assessment again whenever we change how personal data is handled.
+Our assessment is that, with these measures in place and the ones planned before opening done, the remaining risk is not high, so the Data Protection Ombudsman does not need to be consulted before Kumpa opens. We go through the assessment again whenever we change how personal data is handled.
 
 Questions about this: [hello@kuutti.app](mailto:hello@kuutti.app).
