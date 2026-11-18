@@ -19,6 +19,10 @@ If the bank's own page fails, the problem is usually at the bank: try again in a
 
 In the app, under **Your account**, you can download everything Kumpa holds about you and delete your account. [How deletion works, and what is left afterwards](/delete-account/).
 
+## Reporting a person
+
+In the app, a person, a photo and a conversation can each be reported where they are shown, and a person can be blocked. Moderators of the association review the reports. Kumpa is for adults only: [the child safety standards](/child-safety/).
+
 ## Contact
 
 For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/contact/).

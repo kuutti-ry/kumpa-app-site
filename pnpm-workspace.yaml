@@ -32,13 +32,26 @@ packageExtensions:
     dependencies:
       "@emnapi/runtime": "1.11.3"
 
-# pnpm audit: one advisory set aside, with its reason. GHSA-ch52-4w7c-c8xp
-# (http-cache-semantics <= 4.2.0, high, no patched version yet) is about a
-# shared cache that serves many users. Astro uses the package only to cache
-# remote images while it builds (astro/dist/assets/build/remote.js); the site
-# fetches no remote image (rule 1) and runs no server, so nothing is cached
-# for anybody. Remove the entry when a patched version exists or Astro drops
-# the package.
+# pnpm audit: two advisories set aside, each with its reason. Every other high
+# or critical advisory still fails the job.
+#
+# GHSA-ch52-4w7c-c8xp (http-cache-semantics <= 4.2.0, high, no patched version
+# yet) is about a shared cache that serves many users. Astro uses the package
+# only to cache remote images while it builds
+# (astro/dist/assets/build/remote.js); the site fetches no remote image (rule 1)
+# and runs no server, so nothing is cached for anybody. Remove the entry when a
+# patched version exists or Astro drops the package.
+#
+# GHSA-fc5q-39xc-vjpf (picomatch <= 4.0.7, its newest release): a pattern of a
+# single repeated extglob branch, such as +(*), backtracks exponentially on a
+# short string. It has failed the audit gate since 2026-11-17, and no release
+# fixes it. picomatch 2 and 4 are asked for by Astro, Vite and the glob helpers under
+# them (anymatch, tinyglobby, fdir): build tools that match the patterns of our
+# own configuration while the site is built, never a pattern somebody sends us,
+# and the site runs no server. The app's repository sets it aside for the same
+# reason; set aside here on the maintainer's word of 2026-11-18. Remove the
+# entry when a fixed release exists, with an override onto it.
 auditConfig:
   ignoreGhsas:
     - GHSA-ch52-4w7c-c8xp
+    - GHSA-fc5q-39xc-vjpf
