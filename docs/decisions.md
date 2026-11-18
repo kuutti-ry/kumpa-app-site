@@ -306,3 +306,12 @@ The maintainer's word of 17/11/2026: put the summary of Kumpa's data protection 
 - **English only.** Like the terms and the privacy policy (29), it is written in English. A Finnish text comes from a person once the board has approved the English (rule 3).
 - **When the board approves.** The status becomes `in_force`, the italic line under the title names the day of the board's approval, and what the board decided replaces "The board decides".
 - **No "dating".** It says "an app for meeting people", as About Us does; whether the site says "dating" is still the maintainer's (23).
+
+## 34. A report is looked at within 24 hours (2026-11-18)
+
+The maintainer's word of 18/11/2026, asked what the association promises about reports (kuutti-ry/kumpa-app#188's first box, kuutti-ry/kumpa-app#299): 24 hours.
+
+- **What it promises.** A moderator looks at every report within 24 hours, weekends included, and at a report that concerns a child first. It is the time to a person looking and acting, not to a case being closed. Apple's guideline 1.2 asks for "timely responses" and its reviews ask for 24 hours; Google asks that the association acts as its published standards say.
+- **Where it is said.** On Child safety, under "How to report", and on Help, under "Reporting a person", in the same words. The terms of use do not say it yet: a sentence there is a new version of the terms, so it waits for the next one.
+- **No hotline is named.** The page sends a person to 112 and to the police; the association reports to the Finnish police. The maintainer's word of the same day: no hotline beside them.
+
