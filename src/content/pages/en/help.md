@@ -21,7 +21,7 @@ In the app, under **Your account**, you can download everything Kumpa holds abou
 
 ## Reporting a person
 
-In the app, a person, a photo and a conversation can each be reported where they are shown, and a person can be blocked. Moderators of the association review the reports. Kumpa is for adults only: [the child safety standards](/child-safety/).
+In the app, a person, a photo and a conversation can each be reported where they are shown, and a person can be blocked. Moderators of the association look at every report within 24 hours. Kumpa is for adults only: [the child safety standards](/child-safety/).
 
 ## Contact
 

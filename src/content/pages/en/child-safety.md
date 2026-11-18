@@ -24,7 +24,7 @@ The [terms of use](/legal/terms/) say the same in sections 3 and 4: an account i
 
 ## How to report
 
-In the app, a person, a photo and a conversation can each be reported where they are shown, without leaving the app. Moderators of the association review the reports.
+In the app, a person, a photo and a conversation can each be reported where they are shown, without leaving the app. Moderators of the association look at every report within 24 hours, and at a report that concerns a child first.
 
 You can also write to [hello@kuutti.app](mailto:hello@kuutti.app). You do not need an account to do so.
 
