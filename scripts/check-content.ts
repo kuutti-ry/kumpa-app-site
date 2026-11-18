@@ -10,9 +10,9 @@
  *   not exist in, so it has no `machine` key at all: the key marks a page
  *   that waits for a native reader, and a legal text is not published on
  *   those terms (docs/decisions.md, 29). A text adopted (filed or in force)
- *   has exactly one binding language, and a text in force names its version
- *   or the day it was registered; a draft may still be waiting for its
- *   binding text, and never has two.
+ *   has exactly one binding language; a draft may still be waiting for its
+ *   binding text, and never has two. A text in force needs no version or
+ *   register: the summary of the impact assessment has neither (35).
  * - A text a person agrees to in the app (src/lib/consent.ts) names its
  *   `consent_version`, the same in every language, and no other text does.
  *   A consent read on another text's page (src/content/consents) is one of
@@ -118,13 +118,6 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
       problems.push(
         `${text.file}: a legal text is not published as a machine's translation; it has no "machine" key`,
       );
-    }
-    if (
-      text.front.get("status") === "in_force" &&
-      !text.front.get("consent_version") &&
-      !text.front.get("registered")
-    ) {
-      problems.push(`${text.file}: a text in force names its version or the day it was registered`);
     }
   }
 }

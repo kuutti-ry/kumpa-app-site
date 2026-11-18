@@ -315,3 +315,12 @@ The maintainer's word of 18/11/2026, asked what the association promises about r
 - **Where it is said.** On Child safety, under "How to report", and on Help, under "Reporting a person", in the same words. The terms of use do not say it yet: a sentence there is a new version of the terms, so it waits for the next one.
 - **No hotline is named.** The page sends a person to 112 and to the police; the association reports to the Finnish police. The maintainer's word of the same day: no hotline beside them.
 
+## 35. The summary of the data protection impact assessment, in force (2026-11-18)
+
+The maintainer's word of 18/11/2026: the summary is in force, and it names no board (kuutti-ry/kumpa-app#190). The board's look at the assessment is in the draft minutes of its next meeting, which the maintainer wrote himself. This replaces 33's "When the board approves".
+
+- **In force.** `status: in_force`: the "Draft" tag and the draft's notice go, and the page joins the sitemap. `dated` is the day its wording last changed; the line under the title keeps the assessment's own date, 17 November 2026.
+- **No board.** The page says what the assessment concludes and not who inside the association decides it: "has not approved" and "The board decides" go, and nothing takes their place. Whether a lawyer looks at the check of conversation photos stays open, as "A lawyer has not looked at this yet".
+- **Told why.** Telling a person why their account was limited, and how to contest it, moves from what is open to what is done: the app does it since kuutti-ry/kumpa-app#719.
+- **Finnish.** A Finnish text still comes from a person (rule 3).
+- **In force without a version.** `scripts/check-content.ts` wanted a text in force to name a `consent_version` or the day it was registered. The summary has neither: nobody agrees to it in the app, and no register keeps it. That clause goes. A text the app records still names its version, by the check beside it.
