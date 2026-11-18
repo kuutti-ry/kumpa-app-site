@@ -66,7 +66,7 @@ const legal = defineCollection({
     /**
      * A draft binds nobody and says so on the page; a filed text is adopted
      * and waits for the register (the bylaws, until the association is
-     * registered); a text in force names its version.
+     * registered); a text in force that the app records names its version.
      */
     status: z.enum(["draft", "filed", "in_force"]),
     /**
