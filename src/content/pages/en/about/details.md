@@ -13,8 +13,8 @@ The code is available under the [GNU Affero General Public License](https://gith
 
 ## Service status
 
-[Check the API status](https://api.kumpa.fi/health). The response shows whether the server can reach its database and which version of the code is running.
+@status
 
-## Research
+## Does Kumpa use my data for research?
 
-Supporting research into relationships and loneliness is part of the association’s purpose. Kumpa currently has no research partner and collects no data for research.
+No. We don’t collect data for research, and we currently have no research partner.

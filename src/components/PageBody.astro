@@ -1,0 +1,13 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import ServiceStatus from "./ServiceStatus.astro";
+
+interface Props {
+  html: string;
+  locale: Locale;
+}
+const { html, locale } = Astro.props;
+const [before, after] = html.split("<p>@status</p>");
+---
+<Fragment set:html={before} />
+{after !== undefined && <><ServiceStatus locale={locale} /><Fragment set:html={after} /></>}

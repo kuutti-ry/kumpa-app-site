@@ -2,7 +2,7 @@
 
 The Finnish-first website for Kumpa, a free dating app for adults in Finland. Its home is [kumpa.fi](https://kumpa.fi). The same site is served at kuutti.app. The app itself is at [kuutti-ry/kumpa-app](https://github.com/kuutti-ry/kumpa-app).
 
-Astro builds static pages containing Finnish and English at the same URL. A single local script remembers the chosen language in the current tab. The site uses only its own assets and sets no cookies. Body text uses Inter under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). Headings and navigation use Teo Tuominen’s Saiga when the licensed files are available during the build. Amplify fetches them privately. Local builds fall back to Inter.
+Astro builds static pages containing Finnish and English at the same URL. A local script remembers the chosen language in the current tab. The site uses only its own assets and sets no cookies. Body text uses Inter under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). Headings and navigation use Teo Tuominen’s Saiga when the licensed files are available during the build. Amplify fetches them privately. Local builds fall back to Inter.
 
 ## Run it
 
@@ -38,13 +38,13 @@ src/site.ts                               contact details, channels and store li
 src/pages/[...path].astro                 the template the site's pages are made from
 src/lib/                                  which pages there are, how a text is listed, Saiga's files and their sums
 src/styles/global.css                     the look, on the app's design tokens
-public/                                   the logo, icons, Inter and the local language script
+public/                                   the logo, icons, Inter and the language and status scripts
 public/fonts/saiga/                       Saiga, put there by the build or by hand; git ignores it
 scripts/                                  the checks, the tests, and the fetch of Saiga
 docs/                                     decisions, open questions, what waits for a native reader
 ```
 
-Each ordinary page has a Markdown file under both `src/content/pages/fi/` and `src/content/pages/en/`, at matching paths. `home.md` supplies the opening paragraph at `/`. The top-level navigation leads to Home, App and About. About links to People, Contact, Technical details and For the media under `/about/`. App support remains available at `/help/`, `/delete-account/` and `/child-safety/`.
+Each ordinary page has a Markdown file under both `src/content/pages/fi/` and `src/content/pages/en/`, at matching paths. `home.md` supplies the opening paragraph at `/`. The top-level navigation leads to Home, App and About. On desktop, About displays People, Contact, Technical details and For the media as sections of one page. The mobile menu links to their individual pages under `/about/`. App support remains available at `/help/`, `/delete-account/` and `/child-safety/`.
 
 ## Languages and legal versions
 
@@ -55,7 +55,15 @@ Each ordinary page has a Markdown file under both `src/content/pages/fi/` and `s
 
 ## Hosting
 
-Amplify Hosting builds from `main` using `amplify.yml`. The content security policy in `customHttp.yml` pins the SHA-256 digest of the language script. Update its digest whenever that file changes.
+Amplify Hosting builds from `main` using `amplify.yml`. The content security policy in `customHttp.yml` pins the SHA-256 digests of the language and service-status scripts. Update the appropriate digest after editing either file.
+
+The status panel reads `/status/health.json` on the website origin. Before releasing it, add this exact **200 rewrite** in the Amplify app’s existing redirects and rewrites, ahead of fallback rules. Keep the other domain rules in place.
+
+```json
+{ "source": "/status/health.json", "target": "https://api.kumpa.fi/health", "status": "200" }
+```
+
+Use a rewrite so the browser receives the API JSON at the website URL, which identifies both healthy and degraded service. Confirm the content type and body on both website domains after rollout. Local dev and preview apply the same mapping in `astro.config.ts`. The panel checks while visible and offers a manual refresh. A failed check displays an unknown state with a direct link to the API.
 
 The pre-redesign site is tagged `website-before-finnish-first-2026-11-20`. To inspect or rebuild it separately, use `git worktree add --detach ../kumpa-site-before-finnish-first website-before-finnish-first-2026-11-20` and run the normal build commands there.
 

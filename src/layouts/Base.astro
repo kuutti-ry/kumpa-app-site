@@ -5,8 +5,8 @@ import Header from "../components/Header.astro";
 import { LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
-import { languageIntegrity } from "../lib/language-script.ts";
 import { hasSaiga } from "../lib/saiga.ts";
+import { languageIntegrity, statusIntegrity } from "../lib/script-integrity.ts";
 
 interface Props {
   slug: string;
@@ -36,6 +36,7 @@ const site = Astro.site ?? new URL("https://kumpa.fi");
     <meta property="og:image" content={new URL(fingerprinted("/kuutti.png"), site).href} />
     <meta name="referrer" content="no-referrer" />
     <script is:inline defer src={fingerprinted("/language.js")} integrity={languageIntegrity}></script>
+    {(slug === "about" || slug === "about/details") && <script is:inline type="module" src={fingerprinted("/status.js")} integrity={statusIntegrity}></script>}
   </head>
   <body>
     {LOCALES.map(locale => <div data-lang={locale} lang={locale}><a class="skip" href="#content">{t(locale, "skip")}</a></div>)}

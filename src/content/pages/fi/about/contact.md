@@ -1,15 +1,15 @@
 ---
-title: "Yhteystiedot"
-description: "Ota yhteyttä tekijöihin sovelluksesta, tietosuojasta, vapaaehtoistyöstä tai haastatteluista."
+title: "Ota yhteyttä"
+description: "Kirjoita meille, jos haluat kysyä sovelluksesta, tulla mukaan tekemään sitä tai sopia haastattelusta."
 machine: true
 ---
 
-Tavoitat tekijät osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app). Voit kysyä sovelluksesta tai henkilötietojesi käsittelystä tai kertoa, miten haluaisit tulla mukaan.
+Meidät tavoittaa osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app). Voit kysyä sovelluksesta tai siitä, miten käsittelemme tietojasi. Kirjoita myös, jos haluaisit tulla mukaan tekemään sovellusta.
 
-## Haastattelut ja esittelyt
+## Toimittajille
 
-Toimittajat tavoittavat meidät samasta osoitteesta. [Mediasivulta](/about/media/) löydät perustiedot sovelluksesta ja linkit lähteisiin.
+Samasta osoitteesta voit sopia haastattelun tai pyytää meitä esittelemään sovellusta. Löydät perustiedot ja lähteet [Medialle-osiosta](/about/media/).
 
-## Sovelluksen tuki
+## Tarvitsetko apua?
 
-[Ohjeissa](/help/) kerromme kirjautumisesta ja ilmoituksen tekemisestä. Jos et pääse sovellukseen, voit myös pyytää [tilisi poistamista](/delete-account/) sähköpostitse.
+[Ohjeet](/help/) auttavat kirjautumisessa ja ilmoituksen tekemisessä. Jos haluat [poistaa tilisi](/delete-account/) etkä pääse sovellukseen, voit pyytää poistoa sähköpostilla.

@@ -1,22 +1,22 @@
 ---
 title: "Medialle"
-description: "Sovelluksen tausta, tekijät ja kehitysvaihe sekä yhteystiedot haastatteluja ja esittelyjä varten."
+description: "Mistä Kumpa sai alkunsa, ketkä sitä tekevät ja miten voit sopia haastattelusta."
 machine: true
 ---
 
-Kumpa on Suomessa asuville aikuisille kehitetty maksuton deittisovellus. Sovellusta testataan parhaillaan. Haastatteluja, sovelluksen esittelyä ja lehdistökuvia voi pyytää osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app).
+Kumpa on ilmainen deittisovellus Suomessa asuville aikuisille. Teemme sitä vapaaehtoisvoimin emmekä tavoittele voittoa. Testaamme sovellusta parhaillaan. Jos haluat haastatella tekijöitä, nähdä sovelluksen tai saada kuvia juttuusi, kirjoita meille osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
 
-## Mistä idea syntyi?
+## Mistä idea lähti?
 
-Idea syntyi keskustelusta siitä, kuka hyötyy, kun kumppanin etsintä jatkuu. Kun kaksi ihmistä löytää toisensa ja jättää deittisovelluksen, myös heidän tilausmaksunsa ja heistä saatavat mainostulot jäävät pois. Perustajat halusivat tehdä sovelluksen, jolle tällainen lähtö on onnistuminen.
+Puhuimme kerran siitä, miksi deittisovelluksissa voi olla vaikea löytää kumppania. Kun kaksi ihmistä löytää toisensa ja lähtee sovelluksesta, sen tekijöiltä jää saamatta tilausmaksuja tai mainostuloja. Halusimme tehdä sovelluksen, jonka tekijöille on hyvä uutinen, kun kaksi ihmistä voi poistaa sen puhelimestaan.
 
-## Perustiedot
+## Kumpa lyhyesti
 
-- **Tekijät.** Noin viisitoista vapaaehtoista. Moni on tutustunut Aalto-yliopistossa, mutta hanke toimii itsenäisesti. Kehitystyö alkoi syyskuussa 2026.
-- **Toimintamalli.** Sovelluksessa ei ole mainoksia, maksullisia tilauksia eikä ostettavaa näkyvyyttä. Yhdistyksen [säännöt](/legal/bylaws/) kieltävät sovelluksen käytöstä kertyvien tietojen kaupallisen käytön.
-- **Tunnistautuminen.** Jokainen kirjautuu suomalaisilla pankkitunnuksilla. Näin Kumpa tarkistaa iän, rajaa tilien määrän yhteen henkilöä kohden ja estää pysyvän porttikiellon saaneen paluun uudella tilillä.
-- **Kehitysvaihe.** Tiimi käyttää generatiivista tekoälyä apuna ohjelmoinnissa. Marraskuussa 2026 tiimi arvioi, että saman ohjelmiston toteuttaminen perinteisin menetelmin olisi vaatinut noin 20-kertaisen työmäärän.
+- **Tekijät.** Meitä on noin viisitoista vapaaehtoista. Moni meistä tapasi Aalto-yliopistossa, ja teemme sovellusta itsenäisesti. Aloitimme syyskuussa 2026.
+- **Raha.** Sovelluksessa ei ole mainoksia eikä maksullisia tilauksia. Näkyvyyttä ei voi ostaa. Yhdistyksen [säännöt](/legal/bylaws/) kieltävät käyttäjätietojen kaupallisen käytön.
+- **Kirjautuminen.** Haluamme vaikeuttaa valeprofiileilla tehtäviä romanssihuijauksia ja häirintää. Siksi jokainen tunnistautuu suomalaisilla pankkitunnuksilla. Tarkistamme iän ja sallimme vain yhden tilin henkilöä kohden. Pysyvän porttikiellon saanut ei voi palata uudella tilillä.
+- **Kehitystyö.** Generatiivinen tekoäly on säästänyt meiltä ohjelmoinnissa aikaa ja rahaa. Siksi pystymme tekemään tämän kokoisen sovelluksen vapaaehtoisvoimin. Arvioimme marraskuussa 2026, että saman ohjelmiston tekeminen perinteisin menetelmin olisi vaatinut noin 20 kertaa niin paljon työtä.
 
-## Lähteet ja aineistot
+## Kuvia ja taustaa
 
 [Tekijät](/about/people/) · [Sovelluksen lähdekoodi](https://github.com/kuutti-ry/kumpa-app) · [Logot](https://github.com/kuutti-ry/kumpa-app/tree/main/docs/design/logo)

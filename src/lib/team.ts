@@ -132,7 +132,8 @@ const initials = (name: string): string =>
     .toUpperCase();
 
 const icon = (href: string, label: string, path: string, evenodd = false): string =>
-  `<li><a href="${escaped(href)}" aria-label="${escaped(label)}">` +
+  `<li><a href="${escaped(href)}" aria-label="${escaped(label)}" title="${escaped(label)}"` +
+  (href.startsWith("https://") ? ' target="_blank" rel="noopener noreferrer">' : ">") +
   '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">' +
   `<path${evenodd ? ' fill-rule="evenodd"' : ""} d="${path}"></path></svg></a></li>`;
 
@@ -145,7 +146,7 @@ const finnishRole: Record<string, string> = {
   Volunteer: "Vapaaehtoinen",
   Advisor: "Neuvonantaja",
   "Tech Advisor": "Tekninen neuvonantaja",
-  "CX Lead": "Asiakaskokemuksesta vastaava",
+  "CX Lead": "Asiakaskokemus",
 };
 
 /** One person: the face in its circle, the name, the role, and the marks that lead to them. */

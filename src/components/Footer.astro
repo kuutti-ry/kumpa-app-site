@@ -10,6 +10,7 @@ interface Props {
 
 const { locale, slug } = Astro.props;
 const fi = locale === "fi";
+const contact = fi ? "Ota yhteyttä" : "Contact";
 const links = [
   ["legal/privacy", fi ? "Tietosuoja" : "Privacy policy"],
   ["legal/terms", fi ? "Käyttöehdot" : "Terms of use"],
@@ -22,7 +23,8 @@ const links = [
   <div class="footer-inner">
     <div class="footer-brand">
       <a class="brand" href="/">Kumpa</a>
-      <a href="/about/contact/">{fi ? "Yhteystiedot" : "Contact"}</a>
+      <a class="footer-contact-wide" href={fi ? "/about/#contact" : "/about/#en-contact"}>{contact}</a>
+      <a class="footer-contact-compact" href="/about/contact/">{contact}</a>
     </div>
     <nav class="footer-nav" aria-label={fi ? "Asiakirjat" : "Legal documents"}>
       <ul>
@@ -35,7 +37,7 @@ const links = [
       <ul class="channels" aria-label={fi ? "Sosiaalinen media" : "Kumpa’s channels"}>
         {SITE.social.map((channel) => (
           <li>
-            <a href={channel.href} aria-label={channel.name}>
+            <a href={channel.href} target="_blank" rel="noopener noreferrer" aria-label={channel.name}>
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
                 <path d={MARKS[channel.mark]} />
               </svg>
@@ -43,7 +45,7 @@ const links = [
           </li>
         ))}
       </ul>
-      <a class="member-badge" href={fi ? "https://koodiasuomesta.fi/" : SITE.codeFromFinland}>
+      <a class="member-badge" href={fi ? "https://koodiasuomesta.fi/" : SITE.codeFromFinland} target="_blank" rel="noopener noreferrer">
         <img
           src={fi ? "/badges/koodia-suomesta-kumppanijasen.svg" : "/badges/code-from-finland-community-member.svg"}
           alt={fi ? "Koodia Suomesta – kumppanijäsen" : "Code from Finland community member"}

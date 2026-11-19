@@ -1,0 +1,35 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import { allPages } from "../lib/content.ts";
+import { aboutSections, pageHtml, sectionAnchor } from "../lib/page-html.ts";
+
+import PageBody from "./PageBody.astro";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const pages = await allPages();
+const sections = aboutSections.map((name) => {
+  const page = pages.find((entry) => entry.id === `${locale}/about/${name}`);
+  if (!page) throw new Error(`Missing About section: ${locale}/${name}`);
+  return { name, page, anchor: sectionAnchor(locale, name) };
+});
+---
+
+<ul class="page-links about-compact">
+  {sections.map(({ name, page }) => <li>
+    <a href={`/about/${name}/`}><strong>{page.data.title}</strong><span>{page.data.description}</span></a>
+  </li>)}
+</ul>
+<div class="about-long">
+  <nav class="about-jumps" aria-label={locale === "fi" ? "Tällä sivulla" : "On this page"}>
+    <ul>{sections.map(({ page, anchor }) => <li><a href={`#${anchor}`}>{page.data.title}</a></li>)}</ul>
+  </nav>
+  {sections.map(({ name, page, anchor }) => (
+    <section aria-labelledby={anchor}>
+      <h2 id={anchor}><span id={locale === "fi" && name === "people" ? "who-we-are" : undefined}>{page.data.title}</span></h2>
+      <PageBody html={pageHtml(page, locale, name)} locale={locale} />
+    </section>
+  ))}
+</div>

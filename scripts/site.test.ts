@@ -6,8 +6,9 @@ import { test } from "node:test";
 import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
-import { languageIntegrity } from "../src/lib/language-script.ts";
 import { MARKS } from "../src/lib/marks.ts";
+import { pageHtml } from "../src/lib/page-html.ts";
+import { languageIntegrity, statusIntegrity } from "../src/lib/script-integrity.ts";
 import { SITE } from "../src/site.ts";
 
 test("Finnish is the default and switching languages keeps every page URL", () => {
@@ -16,6 +17,25 @@ test("Finnish is the default and switching languages keeps every page URL", () =
     assert.equal(pathOf(locale, ""), "/");
     assert.equal(pathOf(locale, "about/people"), "/about/people/");
     assert.equal(pathOf(locale, "legal/privacy"), "/legal/privacy/");
+  }
+});
+
+test("embedded About sections keep a heading hierarchy and link within the reader’s language", () => {
+  const page = {
+    id: "en/about/people",
+    rendered: {
+      html: '<h2 id="credit">Credit</h2><a href="#credit">Credit</a><a href="/about/contact/">Contact</a>',
+    },
+  };
+  for (const locale of LOCALES) {
+    const html = pageHtml(page, locale, "people");
+    const id = `${locale}-people-credit`;
+    assert.ok(html.includes(`<h3 id="${id}">Credit</h3>`));
+    assert.ok(html.includes(`href="#${id}"`));
+    assert.ok(html.includes(`href="${locale === "fi" ? "#contact" : "#en-contact"}"`));
+    const standalone = pageHtml(page, locale);
+    assert.ok(standalone.includes(`<h2 id="${locale}-credit">Credit</h2>`));
+    assert.ok(standalone.includes('href="/about/contact/"'));
   }
 });
 
@@ -78,7 +98,7 @@ test("both contact pages give the published email address", () => {
   }
 });
 
-test("the content security policy permits the pinned language script alone", () => {
+test("the content security policy permits the two pinned scripts and same-origin status checks", () => {
   const headers = readFileSync(join(import.meta.dirname, "..", "customHttp.yml"), "utf8");
   const policies = [...headers.matchAll(/key: Content-Security-Policy\s+value: "([^"]*)"/g)];
   assert.equal(policies.length, 1, "one policy for every address");
@@ -89,7 +109,11 @@ test("the content security policy permits the pinned language script alone", () 
     }),
   );
   assert.deepEqual(directives.get("default-src"), ["'none'"]);
-  assert.deepEqual(directives.get("script-src"), [`'${languageIntegrity}'`]);
+  assert.deepEqual(directives.get("script-src"), [
+    `'${languageIntegrity}'`,
+    `'${statusIntegrity}'`,
+  ]);
+  assert.deepEqual(directives.get("connect-src"), ["'self'"]);
   assert.deepEqual(directives.get("worker-src"), ["'none'"]);
   for (const directive of ["script-src-elem", "script-src-attr"])
     assert.equal(directives.has(directive), false);

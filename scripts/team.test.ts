@@ -35,10 +35,16 @@ test("each way to reach a person is a mark with its words for a screen reader, a
   const html = drawTeam("<p>@team</p>", "en", [ada, bo]);
   assert.match(
     html,
-    /<a href="https:\/\/www\.linkedin\.com\/in\/ada\/" aria-label="Ada Lovelace on LinkedIn">/,
+    /<a href="https:\/\/www\.linkedin\.com\/in\/ada\/" aria-label="Ada Lovelace on LinkedIn" title="Ada Lovelace on LinkedIn" target="_blank" rel="noopener noreferrer">/,
   );
-  assert.match(html, /<a href="https:\/\/github\.com\/ada" aria-label="Ada Lovelace on GitHub">/);
-  assert.match(html, /<a href="mailto:ada@kuutti\.app" aria-label="E-mail Ada Lovelace">/);
+  assert.match(
+    html,
+    /<a href="https:\/\/github\.com\/ada" aria-label="Ada Lovelace on GitHub" title="Ada Lovelace on GitHub" target="_blank" rel="noopener noreferrer">/,
+  );
+  assert.match(
+    html,
+    /<a href="mailto:ada@kuutti\.app" aria-label="E-mail Ada Lovelace" title="E-mail Ada Lovelace">/,
+  );
   assert.equal(html.match(/<a /g)?.length, 3);
   assert.equal(html.match(/class="channels team-links"/g)?.length, 1);
 });

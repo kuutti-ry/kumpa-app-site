@@ -1,11 +1,11 @@
 ---
-import { type Locale, pathOf } from "../i18n/locales.ts";
+import type { Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
-import { allPages, type Page } from "../lib/content.ts";
-import { drawFlags } from "../lib/flag.ts";
+import type { Page } from "../lib/content.ts";
 import { opened } from "../lib/home.ts";
-import { aboutSections } from "../lib/routes.ts";
-import { drawTeam } from "../lib/team.ts";
+import { pageHtml } from "../lib/page-html.ts";
+import AboutSections from "./AboutSections.astro";
+import PageBody from "./PageBody.astro";
 import StoreBadges from "./StoreBadges.astro";
 
 interface Props {
@@ -14,20 +14,10 @@ interface Props {
   page: Page;
 }
 const { locale, slug, page } = Astro.props;
-if (!page.rendered) throw new Error(`${page.id} was not rendered`);
-const html = drawTeam(drawFlags(page.rendered.html), locale)
-  .replace(/\bid="([^"]+)"/g, (_, id) => `id="${locale}-${id}"`)
-  .replace(/href="#([^"]+)"/g, (_, id) => `href="#${locale}-${id}"`);
+const html = pageHtml(page, locale);
 const home = slug === "";
 const aboutChild = slug.startsWith("about/");
 const appChild = ["help", "child-safety", "delete-account"].includes(slug);
-const sections = slug === "about" ? aboutSections.map((section) => `about/${section}`) : [];
-const entries = sections.length ? await allPages() : [];
-const links = sections.map((section) => {
-  const entry = entries.find((candidate) => candidate.id === `${locale}/${section}`);
-  if (!entry) throw new Error(`Missing section ${section} in ${locale}`);
-  return { slug: section, ...entry.data };
-});
 const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 ---
 
@@ -51,12 +41,8 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 ) : (
   <article class="prose">
     <h1>{page.data.title}</h1>
-    <Fragment set:html={html} />
-    {links.length > 0 && <ul class="page-links">
-      {links.map(link => <li id={link.slug === "about/people" && locale === "fi" ? "who-we-are" : undefined}>
-        <a href={pathOf(locale, link.slug)}><strong>{link.title}</strong><span>{link.description}</span></a>
-      </li>)}
-    </ul>}
+    <PageBody html={html} locale={locale} />
+    {slug === "about" && <AboutSections locale={locale} />}
     {slug === "app" && <StoreBadges locale={locale} />}
   </article>
 )}

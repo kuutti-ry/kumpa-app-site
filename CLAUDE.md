@@ -21,7 +21,7 @@ Before pushing: typecheck, lint, test, build and check:site pass locally. Do not
 
 ## Non-negotiable rules
 
-1. **Serve all assets locally.** The only client script is `/language.js`, permitted by its SHA-256 hash in `customHttp.yml`. It remembers the language in the current tab, updates document metadata and reveals the target language of fragment links. Update the CSP digest when the script changes. The site has no analytics, cookies, third-party embeds or forms.
+1. **Serve all assets locally.** The CSP pins both first-party scripts by digest. `/language.js` manages the language selection and deep links. `/status.js` runs on the two pages with a health panel and reads the same-origin health proxy while the panel is visible. Update the matching CSP digest when a script changes. The site has no analytics, cookies, third-party embeds or forms.
 2. **No product surface** (the app's rule 8). No profile pages, no share links, no sign-in, no browser client of the app. The site says what Kumpa is; it is not Kumpa.
 3. **Preserve binding legal wording.** Provide Finnish and English for the current texts. Mark each machine translation and link to the controlling original at the top. Finnish governs the bylaws. English governs the current terms, privacy policy, DPIA summary and sensitive-answers consent. Read earlier versions in their archived wording. Drafts are identified on the page and excluded from indexing.
 4. **Identify machine-written Finnish.** Finnish page copy written or edited by an agent carries `machine: true`. Set `reviewedBy` only when a native speaker has reviewed the text.

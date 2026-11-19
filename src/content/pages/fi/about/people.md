@@ -1,13 +1,13 @@
 ---
 title: "Tekijät"
-description: "Vapaaehtoiset ja sovelluksen visuaalisen ilmeen tekijät."
+description: "Tutustu sovelluksen tekijöihin."
 machine: true
 ---
 
-Sovellusta tekee noin viisitoista vapaaehtoista. Moni meistä on tutustunut Aalto-yliopistossa. Hanke toimii itsenäisesti.
+Meitä on noin viisitoista vapaaehtoista. Moni meistä tutustui Aalto-yliopistossa. Kumpa on porukan oma projekti.
 
 @team
 
-## Visuaalinen ilme
+## Logo ja fontti
 
-Gaiane piirsi sovelluksen kuuttitunnuksen. Teo Tuominen suunnitteli otsikoissa käytetyn [Saiga-kirjaintyypin](https://www.spoketype.com/fonts/saiga/) Spoke-kirjainmuotoilustudiossaan.
+Gaiane piirsi logomme. [Teo Tuominen](https://www.teotuominen.com/) suunnitteli otsikoissa käytetyn [Saiga-fontin](https://www.spoketype.com/fonts/saiga/). Teon löytää myös [GitHubista](https://github.com/teotuominen) ja [LinkedInistä](https://www.linkedin.com/in/teo-tuominen-31a81223/).

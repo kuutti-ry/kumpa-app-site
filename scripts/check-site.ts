@@ -2,7 +2,7 @@
  * What the built site must hold (dist/, after `pnpm build`). Run by
  * `pnpm check:site` and by CI.
  *
- * - Only the integrity-pinned language switch may run. No frames or forms.
+ * - Only the pinned language script and, on status pages, the pinned health display may run. No frames or forms.
  * - Nothing is loaded from anybody else: every stylesheet, image, font and
  *   icon is the site's own. Links to other sites are links, not loads.
  * - Every link inside the site leads to a page or a file that exists, and an
@@ -39,9 +39,9 @@ import {
   TEXT_OF,
 } from "../src/lib/consent.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
-import { languageIntegrity } from "../src/lib/language-script.ts";
 import { redirects } from "../src/lib/redirects.ts";
 import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
+import { languageIntegrity, statusIntegrity } from "../src/lib/script-integrity.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -118,16 +118,29 @@ for (const path of pages) {
       problems.push(`${page}: expected a static redirect to ${destination}`);
     continue;
   }
-  const [script] = scripts;
+  const hasStatus = here === "/about/" || here === "/about/details/";
+  const expected = [{ file: "language.js", integrity: languageIntegrity }];
+  if (hasStatus) expected.push({ file: "status.js", integrity: statusIntegrity });
   if (
-    scripts.length !== 1 ||
-    !script ||
-    script[2]?.trim() ||
-    attribute(script[0], "src") !== fingerprinted("/language.js") ||
-    attribute(script[0], "integrity") !== languageIntegrity ||
-    !fileOf("/language.js")
+    scripts.length !== expected.length ||
+    expected.some(
+      ({ file, integrity }) =>
+        !fileOf(`/${file}`) ||
+        !scripts.some(
+          ([tag, , body]) =>
+            !body?.trim() &&
+            attribute(tag, "src") === fingerprinted(`/${file}`) &&
+            attribute(tag, "integrity") === integrity,
+        ),
+    )
   ) {
-    problems.push(`${page}: expected only the pinned language switch`);
+    problems.push(`${page}: unexpected or missing script`);
+  }
+  if (
+    (html.match(/ data-service-status(?:[ =>])/g) ?? []).length !== (hasStatus ? 2 : 0) ||
+    html.includes("<p>@status</p>")
+  ) {
+    problems.push(`${page}: missing or unexpected service status panel`);
   }
 
   // Saiga on every page or on none (docs/decisions.md, 28): a build that has
@@ -341,5 +354,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, only the language switch, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
+  `the site holds: ${pages.length} pages, only pinned first-party scripts, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
 );

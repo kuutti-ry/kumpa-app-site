@@ -1,13 +1,15 @@
 ---
 title: "Meistä"
-description: "Tutustu sovelluksen tekijöihin ja yhdistykseen, joka pitää sovelluksen maksuttomana."
+description: "Keitä olemme ja miksi perustimme yhdistyksen tekemään deittisovellusta."
 machine: true
 ---
 
-Teemme vapaaehtoisvoimin deittisovellusta, jota itsekin haluaisimme käyttää. Perustimme Kuutti ry:n, jotta Kumpa pysyy maksuttomana silloinkin, kun se kasvaa.
+Olemme joukko vapaaehtoisia. Teemme deittisovellusta, jota käyttäisimme itsekin. Perustimme Kuutti ry:n, jotta sovellus pysyy ilmaisena, vaikka käyttäjiä tulisi lisää.
 
-## Yhdistys
+## Miksi yhdistys?
 
-Kuutti ry on espoolainen voittoa tavoittelematon yhdistys. Sen tarkoituksena on vähentää yksinäisyyttä ja auttaa ihmisiä kohtaamaan tasavertaisesti. Yhdistyksen säännöt kieltävät mainonnan ja käyttäjätietojen kaupallisen käytön. Yhdistys perustettiin 1.10.2026 ja rekisteröitiin 6.10.2026. Y-tunnus on 3659478-7.
+Kuutti ry on espoolainen yhdistys. Haluamme vähentää yksinäisyyttä ja antaa kaikille samat mahdollisuudet tutustua uusiin ihmisiin. Emme tavoittele voittoa. Yhdistyksen säännöt kieltävät mainonnan ja käyttäjien tietojen kaupallisen käytön.
 
-[Yhdistyksen säännöt](/legal/bylaws/) · [Yhdistys yritys- ja yhteisötietojärjestelmässä](https://tietopalvelu.ytj.fi/yritys/3659478-7)
+Perustimme yhdistyksen 1.10.2026. Se rekisteröitiin 6.10.2026. Y-tunnuksemme on 3659478-7.
+
+[Yhdistyksen säännöt](/legal/bylaws/) · [Yhdistyksen tiedot YTJ:ssä](https://tietopalvelu.ytj.fi/yritys/3659478-7)

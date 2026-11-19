@@ -1,0 +1,53 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const fi = locale === "fi";
+const unknown = fi ? "Ei tiedossa" : "Unknown";
+const unknownSummary = fi ? "Palvelimen tila ei ole tiedossa" : "Service status unavailable";
+---
+
+<div class="service-status" data-service-status data-state="unknown">
+  <p class="service-status-summary" role="status" aria-live="polite" aria-atomic="true">
+    <span class="service-status-dot" aria-hidden="true"></span>
+    <strong
+      data-status-summary
+      data-ok={fi ? "Palvelin toimii" : "Service operational"}
+      data-degraded={fi ? "Palvelimessa on häiriö" : "Service disruption"}
+      data-checking={fi ? "Tarkistetaan palvelimen tilaa…" : "Checking service status…"}
+      data-unknown={unknownSummary}
+    >{fi ? "Tilaa ei ole vielä tarkistettu" : "Status hasn’t been checked yet"}</strong>
+  </p>
+  <dl class="service-status-components">
+    <div>
+      <dt>{fi ? "Tietokantayhteys" : "Database connection"}</dt>
+      <dd
+        data-status-db
+        data-state="unknown"
+        data-ok={fi ? "Toimii" : "Connected"}
+        data-unreachable={fi ? "Ei yhteyttä" : "Unreachable"}
+        data-unknown={unknown}
+      >{unknown}</dd>
+    </div>
+    <div>
+      <dt>{fi ? "Tietokannan päivitykset" : "Database updates"}</dt>
+      <dd
+        data-status-migrations
+        data-state="unknown"
+        data-current={fi ? "Ajan tasalla" : "Up to date"}
+        data-pending={fi ? "Odottaa päivitystä" : "Pending"}
+        data-unknown={unknown}
+      >{unknown}</dd>
+    </div>
+  </dl>
+  <div class="service-status-foot">
+    <small data-status-timestamp hidden>{fi ? "Tarkistettu" : "Checked"} <time data-status-checked></time></small>
+    <div class="service-status-actions">
+      <button type="button" data-status-refresh hidden>{fi ? "Tarkista uudelleen" : "Check again"}</button>
+      <a href="https://api.kumpa.fi/health" target="_blank" rel="noopener noreferrer">{fi ? "Palvelimen vastaus" : "Raw status"}</a>
+    </div>
+  </div>
+</div>

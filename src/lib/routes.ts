@@ -13,8 +13,6 @@ export type RouteProps = {
   lastmod?: string;
 };
 
-export const aboutSections = ["people", "contact", "details", "media"] as const;
-
 export async function routes() {
   const pages = await allPages();
   const texts = await allLegal();

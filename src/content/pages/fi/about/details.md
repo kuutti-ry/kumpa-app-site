@@ -1,21 +1,21 @@
 ---
 title: "Tekniikka ja tutkimus"
-description: "Sovelluksen avoin lähdekoodi, palvelun tila ja tietoa tutkimuksesta."
+description: "Miten teemme sovellusta, mistä löydät koodin ja mitä ajattelemme tutkimuksesta."
 machine: true
 ---
 
-Kumpa-sovelluksen ja palvelimen [lähdekoodi on julkinen](https://github.com/kuutti-ry/kumpa-app). GitHubissa voit tutustua siihen, miten sovellus valitsee näytettävät profiilit, ilmoittaa virheestä tai ehdottaa muutosta.
+[Sovelluksen ja palvelimen koodi on GitHubissa](https://github.com/kuutti-ry/kumpa-app). Sieltä voit katsoa, miten sovellus valitsee, keitä näet. Voit myös ilmoittaa virheestä tai ehdottaa parannusta.
 
-## Toteutus
+## Näin sovellus on tehty
 
-iPhone- ja Android-sovellus on tehty React Nativella ja Expolla. Palvelin käyttää TypeScriptiä ja PostgreSQL-tietokantaa. Käyttäjä tunnistautuu suomalaisen luottamusverkoston kautta Telian tunnistuspalvelussa. Palvelimet, tietokanta ja kuvat sijaitsevat Saksassa.
+Käytämme iPhone- ja Android-sovelluksen tekemiseen React Nativea ja Expoa. Palvelimen koodi on TypeScriptiä ja tietokanta on PostgreSQL. Kirjautumisessa käytämme Telian tunnistuspalvelua, joka kuuluu suomalaiseen tunnistuspalveluiden luottamusverkostoon. Palvelimemme, tietokantamme ja käyttäjien kuvat ovat Saksassa.
 
-Koodi on julkaistu [GNU Affero General Public License -lisenssillä](https://github.com/kuutti-ry/kumpa-app/blob/main/LICENSE), johon sisältyy [sovelluskauppoja koskeva poikkeus](https://github.com/kuutti-ry/kumpa-app/blob/main/LICENSE-EXCEPTION).
+Koodin lisenssi on [GNU Affero General Public License](https://github.com/kuutti-ry/kumpa-app/blob/main/LICENSE). Siihen kuuluu [sovelluskauppoja koskeva poikkeus](https://github.com/kuutti-ry/kumpa-app/blob/main/LICENSE-EXCEPTION).
 
-## Palvelun tila
+## Toimiiko palvelin?
 
-[Tarkista rajapinnan tila](https://api.kumpa.fi/health). Vastauksesta näet, saako palvelin yhteyden tietokantaan ja mikä ohjelmistoversio on käytössä.
+@status
 
-## Tutkimus
+## Käytetäänkö tietojani tutkimukseen?
 
-Ihmissuhteita ja yksinäisyyttä koskevan tutkimuksen tukeminen kuuluu yhdistyksen tarkoitukseen. Yhdistyksellä ei tällä hetkellä ole tutkimuskumppania, eikä sovellus kerää tietoja tutkimusta varten.
+Ei. Emme kerää tietoja tutkimusta varten, eikä meillä tällä hetkellä ole tutkimuskumppania.

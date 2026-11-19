@@ -169,7 +169,7 @@ ol {
 }
 
 /* The lists of a text, not the lists the site is built of. */
-:where(ul, ol):where(:not([class])) > li + li {
+:where(.prose) :where(ul, ol):where(:not([class], nav *)) > li + li {
   margin-top: 0.3em;
 }
 
@@ -754,13 +754,170 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   top: calc(50% - 0.265em);
 }
 
-.prose a[href^="https://"]::after {
+.about-jumps ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-jumps a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+}
+
+.about-long > section {
+  border-top: 1px solid hsl(var(--border));
+  margin-block-start: 2.5rem;
+  padding-block-start: 1.75rem;
+}
+
+.about-long > section > h2:first-of-type {
+  margin-block-start: 0;
+}
+
+/* Shared section links must also open their target on a phone. The
+ * usual narrow-screen entry keeps the section menu and individual pages. */
+@media screen and (width < 44rem) {
+  body:not(:has(.about-long :target)) .about-long,
+  body:has(.about-long :target) .about-compact,
+  .footer-brand > .footer-contact-wide {
+    display: none;
+  }
+}
+
+@media (min-width: 44rem), print {
+  .about-compact,
+  .footer-brand > .footer-contact-compact {
+    display: none;
+  }
+}
+
+.prose a[href^="https://"]:not(:has(svg))::after {
   content: " ↗" / "";
   font-size: 0.82em;
 }
 
-.prose a:has(svg)::after {
-  content: none;
+/* --- Service status ----------------------------------------------------- */
+
+.service-status {
+  --status-color: hsl(var(--muted-foreground));
+  --status-tint: hsl(var(--muted));
+  margin: 1rem 0 1.75rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  background: hsl(var(--background));
+}
+
+.service-status[data-state="ok"] {
+  --status-color: #13643b;
+  --status-tint: #edf7f1;
+}
+
+.service-status[data-state="degraded"] {
+  --status-color: #9d3037;
+  --status-tint: #fff1f0;
+}
+
+.service-status-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  margin: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  border-bottom: 1px solid hsl(var(--border));
+  color: var(--status-color);
+  background: var(--status-tint);
+}
+
+.service-status-dot {
+  flex: 0 0 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.service-status-components {
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.service-status-components > div,
+.service-status-foot,
+.service-status-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.15rem 1rem;
+}
+
+.service-status-components > div {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.service-status-components dt,
+.service-status-components dd {
+  margin: 0;
+  font-size: var(--step--1);
+}
+
+.service-status-components dt {
+  font-weight: 500;
+}
+
+.service-status-components dd,
+.service-status-foot {
+  color: hsl(var(--muted-foreground));
+}
+
+.service-status-components dd:is([data-state="ok"], [data-state="current"]) {
+  color: #13643b;
+}
+
+.service-status-components dd:is([data-state="unreachable"], [data-state="pending"]) {
+  color: #9d3037;
+}
+
+.service-status-foot {
+  padding: 0.35rem 1rem;
+  font-size: var(--step--1);
+}
+
+.service-status-actions {
+  margin-inline-start: auto;
+}
+
+.service-status-actions button,
+.service-status-actions a {
+  min-height: 44px;
+  align-content: center;
+}
+
+.service-status-actions button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: hsl(var(--primary));
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.service-status-actions button:disabled {
+  color: hsl(var(--muted-foreground));
+  cursor: wait;
+}
+
+.service-status-actions a {
+  display: inline-block;
 }
 
 /* --- Footer ------------------------------------------------------------- */
