@@ -613,20 +613,6 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   font-size: var(--step--1);
 }
 
-.translation-note {
-  max-width: var(--column);
-  margin: 2.5rem auto 0;
-  color: hsl(var(--muted-foreground));
-}
-
-.hero ~ .translation-note {
-  max-width: none;
-}
-
-.translation-note small {
-  font-size: var(--step--1);
-}
-
 .notice {
   margin: 0 0 1.5rem;
   padding: 0.9rem 1rem;
