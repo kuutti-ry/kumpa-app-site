@@ -449,33 +449,7 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   aspect-ratio: 1.55;
   display: grid;
   place-items: center;
-  position: relative;
   justify-self: center;
-  isolation: isolate;
-}
-
-.hero-art::before,
-.hero-art::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-}
-
-.hero-art::before {
-  inset: 0 6% 3%;
-  background: linear-gradient(
-    155deg,
-    hsl(var(--dawn)),
-    hsl(var(--sea)) 54%,
-    hsl(var(--water-deep))
-  );
-}
-
-.hero-art::after {
-  inset: auto 4% 2%;
-  height: 19%;
-  border: 1px solid hsl(var(--muted-foreground) / 0.3);
 }
 
 .hero-art img {
