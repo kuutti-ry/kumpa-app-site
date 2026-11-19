@@ -3,7 +3,9 @@ title: "How Kumpa works"
 description: "Sign in with your bank ID, choose whom you’d like to meet and start a conversation when you both like each other."
 ---
 
-In Kumpa you choose who you want to meet. If you both like each other, you can start a conversation. We’re still testing the app before its public release.
+In Kumpa you choose who you want to meet. If you both like each other, you can start a conversation.
+
+Kumpa is in closed beta. If you’d like to help test it, email us at [hello@kuutti.app](mailto:hello@kuutti.app).
 
 ## Make a profile
 

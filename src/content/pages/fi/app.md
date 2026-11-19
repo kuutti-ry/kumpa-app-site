@@ -4,7 +4,9 @@ description: "Tee profiili ja kerro, millaista seuraa etsit. Kun tykkäätte toi
 machine: true
 ---
 
-Sinä päätät, kehen haluat tutustua. Kun tykkäätte toisistanne, voitte alkaa jutella. Testaamme sovellusta vielä ennen julkaisua.
+Sinä päätät, kehen haluat tutustua. Kun tykkäätte toisistanne, voitte alkaa jutella.
+
+Kumpa on suljetussa betatestissä. Jos haluat mukaan testaamaan, laita meille viestiä osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
 
 ## Tee oma profiili
 
