@@ -1,6 +1,6 @@
-# Kuutti: the website
+# Kumpa website
 
-The website of Kuutti ry (kumpa.fi, served at kuutti.app too; `docs/decisions.md`, 32): what Kumpa is, who is behind it, and the legal texts. A static site made with Astro. The app is another repository, `kuutti-ry/kumpa-app`, and its `CLAUDE.md` carries the project's standing rules; what is here is what this site needs of them, and what is the site's own. Where the two disagree about the project, the app's repository wins.
+Kumpa’s Finnish-first dating-app website at kumpa.fi, also served at kuutti.app. Astro builds both languages into each static page. The app is another repository, `kuutti-ry/kumpa-app`, and its `CLAUDE.md` carries the project's standing rules; what is here is what this site needs of them, and what is the site's own. Where the two disagree about the project, the app's repository wins.
 
 The site's issues live in the app's repository (`kuutti-ry/kumpa-app#53` is the site).
 
@@ -12,7 +12,8 @@ The site's issues live in the app's repository (`kuutti-ry/kumpa-app#53` is the 
 - `pnpm dev` serves the site at http://127.0.0.1:4321. `pnpm build` writes `dist/`; `pnpm preview` serves it.
 - `pnpm typecheck` (`astro check`), `pnpm lint` (Biome, then `scripts/check-content.ts`, then `scripts/check-fonts.ts`: no font file in git but Inter's), `pnpm test` (node's test runner), `pnpm format`.
 - `node scripts/fetch-saiga.ts` puts Saiga's files into `public/fonts/saiga/` (git ignores it) from the association's private repository, with a read-only token in `FONTS_TOKEN`; Amplify's build runs it, and a build without the files is in Inter throughout (`docs/decisions.md`, 18 and 28). On a laptop, `FONTS_TOKEN="$(gh auth token)" node scripts/fetch-saiga.ts` does the same with your own login.
-- `pnpm check:site` reads `dist/` after a build: no script, nothing loaded from elsewhere, no dead link, a language and one `h1` on every page, a sitemap of exactly the pages that may be indexed, a `/legal/versions.json` whose every address leads to its version's anchor, a consent on the privacy page that marks the wording that counts, an anchor for every version of `src/consent-versions.ts` in one place (the newest on its text's page, the rest on `/legal/earlier/`), Saiga's style sheet linked on every page of a build that has Saiga's files and on no page of one that has not, and no style sheet that scrolls smoothly or measures a length on the font (`ch`, `ex`; `scripts/landing.ts`), so that a link to an anchor lands where it points.
+- `pnpm check:site` reads `dist/` after a build. It checks local assets, scripts, links, language markup, the sitemap, Saiga fallback, and the app’s legal version anchors and archive.
+
 - `pnpm check:app-versions` reads the app's generated `CONSENT_VERSIONS` on `main` from GitHub and holds it to `src/consent-versions.ts` (`-- --app <file>` reads a local one instead); CI runs it in the `site` job.
 - `pnpm check:pinned -- --base origin/main` holds every row of the base's `src/consent-versions.ts` unchanged and in its place; CI runs it in the `lint` job.
 
@@ -20,12 +21,12 @@ Before pushing: typecheck, lint, test, build and check:site pass locally. Do not
 
 ## Non-negotiable rules
 
-1. **The site runs nothing and loads nothing from anybody else.** No script, no analytics, no cookie, no font or image from another host (Inter is the site's own file under `public/fonts/`), no embedded frame, no form. `scripts/check-site.ts` and the content security policy in `customHttp.yml` both hold this; a change that needs an exception is wrong. The one there was, the pond demo, went with Gaiane's structure on 16/11/2026 (`docs/decisions.md`, 27).
+1. **Serve all assets locally.** The only client script is `/language.js`, permitted by its SHA-256 hash in `customHttp.yml`. It remembers the language in the current tab, updates document metadata and reveals the target language of fragment links. Update the CSP digest when the script changes. The site has no analytics, cookies, third-party embeds or forms.
 2. **No product surface** (the app's rule 8). No profile pages, no share links, no sign-in, no browser client of the app. The site says what Kumpa is; it is not Kumpa.
-3. **A legal text is never translated by a machine into a language it did not exist in.** The bylaws exist in Finnish, and their Finnish binds, as registered. The terms of use, the privacy policy and the consents are a model's texts, read by no lawyer, and their English binds: the maintainer's word of 08/11/2026 and 16/11/2026 (`docs/decisions.md`, 29). They name the association Kuutti ry and the app Kumpa, and hold only what the law asks of them. A text is read in the language it was written in, whether or not the site speaks it (`TEXT_LANGUAGES` in `src/i18n/locales.ts`). A draft says that it is a draft, on the page, and search engines are told to leave it alone.
-4. **Finnish and Swedish written by a machine say so.** Text an agent writes or edits in Finnish or Swedish carries `machine: true`. `reviewedBy` is written only for a native reader who has read the page, never by an agent on its own.
+3. **Preserve binding legal wording.** Provide Finnish and English for the current texts. Mark each machine translation and link to the controlling original at the top. Finnish governs the bylaws. English governs the current terms, privacy policy, DPIA summary and sensitive-answers consent. Read earlier versions in their archived wording. Drafts are identified on the page and excluded from indexing.
+4. **Identify machine-written Finnish.** Finnish page copy written or edited by an agent carries `machine: true`. Set `reviewedBy` only when a native speaker has reviewed the text.
 5. **Nobody is named who has not asked to be.** No team member, donor, partner or researcher appears on the site without their word, and no name is taken from a planning document.
-6. **Nothing is claimed that is not so.** No partner that has not agreed, no date that is not decided, no address that does not answer. What is not decided is `null` in `src/site.ts`, and the page says that it is coming.
+6. **Nothing is claimed that is not so.** No partner that has not agreed, no date that is not decided, no address that does not answer. Keep unavailable store URLs as `null` in `src/site.ts`. Show download buttons only once both store listings exist.
 7. **No asking for money before the association may.** A donate button counts as a collection of money under Finnish law; there is none until the association is registered and has made its notification or has its permit.
 8. `.env` files are never read, written or committed. The site needs none.
 9. **Saiga's files are never in this repository.** Kuutti's typeface is Spoke Type's, licensed to Kuutti ry for Kuutti's own media, and the maintainer promised Spoke to keep the files out of the public repository: not in a commit, a branch, a pull request, a GitHub workflow's cache, artifact or log. The build fetches them (`scripts/fetch-saiga.ts`); git ignores `public/fonts/saiga/`, and `scripts/check-fonts.ts` refuses any font file but Inter's in `pnpm lint` and before every commit. An agent never opens a font file: it would send it elsewhere (`docs/decisions.md`, 18).
@@ -44,15 +45,14 @@ As in the app's repository:
 ## Code and content
 
 - TypeScript strict. Biome is the formatter and the linter.
-- A page is Markdown in `src/content/pages/<language>/`, in every language of the site under one name (`src/i18n/locales.ts`: English only for now, `docs/decisions.md` 8). Markdown only: no HTML and no images in a text.
-- The navigation leads to real pages, and the site links to them (`/contact/`). The home page opens with the association's mission (what "About Us" says before its first heading), then says what every other page that carries `nav` is, by what that page says before its first heading, and leads to it (`docs/decisions.md`, 23). So every page of the navigation opens with text, and the build refuses one that does not.
-- The site names the association's address, `hello@kuutti.app`, and on "About Us" the team's own (`src/lib/team.ts`, `docs/decisions.md` 25); each a user and not an alias, on the maintainer's word: Google for Nonprofits checks that every address on the site is a user.
+- Write ordinary pages in Markdown under `src/content/pages/{fi,en}/`, using matching paths for both languages. The site supplies its images and components. The header links to Home, App and About. Use `home.md` for the homepage introduction and `about/` for people, contact, details and media. Research belongs under details. Keep app support links at their published URLs.
+- Lead with Kumpa on public-facing pages. Keep association background on About and keep its legal identity in the original documents. Contact is at `/about/contact/`. Show only the team’s approved names and contact details on the people page. The footer links to contact, social channels and legal documents and displays the matching Finnish or English Code from Finland badge. Keep the street address out of the footer and ordinary copy.
 - The headings and the header are in Saiga where a build has its files, and what is read is in Inter (`docs/decisions.md`, 28). `--display` in `src/styles/global.css` is the one place that says what is drawn in Saiga. CI's builds have no file of it (rule 9), so a change to how it looks is looked at in a build that has them.
 - `/sitemap.xml` names the pages that may be indexed; `src/lib/sitemap.ts` makes it from the content, and it is never written by hand (`docs/decisions.md` 11).
-- The site's own words (navigation, notices, the footer) are in `src/i18n/ui.ts`, in every language of the site, and a test holds that none is missing.
-- The app is Kumpa and the association Kuutti ry, never Kuutti alone, in everything a visitor reads: the pages, the site's own words and the legal texts. The name beside the logo and after a page's title is the association's. The docs and the code keep Kuutti, the project's name, as the address does; the repositories are Kumpa's, `kumpa-app` and `kumpa-app-site` (the maintainer's word of 16/11/2026, `docs/decisions.md` 30).
+- Provide shell labels, navigation, notices and page titles in both Finnish and English. Shared translations live in `src/i18n/ui.ts`.
+- Use Kumpa for the app and Kuutti ry for the association. Keep Kumpa uninflected in Finnish, for example `Kumpa-sovelluksessa`.
 - A legal text a person agrees to in the app carries `consent_version` (quoted), the app's version of it. The build refuses a heading or a body of the wording that counts (the one that says `binding: true`; the Finnish where none does), or a status or binding, that changed without a new version and its row at the end of `src/consent-versions.ts`; a row is never changed or removed, and its version keeps its anchor, the earlier text copied whole to `src/content/earlier/<language>/<kind>/<version>.md` and shown on `/legal/earlier/`: a new version asks everybody again, so it is the maintainer's bump, never an agent's own. The site's version lands first, the app's follows (`docs/decisions.md`, 14, 29 and 32).
-- Links inside the site are written in full, with the language's prefix where it has one and a trailing slash (`/legal/privacy/`); the build checks that each leads somewhere.
+- Use the same root-relative path in both languages, including the trailing slash, for example `/legal/privacy/`. Keep published legal version fragments intact.
 - Dates and numbers are written as Finland writes them, in every language.
 - Do not add a framework, a component library or a build step for something a style sheet can do.
 
@@ -61,7 +61,7 @@ As in the app's repository:
 - Meaning never by colour alone: where you are in the navigation is a line and a weight.
 - WCAG AA contrast in the light theme, the only one, and in its high-contrast pair, which answers the system's setting.
 - Every target is at least 44 px high. The page holds at 200 % text size and on a 320 px wide screen, without scrolling sideways.
-- One `h1` per page, headings in order, a skip link, the language on `html`.
+- One visible `h1` per language, ordered headings, a skip link and the selected language on `html`.
 
 ## Decisions
 

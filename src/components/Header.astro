@@ -1,59 +1,102 @@
 ---
-import { type Locale, pathOf } from "../i18n/locales.ts";
+import type { Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
-import { navigation } from "../lib/content.ts";
 
 interface Props {
   locale: Locale;
-  /** The page's slug ("" is the home page), for "you are here". */
   slug: string;
 }
+
 const { locale, slug } = Astro.props;
-// The pages that carry `nav` in their front matter, in that order, and nothing
-// else, each leading to its page (docs/decisions.md, 23). On a wide screen they
-// stand in the header; on a narrow one they fold into a menu, a <details>
-// (docs/decisions.md, 19), so that nothing needs a script.
-const links = await navigation(locale);
-const home = pathOf(locale, "");
-const here = (link: string) => slug === link || slug.startsWith(`${link}/`);
+const fi = locale === "fi";
+const groups = [
+  {
+    slug: "app",
+    label: t(locale, "nav.app"),
+    pages: [
+      ["app", fi ? "Näin Kumpa toimii" : "How Kumpa works"],
+      ["help", fi ? "Ohjeet" : "Help"],
+      ["delete-account", fi ? "Tilin poistaminen" : "Delete your account"],
+      ["child-safety", fi ? "Lasten turvallisuus" : "Child safety"],
+    ],
+  },
+  {
+    slug: "about",
+    label: t(locale, "nav.about"),
+    pages: [
+      ["about", fi ? "Tietoa meistä" : "About Kumpa"],
+      ["about/people", fi ? "Tekijät" : "People"],
+      ["about/contact", fi ? "Yhteystiedot" : "Contact"],
+      ["about/details", fi ? "Taustatiedot" : "Project details"],
+      ["about/media", fi ? "Medialle" : "For the media"],
+    ],
+  },
+] as const;
+
+const home = t(locale, "nav.home");
+const brand = t(locale, "site.name");
+const current = (page: string) => (page === slug ? "page" : undefined);
 ---
 
 <header class="site-header">
-  <div>
-    <a class="brand" href={home} aria-current={slug === "" ? "page" : undefined}>
-      <img src="/logo.png" alt={t(locale, "site.name")} width="59" height="40" />
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label={`${brand} · ${home}`}>
+      <img src="/logo.png" alt="" width="59" height="40" />
+      <span>{brand}</span>
     </a>
+
     <nav class="site-nav site-wide" aria-label={t(locale, "nav.label")}>
-      <ul class="links">
+      <ul>
+        <li><a href="/" aria-current={current("")}>{home}</a></li>
         {
-          links.map((link) => (
+          groups.map((group) => (
             <li>
-              <a href={pathOf(locale, link.slug)} aria-current={here(link.slug) ? "page" : undefined}>
-                {link.title}
+              <a
+                href={`/${group.slug}/`}
+                aria-current={current(group.slug) ?? (group.pages.some(([page]) => page === slug) ? "location" : undefined)}
+              >
+                {group.label}
               </a>
             </li>
           ))
         }
       </ul>
     </nav>
+
+    <div class="language-switch" role="group" aria-label={fi ? "Kieli" : "Language"}>
+      <label for="lang-fi" lang="fi" title="Suomi">FI</label>
+      <label for="lang-en" lang="en" title="English">EN</label>
+    </div>
+
     <details class="site-menu">
       <summary>
         <svg class="open" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M4 7h16M4 12h16M4 17h16"></path>
         </svg>
         <svg class="close" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M6 6l12 12M18 6 6 18"></path>
+          <path d="m6 6 12 12M18 6 6 18"></path>
         </svg>
         <span class="visually-hidden">{t(locale, "nav.menu")}</span>
       </summary>
       <nav class="site-nav" aria-label={t(locale, "nav.label")}>
-        <ul class="links">
+        <ul>
+          <li><a href="/" aria-current={current("")}>{home}</a></li>
           {
-            links.map((link) => (
+            groups.map((group) => (
               <li>
-                <a href={pathOf(locale, link.slug)} aria-current={here(link.slug) ? "page" : undefined}>
-                  {link.title}
-                </a>
+                <details class="menu-branch">
+                  <summary>
+                    {group.label}
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path d="m4 6 4 4 4-4" />
+                    </svg>
+                  </summary>
+                  <ul>
+                    {group.pages.map(([page, label]) => (
+                      <li><a href={`/${page}/`} aria-current={current(page)}>{label}</a></li>
+                    ))}
+                  </ul>
+                </details>
               </li>
             ))
           }

@@ -1,8 +1,8 @@
 # kumpa-app-site
 
-The website of Kuutti ry at [kumpa.fi](https://kumpa.fi), also served at kuutti.app: what Kumpa is, who is behind it, and the texts that bind the association and the people who use the app. The app itself is at [kuutti-ry/kumpa-app](https://github.com/kuutti-ry/kumpa-app).
+The Finnish-first website for Kumpa, a free dating app for adults in Finland. Its home is [kumpa.fi](https://kumpa.fi). The same site is served at kuutti.app. The app itself is at [kuutti-ry/kumpa-app](https://github.com/kuutti-ry/kumpa-app).
 
-A static site. It sets no cookie, runs no script and loads nothing from anybody else; a check holds it to that on every build. What is read is in Inter, the site's own file under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). The headings and the header are in Saiga, Kuutti's typeface, whose files are never in this repository: the build on Amplify fetches them, and a build without them is in Inter throughout (`docs/decisions.md`, 18 and 28).
+Astro builds static pages containing Finnish and English at the same URL. A single local script remembers the chosen language in the current tab. The site uses only its own assets and sets no cookies. Body text uses Inter under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). Headings and navigation use Teo Tuominen’s Saiga when the licensed files are available during the build. Amplify fetches them privately. Local builds fall back to Inter.
 
 ## Run it
 
@@ -21,7 +21,7 @@ pnpm dev          # http://127.0.0.1:4321
 | `pnpm typecheck` | `astro check`, TypeScript strict |
 | `pnpm lint` | Biome, then what the content must hold (`scripts/check-content.ts`) |
 | `pnpm test` | the tests of the site's own code |
-| `pnpm check:site` | what the built site must hold (`scripts/check-site.ts`): no script, nothing from elsewhere, no dead link |
+| `pnpm check:site` | checks static output, language markup, local assets, links, version anchors and sitemap |
 | `pnpm check:app-versions` | the app's consent versions on `main`, read from GitHub, against the site's (`scripts/check-app-versions.ts`; `-- --app <file>` reads a local one) |
 | `pnpm check:pinned -- --base origin/main` | every row of the base's `src/consent-versions.ts` is still there, unchanged, in its place (`scripts/check-pinned.ts`) |
 | `pnpm format` | Biome writes |
@@ -29,34 +29,35 @@ pnpm dev          # http://127.0.0.1:4321
 ## Where things are
 
 ```
-src/content/pages/<language>/<slug>.md    the pages: the app, the association, support us, help, deleting an account
-src/content/legal/<language>/<slug>.md    the legal texts: bylaws, terms of use, privacy policy
+src/content/pages/<language>/<slug>.md    page copy, including nested About pages
+src/content/legal/<language>/<slug>.md    current legal documents and their translations
 src/content/consents/<language>/<kind>.md the app's sensitive-answers consent, read on the privacy page
 src/consent-versions.ts                   every version of each text a person agrees to, with its fingerprint
 src/i18n/                                 the languages, and the site's own words (navigation, notices)
-src/site.ts                               what the site knows: addresses, channels, store links
+src/site.ts                               contact details, channels and store links
 src/pages/[...path].astro                 the template the site's pages are made from
 src/lib/                                  which pages there are, how a text is listed, Saiga's files and their sums
 src/styles/global.css                     the look, on the app's design tokens
-public/                                   the logo, the icon, Inter (public/fonts/, SIL Open Font License 1.1)
+public/                                   the logo, icons, Inter and the local language script
 public/fonts/saiga/                       Saiga, put there by the build or by hand; git ignores it
 scripts/                                  the checks, the tests, and the fetch of Saiga
 docs/                                     decisions, open questions, what waits for a native reader
 ```
 
-A page is a Markdown file. To add a page, add it in every language of the site under the same name. The navigation is the pages that carry `nav` in their front matter, in that order, and it leads to them; the home page shows what each says before its first heading, so each must open with text (`docs/decisions.md`, 23).
+Each ordinary page has a Markdown file under both `src/content/pages/fi/` and `src/content/pages/en/`, at matching paths. `home.md` supplies the opening paragraph at `/`. The top-level navigation leads to Home, App and About. About links to People, Contact, Technical details and For the media under `/about/`. App support remains available at `/help/`, `/delete-account/` and `/child-safety/`.
 
-## Languages
+## Languages and legal versions
 
-English only for now (`docs/decisions.md`, 8), at the root (`/about/`). The code is written for any number of languages: a language that comes back is an entry in `src/i18n/locales.ts`, its words in `src/i18n/ui.ts` and its pages under `src/content`, at the language's prefix (`/sv/about/`).
-
-- **English is the source.** Finnish and Swedish written by a machine, an agent included, carry `machine: true`, and the page says so to its reader. A native reader who has read a page replaces the flag with `reviewedBy`.
-- **A legal text is never translated by a machine into a language it did not exist in.** The legal page links to each text in the languages it exists in. The Finnish of the bylaws binds; the English of the terms of use, the privacy policy and the consents does (`docs/decisions.md`, 29).
-- **A text a person agrees to in the app has a version.** Its front matter names `consent_version`, the build holds the heading and body of the wording that counts, and a legal text's status and binding, to that version's row in `src/consent-versions.ts`, and publishes the versions at `/legal/versions.json` for the app's CI (`docs/decisions.md`, 14 and 29). A changed text is a new version and a new row.
+- Finnish is the default. The language control switches the page in place. `public/language.js` keeps the choice in session storage, updates the page language, title and description, and reveals deep links to the wording they identify.
+- Finnish page copy written by a machine carries `machine: true`. A native speaker may replace it with `reviewedBy` after reviewing the page. See `docs/translation-review.md`.
+- Current legal documents show the machine-translation notice and link to the controlling original above each translation. The registered Finnish bylaws take precedence. English takes precedence for the terms, privacy policy, DPIA summary and current sensitive-answers consent.
+- Keep the binding wording, its version anchors and archived texts intact. The build checks the current wording against `src/consent-versions.ts`, publishes app links in `/legal/versions.json` and serves earlier versions at `/legal/earlier/`. Editing a translation does not create a new consent version.
 
 ## Hosting
 
-Amplify Hosting builds and serves the site from `main` (`amplify.yml`), with the headers of `customHttp.yml`: a content security policy that lets nothing run and nothing load from elsewhere.
+Amplify Hosting builds from `main` using `amplify.yml`. The content security policy in `customHttp.yml` pins the SHA-256 digest of the language script. Update its digest whenever that file changes.
+
+The pre-redesign site is tagged `website-before-finnish-first-2026-11-20`. To inspect or rebuild it separately, use `git worktree add --detach ../kumpa-site-before-finnish-first website-before-finnish-first-2026-11-20` and run the normal build commands there.
 
 ## Rules
 

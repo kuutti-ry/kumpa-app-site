@@ -1,34 +1,22 @@
 ---
-import { DEFAULT_LOCALE, LOCALES, pathOf } from "../i18n/locales.ts";
+import { LOCALES, type Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
 
-// One page for every address that is not there. It cannot know the reader's
-// language, so it says it in every language of the site.
+const info = (locale: Locale) => ({
+  title: t(locale, "notFound.title"),
+  description: t(locale, "notFound.body"),
+});
 ---
 
-<Base
-  locale={DEFAULT_LOCALE}
-  slug="404"
-  title={t(DEFAULT_LOCALE, "notFound.title")}
-  description={t(DEFAULT_LOCALE, "notFound.body")}
-  alternates={{}}
-  noindex
->
-  <section class="prose">
-    {
-      LOCALES.map((locale, index) => (
-        <div lang={locale}>
-          {index === 0 ? (
-            <h1>{t(locale, "notFound.title")}</h1>
-          ) : (
-            <h2>{t(locale, "notFound.title")}</h2>
-          )}
-          <p>
-            {t(locale, "notFound.body")} <a href={pathOf(locale, "")}>{t(locale, "notFound.home")}</a>
-          </p>
-        </div>
-      ))
-    }
-  </section>
+<Base slug="404" head={{ fi: info("fi"), en: info("en") }} noindex>
+  {LOCALES.map(locale => (
+    <div data-lang={locale} lang={locale}>
+      <section class="prose">
+        <h1>{info(locale).title}</h1>
+        <p>{info(locale).description}</p>
+        <a href="/">{t(locale, "notFound.home")}</a>
+      </section>
+    </div>
+  ))}
 </Base>

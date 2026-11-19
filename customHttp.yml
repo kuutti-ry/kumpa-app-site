@@ -1,14 +1,9 @@
-# The headers Amplify Hosting sends with every answer. The policy is the
-# site's promise in a form a browser enforces: nothing runs (no script is
-# named, docs/decisions.md 27), nothing is loaded from anybody else (the
-# typeface is the site's own file), nothing is framed, nothing is posted. One
-# policy for every address, and it names no host, so it is the same at
-# kuutti.app and at kumpa.fi (docs/decisions.md, 26).
+# Only the exact language script can run. Its digest is checked by pnpm test.
 customHeaders:
   - pattern: "**"
     headers:
       - key: Content-Security-Policy
-        value: "default-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+        value: "default-src 'none'; script-src 'sha256-K6OZcKjpaZa1Sbzzj631tmtA9WT6yVB2nAN4WLgi59Y='; worker-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
       - key: Strict-Transport-Security
         value: "max-age=63072000; includeSubDomains; preload"
       - key: X-Content-Type-Options

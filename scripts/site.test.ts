@@ -6,22 +6,22 @@ import { test } from "node:test";
 import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
+import { languageIntegrity } from "../src/lib/language-script.ts";
 import { MARKS } from "../src/lib/marks.ts";
 import { SITE } from "../src/site.ts";
 
-test("the default language has no prefix, another has its own, and every path ends with a slash", () => {
-  assert.equal(pathOf(DEFAULT_LOCALE, ""), "/");
-  assert.equal(pathOf(DEFAULT_LOCALE, "legal/privacy"), "/legal/privacy/");
+test("Finnish is the default and switching languages keeps every page URL", () => {
+  assert.equal(DEFAULT_LOCALE, "fi");
   for (const locale of LOCALES) {
-    if (locale === DEFAULT_LOCALE) continue;
-    assert.equal(pathOf(locale, ""), `/${locale}/`);
-    assert.equal(pathOf(locale, "about"), `/${locale}/about/`);
+    assert.equal(pathOf(locale, ""), "/");
+    assert.equal(pathOf(locale, "about/people"), "/about/people/");
+    assert.equal(pathOf(locale, "legal/privacy"), "/legal/privacy/");
   }
 });
 
 test("a language is one of the site's and nothing else", () => {
   for (const locale of LOCALES) assert.equal(isLocale(locale), true);
-  for (const other of ["", "EN", "en-FI", "fi", "sv", "de", "legal"]) {
+  for (const other of ["", "EN", "en-FI", "sv", "de", "legal"]) {
     assert.equal(isLocale(other), false);
   }
 });
@@ -68,43 +68,17 @@ test("every channel of the association is an https address with a mark the foote
   }
 });
 
-test("the contact page names every channel at the footer's address, and no other of those services", () => {
-  const contact = readFileSync(
-    join(import.meta.dirname, "..", "src", "content", "pages", "en", "contact.md"),
-    "utf8",
-  );
-  const linked = [...contact.matchAll(/\]\((https:\/\/[^)\s]+)\)/g)].map((match) => match[1]);
-  const hosts = new Set(SITE.social.map((channel) => new URL(channel.href).host));
-  assert.deepEqual(
-    linked.filter((href) => hosts.has(new URL(href ?? "").host)).sort(),
-    SITE.social.map((channel) => channel.href).sort(),
-  );
+test("both contact pages give the published email address", () => {
+  for (const locale of LOCALES) {
+    const contact = readFileSync(
+      join(import.meta.dirname, "..", "src", "content", "pages", locale, "about", "contact.md"),
+      "utf8",
+    );
+    assert.ok(SITE.contactEmail && contact.includes(`(mailto:${SITE.contactEmail})`));
+  }
 });
 
-test("the home page says what the association is and what it makes, and the footer names it as the register does, with an address to write to", () => {
-  assert.equal(t("en", "home.title"), "Kuutti ry");
-  assert.equal(t("en", "home.mission"), "Our mission");
-  assert.equal(
-    t("en", "home.description"),
-    "A non-profit association working to reduce loneliness in Finland, and the maker of Kumpa, a free app for meeting people.",
-  );
-  assert.equal(t("en", "home.soon"), "Not in the stores yet.");
-  assert.equal(
-    t("en", "footer.address", { address: SITE.postalAddress }),
-    "Kuutti ry, Tontunmäentie 22\u00a0E, 02200\u00a0Espoo, Finland.",
-  );
-  assert.equal(
-    t("en", "footer.address", { address: SITE.postalAddressJoined }),
-    "Kuutti ry, Tontunmäentie 22E, 02200 Espoo, Finland.",
-  );
-  assert.equal(
-    t("en", "footer.businessId", { businessId: SITE.businessId }),
-    "Business ID 3659478-7.",
-  );
-  assert.match(SITE.contactEmail ?? "", /^[a-z]+@kuutti\.app$/);
-});
-
-test("the content security policy lets nothing run", () => {
+test("the content security policy permits the pinned language script alone", () => {
   const headers = readFileSync(join(import.meta.dirname, "..", "customHttp.yml"), "utf8");
   const policies = [...headers.matchAll(/key: Content-Security-Policy\s+value: "([^"]*)"/g)];
   assert.equal(policies.length, 1, "one policy for every address");
@@ -114,12 +88,11 @@ test("the content security policy lets nothing run", () => {
       return [name, sources];
     }),
   );
-  // Nothing is allowed that is not named, and no script is named
-  // (docs/decisions.md, 27): the same at every address the site answers at.
   assert.deepEqual(directives.get("default-src"), ["'none'"]);
-  for (const scripts of ["script-src", "script-src-elem", "script-src-attr", "worker-src"]) {
-    assert.equal(directives.has(scripts), false, `${scripts} would let something run`);
-  }
+  assert.deepEqual(directives.get("script-src"), [`'${languageIntegrity}'`]);
+  assert.deepEqual(directives.get("worker-src"), ["'none'"]);
+  for (const directive of ["script-src-elem", "script-src-attr"])
+    assert.equal(directives.has(directive), false);
 });
 
 test("a file kept elsewhere by its address carries a fingerprint that changes with it, and only then", () => {

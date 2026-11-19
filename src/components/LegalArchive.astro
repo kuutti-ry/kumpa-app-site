@@ -1,0 +1,51 @@
+---
+import { DEFAULT_LOCALE, type Locale, pathOf } from "../i18n/locales.ts";
+import { formatDate, LANGUAGE_NAME, t } from "../i18n/ui.ts";
+import { anchorOf, countedWording, TEXT_OF } from "../lib/consent.ts";
+import { type EarlierText, earlierTexts, LEGAL, legalShelf } from "../lib/content.ts";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const shelf = await legalShelf(locale);
+const earlier = await earlierTexts();
+const groups = shelf
+  .map((item) => ({ ...item, texts: earlier.filter((kept) => TEXT_OF[kept.kind] === item.slug) }))
+  .filter((item) => item.texts.length > 0);
+
+// Keep every original wording readable in either interface. The historical
+// deep link belongs to the wording that counted, including older Finnish consents.
+const entryId = (entry: EarlierText) => {
+  const translations = earlier.filter(
+    (other) => other.kind === entry.kind && other.version === entry.version,
+  );
+  const anchor = anchorOf(entry.kind, entry.version);
+  if (locale === DEFAULT_LOCALE && entry === countedWording(translations)) return anchor;
+  return `${locale}-${entry.language}-${anchor}`;
+};
+---
+
+<section class="prose">
+  <h1>{t(locale, "earlier.title")}</h1>
+  {groups.map((item) => (
+    <section>
+      <h2 id={locale === DEFAULT_LOCALE ? item.slug : `${locale}-${item.slug}`}>{item.title}</h2>
+      <p><a href={pathOf(locale, `${LEGAL}/${item.slug}`)}>{t(locale, "earlier.current", { title: item.title })}</a></p>
+      {item.texts.map((entry) => {
+        const id = entryId(entry);
+        const html = entry.html.replace(/ id="([^"]+)"/g, ` id="${id}-$1"`);
+        return (
+          <details id={id}>
+            <summary>
+              <span lang={entry.language}>{entry.title}</span>
+              {` · ${formatDate(locale, entry.dated)} · ${entry.version} · `}
+              <span lang={entry.language}>{LANGUAGE_NAME[entry.language]}</span>
+            </summary>
+            <div lang={entry.language} set:html={html} />
+          </details>
+        );
+      })}
+    </section>
+  ))}
+</section>

@@ -15,9 +15,7 @@ import { CONSENT_VERSION } from "./lib/consent.ts";
 //                                              it was once a newer one replaced it
 //
 // A page exists in every language of the site (src/i18n/locales.ts). A legal
-// text exists in the languages it was written in, and in no other: it is
-// never translated by a machine into a language it does not exist in
-// (docs/decisions.md, 29).
+// text keeps its binding original alongside a labeled translation.
 
 /**
  * A version as the app names it, and as an anchor of the page carries it:
@@ -34,17 +32,11 @@ const consentVersion = z
 const listed = z.object({ title: z.string().min(1), description: z.string().min(1).max(200) });
 
 const pages = defineCollection({
-  loader: glob({ pattern: "*/*.md", base: "./src/content/pages" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string().min(1),
     /** One or two sentences: the page's description for search engines and the home page's card. */
     description: z.string().min(1).max(200),
-    /**
-     * Where the page stands in the navigation, which leads to it, and on the
-     * home page, which says what it is (docs/decisions.md, 23); a page without
-     * it is reached by links only.
-     */
-    nav: z.number().int().positive().optional(),
     /**
      * Written or translated by a machine, an agent included, and not yet read
      * by a native speaker. Every Finnish and Swedish page carries either this
@@ -84,6 +76,9 @@ const legal = defineCollection({
     businessId: z.boolean().default(false),
     /** Whether this language is the one that counts when two disagree. */
     binding: z.boolean(),
+    /** Translations identify their review status separately from the binding original. */
+    machine: z.boolean().default(false),
+    reviewedBy: z.string().optional(),
     /**
      * How the legal page of another language names this text while the text
      * does not exist in that language. Names of a text, not the text: they
