@@ -4,7 +4,9 @@ description: "Kirjoita meille, jos haluat kysyä sovelluksesta, tulla mukaan tek
 machine: true
 ---
 
-Meidät tavoittaa osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app). Voit kysyä sovelluksesta tai siitä, miten käsittelemme tietojasi. Kirjoita myös, jos haluaisit tulla mukaan tekemään sovellusta.
+Meidät tavoittaa osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app). Voit kysyä sovelluksesta tai siitä, miten käsittelemme tietojasi.
+
+Juuri nyt kaipaamme apua etenkin markkinointiin ja designiin. Laita viestiä, jos haluat tulla vapaaehtoisena tekemään ilmaista deittisovellusta, joka auttaa ihmisiä löytämään toisensa.
 
 ## Toimittajille
 
