@@ -1,133 +1,60 @@
-import { isLocale, LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
+import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
 import { EARLIER } from "./consent.ts";
-import {
-  allLegal,
-  allPages,
-  LEGAL,
-  type LegalText,
-  type Page,
-  placeOf,
-  textPath,
-  writtenIn,
-} from "./content.ts";
+import { allLegal, allPages, type Page, placeOf, writtenIn } from "./content.ts";
 
-/** What a page of the site shows. */
-export type View =
-  | { kind: "home" }
-  | { kind: "page"; page: Page }
-  | { kind: "shelf" }
-  /** The earlier versions of the texts a person agrees to (docs/decisions.md, 32). */
-  | { kind: "earlier" }
-  | {
-      kind: "text";
-      text: LegalText;
-      /** Where the binding version of the text is, when it is not this one and exists. */
-      binding: string | null;
-    };
+type PageInfo = { title: string; description: string };
 
 export type RouteProps = {
-  locale: Locale;
-  /** "" is the home page. */
   slug: string;
-  /** Where this page is in each language that has it, this one included. */
-  alternates: Partial<Record<Locale, string>>;
-  view: View;
+  head: Record<Locale, PageInfo>;
+  pages?: Record<Locale, Page>;
+  noindex?: boolean;
+  lastmod?: string;
 };
 
-export type Route = { params: { path: string | undefined }; props: RouteProps };
-
-/** Astro's name for a path: without slashes at its ends, and undefined for "/". */
-const param = (path: string) => path.replace(/^\/|\/$/g, "") || undefined;
-
-const everywhere = (slug: string): Partial<Record<Locale, string>> =>
-  Object.fromEntries(LOCALES.map((locale) => [locale, pathOf(locale, slug)]));
-
-const where = (
-  places: { locale: Locale; slug: string }[],
-  slug: string,
-  path: string,
-): Partial<Record<Locale, string>> =>
-  Object.fromEntries(
-    places
-      .filter((place) => place.slug === slug)
-      .map((place) => [place.locale, pathOf(place.locale, path)]),
-  );
-
-/**
- * Every page of the site, from what is in src/content: the home page and the
- * legal page of each language, each page, and each legal text in the
- * languages it was written in.
- */
-export async function routes(): Promise<Route[]> {
+export async function routes() {
   const pages = await allPages();
   const texts = await allLegal();
-  const found: Route[] = [];
+  const result: RouteProps[] = [];
+  for (const page of pages.filter((entry) => placeOf(entry.id).locale === "fi")) {
+    const { slug } = placeOf(page.id);
+    const english = pages.find((entry) => entry.id === `en/${slug}`);
+    if (!english) throw new Error(`Missing English page: ${slug}`);
+    result.push({
+      slug: slug === "home" ? "" : slug,
+      head: { fi: page.data, en: english.data },
+      pages: { fi: page, en: english },
+    });
+  }
 
-  for (const locale of LOCALES) {
-    found.push({
-      params: { path: param(pathOf(locale, "")) },
-      props: { locale, slug: "", alternates: everywhere(""), view: { kind: "home" } },
+  for (const name of ["legal", "earlier"] as const) {
+    const info = (locale: Locale) => ({
+      title: t(locale, `${name}.title`),
+      description: t(locale, `${name}.description`),
     });
-    found.push({
-      params: { path: param(pathOf(locale, LEGAL)) },
-      props: { locale, slug: LEGAL, alternates: everywhere(LEGAL), view: { kind: "shelf" } },
-    });
-    found.push({
-      params: { path: param(pathOf(locale, EARLIER)) },
-      props: { locale, slug: EARLIER, alternates: everywhere(EARLIER), view: { kind: "earlier" } },
+    result.push({
+      slug: name === "legal" ? name : EARLIER,
+      head: { fi: info("fi"), en: info("en") },
+      noindex: name === "earlier",
     });
   }
-  const pagePlaces = pages.map((page) => placeOf(page.id));
-  for (const page of pages) {
-    const { locale, slug } = placeOf(page.id);
-    if (slug === LEGAL || slug === "404") throw new Error(`a page cannot be called "${slug}"`);
-    found.push({
-      params: { path: param(pathOf(locale, slug)) },
-      props: {
-        locale,
-        slug,
-        alternates: where(pagePlaces, slug, slug),
-        view: { kind: "page", page },
-      },
+  for (const slug of new Set(texts.map((entry) => writtenIn(entry.id).slug))) {
+    const versions = texts.filter((entry) => writtenIn(entry.id).slug === slug);
+    // A newly proposed draft may have no binding version yet.
+    const original = versions.find((entry) => entry.data.binding) ?? versions[0];
+    if (!original) throw new Error(`Missing legal text: ${slug}`);
+    const info = (locale: Locale) => {
+      const version = versions.find((entry) => entry.id === `${locale}/${slug}`);
+      if (!version) throw new Error(`Missing legal text: ${locale}/${slug}`);
+      return { title: version.data.title, description: version.data.description };
+    };
+    result.push({
+      slug: `legal/${slug}`,
+      head: { fi: info("fi"), en: info("en") },
+      noindex: original.data.status === "draft",
+      lastmod: original.data.dated.toISOString().slice(0, 10),
     });
   }
-  for (const text of texts) {
-    const { language, slug } = writtenIn(text.id);
-    const full = `${LEGAL}/${slug}`;
-    if (full === EARLIER) throw new Error(`a legal text cannot be called "${slug}"`);
-    const versions = texts.filter((other) => writtenIn(other.id).slug === slug);
-    const languages = versions.map((other) => writtenIn(other.id).language);
-    const binding = versions.find((other) => other.data.binding);
-    // Read at its own language where the site speaks it; else under every
-    // language of the site that has no version of its own, as it is.
-    const readIn = LOCALES.filter(
-      (locale) => textPath(language, locale, slug, languages) !== null,
-    ).filter((locale) => !isLocale(language) || locale === language);
-    for (const locale of readIn) {
-      const alternates: Partial<Record<Locale, string>> = {};
-      for (const other of LOCALES) {
-        const path = languages
-          .map((l) => textPath(l, other, slug, languages))
-          .find((p): p is string => p !== null);
-        if (path) alternates[other] = path;
-      }
-      found.push({
-        params: { path: param(pathOf(locale, full)) },
-        props: {
-          locale,
-          slug: full,
-          alternates,
-          view: {
-            kind: "text",
-            text,
-            binding:
-              binding && binding.id !== text.id
-                ? textPath(writtenIn(binding.id).language, locale, slug, languages)
-                : null,
-          },
-        },
-      });
-    }
-  }
-  return found;
+  return result.map((props) => ({ params: { path: props.slug || undefined }, props }));
 }

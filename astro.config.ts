@@ -1,20 +1,24 @@
 import { defineConfig } from "astro/config";
-import { DEFAULT_LOCALE, LOCALES } from "./src/i18n/locales.ts";
+import { redirects } from "./src/lib/redirects.ts";
 
-// A static site: every page is a file, nothing runs on a server and nothing
-// runs in the browser. The default language has no prefix, any other lives
-// under its code; for now there is English only (docs/decisions.md, 8).
+// The public API is read server-to-server. Amplify uses the same exact-path
+// reverse proxy in production. The local server never forwards browser cookies.
+const healthProxy = {
+  "^/status/health\\.json$": {
+    target: "https://api.kumpa.fi",
+    changeOrigin: true,
+    rewrite: () => "/health",
+    headers: { cookie: "", authorization: "" },
+    proxyTimeout: 5000,
+  },
+};
+
 export default defineConfig({
+  vite: { server: { proxy: healthProxy }, preview: { proxy: healthProxy } },
   site: "https://kumpa.fi",
   output: "static",
   trailingSlash: "always",
-  // The stylesheet is a file of its own, never inline: the site's content
-  // security policy (customHttp.yml) then needs no exception for styles.
   build: { format: "directory", inlineStylesheets: "never" },
-  i18n: {
-    locales: [...LOCALES],
-    defaultLocale: DEFAULT_LOCALE,
-    routing: { prefixDefaultLocale: false },
-  },
+  redirects,
   devToolbar: { enabled: false },
 });

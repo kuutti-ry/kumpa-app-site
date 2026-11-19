@@ -132,9 +132,22 @@ const initials = (name: string): string =>
     .toUpperCase();
 
 const icon = (href: string, label: string, path: string, evenodd = false): string =>
-  `<li><a href="${escaped(href)}" aria-label="${escaped(label)}">` +
+  `<li><a href="${escaped(href)}" aria-label="${escaped(label)}" title="${escaped(label)}"` +
+  (href.startsWith("https://") ? ' target="_blank" rel="noopener noreferrer">' : ">") +
   '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">' +
   `<path${evenodd ? ' fill-rule="evenodd"' : ""} d="${path}"></path></svg></a></li>`;
+
+const finnishRole: Record<string, string> = {
+  Lead: "Tiiminvetäjä",
+  "Chair of the Board": "Hallituksen puheenjohtaja",
+  "Member of the Board": "Hallituksen jäsen",
+  Developer: "Ohjelmistokehittäjä",
+  Design: "Muotoilu",
+  Volunteer: "Vapaaehtoinen",
+  Advisor: "Neuvonantaja",
+  "Tech Advisor": "Tekninen neuvonantaja",
+  "CX Lead": "Asiakaskokemus",
+};
 
 /** One person: the face in its circle, the name, the role, and the marks that lead to them. */
 function card(person: Person, locale: Locale): string {
@@ -152,7 +165,7 @@ function card(person: Person, locale: Locale): string {
       icon(`mailto:${person.email}`, t(locale, "team.mail", { name: person.name }), ENVELOPE, true),
   ].filter(Boolean);
   return (
-    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map(escaped).join("<br>")}</p>` +
+    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map((role) => escaped(locale === "fi" ? (finnishRole[role] ?? role) : role)).join("<br>")}</p>` +
     (links.length > 0 ? `<ul class="channels team-links">${links.join("")}</ul>` : "") +
     "</li>"
   );

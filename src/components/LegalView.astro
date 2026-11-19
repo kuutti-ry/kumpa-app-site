@@ -1,0 +1,98 @@
+---
+import { getEntry } from "astro:content";
+import { type Locale, pathOf } from "../i18n/locales.ts";
+import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
+import { anchorOf, EARLIER, isConsentKind, isDraftVersion } from "../lib/consent.ts";
+import { consentsOn, LEGAL, legalShelf } from "../lib/content.ts";
+import { SITE } from "../site.ts";
+import LegalArchive from "./LegalArchive.astro";
+import Notice from "./Notice.astro";
+
+interface Props {
+  locale: Locale;
+  slug: string;
+}
+const { locale, slug } = Astro.props;
+const shelf = slug === LEGAL ? await legalShelf(locale) : [];
+const name = slug.slice(LEGAL.length + 1);
+const doc =
+  slug === EARLIER || slug === LEGAL ? undefined : await getEntry("legal", `${locale}/${name}`);
+if (slug !== EARLIER && slug !== LEGAL && !doc?.rendered) {
+  throw new Error(`Missing rendered legal document: ${locale}/${name}`);
+}
+const version = doc?.data.consent_version;
+// The app already links to the version on the binding text. Its address is stable.
+const anchor = version && isConsentKind(name) ? anchorOf(name, version) : undefined;
+const consents = doc ? await consentsOn(locale, name) : [];
+const prefix = doc?.data.binding ? "" : `${locale}-`;
+// Keep addresses of existing original headings. Namespace translated headings in
+// the same DOM in case their names coincide with headings in the original.
+const html = doc?.rendered?.html.replace(/ id="([^"]+)"/g, ` id="${prefix}$1"`);
+---
+
+<nav class="breadcrumbs" aria-label={t(locale, "nav.breadcrumbs")}>
+  <a href="/">{t(locale, "nav.home")}</a>
+  {slug !== LEGAL && <><span aria-hidden="true"> / </span><a href="/legal/">{t(locale, "legal.title")}</a></>}
+</nav>
+
+{slug === LEGAL && (
+  <section class="prose">
+    <h1>{t(locale, "legal.title")}</h1>
+    <ul class="documents">
+      {shelf.map((item) => (
+        <li id={locale === "fi" ? item.slug : `en-${item.slug}`}>
+          <h2><a href={pathOf(locale, `${LEGAL}/${item.slug}`)}>{item.title}</a></h2>
+          <p>{item.description}</p>
+          {item.status !== "in_force" && <span class="tag">{t(locale, STATUS_KEY[item.status])}</span>}
+        </li>
+      ))}
+    </ul>
+    <p><a href={pathOf(locale, EARLIER)}>{t(locale, "earlier.title")}</a></p>
+  </section>
+)}
+
+{slug === EARLIER && <LegalArchive locale={locale} />}
+
+{doc && (
+  <article class="prose">
+    <h1 id={doc.data.binding ? "original" : undefined}>{doc.data.title}</h1>
+    {(doc.data.machine || doc.data.reviewedBy) && (
+      <p class="notice" role="note">
+        {doc.data.machine && `${t(locale, "notice.machine.title")}. `}
+        <a href="#original">
+          {locale === "fi" ? "Englanninkielinen alkuperäisteksti on ensisijainen." : "The Finnish original takes precedence."}
+        </a>
+      </p>
+    )}
+    <p class="meta" id={anchor ? `${prefix}${anchor}` : undefined}>
+      {t(locale, "doc.dated", { date: formatDate(locale, doc.data.dated) })}
+      {version && ` · ${t(locale, doc.data.status === "draft" ? "doc.draftVersion" : "doc.version", { version })}`}
+      {doc.data.registered && ` · ${t(locale, "doc.registered", { date: formatDate(locale, doc.data.registered) })}`}
+      {doc.data.businessId && ` · ${t(locale, "doc.businessId", { businessId: SITE.businessId })}`}
+    </p>
+    {doc.data.status === "draft" && <Notice title={t(locale, "notice.draft.title")} body={t(locale, "notice.draft.body")} />}
+    {doc.data.status === "filed" && <Notice title={t(locale, "notice.filed.title")} body={t(locale, "notice.filed.body")} />}
+    <Fragment set:html={html} />
+    {consents.length > 0 && (
+      <>
+        <h2>{t(locale, "consents.title")}</h2>
+        {consents.map((consent) => {
+          const wording = consent.wordings.find((entry) => entry.language === locale);
+          if (!wording) throw new Error(`Missing ${locale} wording of ${consent.kind}`);
+          const id = anchorOf(consent.kind, consent.version);
+          return (
+            <section>
+              <h3 id={wording.counts ? id : `${locale}-${id}`}>{wording.title}</h3>
+              <p class="meta">
+                {t(locale, "doc.dated", { date: formatDate(locale, consent.dated) })}
+                {` · ${t(locale, isDraftVersion(consent.version) ? "doc.draftVersion" : "doc.version", { version: consent.version })}`}
+              </p>
+              <p>{t(locale, wording.counts ? "consents.counts" : "consents.wording", { language: LANGUAGE_IN[locale][wording.language] })}</p>
+              <blockquote lang={wording.language}><Fragment set:html={wording.html} /></blockquote>
+            </section>
+          );
+        })}
+      </>
+    )}
+  </article>
+)}

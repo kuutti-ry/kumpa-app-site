@@ -1,0 +1,48 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
+import type { Page } from "../lib/content.ts";
+import { opened } from "../lib/home.ts";
+import { pageHtml } from "../lib/page-html.ts";
+import AboutSections from "./AboutSections.astro";
+import PageBody from "./PageBody.astro";
+import StoreBadges from "./StoreBadges.astro";
+
+interface Props {
+  locale: Locale;
+  slug: string;
+  page: Page;
+}
+const { locale, slug, page } = Astro.props;
+const html = pageHtml(page, locale);
+const home = slug === "";
+const aboutChild = slug.startsWith("about/");
+const appChild = ["help", "child-safety", "delete-account"].includes(slug);
+const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
+---
+
+{!home && <nav class="breadcrumbs" aria-label={t(locale, "nav.breadcrumbs")}>
+  <a href="/">{t(locale, "nav.home")}</a>
+  {aboutChild && <><span aria-hidden="true"> / </span><a href="/about/">{t(locale, "nav.about")}</a></>}
+  {appChild && <><span aria-hidden="true"> / </span><a href="/app/">{t(locale, "nav.app")}</a></>}
+</nav>}
+{home ? (
+  <>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>{page.data.title}</h1>
+        <Fragment set:html={opening} />
+        <a class="button-link" href="/app/">{t(locale, "home.action")}</a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>
+    </section>
+    {rest && <section class="prose" set:html={rest} />}
+  </>
+) : (
+  <article class="prose">
+    <h1>{page.data.title}</h1>
+    <PageBody html={html} locale={locale} />
+    {slug === "about" && <AboutSections locale={locale} />}
+    {slug === "app" && <StoreBadges locale={locale} />}
+  </article>
+)}

@@ -6,13 +6,8 @@
  * - Every Finnish and Swedish page says who wrote it: `machine: true`, or
  *   `reviewedBy` with the native reader's name. English is the source and
  *   carries neither.
- * - A legal text is never a machine's translation into a language it did
- *   not exist in, so it has no `machine` key at all: the key marks a page
- *   that waits for a native reader, and a legal text is not published on
- *   those terms (docs/decisions.md, 29). A text adopted (filed or in force)
- *   has exactly one binding language; a draft may still be waiting for its
- *   binding text, and never has two. A text in force needs no version or
- *   register: the summary of the impact assessment has neither (35).
+ * - Each current legal document has both languages. A machine translation
+ *   names its status and can never be the binding text.
  * - A text a person agrees to in the app (src/lib/consent.ts) names its
  *   `consent_version`, the same in every language, and no other text does.
  *   A consent read on another text's page (src/content/consents) is one of
@@ -21,7 +16,7 @@
  * - Nothing in the content loads anything from anybody else: no image, no
  *   frame, no script, and no HTML at all.
  */
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { LOCALES, TEXT_LANGUAGES } from "../src/i18n/locales.ts";
 import { isConsentKind, TEXT_OF } from "../src/lib/consent.ts";
@@ -44,8 +39,12 @@ function read(collection: string, languages: readonly string[]): Text[] {
       problems.push(`${collection}/${locale}: not a language of this kind of text`);
       continue;
     }
-    for (const name of readdirSync(join(root, collection, locale))) {
+    for (const name of readdirSync(join(root, collection, locale), {
+      recursive: true,
+      encoding: "utf8",
+    })) {
       const file = `${collection}/${locale}/${name}`;
+      if (statSync(join(root, file)).isDirectory()) continue;
       if (!name.endsWith(".md")) {
         problems.push(`${file}: only Markdown lives here`);
         continue;
@@ -113,12 +112,21 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
   if (new Set(versions.map((text) => text.front.get("status"))).size > 1) {
     problems.push(`legal/*/${slug}.md: one status in one language and another in another`);
   }
+  for (const locale of LOCALES) {
+    if (!versions.some((text) => text.locale === locale))
+      problems.push(`legal/${locale}/${slug}.md is missing`);
+  }
   for (const text of versions) {
-    if (text.front.has("machine")) {
-      problems.push(
-        `${text.file}: a legal text is not published as a machine's translation; it has no "machine" key`,
-      );
-    }
+    const translated = text.front.get("machine") === "true";
+    if (translated && text.front.get("binding") === "true")
+      problems.push(`${text.file}: a machine translation cannot be binding`);
+    if (
+      adopted &&
+      text.front.get("binding") === "false" &&
+      !translated &&
+      !text.front.get("reviewedBy")
+    )
+      problems.push(`${text.file}: mark the translation as machine-translated or reviewed`);
   }
 }
 

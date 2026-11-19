@@ -1,28 +1,18 @@
 ---
-title: Help
-description: Where to turn when something in Kumpa does not work, and how to report a problem or a person.
+title: "Help"
+description: "Help with signing in, reporting a problem and managing your Kumpa account."
 ---
 
-Answers to the questions about signing in and your data in Kumpa. For anything else, [write to us](/contact/).
+If something goes wrong in Kumpa, email [hello@kuutti.app](mailto:hello@kuutti.app).
 
-## Signing in
+## I can’t sign in
 
-You sign in with a Finnish bank's identification. If signing in is refused, the app says why:
+You need Finnish bank credentials. If your bank’s identification page fails, try again later. If Kumpa refuses the sign-in, the app tells you why. You must be at least 18. If you recently deleted an account, the app shows when you can open a new one.
 
-- **You are under 18.** Kumpa is for adults. Age is counted from the end of your birth month.
-- **You deleted your account a short while ago.** A new account is possible after the waiting time, and the app tells you the day.
-- **The account was closed.** A ban is on the person and does not end with a new sign-in.
+## I want to report someone
 
-If the bank's own page fails, the problem is usually at the bank: try again in a moment, or with the bank's other identification method.
+You can report a profile, photo or conversation in the app. Moderators review reports within 24 hours and prioritise reports about children. Blocking someone stops you from seeing each other. Read our [child safety standards](/child-safety/).
 
-## Your data and your account
+## I want a copy of my data
 
-In the app, under **Your account**, you can download everything Kumpa holds about you and delete your account. [How deletion works, and what is left afterwards](/delete-account/).
-
-## Reporting a person
-
-In the app, a person, a photo and a conversation can each be reported where they are shown, and a person can be blocked. Moderators of the association look at every report within 24 hours. Kumpa is for adults only: [the child safety standards](/child-safety/).
-
-## Contact
-
-For questions, and for requests about your personal data, write to [hello@kuutti.app](mailto:hello@kuutti.app). [Other ways to reach the association](/contact/).
+Open **Settings**, choose **Your account**, then **Download my data**. You can also [delete your account](/delete-account/) there.

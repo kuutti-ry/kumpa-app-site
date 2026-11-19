@@ -1,56 +1,54 @@
 ---
 import type { Locale } from "../i18n/locales.ts";
-import { t } from "../i18n/ui.ts";
 import { MARKS } from "../lib/marks.ts";
 import { SITE } from "../site.ts";
 
 interface Props {
   locale: Locale;
+  slug?: string;
 }
-const { locale } = Astro.props;
-// The association as the register has it, its address in both the forms it is
-// written in, the address to write to, and its channels beside them by their
-// marks (docs/decisions.md, 8, 15 and 19; the marks are src/lib/marks.ts),
-// then Code from Finland's badge for its community members on the marks' line,
-// in the water's blue that is near its own (24).
+
+const { locale, slug } = Astro.props;
+const fi = locale === "fi";
+const contact = fi ? "Ota yhteyttä" : "Contact";
+const links = [
+  ["legal/privacy", fi ? "Tietosuoja" : "Privacy policy"],
+  ["legal/terms", fi ? "Käyttöehdot" : "Terms of use"],
+];
 ---
 
 <footer class="site-footer">
-  <div>
-    <address>
-      <p>{t(locale, "footer.address", { address: SITE.postalAddress })}</p>
-      <p>{t(locale, "footer.address", { address: SITE.postalAddressJoined })}</p>
-      <p>{t(locale, "footer.businessId", { businessId: SITE.businessId })}</p>
-      {
-        SITE.contactEmail !== null && (
-          <p>
-            <a class="mail-us" href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
-          </p>
-        )
-      }
-    </address>
+  <div class="footer-inner">
+    <a class="brand" href="/">Kumpa</a>
+    <nav class="footer-nav" aria-label={fi ? "Alatunniste" : "Footer"}>
+      <ul>
+        <li>
+          <a class="footer-contact-wide" href={fi ? "/about/#contact" : "/about/#en-contact"}>{contact}</a>
+          <a class="footer-contact-compact" href="/about/contact/" aria-current={slug === "about/contact" ? "page" : undefined}>{contact}</a>
+        </li>
+        {links.map(([path, label]) => (
+          <li><a href={`/${path}/`} aria-current={slug === path ? "page" : undefined}>{label}</a></li>
+        ))}
+      </ul>
+    </nav>
     <div class="footer-end">
-      {
-        SITE.social.length > 0 && (
-          <ul class="channels" aria-label={t(locale, "footer.channels")}>
-            {SITE.social.map((channel) => (
-              <li>
-                <a href={channel.href} aria-label={t(locale, "footer.channel", { name: channel.name })}>
-                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-                    <path d={MARKS[channel.mark]} />
-                  </svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-        )
-      }
-      <a class="member-badge" href={SITE.codeFromFinland}>
+      <ul class="channels" aria-label={fi ? "Sosiaalinen media" : "Kumpa’s channels"}>
+        {SITE.social.map((channel) => (
+          <li>
+            <a href={channel.href} target="_blank" rel="noopener noreferrer" aria-label={channel.name}>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                <path d={MARKS[channel.mark]} />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="member-badge" href={fi ? "https://koodiasuomesta.fi/" : SITE.codeFromFinland} target="_blank" rel="noopener noreferrer">
         <img
-          src="/badges/code-from-finland-community-member.svg"
-          alt={t(locale, "footer.codeFromFinland")}
-          width="96"
-          height="96"
+          src={fi ? "/badges/koodia-suomesta-kumppanijasen.svg" : "/badges/code-from-finland-community-member.svg"}
+          alt={fi ? "Koodia Suomesta – kumppanijäsen" : "Code from Finland community member"}
+          width="60"
+          height="60"
         />
       </a>
     </div>

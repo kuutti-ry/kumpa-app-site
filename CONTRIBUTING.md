@@ -8,6 +8,4 @@ In short:
 2. Changes reach `main` through a pull request whose body says `Refs kuutti-ry/kumpa-app#<n>`, never a closing keyword.
 3. `pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm check:site` pass before you push.
 
-What is particular to the site is in `CLAUDE.md`: no script, nothing from elsewhere, no legal text by a machine, nobody named without their word.
-
-If you read Finnish or Swedish as your own language, `docs/translation-review.md` lists what waits for you, once the site has those languages again.
+See `CLAUDE.md` for the site’s content, privacy and licensing rules. Update both Finnish and English when changing a page. `docs/translation-review.md` explains how to review machine translations and identifies the authoritative legal texts.

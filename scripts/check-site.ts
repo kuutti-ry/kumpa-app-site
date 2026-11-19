@@ -2,12 +2,12 @@
  * What the built site must hold (dist/, after `pnpm build`). Run by
  * `pnpm check:site` and by CI.
  *
- * - No script, no frame, no form: the site runs nothing in the browser.
+ * - Only the pinned language script and, on status pages, the pinned health display may run. No frames or forms.
  * - Nothing is loaded from anybody else: every stylesheet, image, font and
  *   icon is the site's own. Links to other sites are links, not loads.
  * - Every link inside the site leads to a page or a file that exists, and an
  *   anchor to an id that is there.
- * - Every page says its language, has a title, a description and one h1.
+ * - Every bilingual page has one h1 per language and unique anchors.
  * - The home page, made of several pages' texts, has no id twice, so that an
  *   anchor leads to one place.
  * - The sitemap names every page search engines may index and no other, and
@@ -38,7 +38,10 @@ import {
   isConsentKind,
   TEXT_OF,
 } from "../src/lib/consent.ts";
+import { fingerprinted } from "../src/lib/fingerprint.ts";
+import { redirects } from "../src/lib/redirects.ts";
 import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
+import { languageIntegrity, statusIntegrity } from "../src/lib/script-integrity.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -80,7 +83,7 @@ for (const path of pages) {
   const html = readFileSync(path, "utf8");
   const here = page.replace(/index\.html$/, "");
 
-  for (const banned of ["script", "iframe", "form", "object", "embed"]) {
+  for (const banned of ["iframe", "form", "object", "embed"]) {
     if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
   }
   if (/\son[a-z]+="/i.test(html.replace(/\scontent="[^"]*"/g, ""))) {
@@ -105,6 +108,39 @@ for (const path of pages) {
     else if (address.startsWith("/") && !existsSync(join(dist, address.split(/[?#]/)[0] ?? ""))) {
       problems.push(`${page}: ${address} is not in the site`);
     }
+  }
+
+  const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
+  const redirect = Object.entries(redirects).find(([from]) => from === here);
+  if (redirect) {
+    const [, destination] = redirect;
+    if (scripts.length || !html.includes(`url=${destination}`) || !fileOf(destination))
+      problems.push(`${page}: expected a static redirect to ${destination}`);
+    continue;
+  }
+  const hasStatus = here === "/about/" || here === "/about/details/";
+  const expected = [{ file: "language.js", integrity: languageIntegrity }];
+  if (hasStatus) expected.push({ file: "status.js", integrity: statusIntegrity });
+  if (
+    scripts.length !== expected.length ||
+    expected.some(
+      ({ file, integrity }) =>
+        !fileOf(`/${file}`) ||
+        !scripts.some(
+          ([tag, , body]) =>
+            !body?.trim() &&
+            attribute(tag, "src") === fingerprinted(`/${file}`) &&
+            attribute(tag, "integrity") === integrity,
+        ),
+    )
+  ) {
+    problems.push(`${page}: unexpected or missing script`);
+  }
+  if (
+    (html.match(/ data-service-status(?:[ =>])/g) ?? []).length !== (hasStatus ? 2 : 0) ||
+    html.includes("<p>@status</p>")
+  ) {
+    problems.push(`${page}: missing or unexpected service status panel`);
   }
 
   // Saiga on every page or on none (docs/decisions.md, 28): a build that has
@@ -168,17 +204,19 @@ for (const path of pages) {
   if (!new RegExp(`<html[^>]*\\slang="(${LOCALES.join("|")})"`).test(html)) {
     problems.push(`${page}: no language of the site`);
   }
-  if (!/<title>[^<]+<\/title>/.test(html)) problems.push(`${page}: no title`);
+  if (!/<title\b[^>]*>[^<]+<\/title>/.test(html)) problems.push(`${page}: no title`);
   if (!/<meta name="description" content="[^"]+"/.test(html))
     problems.push(`${page}: no description`);
-  const h1 = html.match(/<h1[\s>]/g)?.length ?? 0;
-  if (h1 !== 1) problems.push(`${page}: ${h1} h1 headings, and a page has one`);
-  // The home page is made of several pages' texts (docs/decisions.md, 22): an anchor leads to one place.
-  if (LOCALES.some((locale) => here === pathOf(locale, ""))) {
-    const ids = [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id = ""]) => id);
-    for (const id of new Set(ids.filter((id, at) => ids.indexOf(id) !== at))) {
-      problems.push(`${page}: the id "${id}" is there more than once`);
-    }
+  const main = /<main\b[^>]*>([\s\S]*?)<\/main>/.exec(html)?.[1] ?? "";
+  const groups = main.split(/<div data-lang="(fi|en)" lang="(?:fi|en)">/);
+  for (const locale of LOCALES) {
+    const at = groups.indexOf(locale);
+    if (at === -1 || (groups[at + 1]?.match(/<h1[\s>]/g) ?? []).length !== 1)
+      problems.push(`${page}: expected one heading in the ${locale} version`);
+  }
+  const ids = [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id = ""]) => id);
+  for (const id of new Set(ids.filter((id, at) => ids.indexOf(id) !== at))) {
+    problems.push(`${page}: duplicate id "${id}"`);
   }
   if (!/<meta name="viewport" content="width=device-width, initial-scale=1"/.test(html)) {
     problems.push(`${page}: no viewport for a phone`);
@@ -256,11 +294,11 @@ if (typeof versions !== "object" || versions === null) {
         typeof entry === "object" && entry !== null && "language" in entry ? entry.language : null;
       const counts =
         typeof language === "string" && isTextLanguage(language)
-          ? t(DEFAULT_LOCALE, "consents.counts", {
-              language: LANGUAGE_IN[DEFAULT_LOCALE][language],
+          ? t("en", "consents.counts", {
+              language: LANGUAGE_IN.en[language],
             })
           : null;
-      const said = t(DEFAULT_LOCALE, "consents.counts").split("{language}").at(-1) ?? "";
+      const said = t("en", "consents.counts").split("{language}").at(-1) ?? "";
       if (counts === null || !own.includes(counts) || own.split(said).length !== 2) {
         problems.push(
           `${pathname}: ${kind} is published as counted in "${String(language)}", and the page does not say that wording, and it alone, is the one that counts`,
@@ -316,5 +354,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
+  `the site holds: ${pages.length} pages, only pinned first-party scripts, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
 );

@@ -1,112 +1,114 @@
 import type { Locale, TextLanguage } from "./locales.ts";
 
-/**
- * The words of the site's own furniture: navigation, notices, the home page,
- * the footer. English is the source and, for now, the only language
- * (docs/decisions.md, 8). A language that comes back has every key here,
- * and the test holds that none is missing.
- */
 export const UI = {
+  fi: {
+    "site.name": "Kumpa",
+    skip: "Siirry sisältöön",
+    "nav.label": "Päävalikko",
+    "nav.menu": "Valikko",
+    "nav.home": "Etusivu",
+    "nav.about": "Meistä",
+    "nav.app": "Sovellus",
+    "nav.breadcrumbs": "Murupolku",
+    "home.action": "Tutustu sovellukseen",
+    "legal.title": "Oikeudelliset tiedot",
+    "legal.description": "Kumpa-sovelluksen käyttöehdot, tietosuoja ja yhdistyksen säännöt.",
+    "legal.intro": "Käyttöehdot, tietosuoja ja yhdistyksen säännöt.",
+    "legal.draft": "Luonnos",
+    "legal.filed": "Ilmoitettu rekisteröitäväksi",
+    "legal.inForce": "Voimassa",
+    "notice.draft.title": "Luonnos",
+    "notice.draft.body": "Teksti voi vielä muuttua.",
+    "notice.filed.title": "Hyväksytty, rekisteröinti kesken",
+    "notice.filed.body": "Rekisteriviranomainen voi vielä pyytää muutoksia.",
+    "notice.machine.title": "Konekäännös",
+    "consents.title": "Erilliset suostumukset",
+    "consents.intro": "Sovelluksessa erikseen annettavat suostumukset.",
+    "consents.wording": "Sanamuoto {language}",
+    "consents.counts": "Sanamuoto {language} (ensisijainen)",
+    "doc.dated": "Teksti päivätty {date}",
+    "doc.version": "Versio {version}",
+    "doc.draftVersion": "Luonnos {version}",
+    "doc.registered": "Rekisteröity {date}",
+    "earlier.title": "Aiemmat versiot",
+    "earlier.description": "Aiemmat käyttöehdot, tietosuojaselosteet ja suostumustekstit.",
+    "earlier.current": "{title} (voimassa)",
+    "doc.businessId": "Y-tunnus {businessId}",
+    "team.label": "Tiimi",
+    "team.linkedin": "{name} LinkedInissä",
+    "team.github": "{name} GitHubissa",
+    "team.mail": "Lähetä sähköpostia ({name})",
+    "notFound.title": "Sivua ei löytynyt",
+    "notFound.body": "Osoite on saattanut muuttua.",
+    "notFound.home": "Palaa etusivulle",
+  },
   en: {
-    "site.name": "Kuutti ry",
-    skip: "Skip to the content",
-    "nav.label": "Pages",
+    "site.name": "Kumpa",
+    skip: "Skip to content",
+    "nav.label": "Main navigation",
     "nav.menu": "Menu",
-    "home.soon": "Not in the stores yet.",
-    "home.title": "Kuutti ry",
-    "home.description":
-      "A non-profit association working to reduce loneliness in Finland, and the maker of Kumpa, a free app for meeting people.",
-    "home.mission": "Our mission",
-    "home.readOn": "Read on: {title}",
-    "home.more": "More",
-    "home.ideas": "Anybody can propose a feature, and help build it:",
-    "home.propose": "open a proposal on GitHub",
-    "store.label": "Kumpa in the app stores",
-    "store.apple": "Download on the App Store",
-    "store.google": "Get it on Google Play",
-    "store.soon": "{store}: coming soon",
+    "nav.home": "Home",
+    "nav.about": "About us",
+    "nav.app": "App",
+    "nav.breadcrumbs": "Breadcrumbs",
+    "home.action": "Explore the app",
     "legal.title": "Legal and privacy",
-    "legal.description":
-      "The association's bylaws, the terms of use of the app, and how personal data is handled.",
-    "legal.intro":
-      "The texts that bind the association and the people who use Kumpa, and how we assessed the risks to their privacy. Each is shown in the languages it exists in.",
-    "legal.language": "in {language}",
+    "legal.description": "Kumpa’s terms of use, privacy policy and association bylaws.",
+    "legal.intro": "Terms of use, privacy and association bylaws.",
     "legal.draft": "Draft",
     "legal.filed": "Filed for registration",
     "legal.inForce": "In force",
-    "notice.draft.title": "This is a draft",
-    "notice.draft.body":
-      "It is published so that it can be read and commented on. It binds nobody yet, and it may still change.",
-    "notice.filed.title": "Adopted, not yet registered",
-    "notice.filed.body":
-      "The founding members have adopted this text, and it has been filed with the Register of Associations. Until the association is registered, the register may still ask for changes.",
-    "notice.notBinding.title": "The Finnish text is the one that counts",
-    "notice.notBinding.body":
-      "This version is for reading. If it and the Finnish text disagree, the Finnish text holds.",
-    "notice.machine.title": "Translated by a machine",
-    "notice.machine.body":
-      "This page has not yet been read by a native speaker. If something reads wrong, the English page is the source.",
+    "notice.draft.title": "Draft",
+    "notice.draft.body": "This text may still change.",
+    "notice.filed.title": "Adopted, awaiting registration",
+    "notice.filed.body": "The register may still ask for changes.",
+    "notice.machine.title": "Machine translation",
     "consents.title": "Separate consents",
-    "consents.intro":
-      "Consents given in Kumpa apart from the terms of use and this policy. Each has a version of its own, and its wording is given here as Kumpa shows it.",
-    "consents.wording": "The wording {language}:",
-    "consents.counts": "The wording {language}, the one that counts:",
+    "consents.intro": "Consents given separately in the app.",
+    "consents.wording": "Wording {language}",
+    "consents.counts": "Wording {language} (binding)",
     "doc.dated": "Wording of {date}",
     "doc.version": "Version {version}",
     "doc.draftVersion": "Draft version {version}",
     "doc.registered": "Registered {date}",
     "earlier.title": "Earlier versions",
-    "earlier.description":
-      "The versions of the terms of use, the privacy policy and the consents that came before the ones in force.",
-    "earlier.intro":
-      "Whoever agreed to an earlier version in the app agreed to its text as it stood then. Each is kept here, as it was, under its version.",
-    "earlier.current": "{title}: the version in force",
+    "earlier.description": "Previous terms of use, privacy policies and consent texts.",
+    "earlier.current": "{title} (current version)",
     "doc.businessId": "Business ID {businessId}",
-    "footer.address": "Kuutti ry, {address}, Finland.",
-    "footer.businessId": "Business ID {businessId}.",
-    "footer.channels": "Kuutti ry elsewhere",
-    "footer.channel": "Kuutti ry on {name}",
-    "footer.codeFromFinland": "Code from Finland community member",
     "team.label": "The team",
     "team.linkedin": "{name} on LinkedIn",
     "team.github": "{name} on GitHub",
     "team.mail": "E-mail {name}",
-    "notFound.title": "There is no such page",
-    "notFound.body": "The address may be old or mistyped.",
-    "notFound.home": "To the home page",
+    "notFound.title": "Page not found",
+    "notFound.body": "The address may have changed.",
+    "notFound.home": "Back to home",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
-export type UiKey = keyof (typeof UI)["en"];
-
-/** How the legal page names a text's status. */
+export type UiKey = keyof typeof UI.en;
 export const STATUS_KEY = {
   draft: "legal.draft",
   filed: "legal.filed",
   in_force: "legal.inForce",
 } as const satisfies Record<string, UiKey>;
 
-/** The site's words in a language; `{name}` in a text is replaced from `values`. */
 export function t(locale: Locale, key: UiKey, values: Record<string, string> = {}): string {
-  const text: string = UI[locale][key];
-  return text.replace(/\{(\w+)\}/g, (whole, name: string) => values[name] ?? whole);
+  return UI[locale][key].replace(/\{(\w+)\}/g, (whole, name: string) => values[name] ?? whole);
 }
 
-/** The language of a legal text, named in the reader's language: "in Finnish". */
 export const LANGUAGE_IN: Record<Locale, Record<TextLanguage, string>> = {
+  fi: { fi: "suomeksi", sv: "ruotsiksi", en: "englanniksi" },
   en: { fi: "in Finnish", sv: "in Swedish", en: "in English" },
 };
 
-/** Each language in its own words, as a language menu names it. */
 export const LANGUAGE_NAME: Record<TextLanguage, string> = {
   fi: "Suomi",
   sv: "Svenska",
   en: "English",
 };
 
-/** Dates as Finland writes them, in every language (the app's rule: en-FI). */
-const INTL: Record<Locale, string> = { en: "en-FI" };
 export const formatDate = (locale: Locale, date: Date): string =>
-  new Intl.DateTimeFormat(INTL[locale], { dateStyle: "long", timeZone: "Europe/Helsinki" }).format(
-    date,
-  );
+  new Intl.DateTimeFormat(locale === "fi" ? "fi-FI" : "en-FI", {
+    dateStyle: "long",
+    timeZone: "Europe/Helsinki",
+  }).format(date);

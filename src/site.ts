@@ -11,20 +11,6 @@ export const SITE = {
    * Registration Office when the notice of founding was filed on 01/10/2026.
    */
   businessId: "3659478-7",
-  /**
-   * The association's postal address as the Register of Associations has it
-   * (PRH's extract of 06/10/2026). In the footer since 23/10/2026, when
-   * Google for Nonprofits asked for a street address (docs/decisions.md, 15).
-   * No-break spaces keep the house letter and the postcode with their numbers.
-   */
-  postalAddress: "Tontunmäentie 22\u00a0E, 02200\u00a0Espoo",
-  /**
-   * The same address as forms and parsers often have it: the house letter
-   * against the number, and plain spaces. The footer, About Us and Contact
-   * give both, each on a line of its own, so a check that compares the text
-   * finds either (the maintainer's word of 27/10/2026, docs/decisions.md, 19).
-   */
-  postalAddressJoined: "Tontunmäentie 22E, 02200 Espoo",
   /** Where the app's source is published (AGPL-3.0). */
   appSource: "https://github.com/kuutti-ry/kumpa-app",
   /**

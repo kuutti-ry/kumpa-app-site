@@ -10,24 +10,24 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **A contact address.** `hello@kuutti.app` since decision 19, a user at the association's Google Workspace since 30/10/2026 and the association's only address on the site (decision 22; the team's own are on "About Us", 25); who reads it is the board's to arrange. The privacy policy and the terms give the association's postal address and not this one: the maintainer's word of 08/11/2026 (decision 29) | the footer, the home page, "About Us", "Membership", "Contact", "Help" and "Deleting your account" give it (`contactEmail` in `src/site.ts`) |
+| **Who monitors the public mailbox?** | The board arranges coverage for `hello@kuutti.app`. The contact page is at `/about/contact/`. |
 | **A privacy contact**, by name or by role | the privacy policy gives the association's postal address for requests about personal data, on the maintainer's word of 08/11/2026 (decision 29), and names no person and no officer |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
-| **The team**: a photo of Hilma, the roles of Gaiane, Jaakko and Nanna, and whether the board's third member is named | "About Us" shows eleven people (decision 25): Hilma by a first letter, Jaakko and Nanna as "Volunteer", Gaiane as "Design"; the board "has three members" |
+| **Remaining team profiles and photos** | The people page at `/about/people/` lists the people who have agreed to appear, with their approved roles and available photos. |
 | **Those who help**: whether Telia, Väestöliitto or anybody else has agreed to be named | "nobody is listed yet" |
-| **The story of the name and of the logo**, and the questions about marketing | the name's meaning only: a seal pup, and the logo its face. To be confirmed, and told properly |
-| **When the app opens** | "in development, in public", and first as a beta in the stores; no date |
-| **The membership fees**, which the annual meeting sets for each kind of member | "Membership" says who sets them and names no amount |
+| **The story of the app’s name** | The people page credits the designers of the seal emblem and the Saiga typeface. |
+| **When the app opens** | The app is in development for iPhone and Android. The public release date is still open. |
+| **Membership fees** | The bylaws describe how the annual meeting sets them. |
 
 ## About the texts
 
 | question | what the site says meanwhile |
 |---|---|
 | **The bylaws are registered** (06/10/2026), as worded in the correction notice of that day | in force, in Finnish, at `/legal/bylaws/` (`status: in_force`, `registered: 2026-10-06`). The notice's "sanotunmääräajan" in 8 is shown as "sanotun määräajan"; whether the registered text has the typo too is unchecked |
-| **Finnish texts of the terms and of the privacy policy** | none: the English is in force and binds, on the maintainer's word of 08/11/2026 (decision 29). A Finnish one is never a machine's translation (rule 3) |
-| **The Finnish wording of the sensitive answers** is a model's, like the English, which counts. No native reader has read it | shown after the English on the privacy page; the app shows it to its Finnish readers |
+| **Native review of the translated legal documents** | The translations and their controlling originals are listed in `docs/translation-review.md`. |
+| **Native review of the Finnish sensitive-answers consent** | The privacy page uses the Finnish wording from the app. English controls the current version. |
 | **A lawyer's reading** of the terms and the privacy policy: none, on the maintainer's word of 08/11/2026 (decision 29). What a lawyer would look at first is below, under "What the texts of 16/11/2026 found" | in force as a model wrote them |
-| **Finnish and Swedish of the pages** were written by a machine | out of the site for now (decision 8); `docs/translation-review.md` |
+| **Native review of Finnish site copy** | See `docs/translation-review.md` and the `machine` flags on the Finnish pages. |
 | **The licence of the texts.** The code is AGPL-3.0; whether the texts are too, or under a licence for texts, or not licensed at all | the README names the code's licence only |
 
 ## What the privacy policy found in the app
@@ -72,9 +72,7 @@ The maintainer's dispositions of 17/11/2026 (kuutti-ry/kumpa-app#190) follow eac
 | **The repository's name**, and when it is published | published 28/09/2026 as `kuutti-fi/kuutti-app-site` (`kuutti-ry/kuutti-app-site` since the organisation was renamed on 03/10/2026, `kuutti-ry/kumpa-app-site` since the maintainer renamed the repositories for Kumpa on 16/11/2026), public like the app's, on the maintainer's word after he had looked at the site |
 | **The move of Amplify Hosting** to the new repository | done 28/09/2026: a new app, `kuutti-app-site`, created in the console and connected to this repository, `kuutti.app` moved to it, the old app deleted; `amplify.yml` and `customHttp.yml` work as written. The setup is in the app repository's `infra/README.md`, "The website" |
 | **Removing `site/`** from the app's repository, with its `amplify.yml` and the mentions in `CLAUDE.md` and ADR-001 | kuutti-ry/kumpa-app#109 |
-| **The pond counter's numbers on the home page.** The API has a public `GET /ponds/counter` and allows the site's origin | not shown: it needs a script in the browser, and the site runs none (rule 1, decision 27) |
+| **A public service status** | The details page links directly to `https://api.kumpa.fi/health`. The site makes no request to the API when a visitor loads the page. |
 | **Gaiane's structure** at `/ga/`: whether, and when, it becomes the site's | removed on 16/11/2026, on the maintainer's word, with the pond demo (decision 27) |
 | **How far Saiga goes on the site.** Decision 28 (16/11/2026, on the maintainer's word) puts it on every page; that it draws the headings and the header and no more was the agent's choice | what is read is in Inter. The token for Saiga's files is in the Amplify app (`FONTS_TOKEN`, decision 18), and previews of pull requests stay off there |
-| **Crediting Spoke Type**, Saiga's foundry: whether, and how | "the foundry is named here once it has said how it wants to be credited" (rule 5); the headings are in Saiga since decision 28, and no page names it |
-| **The wording about collecting money** on "Support us" ("a notification to the police or a permit") | written from the founding notes; to be confirmed by somebody who knows the law on money collections |
-| **The store links** | no badge on the home page (decision 19); `stores` is `null` in `src/site.ts`, and the badges (`StoreBadges.astro`) are on no page since `/ga/download/` went (decision 27) |
+| **The store links** | Add the public iOS and Android listings to `SITE.stores` when available. Download links appear on App once both exist. |

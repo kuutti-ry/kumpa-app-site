@@ -324,3 +324,13 @@ The maintainer's word of 18/11/2026: the summary is in force, and it names no bo
 - **Told why.** Telling a person why their account was limited, and how to contest it, moves from what is open to what is done: the app does it since kuutti-ry/kumpa-app#719.
 - **Finnish.** A Finnish text still comes from a person (rule 3).
 - **In force without a version.** `scripts/check-content.ts` wanted a text in force to name a `consent_version` or the day it was registered. The summary has neither: nobody agrees to it in the app, and no register keeps it. That clause goes. A text the app records still names its version, by the check beside it.
+
+## 36. A Finnish-first website for Kumpa (2026-11-20)
+
+The site now addresses people interested in the dating app. Home, App and About form the main navigation. People, contact, technical details and press information sit under About. Legal documents and social channels remain in the footer. Association registration details appear on About. Store buttons appear once both the iOS and Android listings are available.
+
+Both languages share every page URL. Finnish displays first. The first-party script at `/language.js` remembers the reader’s choice for the tab, updates the page metadata and opens deep links to the wording they name. The hosting policy pins that script’s digest. Both language versions are included in the HTML.
+
+The terms, privacy policy and DPIA summary have labelled Finnish machine translations. The registered bylaws have a labelled English translation. The original language takes precedence, and the published consent anchors and archive retain their previous meaning.
+
+The pre-redesign revision is tagged `website-before-finnish-first-2026-11-20`. It preserves the previous navigation and footer for a future Google for Nonprofits review.

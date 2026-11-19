@@ -1,45 +1,24 @@
 ---
-title: Deleting your account
-description: How to delete your Kumpa account and your data, what goes at once, and what is kept and for how long.
+title: "Delete your account"
+description: "How to delete your Kumpa account in the app or by email, and what happens to your data."
 ---
 
-You can delete your account yourself, in the app, at any time. Nobody has to approve it and it happens at once.
+You can delete your Kumpa account at any time. Deletion is permanent. If you’d like a copy of your data, download it first.
 
 ## In the app
 
-1. Open Kumpa and go to **Your account**.
-2. If you want a copy of your data first, choose **Download my data**.
-3. Choose **Delete my account**.
-4. Read what the app tells you and confirm with **Delete everything**.
+1. Open **Settings**, then **Your account**.
+2. To save a copy of your data, choose **Download my data**.
+3. Choose **Delete my account** and confirm with **Delete everything**.
 
-## Without the app
+## By email
 
-If you cannot sign in any more, you can ask for the deletion by writing to [hello@kuutti.app](mailto:hello@kuutti.app). We have to be sure that the request comes from the person whose account it is, so the answer may ask you to identify yourself.
+If you can’t access the app, request deletion at [hello@kuutti.app](mailto:hello@kuutti.app). We may ask you to verify your identity.
 
-## What goes at once
+## What happens to your data
 
-- your profile and everything you wrote in it
-- your photos, in every size they were kept in
-- whom you seek, your age range and your other preferences
-- where you live
-- your e-mail address and the contacts you stored, if you had any
-- the consents you gave
-- the devices you were signed in on
+Your profile, preferences and contact details are removed when you delete your account. Your photos are removed, except copies retained as part of a report. You’re signed out on every device.
 
-This cannot be undone.
+Messages remain until both participants’ accounts have been deleted. Reports and the material included in them are kept for one year from the report. Database backups expire within 35 days. The log of staff actions is kept for five years.
 
-## What is kept, and why
-
-- **That this person once had an account.** Kumpa keeps a code computed from your personal identity code, which cannot be turned back into it; the record of your last identification (which bank, when, and the identification service's own references for it); whether the person is banned; how many times an account was deleted, and the day from which a new one is possible. It is what makes one person one account, and what makes a ban hold.
-- **An empty account row.** Without your age, your gender or your area: it only says that an account existed and was deleted.
-- **The log of staff actions**, for five years. It records what moderators did and saw, not what you did.
-
-Where somebody else was shown one of your photos, the record of that stays with them; it names the photo by a number, and the photo is gone.
-
-The server's log keeps one line about the deletion, with the account's number and how much was deleted, for 30 days.
-
-## Creating a new account
-
-A new account is possible 30 days after the deletion. Nothing of the old account comes back with it.
-
-Backups are kept for 35 days and then overwritten; what was deleted is gone from them after that.
+Kumpa keeps a record of your identification and deletions so that permanent bans and blocks still work. If you sign up again after the 30-day waiting period, you start with a new profile. The [privacy policy](/legal/privacy/) lists all retention periods.
