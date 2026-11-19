@@ -1,6 +1,6 @@
 ---
-title: "Technical details and research"
-description: "Kumpa’s open-source code, service status and current approach to research."
+title: "Technical details"
+description: "Kumpa’s source code, how the app is built and the current service status."
 ---
 
 Kumpa’s app and server share a [public code repository](https://github.com/kuutti-ry/kumpa-app). You can read how matching works, report a bug or suggest a change there.
@@ -14,7 +14,3 @@ The code is available under the [GNU Affero General Public License](https://gith
 ## Service status
 
 @status
-
-## Does Kumpa use my data for research?
-
-No. We don’t collect data for research, and we currently have no research partner.

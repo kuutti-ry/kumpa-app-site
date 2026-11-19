@@ -45,7 +45,7 @@ As in the app's repository:
 ## Code and content
 
 - TypeScript strict. Biome is the formatter and the linter.
-- Write ordinary pages in Markdown under `src/content/pages/{fi,en}/`, using matching paths for both languages. The site supplies its images and components. The header links to Home, App and About. Use `home.md` for the homepage introduction and `about/` for people, contact, details and media. Research belongs under details. Keep app support links at their published URLs.
+- Write ordinary pages in Markdown under `src/content/pages/{fi,en}/`, using matching paths for both languages. The site supplies its images and components. The header links to Home, App and About. Use `home.md` for the homepage introduction and `about/` for people, contact, details and media. Keep app support links at their published URLs.
 - Lead with Kumpa on public-facing pages. Keep association background on About and keep its legal identity in the original documents. Contact is at `/about/contact/`. Show only the team’s approved names and contact details on the people page. The footer links to contact, social channels and legal documents and displays the matching Finnish or English Code from Finland badge. Keep the street address out of the footer and ordinary copy.
 - The headings and the header are in Saiga where a build has its files, and what is read is in Inter (`docs/decisions.md`, 28). `--display` in `src/styles/global.css` is the one place that says what is drawn in Saiga. CI's builds have no file of it (rule 9), so a change to how it looks is looked at in a build that has them.
 - `/sitemap.xml` names the pages that may be indexed; `src/lib/sitemap.ts` makes it from the content, and it is never written by hand (`docs/decisions.md` 11).

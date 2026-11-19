@@ -1,6 +1,6 @@
 ---
-title: "Tekniikka ja tutkimus"
-description: "Miten teemme sovellusta, mistä löydät koodin ja mitä ajattelemme tutkimuksesta."
+title: "Tekniikka"
+description: "Miten sovellus on tehty, mistä löydät koodin ja toimiiko palvelin juuri nyt."
 machine: true
 ---
 
@@ -15,7 +15,3 @@ Koodin lisenssi on [GNU Affero General Public License](https://github.com/kuutti
 ## Toimiiko palvelin?
 
 @status
-
-## Käytetäänkö tietojani tutkimukseen?
-
-Ei. Emme kerää tietoja tutkimusta varten, eikä meillä tällä hetkellä ole tutkimuskumppania.
