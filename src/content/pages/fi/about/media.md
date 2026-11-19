@@ -15,7 +15,7 @@ Puhuimme kerran siitä, miksi deittisovelluksissa voi olla vaikea löytää kump
 - **Tekijät.** Meitä on noin viisitoista vapaaehtoista. Moni meistä tapasi Aalto-yliopistossa, ja teemme sovellusta itsenäisesti. Aloitimme syyskuussa 2026.
 - **Raha.** Sovelluksessa ei ole mainoksia eikä maksullisia tilauksia. Näkyvyyttä ei voi ostaa. Yhdistyksen [säännöt](/legal/bylaws/) kieltävät käyttäjätietojen kaupallisen käytön.
 - **Kirjautuminen.** Haluamme vaikeuttaa valeprofiileilla tehtäviä romanssihuijauksia ja häirintää. Siksi jokainen tunnistautuu suomalaisilla pankkitunnuksilla. Tarkistamme iän ja sallimme vain yhden tilin henkilöä kohden. Pysyvän porttikiellon saanut ei voi palata uudella tilillä.
-- **Kehitystyö.** Generatiivinen tekoäly on säästänyt meiltä ohjelmoinnissa aikaa ja rahaa. Siksi pystymme tekemään tämän kokoisen sovelluksen vapaaehtoisvoimin. Arvioimme marraskuussa 2026, että saman ohjelmiston tekeminen perinteisin menetelmin olisi vaatinut noin 20 kertaa niin paljon työtä.
+- **Kehitystyö.** Uusimmilla generatiivisen tekoälyn työkaluilla voimme tehdä ohjelmistoja nopeammin ja halvemmalla.
 
 ## Kuvia ja taustaa
 
