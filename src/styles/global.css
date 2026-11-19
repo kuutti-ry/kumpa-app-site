@@ -745,14 +745,14 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
 @media screen and (width < 44rem) {
   body:not(:has(.about-long :target)) .about-long,
   body:has(.about-long :target) .about-compact,
-  .footer-brand > .footer-contact-wide {
+  .footer-nav .footer-contact-wide {
     display: none;
   }
 }
 
 @media (min-width: 44rem), print {
   .about-compact,
-  .footer-brand > .footer-contact-compact {
+  .footer-nav .footer-contact-compact {
     display: none;
   }
 }
@@ -893,8 +893,7 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
 .footer-inner {
   display: flex;
   flex-wrap: wrap;
-  align-items: start;
-  justify-content: space-between;
+  align-items: center;
   gap: 1rem 2rem;
   max-width: var(--wide);
   margin: 0 auto;
@@ -906,35 +905,18 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   max-width: 100%;
 }
 
-.footer-brand,
 .footer-nav ul {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-.footer-nav ul {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0 1.25rem;
 }
 
-@media (max-width: 30rem) {
-  .footer-nav ul {
-    grid-template-columns: 1fr;
-  }
-}
-
-.footer-brand > a,
 .footer-nav a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   color: inherit;
-}
-
-.footer-brand .brand {
-  color: hsl(var(--foreground));
 }
 
 .channels {
@@ -970,6 +952,20 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+}
+
+@media (min-width: 44rem) {
+  .footer-end {
+    margin-inline-start: auto;
+  }
+}
+
+@media (width < 44rem) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 }
 
 .member-badge {

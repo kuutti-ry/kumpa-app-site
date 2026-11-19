@@ -19,13 +19,13 @@ const links = [
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <a class="brand" href="/">Kumpa</a>
-      <a class="footer-contact-wide" href={fi ? "/about/#contact" : "/about/#en-contact"}>{contact}</a>
-      <a class="footer-contact-compact" href="/about/contact/">{contact}</a>
-    </div>
-    <nav class="footer-nav" aria-label={fi ? "Asiakirjat" : "Legal documents"}>
+    <a class="brand" href="/">Kumpa</a>
+    <nav class="footer-nav" aria-label={fi ? "Alatunniste" : "Footer"}>
       <ul>
+        <li>
+          <a class="footer-contact-wide" href={fi ? "/about/#contact" : "/about/#en-contact"}>{contact}</a>
+          <a class="footer-contact-compact" href="/about/contact/" aria-current={slug === "about/contact" ? "page" : undefined}>{contact}</a>
+        </li>
         {links.map(([path, label]) => (
           <li><a href={`/${path}/`} aria-current={slug === path ? "page" : undefined}>{label}</a></li>
         ))}
