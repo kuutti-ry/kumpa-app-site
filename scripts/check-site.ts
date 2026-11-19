@@ -22,6 +22,8 @@
  *   hands link to it until they are updated.
  * - Saiga's style sheet is linked on every page of a build that has Saiga's
  *   files, and on no page of a build that has not (docs/decisions.md, 28).
+ * - A link to an anchor lands where it points and stays there: no style sheet
+ *   scrolls smoothly or measures a length on the font (scripts/landing.ts).
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -37,6 +39,7 @@ import {
   TEXT_OF,
 } from "../src/lib/consent.ts";
 import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
+import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
 if (!existsSync(dist)) {
@@ -47,11 +50,13 @@ if (!existsSync(dist)) {
 const ORIGIN = "https://kumpa.fi";
 const problems: string[] = [];
 const pages: string[] = [];
+const styleSheets: string[] = [];
 (function walk(dir: string) {
   for (const name of readdirSync(dir)) {
     const path = join(dir, name);
     if (statSync(path).isDirectory()) walk(path);
     else if (name.endsWith(".html")) pages.push(path);
+    else if (name.endsWith(".css")) styleSheets.push(path);
   }
 })(dist);
 
@@ -299,10 +304,17 @@ for (const kind of CONSENT_KINDS) {
   }
 }
 
+// A link to an anchor lands where it points and stays there when the fonts arrive.
+for (const path of styleSheets) {
+  for (const problem of landingProblems(readFileSync(path, "utf8"))) {
+    problems.push(`/${relative(dist, path)}: ${problem}`);
+  }
+}
+
 if (problems.length > 0) {
   console.error(problems.join("\n"));
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
+  `the site holds: ${pages.length} pages, no script, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
 );

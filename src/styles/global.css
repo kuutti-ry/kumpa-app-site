@@ -45,7 +45,8 @@
   --water-deep: 205 65% 88%;
 
   --radius: 8px;
-  --column: 68ch;
+  /* 68 of Inter's digits, in em: a ch changes when the font arrives (scripts/landing.ts). */
+  --column: 42.9em;
   --wide: 72rem;
   --gap: clamp(1rem, 0.6rem + 1.6vw, 2rem);
   --step--1: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
@@ -93,6 +94,7 @@ html {
   text-size-adjust: 100%;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
+  /* A link to an anchor lands this far down, at once: no smooth scrolling (scripts/landing.ts). */
   scroll-padding-top: 5rem;
 }
 
@@ -782,12 +784,6 @@ body:has(> .site-header) {
 
 .site-menu ul {
   flex-direction: column;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
 }
 
 @media print {
