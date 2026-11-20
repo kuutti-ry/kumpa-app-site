@@ -3,18 +3,22 @@ title: "For the media"
 description: "Facts for journalists about the origins, people and development of Kumpa, with interview and demo requests."
 ---
 
-Kumpa is a free dating app for adults in Finland. Volunteers at a Finnish nonprofit are building and testing it. For interviews, a demonstration or press images, email [hello@kuutti.app](mailto:hello@kuutti.app).
+Kumpa is a free dating app for adults in Finland, now in closed beta. For interviews, a demo or press images, email [hello@kuutti.app](mailto:hello@kuutti.app).
 
 ## Where the idea came from
 
-The idea grew out of a conversation about who benefits when people keep looking for a date. Two people who meet and leave a dating app take their subscription fees and ad revenue with them. The founders wanted to build an app that could count that departure as a success.
+It started with a conversation that came down to one question: if dating is broken, is it the people or the apps? Commercial dating apps have a built-in conflict of interest: if people meet, they leave the app; if they stay, they keep paying for a subscription or watching ads. Kumpa measures success by how many people find what they’re looking for, not by the time they spend in the app.
 
 ## Facts at a glance
 
-- **Team.** Around fifteen volunteers, working independently of Aalto University, where many of them met. Development began in September 2026.
-- **Funding model.** Kumpa has no ads, subscriptions or paid visibility. The association’s [bylaws](/legal/bylaws/) prohibit commercial use of data gathered through the app.
-- **Identity.** To make it harder to use fake profiles for romance scams or harassment, Kumpa asks everyone to sign in with Finnish bank credentials. This lets us check each person’s age and limit them to one account. Someone who receives a permanent ban cannot return with a new profile.
-- **Development.** The latest generative AI tools have made it faster and cheaper for us to build software.
+- **Registered association.** Kumpa is made by Kuutti ry, a Finnish registered non-profit association (ry).
+- **Volunteer-run.** Everyone on the team, around fifteen people, is a volunteer. Many of us met at Aalto University, but the project is independent of it.
+- **Non-commercial.** The association’s [bylaws](/legal/bylaws/) rule out any commercial use: no subscriptions, no ads, no selling data, nothing.
+- **Politically and religiously unaffiliated.**
+- **Open source.** All our code is [public](https://github.com/kuutti-ry) under a copyleft licence.
+- **Real people only.** Signing up works only with Finnish bank ID, so every user is one real person, for real. It’s our answer to catfishing, romance scams and harassment.
+- **Made in Finland, for Finland.** 🇫🇮
+- **Development.** We started in September 2026. The latest generative AI tools produce code of decent quality, which enables a volunteer team like ours to build a complete dating app.
 
 ## Source material
 

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { interpretHealth } from "../public/status.js";
+import { checkTime, interpretHealth } from "../public/status.js";
 
 test("only a complete healthy reply is green", () => {
   const healthy = { status: "ok", db: "ok", migrations: "current" };
@@ -30,4 +30,18 @@ test("reports API degradation and distinguishes a failed check from a service fa
       db: "unknown",
       migrations: "unknown",
     });
+});
+
+test("the time of a check is written as Finland writes it, in the reader's time zone", (t) => {
+  const zone = process.env.TZ;
+  t.after(() => {
+    if (zone === undefined) delete process.env.TZ;
+    else process.env.TZ = zone;
+  });
+  const at = new Date("2026-11-20T00:08:00Z");
+  process.env.TZ = "Europe/Helsinki";
+  assert.equal(checkTime(at, "fi"), "20.11.2026 klo 2.08");
+  assert.equal(checkTime(at, "en"), "20/11/2026, 2.08");
+  process.env.TZ = "UTC";
+  assert.equal(checkTime(at, "en"), "20/11/2026, 0.08");
 });

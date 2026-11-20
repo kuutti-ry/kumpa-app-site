@@ -6,7 +6,7 @@ machine: true
 
 Meidät tavoittaa osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app). Voit kysyä sovelluksesta tai siitä, miten käsittelemme tietojasi.
 
-Juuri nyt kaipaamme apua etenkin markkinointiin ja designiin. Laita viestiä, jos haluat tulla vapaaehtoisena tekemään ilmaista deittisovellusta, joka auttaa ihmisiä löytämään toisensa.
+Juuri nyt kaipaamme apua etenkin markkinointiin ja designiin (kuten tästä sivustosta ehkä huomaa). Laita viestiä, jos haluat tulla vapaaehtoisena tekemään ilmaista deittisovellusta, joka auttaa ihmisiä löytämään toisensa.
 
 ## Toimittajille
 
