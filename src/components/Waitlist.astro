@@ -9,6 +9,7 @@ interface Props {
 const { locale } = Astro.props;
 const title = `${locale}-waitlist`;
 const email = `${locale}-waitlist-email`;
+const emailError = `${email}-error`;
 const description = `${locale}-waitlist-purpose`;
 const regulator =
   locale === "fi"
@@ -34,7 +35,10 @@ const regulator =
   <div data-waitlist-controls hidden>
     <label for={email}>{t(locale, "waitlist.email")}</label>
     <div class="waitlist-fields">
-      <input id={email} type="email" name="email" autocomplete="email" maxlength="254" required />
+      <div class="waitlist-address">
+        <input id={email} type="email" name="email" autocomplete="email" maxlength="254" pattern={".+@.+\\..+"} required aria-describedby={emailError} />
+        <p id={emailError} class="waitlist-email-error" aria-live="polite" data-missing={t(locale, "waitlist.emailMissing")} data-invalid={t(locale, "waitlist.emailInvalid")}></p>
+      </div>
       <button type="submit">{t(locale, "waitlist.submit")}</button>
     </div>
     <p class="waitlist-feedback" role="status" data-busy={t(locale, "waitlist.busy")} data-error={t(locale, "waitlist.error")}></p>

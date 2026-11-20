@@ -42,17 +42,41 @@ function enableWaitlist(form) {
   const email = form.elements.namedItem("email");
   const proof = form.elements.namedItem("altcha");
   const feedback = form.querySelector("[role=status]");
+  const emailError = form.querySelector(".waitlist-email-error");
+
+  function clearEmailError() {
+    email.removeAttribute("aria-invalid");
+    emailError.textContent = "";
+  }
+
+  function showEmailError() {
+    email.setAttribute("aria-invalid", "true");
+    emailError.textContent = email.validity.valueMissing
+      ? emailError.dataset.missing
+      : emailError.dataset.invalid;
+    email.focus();
+  }
 
   function reset() {
     proof.value = "";
     email.readOnly = false;
     button.disabled = false;
     feedback.textContent = "";
+    clearEmailError();
   }
 
+  email.addEventListener("input", () => {
+    if (email.hasAttribute("aria-invalid") && email.validity.valid) clearEmailError();
+  });
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (button.disabled) return;
+    feedback.textContent = "";
+    if (!email.validity.valid) {
+      showEmailError();
+      return;
+    }
+    clearEmailError();
     button.disabled = true;
     email.readOnly = true;
     feedback.textContent = feedback.dataset.busy;
@@ -69,6 +93,11 @@ function enableWaitlist(form) {
         redirect: "error",
         signal,
       });
+      if (reply.status === 422) {
+        reset();
+        showEmailError();
+        return;
+      }
       if (!reply.ok) throw new Error("Signup service unavailable");
       proof.value = await solveChallenge(await reply.json(), signal);
       form.submit();
@@ -80,6 +109,7 @@ function enableWaitlist(form) {
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) reset();
   });
+  form.noValidate = true;
   form.querySelector("[data-waitlist-controls]").hidden = false;
   form.querySelector("[data-waitlist-contact]").hidden = true;
 }
