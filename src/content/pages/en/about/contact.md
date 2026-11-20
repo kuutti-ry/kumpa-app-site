@@ -5,7 +5,7 @@ description: "Get in touch with Kumpa about the app, your data, volunteering or 
 
 Write to [hello@kuutti.app](mailto:hello@kuutti.app) if you have questions about the app or a request about your personal data.
 
-Right now we’d especially love a hand with marketing or design. If you’d like to volunteer on a free dating app that helps people find each other, drop us a line.
+Right now we’d especially love a hand with marketing and design (as you may have noticed from this website). If you’d like to volunteer on a free dating app that helps people find each other, drop us a line.
 
 ## Interviews and demos
 

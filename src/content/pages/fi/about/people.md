@@ -10,4 +10,4 @@ Meitä on noin viisitoista vapaaehtoista. Moni meistä tutustui Aalto-yliopistos
 
 ## Logo ja fontti
 
-Gaiane piirsi logomme. [Teo Tuominen](https://www.teotuominen.com/) suunnitteli otsikoissa käytetyn [Saiga-fontin](https://www.spoketype.com/fonts/saiga/). Teon löytää myös [GitHubista](https://github.com/teotuominen) ja [LinkedInistä](https://www.linkedin.com/in/teo-tuominen-31a81223/).
+Gaiane piirsi logomme. Otsikoiden fontti on [Saiga](https://www.spoketype.com/fonts/saiga/), jonka on suunnitellut [Teo Tuominen](https://www.teotuominen.com/) (Spoke Type). Teon löytää myös [GitHubista](https://github.com/teotuominen) ja [LinkedInistä](https://www.linkedin.com/in/teo-tuominen-31a81223/).

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { interpretHealth } from "../public/status.js";
+import { checkTime, interpretHealth } from "../public/status.js";
 
 test("only a complete healthy reply is green", () => {
   const healthy = { status: "ok", db: "ok", migrations: "current" };
@@ -30,4 +30,11 @@ test("reports API degradation and distinguishes a failed check from a service fa
       db: "unknown",
       migrations: "unknown",
     });
+});
+
+test("the time of a check is written as Finland writes it, in both languages", () => {
+  // Noon UTC is 20 November in every time zone within eleven hours of it.
+  const noon = new Date("2026-11-20T12:00:00Z");
+  assert.match(checkTime(noon, "fi"), /^20\.11\.2026 klo \d{1,2}\.\d{2}$/);
+  assert.match(checkTime(noon, "en"), /^20\/11\/2026, \d{1,2}\.\d{2}$/);
 });

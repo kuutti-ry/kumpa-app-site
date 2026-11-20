@@ -4,18 +4,21 @@ description: "Mistä Kumpa sai alkunsa, ketkä sitä tekevät ja miten voit sopi
 machine: true
 ---
 
-Kumpa on ilmainen deittisovellus Suomessa asuville aikuisille. Teemme sitä vapaaehtoisvoimin emmekä tavoittele voittoa. Testaamme sovellusta parhaillaan. Jos haluat haastatella tekijöitä, nähdä sovelluksen tai saada kuvia juttuusi, kirjoita meille osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
+Kumpa on ilmainen deittisovellus Suomessa asuville aikuisille, ja se on nyt suljetussa betatestissä. Jos haluat haastatella meitä, nähdä sovelluksen tai saada kuvia juttuusi, kirjoita osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
 
 ## Mistä idea lähti?
 
-Puhuimme kerran siitä, miksi deittisovelluksissa voi olla vaikea löytää kumppania. Kun kaksi ihmistä löytää toisensa ja lähtee sovelluksesta, sen tekijöiltä jää saamatta tilausmaksuja tai mainostuloja. Halusimme tehdä sovelluksen, jonka tekijöille on hyvä uutinen, kun kaksi ihmistä voi poistaa sen puhelimestaan.
+Kaikki alkoi keskustelusta, joka tiivistyi yhteen kysymykseen: jos deittailu on rikki, onko vika ihmisissä vai sovelluksissa? Kaupallisilla deittisovelluksilla on sisäänrakennettu eturistiriita. Jos ihmiset löytävät toisensa, he lähtevät sovelluksesta. Jos he jäävät, he maksavat tilauksesta tai katsovat mainoksia. Kumpa mittaa onnistumista sillä, kuinka moni löytää etsimänsä, eikä sillä, kuinka paljon aikaa sovelluksessa vietetään.
 
 ## Kumpa lyhyesti
 
-- **Tekijät.** Meitä on noin viisitoista vapaaehtoista. Moni meistä tapasi Aalto-yliopistossa, ja teemme sovellusta itsenäisesti. Aloitimme syyskuussa 2026.
-- **Raha.** Sovelluksessa ei ole mainoksia eikä maksullisia tilauksia. Näkyvyyttä ei voi ostaa. Yhdistyksen [säännöt](/legal/bylaws/) kieltävät käyttäjätietojen kaupallisen käytön.
-- **Kirjautuminen.** Haluamme vaikeuttaa valeprofiileilla tehtäviä romanssihuijauksia ja häirintää. Siksi jokainen tunnistautuu suomalaisilla pankkitunnuksilla. Tarkistamme iän ja sallimme vain yhden tilin henkilöä kohden. Pysyvän porttikiellon saanut ei voi palata uudella tilillä.
-- **Kehitystyö.** Uusimmilla generatiivisen tekoälyn työkaluilla voimme tehdä ohjelmistoja nopeammin ja halvemmalla.
+- **Rekisteröity yhdistys.** Kumpa-sovellusta tekee Kuutti ry, suomalainen rekisteröity yhdistys.
+- **Vapaaehtoisvoimin.** Koko tiimi, noin viisitoista ihmistä, tekee työtä vapaaehtoisina. Moni meistä tutustui Aalto-yliopistossa, mutta emme ole sidoksissa yliopistoon.
+- **Epäkaupallinen.** Yhdistyksen [säännöt](/legal/bylaws/) kieltävät kaiken kaupallisuuden: ei maksullisia tilauksia, ei mainoksia, ei tietojen myyntiä, ei mitään.
+- **Avoin lähdekoodi.** Kaikki koodimme on [julkista](https://github.com/kuutti-ry) copyleft-lisenssillä: jos joku rakentaa sen päälle, hänenkin koodinsa on oltava avointa.
+- **Vain oikeita ihmisiä.** Rekisteröityä voi vain suomalaisilla pankkitunnuksilla (FTN), joten jokainen käyttäjä on yksi oikea ihminen, ihan oikeasti. Se on vastauksemme valeprofiileihin, romanssihuijauksiin ja häirintään.
+- **Tehty Suomessa, Suomea varten.** 🇫🇮
+- **Kehitystyö.** Aloitimme syyskuussa 2026. Uusimmat generatiivisen tekoälyn työkalut kirjoittavat jo kelpo koodia, ja sen ansiosta meidän kaltaisemme vapaaehtoisporukka pystyy tekemään kokonaisen deittisovelluksen.
 
 ## Kuvia ja taustaa
 

@@ -13,6 +13,15 @@ export function interpretHealth(code, body) {
   return unknown;
 }
 
+// Dates are written as Finland writes them in both languages (CLAUDE.md), in
+// the reader's own time zone: "en" alone would print 11/20/26, 1:57 AM.
+export function checkTime(date, language) {
+  return date.toLocaleString(language === "fi" ? "fi-FI" : "en-FI", {
+    dateStyle: "short",
+    timeStyle: "short",
+  });
+}
+
 function watchStatus() {
   const panels = [...document.querySelectorAll("[data-service-status]")];
   const visible = new Set();
@@ -61,10 +70,7 @@ function watchStatus() {
       label(panel, "[data-status-migrations]", health.migrations);
       const time = panel.querySelector("time");
       time.dateTime = date.toISOString();
-      time.textContent = date.toLocaleString(panel.closest("[lang]").lang, {
-        dateStyle: "short",
-        timeStyle: "short",
-      });
+      time.textContent = checkTime(date, panel.closest("[lang]").lang);
       panel.querySelector("[data-status-timestamp]").hidden = false;
       panel.querySelector("button").disabled = false;
     }
