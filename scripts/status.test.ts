@@ -32,9 +32,16 @@ test("reports API degradation and distinguishes a failed check from a service fa
     });
 });
 
-test("the time of a check is written as Finland writes it, in both languages", () => {
-  // Noon UTC is 20 November in every time zone within eleven hours of it.
-  const noon = new Date("2026-11-20T12:00:00Z");
-  assert.match(checkTime(noon, "fi"), /^20\.11\.2026 klo \d{1,2}\.\d{2}$/);
-  assert.match(checkTime(noon, "en"), /^20\/11\/2026, \d{1,2}\.\d{2}$/);
+test("the time of a check is written as Finland writes it, in the reader's time zone", (t) => {
+  const zone = process.env.TZ;
+  t.after(() => {
+    if (zone === undefined) delete process.env.TZ;
+    else process.env.TZ = zone;
+  });
+  const at = new Date("2026-11-20T00:08:00Z");
+  process.env.TZ = "Europe/Helsinki";
+  assert.equal(checkTime(at, "fi"), "20.11.2026 klo 2.08");
+  assert.equal(checkTime(at, "en"), "20/11/2026, 2.08");
+  process.env.TZ = "UTC";
+  assert.equal(checkTime(at, "en"), "20/11/2026, 0.08");
 });
