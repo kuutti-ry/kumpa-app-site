@@ -11,6 +11,24 @@ export const UI = {
     "nav.app": "Sovellus",
     "nav.breadcrumbs": "Murupolku",
     "home.action": "Tutustu sovellukseen",
+    "waitlist.title": "Liity odotuslistalle",
+    "waitlist.purpose": "Saat meiltä yhden sähköpostin, kun Kumpa-sovellus julkaistaan.",
+    "waitlist.email": "Sähköpostiosoite",
+    "waitlist.submit": "Ilmoita minulle",
+    "waitlist.busy": "Liittymistä käsitellään…",
+    "waitlist.error": "Liittyminen ei onnistunut. Yritä hetken kuluttua uudelleen.",
+    "waitlist.contact": "Voit pyytää julkaisuilmoitusta sähköpostitse osoitteesta",
+    "waitlist.leaveEmpty": "Jätä tämä kenttä tyhjäksi",
+    "waitlist.privacy": "Miten käytämme tietojasi?",
+    "waitlist.data":
+      "Kuutti ry on odotuslistan rekisterinpitäjä. Kun liityt listalle, annat meille luvan lähettää yhden ilmoituksen julkaisusta. Tallennamme sähköpostiosoitteesi, valitsemasi kielen, liittymisajan ja suostumustekstin version.",
+    "waitlist.storage":
+      "Amazon Web Services (AWS) säilyttää listaa puolestamme Frankfurtissa. Vain listan ylläpitoon valtuutetut henkilöt pääsevät tietoihin.",
+    "waitlist.retention":
+      "Lopetamme tietojesi käytön, kun olemme lähettäneet ilmoituksen, peruutat suostumuksesi tai liittymisestäsi on kulunut vuosi. Poistaminen tallennusjärjestelmästä voi kestää muutaman päivän. Tiedot voivat säilyä varmuuskopioissa vielä seitsemän päivää poistamisen jälkeen.",
+    "waitlist.rights":
+      "Voit pyytää pääsyä omiin tietoihisi tai peruuttaa suostumuksesi milloin tahansa kirjoittamalla osoitteeseen",
+    "waitlist.complaint": "Voit tehdä ilmoituksen tietosuojavaltuutetulle",
     "legal.title": "Oikeudelliset tiedot",
     "legal.description": "Kumpa-sovelluksen käyttöehdot, tietosuoja ja yhdistyksen säännöt.",
     "legal.intro": "Käyttöehdot, tietosuoja ja yhdistyksen säännöt.",
@@ -52,6 +70,23 @@ export const UI = {
     "nav.app": "App",
     "nav.breadcrumbs": "Breadcrumbs",
     "home.action": "Explore the app",
+    "waitlist.title": "Join the waiting list",
+    "waitlist.purpose": "We’ll send you one email when Kumpa launches.",
+    "waitlist.email": "Email address",
+    "waitlist.submit": "Notify me",
+    "waitlist.busy": "Joining the list…",
+    "waitlist.error": "We couldn’t complete your signup. Please try again in a moment.",
+    "waitlist.contact": "To request a launch notification by email, write to",
+    "waitlist.leaveEmpty": "Leave this field empty",
+    "waitlist.privacy": "How we use your details",
+    "waitlist.data":
+      "Kuutti ry is the controller for the waiting list. When you join, you consent to one launch email. We record your email address, your chosen language, when you joined and the version of the consent wording.",
+    "waitlist.storage":
+      "Amazon Web Services (AWS) stores the list for us in Frankfurt. Only people authorised to manage the list can access it.",
+    "waitlist.retention":
+      "We stop using your details when we send the email, you withdraw consent or one year has passed since signup, whichever comes first. Deletion from storage can take a few days. Backups can retain a copy for up to seven more days after deletion.",
+    "waitlist.rights": "To access your details or withdraw consent at any time, email",
+    "waitlist.complaint": "You can lodge a complaint with Finland’s Data Protection Ombudsman",
     "legal.title": "Legal and privacy",
     "legal.description": "Kumpa’s terms of use, privacy policy and association bylaws.",
     "legal.intro": "Terms of use, privacy and association bylaws.",

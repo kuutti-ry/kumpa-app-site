@@ -1,0 +1,53 @@
+---
+import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
+import { SITE } from "../site.ts";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const title = `${locale}-waitlist`;
+const email = `${locale}-waitlist-email`;
+const description = `${locale}-waitlist-purpose`;
+const regulator =
+  locale === "fi"
+    ? "https://tietosuoja.fi/ilmoitus-tietosuojavaltuutetulle"
+    : "https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman";
+---
+
+<form
+  class="waitlist"
+  action="https://waitlist.kumpa.fi/join"
+  method="post"
+  aria-labelledby={title}
+  aria-describedby={description}
+>
+  <h2 id={title}>{t(locale, "waitlist.title")}</h2>
+  <p id={description}>{t(locale, "waitlist.purpose")}</p>
+  <input type="hidden" name="locale" value={locale} />
+  <input type="hidden" name="altcha" />
+  <label hidden>
+    {t(locale, "waitlist.leaveEmpty")}
+    <input type="text" name="website" tabindex="-1" autocomplete="off" />
+  </label>
+  <div data-waitlist-controls hidden>
+    <label for={email}>{t(locale, "waitlist.email")}</label>
+    <div class="waitlist-fields">
+      <input id={email} type="email" name="email" autocomplete="email" maxlength="254" required />
+      <button type="submit">{t(locale, "waitlist.submit")}</button>
+    </div>
+    <p class="waitlist-feedback" role="status" data-busy={t(locale, "waitlist.busy")} data-error={t(locale, "waitlist.error")}></p>
+  </div>
+  <p data-waitlist-contact>{t(locale, "waitlist.contact")} <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+</form>
+<details class="waitlist-privacy">
+  <summary>{t(locale, "waitlist.privacy")}</summary>
+  <p>{t(locale, "waitlist.data")}</p>
+  <p>{t(locale, "waitlist.storage")}</p>
+  <p>{t(locale, "waitlist.retention")}</p>
+  <p>
+    {t(locale, "waitlist.rights")} <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+    <a href={regulator} rel="noreferrer">{t(locale, "waitlist.complaint")}</a>.
+  </p>
+</details>

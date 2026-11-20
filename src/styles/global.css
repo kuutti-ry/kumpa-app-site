@@ -403,7 +403,7 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   letter-spacing: -0.05em;
 }
 
-.hero p {
+.hero-copy > p {
   max-width: 30em;
   margin: 0 0 1.45em;
   font-size: var(--step-1);
@@ -411,22 +411,14 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   color: hsl(var(--muted-foreground));
 }
 
-.button-link {
+.explore-app {
   display: inline-flex;
-  max-width: 100%;
-  overflow-wrap: anywhere;
   align-items: center;
-  gap: 0.9rem;
   min-height: 44px;
-  padding: 0.8rem 1.2rem;
-  border-radius: 2rem;
-  background: hsl(var(--foreground));
-  color: hsl(var(--background));
-  text-decoration: none;
+  margin-top: 0.5rem;
   font-weight: 650;
 }
 
-.button-link::after,
 .page-links a::after {
   content: "";
   width: 0.53em;
@@ -436,12 +428,88 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   transform: rotate(45deg);
 }
 
-.button-link::after {
-  flex-shrink: 0;
+.waitlist {
+  margin-block-start: 2rem;
+  max-width: 33rem;
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid hsl(var(--border));
 }
 
-.button-link:hover {
+.waitlist h2 {
+  margin: 0 0 0.3rem;
+}
+
+.waitlist label[for] {
+  display: block;
+  margin-block-end: 0.3rem;
+  font-weight: 600;
+}
+
+.waitlist-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.waitlist-fields input,
+.waitlist-fields button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 0.6rem 1rem;
+  font: inherit;
+}
+
+.waitlist-fields input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  border: 1px solid hsl(var(--muted-foreground));
+  border-radius: var(--radius);
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.waitlist-fields button {
+  flex: 1 0 auto;
+  border: 1px solid transparent;
+  border-radius: 2rem;
+  color: hsl(var(--background));
+  background: hsl(var(--foreground));
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.waitlist-fields button:hover:enabled {
   background: hsl(var(--primary));
+}
+
+.waitlist-fields button:disabled {
+  cursor: wait;
+}
+
+.waitlist-feedback {
+  margin: 0;
+  font-weight: 600;
+}
+
+.waitlist-feedback:not(:empty) {
+  margin-top: 0.65rem;
+}
+
+.waitlist-privacy {
+  max-width: 33rem;
+  margin-top: 0.2rem;
+  color: hsl(var(--muted-foreground));
+  font-size: var(--step--1);
+}
+
+.waitlist-privacy summary {
+  min-height: 44px;
+  padding-block: 0.7rem;
+  cursor: pointer;
+}
+
+.waitlist-privacy p {
+  margin: 0 0 0.75rem;
 }
 
 .hero-art {
