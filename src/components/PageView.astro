@@ -43,8 +43,9 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 ) : (
   <article class="prose">
     <h1>{page.data.title}</h1>
+    {slug === "app" && <Waitlist locale={locale} />}
     <PageBody html={html} locale={locale} />
     {slug === "about" && <AboutSections locale={locale} />}
-    {slug === "app" && <><StoreBadges locale={locale} /><Waitlist locale={locale} /></>}
+    {slug === "app" && <StoreBadges locale={locale} />}
   </article>
 )}

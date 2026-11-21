@@ -436,6 +436,13 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
   border-block-start: 1px solid hsl(var(--border));
 }
 
+/* On /app/ the list is the page's first words under its heading, so no rule cuts the two apart. */
+h1 + .waitlist {
+  margin-block-start: 1.25rem;
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+
 .waitlist h2 {
   margin: 0 0 0.3rem;
 }
