@@ -6,7 +6,7 @@ import { LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
 import { hasSaiga } from "../lib/saiga.ts";
-import { languageIntegrity, statusIntegrity } from "../lib/script-integrity.ts";
+import { languageIntegrity, statusIntegrity, waitlistIntegrity } from "../lib/script-integrity.ts";
 
 interface Props {
   slug: string;
@@ -16,6 +16,7 @@ interface Props {
 const { slug, head, noindex } = Astro.props;
 const title = (locale: Locale) => (slug ? `${head[locale].title} · Kumpa` : head[locale].title);
 const site = Astro.site ?? new URL("https://kumpa.fi");
+const hasWaitlist = slug === "" || slug === "app";
 ---
 
 <!doctype html>
@@ -34,9 +35,10 @@ const site = Astro.site ?? new URL("https://kumpa.fi");
     <meta property="og:description" content={head.fi.description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content={new URL(fingerprinted("/kuutti.png"), site).href} />
-    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content={hasWaitlist ? "strict-origin" : "no-referrer"} />
     <script is:inline defer src={fingerprinted("/language.js")} integrity={languageIntegrity}></script>
     {(slug === "about" || slug === "about/details") && <script is:inline type="module" src={fingerprinted("/status.js")} integrity={statusIntegrity}></script>}
+    {hasWaitlist && <script is:inline type="module" src={fingerprinted("/waitlist.js")} integrity={waitlistIntegrity}></script>}
   </head>
   <body>
     {LOCALES.map(locale => <div data-lang={locale} lang={locale}><a class="skip" href="#content">{t(locale, "skip")}</a></div>)}

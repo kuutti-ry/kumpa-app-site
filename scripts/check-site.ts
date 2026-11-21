@@ -2,7 +2,7 @@
  * What the built site must hold (dist/, after `pnpm build`). Run by
  * `pnpm check:site` and by CI.
  *
- * - Only the pinned language script and, on status pages, the pinned health display may run. No frames or forms.
+ * - Scripts for language, health checks and waitlist verification are pinned and scoped to their pages.
  * - Nothing is loaded from anybody else: every stylesheet, image, font and
  *   icon is the site's own. Links to other sites are links, not loads.
  * - Every link inside the site leads to a page or a file that exists, and an
@@ -41,7 +41,11 @@ import {
 import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { redirects } from "../src/lib/redirects.ts";
 import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
-import { languageIntegrity, statusIntegrity } from "../src/lib/script-integrity.ts";
+import {
+  languageIntegrity,
+  statusIntegrity,
+  waitlistIntegrity,
+} from "../src/lib/script-integrity.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -83,8 +87,21 @@ for (const path of pages) {
   const html = readFileSync(path, "utf8");
   const here = page.replace(/index\.html$/, "");
 
-  for (const banned of ["iframe", "form", "object", "embed"]) {
+  for (const banned of ["iframe", "object", "embed"]) {
     if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
+  }
+  const hasWaitlist = here === "/" || here === "/app/";
+  const forms = [...html.matchAll(/<form\b[^>]*>/gi)];
+  if (
+    forms.length !== (hasWaitlist ? LOCALES.length : 0) ||
+    forms.some(
+      ([tag]) =>
+        attribute(tag, "method")?.toLowerCase() !== "post" ||
+        attribute(tag, "action") !== "https://waitlist.kumpa.fi/join",
+    ) ||
+    /\sform(?:action|method|target|enctype)\s*=/i.test(html)
+  ) {
+    problems.push(`${page}: unexpected form or waitlist destination`);
   }
   if (/\son[a-z]+="/i.test(html.replace(/\scontent="[^"]*"/g, ""))) {
     problems.push(`${page}: an inline event handler`);
@@ -121,6 +138,7 @@ for (const path of pages) {
   const hasStatus = here === "/about/" || here === "/about/details/";
   const expected = [{ file: "language.js", integrity: languageIntegrity }];
   if (hasStatus) expected.push({ file: "status.js", integrity: statusIntegrity });
+  if (hasWaitlist) expected.push({ file: "waitlist.js", integrity: waitlistIntegrity });
   if (
     scripts.length !== expected.length ||
     expected.some(

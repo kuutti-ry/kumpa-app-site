@@ -7,6 +7,7 @@ import { pageHtml } from "../lib/page-html.ts";
 import AboutSections from "./AboutSections.astro";
 import PageBody from "./PageBody.astro";
 import StoreBadges from "./StoreBadges.astro";
+import Waitlist from "./Waitlist.astro";
 
 interface Props {
   locale: Locale;
@@ -32,7 +33,8 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
       <div class="hero-copy">
         <h1>{page.data.title}</h1>
         <Fragment set:html={opening} />
-        <a class="button-link" href="/app/">{t(locale, "home.action")}</a>
+        <Waitlist locale={locale} />
+        <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
       </div>
       <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>
     </section>
@@ -41,6 +43,7 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 ) : (
   <article class="prose">
     <h1>{page.data.title}</h1>
+    {slug === "app" && <Waitlist locale={locale} />}
     <PageBody html={html} locale={locale} />
     {slug === "about" && <AboutSections locale={locale} />}
     {slug === "app" && <StoreBadges locale={locale} />}
