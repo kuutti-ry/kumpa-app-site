@@ -13,7 +13,7 @@ You can delete your Kumpa account at any time. Deletion is permanent. If you’d
 
 ## By email
 
-If you can’t access the app, request deletion at [hello@kuutti.app](mailto:hello@kuutti.app). We may ask you to verify your identity.
+If you can’t access the app, request deletion at [hello@kumpa.fi](mailto:hello@kumpa.fi). We may ask you to verify your identity.
 
 ## What happens to your data
 

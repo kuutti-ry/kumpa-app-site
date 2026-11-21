@@ -10,7 +10,7 @@ What is the maintainer's to decide or to supply, and what the site says meanwhil
 
 | question | what the site says meanwhile |
 |---|---|
-| **Who monitors the public mailbox?** | The board arranges coverage for `hello@kuutti.app`. The contact page is at `/about/contact/`. |
+| **Who monitors the public mailbox?** | The board arranges coverage for `hello@kumpa.fi`. The contact page is at `/about/contact/`. |
 | **A privacy contact**, by name or by role | the privacy policy gives the association's postal address for requests about personal data, on the maintainer's word of 08/11/2026 (decision 29), and names no person and no officer |
 | **Social channels**: YouTube | LinkedIn, GitHub, TikTok and Instagram are in the footer (`social` in `src/site.ts`); YouTube is not shown until it exists |
 | **Remaining team profiles and photos** | The people page at `/about/people/` lists the people who have agreed to appear, with their approved roles and available photos. |

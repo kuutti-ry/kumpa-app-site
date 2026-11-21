@@ -27,7 +27,7 @@ export const SITE = {
    * Google for Nonprofits checks that every address on the site is a user
    * (docs/decisions.md, 19, 22 and 25).
    */
-  contactEmail: "hello@kuutti.app" as string | null,
+  contactEmail: "hello@kumpa.fi" as string | null,
   /** The association's channels, as full addresses; the footer links to each by its mark. */
   social: [
     { name: "LinkedIn", href: "https://www.linkedin.com/company/kumpa-fi/", mark: "linkedin" },

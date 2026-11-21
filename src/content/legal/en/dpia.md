@@ -3,7 +3,7 @@ title: How we assessed the risks to your privacy
 description: A summary of Kumpa's data protection impact assessment, with the risks found and what is done about them.
 order: 4
 status: in_force
-dated: 2026-11-18
+dated: 2026-11-21
 binding: true
 ---
 
@@ -42,4 +42,4 @@ Everything the app, our server and our moderators do with your data, from sign-i
 
 Our assessment is that, with these measures in place and the ones planned before opening done, the remaining risk is not high, so the Data Protection Ombudsman does not need to be consulted before Kumpa opens. We go through the assessment again whenever we change how personal data is handled.
 
-Questions about this: [hello@kuutti.app](mailto:hello@kuutti.app).
+Questions about this: [hello@kumpa.fi](mailto:hello@kumpa.fi).

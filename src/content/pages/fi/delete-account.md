@@ -14,7 +14,7 @@ Voit poistaa tilisi milloin tahansa. Poistoa ei voi perua. Jos haluat kopion tie
 
 ## Sähköpostilla
 
-Jos et pääse sovellukseen, pyydä tilin poistamista osoitteesta [hello@kuutti.app](mailto:hello@kuutti.app). Voimme pyytää sinua vahvistamaan henkilöllisyytesi.
+Jos et pääse sovellukseen, pyydä tilin poistamista osoitteesta [hello@kumpa.fi](mailto:hello@kumpa.fi). Voimme pyytää sinua vahvistamaan henkilöllisyytesi.
 
 ## Mitä tiedoillesi tapahtuu?
 

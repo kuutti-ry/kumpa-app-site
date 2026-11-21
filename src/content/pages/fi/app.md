@@ -6,7 +6,7 @@ machine: true
 
 Sinä päätät, kehen haluat tutustua. Kun tykkäätte toisistanne, voitte alkaa jutella.
 
-Kumpa on suljetussa betatestissä. Jos haluat mukaan testaamaan, laita meille viestiä osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
+Kumpa on suljetussa betatestissä. Jos haluat mukaan testaamaan, laita meille viestiä osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi).
 
 ## Tee oma profiili
 

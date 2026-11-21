@@ -4,7 +4,7 @@ description: "Mitä tehdä, jos et pääse kirjautumaan, haluat ilmoittaa ongelm
 machine: true
 ---
 
-Jos tarvitset apua sovelluksen kanssa, kirjoita meille osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
+Jos tarvitset apua sovelluksen kanssa, kirjoita meille osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi).
 
 ## En pääse kirjautumaan
 
