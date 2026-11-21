@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -96,6 +96,27 @@ test("both contact pages give the published email address", () => {
     );
     assert.ok(SITE.contactEmail && contact.includes(`(mailto:${SITE.contactEmail})`));
   }
+});
+
+// The pages write the address out, so a change of `contactEmail` has to reach
+// each of them (decision 37). The earlier versions stay as they were published.
+test("every email address on a page or in a legal text in force is the published one", () => {
+  const content = join(import.meta.dirname, "..", "src", "content");
+  const written: string[] = [];
+  for (const shelf of ["pages", "legal"]) {
+    for (const name of readdirSync(join(content, shelf), { recursive: true, encoding: "utf8" })) {
+      if (!name.endsWith(".md")) continue;
+      const text = readFileSync(join(content, shelf, name), "utf8");
+      for (const [address] of text.matchAll(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g)) {
+        written.push(`${shelf}/${name}: ${address}`);
+      }
+    }
+  }
+  assert.ok(written.length > 0);
+  assert.deepEqual(
+    written.filter((line) => !line.endsWith(`: ${SITE.contactEmail}`)),
+    [],
+  );
 });
 
 test("the content security policy permits the two pinned scripts and same-origin status checks", () => {
