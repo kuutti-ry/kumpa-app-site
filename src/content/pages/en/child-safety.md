@@ -3,7 +3,7 @@ title: "Child safety standards"
 description: "Kumpa’s standards against child sexual abuse and exploitation and how to report a concern."
 ---
 
-Kumpa is for adults. Child sexual abuse and exploitation (CSAE) are prohibited in every form. You can report a concern in the app or email [hello@kuutti.app](mailto:hello@kuutti.app), even without an account.
+Kumpa is for adults. Child sexual abuse and exploitation (CSAE) are prohibited in every form. You can report a concern in the app or email [hello@kumpa.fi](mailto:hello@kumpa.fi), even without an account.
 
 ## Adults only
 

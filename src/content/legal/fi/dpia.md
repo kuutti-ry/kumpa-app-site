@@ -3,7 +3,7 @@ title: Miten arvioimme tietosuojariskit
 description: Yhteenveto Kumpa-sovelluksen tietosuojaa koskevasta vaikutustenarvioinnista, siinä havaituista riskeistä ja keinoista vähentää niitä.
 order: 4
 status: in_force
-dated: 2026-11-18
+dated: 2026-11-21
 binding: false
 machine: true
 ---
@@ -43,4 +43,4 @@ Arvioimme kaiken, mitä sovellus, palvelimemme ja moderaattorimme tekevät tiedo
 
 Arviomme mukaan jäljelle jäävä riski ei ole korkea, kun edellä kuvatut keinot ovat käytössä ja ennen avaamista suunnitellut toimet on toteutettu. Siksi tietosuojavaltuutettua ei tarvitse kuulla ennen Kumpa-sovelluksen avaamista. Arvioimme riskit uudelleen aina, kun muutamme henkilötietojen käsittelyä.
 
-Voit lähettää kysymyksiä arvioinnista osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app).
+Voit lähettää kysymyksiä arvioinnista osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi).

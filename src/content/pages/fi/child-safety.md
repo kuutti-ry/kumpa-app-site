@@ -4,7 +4,7 @@ description: "Lasten seksuaalista hyväksikäyttöä ja riistoa koskevat kiellot
 machine: true
 ---
 
-Kumpa on tarkoitettu aikuisille. Kaikenlainen lasten seksuaalinen hyväksikäyttö ja riisto on kielletty. Jos olet huolissasi lapsen turvallisuudesta, voit ilmoittaa siitä sovelluksessa. Voit myös kirjoittaa meille osoitteeseen [hello@kuutti.app](mailto:hello@kuutti.app), vaikka sinulla ei olisi tiliä.
+Kumpa on tarkoitettu aikuisille. Kaikenlainen lasten seksuaalinen hyväksikäyttö ja riisto on kielletty. Jos olet huolissasi lapsen turvallisuudesta, voit ilmoittaa siitä sovelluksessa. Voit myös kirjoittaa meille osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi), vaikka sinulla ei olisi tiliä.
 
 ## Vain täysi-ikäisille
 

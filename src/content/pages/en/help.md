@@ -3,7 +3,7 @@ title: "Help"
 description: "Help with signing in, reporting a problem and managing your Kumpa account."
 ---
 
-If something goes wrong in Kumpa, email [hello@kuutti.app](mailto:hello@kuutti.app).
+If something goes wrong in Kumpa, email [hello@kumpa.fi](mailto:hello@kumpa.fi).
 
 ## I can’t sign in
 

@@ -190,6 +190,8 @@ Google for Nonprofits' support told the maintainer on 30/10/2026 how its review 
 
 Set aside in part by 23 (03/11/2026): the navigation leads to the pages, and the home page no longer holds them whole. One address, and the purpose at the top, stand.
 
+**The address moved** (2026-11-21, decision 37): the one address is `hello@kumpa.fi`.
+
 ## 23. Real tabs, the mission by its name, and what the association does (2026-11-03)
 
 Google for Nonprofits refused kuutti.app again on 03/11/2026, twice that day: first asking for more tabs instead of a single page and for a clear mission statement, then naming "insufficient unique content" and "unclear mission", without saying what was missing. Its help page asks that a site state the mission and describe the activities or services. The maintainer's word the same day: update the site to the latest requirements, from the information there is about the association, and no other.
@@ -334,3 +336,11 @@ Both languages share every page URL. Finnish displays first. The first-party scr
 The terms, privacy policy and DPIA summary have labelled Finnish machine translations. The registered bylaws have a labelled English translation. The original language takes precedence, and the published consent anchors and archive retain their previous meaning.
 
 The pre-redesign revision is tagged `website-before-finnish-first-2026-11-20`. It preserves the previous navigation and footer for a future Google for Nonprofits review.
+
+## 37. hello@kumpa.fi in place of hello@kuutti.app (2026-11-21)
+
+The maintainer's word of 21/11/2026: on the website, `hello@kumpa.fi` replaces `hello@kuutti.app`, and the legal texts follow. It sets aside the address of 22 and 25, and 32's "the association's e-mail addresses are unchanged".
+
+- **Every page.** `contactEmail` in `src/site.ts` is `hello@kumpa.fi`, and so is every page that wrote the address out, in both languages: Contact, For the media, How Kumpa works, Child safety standards, Delete your account and Help. The team's own addresses on About Us (25) are as they were.
+- **The legal texts.** The summary of the data protection impact assessment ends with the new address, in English and in Finnish, and its `dated` is 21/11/2026, the day its wording last changed (35). The terms of use, the privacy policy with its sensitive answers, and the bylaws name no e-mail address: requests about personal data go to the association's postal address (29). Nothing in them changes, so no version moves and nobody is asked again. The earlier versions on `/legal/earlier/` stay as they were published.
+- **A user, not an alias.** 22 holds, on Google for Nonprofits' word, that an address the site names is a user of the association's Workspace. Whether `hello@kumpa.fi` is that user's own address or an alias of it is the maintainer's; nothing here can see it.

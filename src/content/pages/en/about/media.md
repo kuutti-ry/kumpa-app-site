@@ -3,7 +3,7 @@ title: "For the media"
 description: "Facts for journalists about the origins, people and development of Kumpa, with interview and demo requests."
 ---
 
-Kumpa is a free dating app for adults in Finland, now in closed beta. For interviews, a demo or press images, email [hello@kuutti.app](mailto:hello@kuutti.app).
+Kumpa is a free dating app for adults in Finland, now in closed beta. For interviews, a demo or press images, email [hello@kumpa.fi](mailto:hello@kumpa.fi).
 
 ## Where the idea came from
 
