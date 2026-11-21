@@ -8,7 +8,11 @@ import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { MARKS } from "../src/lib/marks.ts";
 import { pageHtml } from "../src/lib/page-html.ts";
-import { languageIntegrity, statusIntegrity } from "../src/lib/script-integrity.ts";
+import {
+  languageIntegrity,
+  statusIntegrity,
+  waitlistIntegrity,
+} from "../src/lib/script-integrity.ts";
 import { SITE } from "../src/site.ts";
 
 test("Finnish is the default and switching languages keeps every page URL", () => {
@@ -119,7 +123,7 @@ test("every email address on a page or in a legal text in force is the published
   );
 });
 
-test("the content security policy permits the two pinned scripts and same-origin status checks", () => {
+test("the content security policy pins all scripts and scopes waitlist requests", () => {
   const headers = readFileSync(join(import.meta.dirname, "..", "customHttp.yml"), "utf8");
   const policies = [...headers.matchAll(/key: Content-Security-Policy\s+value: "([^"]*)"/g)];
   assert.equal(policies.length, 1, "one policy for every address");
@@ -133,8 +137,13 @@ test("the content security policy permits the two pinned scripts and same-origin
   assert.deepEqual(directives.get("script-src"), [
     `'${languageIntegrity}'`,
     `'${statusIntegrity}'`,
+    `'${waitlistIntegrity}'`,
   ]);
-  assert.deepEqual(directives.get("connect-src"), ["'self'"]);
+  assert.deepEqual(directives.get("connect-src"), [
+    "'self'",
+    "https://waitlist.kumpa.fi/challenge",
+  ]);
+  assert.deepEqual(directives.get("form-action"), ["https://waitlist.kumpa.fi/join"]);
   assert.deepEqual(directives.get("worker-src"), ["'none'"]);
   for (const directive of ["script-src-elem", "script-src-attr"])
     assert.equal(directives.has(directive), false);

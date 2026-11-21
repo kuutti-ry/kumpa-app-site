@@ -38,7 +38,7 @@ src/site.ts                               contact details, channels and store li
 src/pages/[...path].astro                 the template the site's pages are made from
 src/lib/                                  which pages there are, how a text is listed, Saiga's files and their sums
 src/styles/global.css                     the look, on the app's design tokens
-public/                                   the logo, icons, Inter and the language and status scripts
+public/                                   the logo, icons, Inter and the language, status and waiting-list scripts
 public/fonts/saiga/                       Saiga, put there by the build or by hand; git ignores it
 scripts/                                  the checks, the tests, and the fetch of Saiga
 docs/                                     decisions, open questions, what waits for a native reader
@@ -55,7 +55,9 @@ Each ordinary page has a Markdown file under both `src/content/pages/fi/` and `s
 
 ## Hosting
 
-Amplify Hosting builds from `main` using `amplify.yml`. The content security policy in `customHttp.yml` pins the SHA-256 digests of the language and service-status scripts. Update the appropriate digest after editing either file.
+Amplify Hosting builds from `main` using `amplify.yml`. The content security policy in `customHttp.yml` pins the SHA-256 digests of the language, service-status and waiting-list scripts. Update the matching digest after editing a script.
+
+The homepage and `/app/` share the bilingual launch waiting-list form. When a visitor submits an email address, the first-party `waitlist.js` requests a signed challenge by POST from `https://waitlist.kumpa.fi/challenge`. It solves the challenge with the browser’s Web Crypto API and sends the result with the address in a native HTML POST to `https://waitlist.kumpa.fi/join`. These pages use a `strict-origin` referrer policy so the handler can check the website origin. Visitors can read the waiting-list privacy notice beside the form and request a launch notification by email when scripting is unavailable.
 
 The status panel reads `/status/health.json` on the website origin. Before releasing it, add this exact **200 rewrite** in the Amplify app’s existing redirects and rewrites, ahead of fallback rules. Keep the other domain rules in place.
 

@@ -1,9 +1,9 @@
-# The two permitted scripts are integrity-pinned. Health checks use the website origin.
+# Each first-party script is integrity-pinned. Only the signup service handles form data.
 customHeaders:
   - pattern: "**"
     headers:
       - key: Content-Security-Policy
-        value: "default-src 'none'; script-src 'sha256-K6OZcKjpaZa1Sbzzj631tmtA9WT6yVB2nAN4WLgi59Y=' 'sha256-9AfWUNbYcP5NF50KQjxWqNOslPQzvw2eF8+7ptEbu3s='; connect-src 'self'; worker-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+        value: "default-src 'none'; script-src 'sha256-K6OZcKjpaZa1Sbzzj631tmtA9WT6yVB2nAN4WLgi59Y=' 'sha256-9AfWUNbYcP5NF50KQjxWqNOslPQzvw2eF8+7ptEbu3s=' 'sha256-tYq6y0MLddQcU3dkF4BkyEEKEobk3VqLiQVqxyrEbCU='; connect-src 'self' https://waitlist.kumpa.fi/challenge; worker-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action https://waitlist.kumpa.fi/join; frame-ancestors 'none'"
       - key: Strict-Transport-Security
         value: "max-age=63072000; includeSubDomains; preload"
       - key: X-Content-Type-Options
