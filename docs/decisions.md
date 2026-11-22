@@ -441,6 +441,8 @@ The maintainer's word of 22/11/2026: the Swedish version is with a native speake
 
 ## 46. The snowflake, /si/'s mark (2026-11-22)
 
+Withdrawn the same day (48): the mark and its files are gone.
+
 The maintainer's word of 22/11/2026: the designers' snowflake, the navy one, goes before the name in the header and into the icon; then "we do the /si/ website". It is the mark of the `/si/` copy (41), and the site keeps the seal (7) for as long as it is the site.
 
 - **The drawing.** The designers gave the mark as pictures, not as lines: navy (#0C0C1D) on transparency, 5817 x 6157 px, and a darker navy (#050418) on off-white. `public/si-art/mark.svg` is the transparent one traced into a single path, its edge where the picture is half opaque, kept to within 0.6 px of it, in a square of 1,000 units. Drawn again at 1,000 px it differs from the picture by 0.2 of 255 on average, all of it at the soft edges. The designers' own lines replace it the day there are some. Its colour is the picture's navy, beside the name in the look's ink (#19083E).
@@ -460,11 +462,11 @@ The maintainer's word of 22/11/2026: the bylaws, the terms of use, the privacy p
 - **Versions.** Only the binding wording is fingerprinted, so no consent version moves. A new version of the terms or the privacy policy changes its Swedish text with its Finnish one, since a text names one version in every language.
 - **Before a native reading.** The texts wait for a native reader as the Finnish ones do (`docs/translation-review.md`). One word first: "årsredogörelsen" in the bylaws' agenda of the annual meeting, for the Finnish "vuosilaskelma", has no settled Swedish name in the model bylaws.
 
-## 48. The home of /si/ in the designer's order, and a white mark on a dark tab (2026-11-22)
+## 48. The home of /si/ in the designer's order, and the snowflake taken off (2026-11-22)
 
-The maintainer's words of 22/11/2026: "in mobile view, reorder, as she suggests", with the designer's two arrows on a phone's picture of the `/si/` home, read with him as the picture first and the button after the opening words; and, of the black mark of 46 on a dark tab strip, "can the site know which theme is in use? then we could get better results with a white logo on transparent".
+The maintainer's words of 22/11/2026: "in mobile view, reorder, as she suggests", with the designer's two arrows on a phone's picture of the `/si/` home, read with him as the picture first and the button after the opening words; and, later the same day, the snowflake off everywhere.
 
 - **The order.** On the home of `/si/`: the name, the picture of the two people, the opening words, "Explore the app", the waiting list, and how the address is used. Before, the picture and the button came last, a whole form below the words they belong to.
 - **One order, in the page itself.** The parts are in that order in the markup, so a keyboard and a screen reader go the way the eye does, and no style moves anything. From 44rem the picture stands on the right as before, beside the name and the words, which stay where they were to the pixel; the button is above the waiting list there too, and the list begins its height lower, since a button that only a style had moved back under the form would be reached before the form it is seen after. The designer's wide drawing has no such button, so its place there was ours. `pnpm check:site` holds the order in every language.
 - **Only /si/.** The site's own home keeps its markup and its order; its built pages are the same files as before.
-- **The tab.** A page cannot see the browser's theme, but a drawing can ask for it. `public/si-art/favicon.svg` is the path of `mark.svg` with the margin of the PNG, black, and white under `prefers-color-scheme: dark`, which a browser answers for its own window when it draws a tab. It is linked after the PNG of 46, which stays for a browser that takes no SVG icon and is black as before. The style inside the file needs nothing of the content security policy: Chromium and Firefox draw it black on a light page and white on a dark one with the policy's `style-src 'self'` on the file itself, measured in both. Safari was not measured, and where it takes the PNG nothing changes for it. The touch icon and the share image are on white (46) and stay.
+- **The snowflake is gone.** 46 is withdrawn whole: the header of `/si/` is the name alone again, as the design has it, and its tab, its link previews and a home screen show what the site's do (7). `public/si-art/mark.svg`, `favicon.png`, `apple-touch-icon.png` and `share.png` are removed, with the check that held each look to its mark. A drawing of the icon that turns white on a dark tab was made for the same change and went with it, unpublished.

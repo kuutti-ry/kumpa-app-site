@@ -96,18 +96,9 @@ html.si .brand {
   letter-spacing: -0.02em;
 }
 
-/* The snowflake before the name (docs/decisions.md, 46), sized with it. */
+/* The design's header is the name alone. */
 html.si .site-header :where(.brand) img {
-  width: 1.2em;
-}
-
-/* Narrower than this, the mark, the name, the languages and the menu are wider
-   than the window: the mark steps aside and the header stays one row
-   (docs/decisions.md, 45). */
-@media (max-width: 21.5rem) {
-  html.si .site-header :where(.brand) img {
-    display: none;
-  }
+  display: none;
 }
 
 /* Every link has the line's room, so the current page's pill moves nothing. */

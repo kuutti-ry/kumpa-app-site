@@ -235,30 +235,8 @@ test("a file kept elsewhere by its address carries a fingerprint that changes wi
   }
 });
 
-test("each look's share image and icons are named by their fingerprints", () => {
-  for (const file of [
-    "/kuutti.png",
-    "/favicon.png",
-    "/si-art/share.png",
-    "/si-art/favicon.png",
-    "/si-art/favicon.svg",
-    "/si-art/apple-touch-icon.png",
-  ]) {
+test("the share image and the icon are named by their fingerprints", () => {
+  for (const file of ["/kuutti.png", "/favicon.png"]) {
     assert.match(fingerprinted(file, join(import.meta.dirname, "..")), /\?v=[0-9a-f]{8}$/, file);
   }
-});
-
-test("the /si/ tab icon is the header's snowflake, black, and white where the browser is dark", () => {
-  const art = join(import.meta.dirname, "..", "public", "si-art");
-  const path = (svg: string) => / d="([^"]+)"/.exec(svg)?.[1];
-  const icon = readFileSync(join(art, "favicon.svg"), "utf8");
-  assert.ok(path(icon), "the icon draws a path");
-  assert.equal(path(icon), path(readFileSync(join(art, "mark.svg"), "utf8")));
-  // The colour is the style's alone: an attribute on the path would win nothing
-  // here, but a second place to say it is a second place to get it wrong.
-  assert.doesNotMatch(icon, /<path[^>]*\sfill="/);
-  assert.match(
-    icon,
-    /<style>path\{fill:#000\}@media \(prefers-color-scheme:dark\)\{path\{fill:#fff\}\}<\/style>/,
-  );
 });
