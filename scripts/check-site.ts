@@ -140,13 +140,29 @@ for (const path of pages) {
       isSi(here)
         ? [
             "/si-art/mark.svg",
-            ...["favicon", "apple-touch-icon", "share"].map((name) =>
-              fingerprinted(`/si-art/${name}.png`),
+            ...["favicon.png", "favicon.svg", "apple-touch-icon.png", "share.png"].map((name) =>
+              fingerprinted(`/si-art/${name}`),
             ),
           ]
         : ["/logo.png", fingerprinted("/favicon.png"), fingerprinted("/kuutti.png")]
     ).join(" ");
     if (worn !== own) problems.push(`${page}: wears ${worn} where its look's mark is ${own}`);
+  }
+  // The home of the /si/ copy reads in the order it is seen in (docs/decisions.md,
+  // 48): the name, the picture, the way to the app, then the waiting list, in
+  // every language. The page's own order, so no style has to move anything.
+  if (isSi(here) && /class="si-art si-art-home"/.test(html)) {
+    const parts = /<h1[\s>]|class="si-art si-art-home"|class="explore-app"|<form class="waitlist"/g;
+    const order = [...html.matchAll(parts)].map(([part]) => part.replace(/^<h1.$/, "<h1"));
+    const one = [
+      "<h1",
+      'class="si-art si-art-home"',
+      'class="explore-app"',
+      '<form class="waitlist"',
+    ];
+    const every = LOCALES.flatMap(() => one);
+    if (order.join(" ") !== every.join(" "))
+      problems.push(`${page}: the home's parts come as ${order.join(" ")}`);
   }
   const hasWaitlist = twin === "/" || twin === "/app/";
   const forms = [...html.matchAll(/<form\b[^>]*>/gi)];

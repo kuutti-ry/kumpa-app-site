@@ -37,17 +37,30 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 </nav>}
 {home ? (
   <>
-    <section class="hero">
-      <div class="hero-copy">
+    {si ? (
+      // Sini's order (docs/decisions.md, 48): the picture under the name, and the
+      // way to the app before the waiting list. One order in the page and on the
+      // screen, so a keyboard and a screen reader go as the eye does.
+      <section class="hero">
         <h1>{page.data.title}</h1>
-        <Fragment set:html={opening} />
-        <Waitlist locale={locale} />
-        <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
-      </div>
-      {si
-        ? <SiArt kind="home" />
-        : <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>}
-    </section>
+        <SiArt kind="home" />
+        <div class="hero-copy">
+          <Fragment set:html={opening} />
+          <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
+          <Waitlist locale={locale} />
+        </div>
+      </section>
+    ) : (
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>{page.data.title}</h1>
+          <Fragment set:html={opening} />
+          <Waitlist locale={locale} />
+          <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
+        </div>
+        <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>
+      </section>
+    )}
     {rest && <section class="prose" set:html={rest} />}
   </>
 ) : siAbout ? (

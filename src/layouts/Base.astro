@@ -38,7 +38,9 @@ const each = (value: (locale: Locale) => string) =>
     {noindex && <meta name="robots" content="noindex" />}
     {slug !== "404" && <link rel="canonical" href={new URL(pathOf("fi", slug), site).href} />}
     {hasSaiga() && <link rel="stylesheet" href="/fonts/saiga.css" />}
-    <link rel="icon" type="image/png" href={fingerprinted(si ? "/si-art/favicon.png" : "/favicon.png")} />
+    <link rel="icon" type="image/png" sizes={si ? "392x392" : undefined} href={fingerprinted(si ? "/si-art/favicon.png" : "/favicon.png")} />
+    {/* The snowflake again as lines: black, and white where the browser is dark (docs/decisions.md, 48). */}
+    {si && <link rel="icon" type="image/svg+xml" sizes="any" href={fingerprinted("/si-art/favicon.svg")} />}
     {si && <link rel="apple-touch-icon" href={fingerprinted("/si-art/apple-touch-icon.png")} />}
     <meta name="theme-color" content={si ? "#fff6f0" : "#ffffff"} />
     <meta property="og:title" content={title("fi")} />
