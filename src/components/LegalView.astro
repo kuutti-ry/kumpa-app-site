@@ -17,12 +17,14 @@ const isText = slug !== EARLIER && slug !== LEGAL;
 const shelf = slug === EARLIER ? [] : await legalShelf(locale);
 const name = slug.slice(LEGAL.length + 1);
 const listed = isText ? shelf.find((item) => item.slug === name) : undefined;
-const doc = listed?.written ? await getEntry("legal", `${locale}/${name}`) : undefined;
-// A text not written in this language is only named here, and sends the reader to its original.
-const absent = listed?.written === false ? listed : undefined;
-if (isText && !absent && !doc?.rendered) {
+const doc = listed ? await getEntry("legal", `${locale}/${name}`) : undefined;
+if (isText && !doc?.rendered) {
   throw new Error(`Missing rendered legal document: ${locale}/${name}`);
 }
+// A translation's notice names its original's language from the text, since
+// Swedish translates from both Finnish and English (docs/decisions.md, 47).
+const precedence =
+  listed && t(locale, "notice.precedence", { language: LANGUAGE_IN[locale][listed.original] });
 const version = doc?.data.consent_version;
 // The app already links to the version on the binding text. Its address is stable.
 const anchor = version && isConsentKind(name) ? anchorOf(name, version) : undefined;
@@ -56,24 +58,13 @@ const html = doc?.rendered?.html.replace(/ id="([^"]+)"/g, ` id="${prefix}$1"`);
 
 {slug === EARLIER && <LegalArchive locale={locale} />}
 
-{absent && (
-  <article class="prose">
-    <h1>{absent.title}</h1>
-    <p>{absent.description}</p>
-    <p class="notice" role="note">
-      {t(locale, "legal.absent")}{" "}
-      <a href="#original">{t(locale, "legal.original", { language: LANGUAGE_IN[locale][absent.original] })}</a>
-    </p>
-  </article>
-)}
-
 {doc && (
   <article class="prose">
     <h1 id={doc.data.binding ? "original" : undefined}>{doc.data.title}</h1>
     {(doc.data.machine || doc.data.reviewedBy) && (
       <p class="notice" role="note">
         {doc.data.machine && `${t(locale, "notice.machine.title")}. `}
-        <a href="#original">{t(locale, "notice.precedence")}</a>
+        <a href="#original">{precedence}</a>
       </p>
     )}
     <p class="meta" id={anchor ? `${prefix}${anchor}` : undefined}>
@@ -89,12 +80,18 @@ const html = doc?.rendered?.html.replace(/ id="([^"]+)"/g, ` id="${prefix}$1"`);
       <>
         <h2>{t(locale, "consents.title")}</h2>
         {consents.map((consent) => {
-          const wording = consent.wordings.find((entry) => entry.language === locale);
-          if (!wording) throw new Error(`Missing ${locale} wording of ${consent.kind}`);
+          // The wording the app asks in this language: its own, or else the one
+          // that counts, as the app's Swedish falls back to English (decision 47).
+          const wording =
+            consent.wordings.find((entry) => entry.language === locale) ??
+            consent.wordings.find((entry) => entry.counts);
+          if (!wording) throw new Error(`No wording of ${consent.kind} counts`);
           const id = anchorOf(consent.kind, consent.version);
+          // The canonical anchor is the counted wording's, in that wording's own language block.
+          const own = wording.language === locale;
           return (
             <section>
-              <h3 id={wording.counts ? id : `${locale}-${id}`}>{wording.title}</h3>
+              <h3 id={wording.counts && own ? id : `${locale}-${id}`} lang={own ? undefined : wording.language}>{wording.title}</h3>
               <p class="meta">
                 {t(locale, "doc.dated", { date: formatDate(locale, consent.dated) })}
                 {` · ${t(locale, isDraftVersion(consent.version) ? "doc.draftVersion" : "doc.version", { version: consent.version })}`}

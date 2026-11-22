@@ -45,10 +45,9 @@ export async function allLegal(): Promise<LegalText[]> {
 
 /**
  * Every current legal text in the shelf's reading order, named in the
- * reader's language: by its version in that language, or, while it has none
- * (no legal text is translated by machine into a language it was not written
- * in), by the name a version gives it there (`listing`). `written` says which,
- * and `original` is the language of the version that counts.
+ * reader's language by its version there (every text is in every language of
+ * the site, scripts/check-content.ts), with `original` the language of the
+ * version that counts.
  */
 export async function legalShelf(locale: Locale) {
   const texts = await allLegal();
@@ -57,15 +56,12 @@ export async function legalShelf(locale: Locale) {
     // A newly proposed draft may have no binding version yet.
     const original = versions.find((text) => text.data.binding) ?? versions[0];
     const own = versions.find((text) => writtenIn(text.id).language === locale);
-    const listed = versions.map((text) => text.data.listing?.[locale]).find(Boolean);
-    const name = own?.data ?? listed;
-    if (!original || !name) throw new Error(`legal text "${slug}" has no name in ${locale}`);
+    if (!original || !own) throw new Error(`legal text "${slug}" is missing in ${locale}`);
     return {
       slug,
-      title: name.title,
-      description: name.description,
-      status: (own ?? original).data.status,
-      written: own !== undefined,
+      title: own.data.title,
+      description: own.data.description,
+      status: own.data.status,
       original: writtenIn(original.id).language,
     };
   });

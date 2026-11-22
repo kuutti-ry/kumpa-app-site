@@ -36,8 +36,8 @@ jobs:
           # The whole history, so that origin/main is there for check:pinned.
           fetch-depth: 0
       - uses: ./.github/actions/pnpm
-      # Biome, then what the content must hold: a page in every language, who
-      # wrote each Finnish and Swedish text, no legal text by a machine.
+      # Biome, then what the content must hold: a page and a legal text in
+      # every language, who wrote each translation, none by a machine binding.
       - run: pnpm lint
       # A row of src/consent-versions.ts pins a text people agreed to: against
       # main's table, none is changed, removed or moved (kuutti-ry/kumpa-app#208).

@@ -1,7 +1,6 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { LOCALES } from "./i18n/locales.ts";
 import { CONSENT_VERSION } from "./lib/consent.ts";
 
 // Three kinds of text, all Markdown, one folder per language:
@@ -14,8 +13,9 @@ import { CONSENT_VERSION } from "./lib/consent.ts";
 //                                              a version people agreed to, kept as
 //                                              it was once a newer one replaced it
 //
-// A page exists in every language of the site (src/i18n/locales.ts). A legal
-// text keeps its binding original alongside a labeled translation.
+// A page exists in every language of the site (src/i18n/locales.ts), and so
+// does a legal text: its binding original, and a labeled translation in each
+// other language.
 
 /**
  * A version as the app names it, and as an anchor of the page carries it:
@@ -27,9 +27,6 @@ const consentVersion = z
     CONSENT_VERSION,
     "consent_version is lower-case letters, digits, dots and hyphens, not digits alone",
   );
-
-/** A text's name and one-line description, as a list shows it. */
-const listed = z.object({ title: z.string().min(1), description: z.string().min(1).max(200) });
 
 const pages = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
@@ -79,15 +76,6 @@ const legal = defineCollection({
     /** Translations identify their review status separately from the binding original. */
     machine: z.boolean().default(false),
     reviewedBy: z.string().optional(),
-    /**
-     * How the legal page of another language names this text while the text
-     * does not exist in that language. Names of a text, not the text: they
-     * are the site's own words and may be a machine's.
-     */
-    listing: z
-      .object(Object.fromEntries(LOCALES.map((locale) => [locale, listed.optional()])))
-      .strict()
-      .optional(),
   }),
 });
 
