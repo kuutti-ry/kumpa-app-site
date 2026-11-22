@@ -480,9 +480,18 @@ The maintainer's word of 22/11/2026: a `/si2/` version of the site, without touc
 - **More contrast.** On `/si/` the front page's form keeps its lime shape when more contrast is asked for, since the rule that draws it there outranks the one that takes the colours away. On `/si2/` it steps back as `si.css` says the colours do.
 - **Untouched.** The site and `/si/`: built from `main` and from this change, every file outside `/si2/` and `/si2-art/` is the same, byte for byte.
 
+## 50. The app page of /si/ in the designer's order, and no children among the reports on Help (2026-11-22)
+
+The maintainer's "fix this one here too" of 22/11/2026, with the designer's note on `/si/app/`: on a phone the heading, the picture, then the waiting list; and her question about Help's "moderators handle reports about children first": there are no children in the app, so it is not said like that.
+
+- **The order.** On the app page of `/si/` and `/si2/`: the title, the picture of the phone, the waiting list, and how the address is used. Before, the picture came after the whole form. As in 48, the parts are in that order in the markup and no style moves anything on a phone; from 52rem the picture stands on the right beside the title and the list, which are where they were to the pixel at the text's own size. `pnpm check:site` holds the order in every language.
+- **Only the copies.** The site's own app page has no picture and keeps its markup.
+- **Help.** In the three languages the sentence ends at "within 24 hours". A reader of Help met children there with nothing before it to say why; the link to the child safety standards stays in the same paragraph.
+- **The child safety standards keep it.** That page is the one the stores ask for, and there the sentence stands under "Adults only" and the prohibitions, where it reads as what it is. Its words are unchanged.
+
 ## 51. The name in a circle as the icon (2026-11-22)
 
-The maintainer's word of 22/11/2026: the website's favicon from the folder of logos he gave, the name "Kumpa" in navy (#0C0C1D) on an off-white circle (#FFF6F0). It takes the seal pup's place in the tab (7), on the site and on its `/si/` copies alike. (50 is the app page's order, in a pull request of its own.)
+The maintainer's word of 22/11/2026: the website's favicon from the folder of logos he gave, the name "Kumpa" in navy (#0C0C1D) on an off-white circle (#FFF6F0). It takes the seal pup's place in the tab (7), on the site and on its `/si/` copies alike.
 
 - **Three files, as given.** `public/favicon.svg` is the drawing, for the browsers that take one, with a title added, which the linter asks of every drawing. `public/favicon.png` is the same circle at 48 px, for those that do not. `public/apple-touch-icon.png` is the name on an off-white square of 180 px, since iOS rounds the corners itself and puts a transparent icon on black. The site had no touch icon before.
 - **Named by their fingerprints**, like the icon before them (7), so a browser fetches the new one by itself.

@@ -14,7 +14,7 @@ Sinun pitää olla vähintään 18-vuotias. Jos pankin tunnistussivu ei toimi, k
 
 ## Haluan tehdä ilmoituksen
 
-Voit tehdä ilmoituksen profiilista, kuvasta tai keskustelusta suoraan sovelluksessa. Moderaattorit tarkistavat ilmoitukset 24 tunnin kuluessa ja käsittelevät lapsia koskevat ilmoitukset ensin. Jos estät toisen käyttäjän, ette enää näe toisianne. Lue, [miten huolehdimme lasten turvallisuudesta](/child-safety/).
+Voit tehdä ilmoituksen profiilista, kuvasta tai keskustelusta suoraan sovelluksessa. Moderaattorit tarkistavat ilmoitukset 24 tunnin kuluessa. Jos estät toisen käyttäjän, ette enää näe toisianne. Lue, [miten huolehdimme lasten turvallisuudesta](/child-safety/).
 
 ## Haluan kopion tiedoistani
 

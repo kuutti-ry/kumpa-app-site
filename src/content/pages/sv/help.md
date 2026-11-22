@@ -14,7 +14,7 @@ Om bankens identifieringssida inte fungerar, försök igen senare. Om Kumpa inte
 
 ## Jag vill anmäla någon
 
-Du kan anmäla en profil, en bild eller en konversation i appen. Moderatorerna går igenom anmälningarna inom 24 timmar och behandlar anmälningar som gäller barn först. Om du blockerar någon ser ni inte längre varandra. Läs om [barns säkerhet](/child-safety/).
+Du kan anmäla en profil, en bild eller en konversation i appen. Moderatorerna går igenom anmälningarna inom 24 timmar. Om du blockerar någon ser ni inte längre varandra. Läs om [barns säkerhet](/child-safety/).
 
 ## Jag vill ha en kopia av mina uppgifter
 
