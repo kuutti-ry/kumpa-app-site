@@ -39,7 +39,9 @@ const each = (value: (locale: Locale) => string) =>
     {noindex && <meta name="robots" content="noindex" />}
     {slug !== "404" && <link rel="canonical" href={new URL(pathOf("fi", slug), site).href} />}
     {hasSaiga() && <link rel="stylesheet" href="/fonts/saiga.css" />}
-    <link rel="icon" type="image/png" href={fingerprinted("/favicon.png")} />
+    <link rel="icon" type="image/png" sizes="48x48" href={fingerprinted("/favicon.png")} />
+    <link rel="icon" type="image/svg+xml" href={fingerprinted("/favicon.svg")} />
+    <link rel="apple-touch-icon" href={fingerprinted("/apple-touch-icon.png")} />
     <meta name="theme-color" content={si ? "#fff6f0" : "#ffffff"} />
     <meta property="og:title" content={title("fi")} />
     <meta property="og:description" content={head.fi.description} />

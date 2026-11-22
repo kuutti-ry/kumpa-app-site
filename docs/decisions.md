@@ -489,3 +489,12 @@ The maintainer's "fix this one here too" of 22/11/2026, with the designer's note
 - **Help.** In the three languages the sentence ends at "within 24 hours". A reader of Help met children there with nothing before it to say why; the link to the child safety standards stays in the same paragraph.
 - **The child safety standards keep it.** That page is the one the stores ask for, and there the sentence stands under "Adults only" and the prohibitions, where it reads as what it is. Its words are unchanged.
 
+## 51. The name in a circle as the icon (2026-11-22)
+
+The maintainer's word of 22/11/2026: the website's favicon from the folder of logos he gave, the name "Kumpa" in navy (#0C0C1D) on an off-white circle (#FFF6F0). It takes the seal pup's place in the tab (7), on the site and on its `/si/` copies alike.
+
+- **Three files, as given.** `public/favicon.svg` is the drawing, for the browsers that take one, with a title added, which the linter asks of every drawing. `public/favicon.png` is the same circle at 48 px, for those that do not. `public/apple-touch-icon.png` is the name on an off-white square of 180 px, since iOS rounds the corners itself and puts a transparent icon on black. The site had no touch icon before.
+- **Named by their fingerprints**, like the icon before them (7), so a browser fetches the new one by itself.
+- **The share image stays.** A link's preview still shows the seal pup's face (`public/kuutti.png`): only the icon was asked for.
+- **Small.** Five letters across 16 px are a shape more than a word; at 32 px the name reads.
+
