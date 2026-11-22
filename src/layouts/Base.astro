@@ -8,7 +8,7 @@ import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
 import { fontsAskedFirst, hasSaiga } from "../lib/saiga.ts";
 import { languageIntegrity, statusIntegrity, waitlistIntegrity } from "../lib/script-integrity.ts";
-import { copyOf, LOOK } from "../lib/si.ts";
+import { LOOK } from "../lib/si.ts";
 
 interface Props {
   slug: string;
@@ -19,8 +19,7 @@ const { slug, head, noindex } = Astro.props;
 const title = (locale: Locale) => (slug ? `${head[locale].title} · Kumpa` : head[locale].title);
 const site = Astro.site ?? new URL("https://kumpa.fi");
 const hasWaitlist = slug === "" || slug === "app";
-// The look and the /si2/ copy (src/lib/si.ts): the style sheets read the classes and the page's name.
-const look = copyOf(Astro.url.pathname)?.look ?? LOOK;
+// The look (src/lib/si.ts): its style sheet reads the class and the page's name.
 // HTML's `blocking="render"` on a script, which Astro's types do not name yet.
 const holdsFirstPaint = { blocking: "render" };
 // public/language.js reads each language's title and description from these.
@@ -29,7 +28,7 @@ const each = (value: (locale: Locale) => string) =>
 ---
 
 <!doctype html>
-<html lang="fi" class={look} data-page={slug || "home"}>
+<html lang="fi" class={LOOK} data-page={slug || "home"}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

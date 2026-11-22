@@ -57,7 +57,7 @@ import {
   statusIntegrity,
   waitlistIntegrity,
 } from "../src/lib/script-integrity.ts";
-import { COPIES, copyOf, LOOK } from "../src/lib/si.ts";
+import { LOOK } from "../src/lib/si.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -102,31 +102,20 @@ for (const path of pages) {
   for (const banned of ["iframe", "object", "embed"]) {
     if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
   }
-  // An address of the site, or one under /si/, where its look was first tried
-  // (docs/decisions.md, 52), that only leads on: a static redirect and nothing else.
-  const destination = here.startsWith("/si/")
-    ? here.slice("/si".length)
+  // An address of the site, or one under /si/ or /si2/, where its look was
+  // first tried (docs/decisions.md, 52), that only leads on: a static redirect
+  // and nothing else.
+  const tried = /^\/si2?(?=\/)/.exec(here)?.[0];
+  const destination = tried
+    ? here.slice(tried.length)
     : Object.entries(redirects).find(([from]) => from === here)?.[1];
   if (destination) {
     if (/<script\b/i.test(html) || !html.includes(`url=${destination}"`) || !fileOf(destination))
       problems.push(`${page}: expected a static redirect to ${destination}`);
     continue;
   }
-  // A page of the /si2/ copy is held to what its twin is (src/lib/si.ts), and
-  // a copy is a try nobody is led to: a page of it wears the copy's look, is
-  // left alone by search engines and has a page of the site behind it. Every
-  // other page wears the site's own look (docs/decisions.md, 49 and 52).
-  const copy = copyOf(here);
-  const twin = copy ? here.slice(copy.prefix.length) : here;
-  const look = /<html\b[^>]*\sclass="([^"]*)"/.exec(html)?.[1];
-  if (copy) {
-    const of = `a page of the ${copy.prefix}/ copy`;
-    if (!fileOf(twin)) problems.push(`${page}: ${of} with no ${twin} behind it`);
-    if (look !== copy.look) problems.push(`${page}: ${of} without its look`);
-    if (!/<meta name="robots" content="noindex"/.test(html)) {
-      problems.push(`${page}: ${of} that a search engine may index`);
-    }
-  } else if (look !== LOOK) {
+  // Every page wears the site's look (docs/decisions.md, 52).
+  if (/<html\b[^>]*\sclass="([^"]*)"/.exec(html)?.[1] !== LOOK) {
     problems.push(`${page}: without the site's look`);
   }
   // The home reads in the order it is seen in (docs/decisions.md,
@@ -157,7 +146,7 @@ for (const path of pages) {
     if (order.join(" ") !== every.join(" "))
       problems.push(`${page}: the app page's parts come as ${order.join(" ")}`);
   }
-  const hasWaitlist = twin === "/" || twin === "/app/";
+  const hasWaitlist = here === "/" || here === "/app/";
   const forms = [...html.matchAll(/<form\b[^>]*>/gi)];
   if (
     forms.length !== (hasWaitlist ? LOCALES.length : 0) ||
@@ -192,19 +181,10 @@ for (const path of pages) {
     else if (address.startsWith("/") && !existsSync(join(dist, address.split(/[?#]/)[0] ?? ""))) {
       problems.push(`${page}: ${address} is not in the site`);
     }
-    // A copy draws with pictures of its own where it has them (src/components/SiArt.astro).
-    const own = copy ? address.replace(/^\/si-art\//, `${copy.art}/`) : address;
-    if (own !== address && fileOf(own))
-      problems.push(`${page}: ${address}, where the copy has ${own}`);
   }
 
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
-  if (!copy && page !== "/404.html") {
-    for (const { prefix } of COPIES) {
-      if (!fileOf(`${prefix}${here}`)) problems.push(`${page}: no copy of it under ${prefix}/`);
-    }
-  }
-  const hasStatus = twin === "/about/" || twin === "/about/details/";
+  const hasStatus = here === "/about/" || here === "/about/details/";
   const expected = [{ file: "language.js", integrity: languageIntegrity }];
   if (hasStatus) expected.push({ file: "status.js", integrity: statusIntegrity });
   if (hasWaitlist) expected.push({ file: "waitlist.js", integrity: waitlistIntegrity });
@@ -308,9 +288,6 @@ for (const path of pages) {
       if (!target.startsWith("/")) {
         problems.push(`${page}: a relative link, ${href}; links inside the site begin with /`);
         continue;
-      }
-      if (copy && target.endsWith("/") && copyOf(target) !== copy) {
-        problems.push(`${page}: ${href} leads out of the ${copy.prefix}/ copy`);
       }
       file = target.endsWith("/") ? join(dist, target, "index.html") : join(dist, target);
       if (!existsSync(file) || statSync(file).isDirectory()) {
