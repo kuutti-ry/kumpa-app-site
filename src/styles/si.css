@@ -673,9 +673,11 @@ html.si .inline-links {
   color: inherit;
 }
 
+/* The first mark's glyph stands on the name's edge: half of what a 44 px
+   target has round a 20 px glyph, and neither grows with the text. */
 html.si .team-links {
   justify-content: flex-start;
-  margin-inline-start: -0.75rem;
+  margin-inline-start: -12px;
 }
 
 /*
