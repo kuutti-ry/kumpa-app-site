@@ -487,7 +487,7 @@ The maintainer's "fix this one here too" of 22/11/2026, with the designer's note
 - **The order.** On the app page of `/si/` and `/si2/`: the title, the picture of the phone, the waiting list, and how the address is used. Before, the picture came after the whole form. As in 48, the parts are in that order in the markup and no style moves anything on a phone; from 52rem the picture stands on the right beside the title and the list, which are where they were to the pixel at the text's own size. `pnpm check:site` holds the order in every language.
 - **Only the copies.** The site's own app page has no picture and keeps its markup.
 - **Help.** In the three languages the sentence ends at "within 24 hours". A reader of Help met children there with nothing before it to say why; the link to the child safety standards stays in the same paragraph.
-- **The child safety standards keep it.** That page is the one the stores ask for, and there the sentence stands under "Adults only" and the prohibitions, where it reads as what it is. Its words are unchanged.
+- **The child safety standards keep it.** That page is the one the stores ask for, and there the sentence stands under "Adults only" and the prohibitions, where it reads as what it is. Its words are unchanged. Withdrawn the same day on the maintainer's "cleanup, no children anywhere": the sentence ends at "within 24 hours" there too, in the three languages. The page itself stays, with its title and its prohibitions, since the stores ask for it.
 
 ## 51. The name in a circle as the icon (2026-11-22)
 

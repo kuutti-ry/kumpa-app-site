@@ -23,7 +23,7 @@ Pankkitunnuksesi ovat vain sinun: laki kieltää luovuttamasta niitä kenenkää
 
 ## Mitä ilmoitukselle tapahtuu?
 
-Voit tehdä ilmoituksen suoraan profiilista, kuvasta tai keskustelusta. Moderaattorit tarkistavat jokaisen ilmoituksen 24 tunnin kuluessa ja käsittelevät lapsia koskevat ilmoitukset ensin.
+Voit tehdä ilmoituksen suoraan profiilista, kuvasta tai keskustelusta. Moderaattorit tarkistavat jokaisen ilmoituksen 24 tunnin kuluessa.
 
 Kumpa tarkistaa kuvat automaattisesti ennen kuin muut voivat nähdä ne. Tämä koskee myös keskusteluissa lähetettäviä kuvia. Jos saamme tietää lapsiin kohdistuvaa seksuaaliväkivaltaa kuvaavasta aineistosta tai siitä, että joku etsii tai hyväksikäyttää lasta sovelluksen kautta, poistamme aineiston, suljemme tilin pysyvästi ja ilmoitamme asiasta Suomen poliisille. Vastaamme tutkintaviranomaisten lainmukaisiin tietopyyntöihin ja noudatamme sovellettavia lastensuojelulakeja.
 

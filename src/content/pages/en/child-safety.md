@@ -22,7 +22,7 @@ Your bank ID is yours alone: Finnish law forbids lending it to anyone, and using
 
 ## Reporting and response
 
-Report a profile, photo or conversation where you see it in the app. Moderators review every report within 24 hours and look at reports involving children first.
+Report a profile, photo or conversation where you see it in the app. Moderators review every report within 24 hours.
 
 Kumpa checks photos automatically before others can see them, including photos sent in a conversation. When we learn about child sexual abuse material or a person using Kumpa to seek out or exploit a child, we remove the material, permanently close the account and report the matter to Finnish police. We respond to lawful requests from investigating authorities and follow applicable child safety laws.
 
