@@ -1,6 +1,6 @@
 ---
 import { getEntry } from "astro:content";
-import { type Locale, pathOf } from "../i18n/locales.ts";
+import { DEFAULT_LOCALE, type Locale, pathOf } from "../i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, STATUS_KEY, t } from "../i18n/ui.ts";
 import { anchorOf, EARLIER, isConsentKind, isDraftVersion } from "../lib/consent.ts";
 import { consentsOn, LEGAL, legalShelf } from "../lib/content.ts";
@@ -13,11 +13,14 @@ interface Props {
   slug: string;
 }
 const { locale, slug } = Astro.props;
-const shelf = slug === LEGAL ? await legalShelf(locale) : [];
+const isText = slug !== EARLIER && slug !== LEGAL;
+const shelf = slug === EARLIER ? [] : await legalShelf(locale);
 const name = slug.slice(LEGAL.length + 1);
-const doc =
-  slug === EARLIER || slug === LEGAL ? undefined : await getEntry("legal", `${locale}/${name}`);
-if (slug !== EARLIER && slug !== LEGAL && !doc?.rendered) {
+const listed = isText ? shelf.find((item) => item.slug === name) : undefined;
+const doc = listed?.written ? await getEntry("legal", `${locale}/${name}`) : undefined;
+// A text not written in this language is only named here, and sends the reader to its original.
+const absent = listed?.written === false ? listed : undefined;
+if (isText && !absent && !doc?.rendered) {
   throw new Error(`Missing rendered legal document: ${locale}/${name}`);
 }
 const version = doc?.data.consent_version;
@@ -40,7 +43,7 @@ const html = doc?.rendered?.html.replace(/ id="([^"]+)"/g, ` id="${prefix}$1"`);
     <h1>{t(locale, "legal.title")}</h1>
     <ul class="documents">
       {shelf.map((item) => (
-        <li id={locale === "fi" ? item.slug : `en-${item.slug}`}>
+        <li id={locale === DEFAULT_LOCALE ? item.slug : `${locale}-${item.slug}`}>
           <h2><a href={pathOf(locale, `${LEGAL}/${item.slug}`)}>{item.title}</a></h2>
           <p>{item.description}</p>
           {item.status !== "in_force" && <span class="tag">{t(locale, STATUS_KEY[item.status])}</span>}
@@ -53,15 +56,24 @@ const html = doc?.rendered?.html.replace(/ id="([^"]+)"/g, ` id="${prefix}$1"`);
 
 {slug === EARLIER && <LegalArchive locale={locale} />}
 
+{absent && (
+  <article class="prose">
+    <h1>{absent.title}</h1>
+    <p>{absent.description}</p>
+    <p class="notice" role="note">
+      {t(locale, "legal.absent")}{" "}
+      <a href="#original">{t(locale, "legal.original", { language: LANGUAGE_IN[locale][absent.original] })}</a>
+    </p>
+  </article>
+)}
+
 {doc && (
   <article class="prose">
     <h1 id={doc.data.binding ? "original" : undefined}>{doc.data.title}</h1>
     {(doc.data.machine || doc.data.reviewedBy) && (
       <p class="notice" role="note">
         {doc.data.machine && `${t(locale, "notice.machine.title")}. `}
-        <a href="#original">
-          {locale === "fi" ? "Englanninkielinen alkuperäisteksti on ensisijainen." : "The Finnish original takes precedence."}
-        </a>
+        <a href="#original">{t(locale, "notice.precedence")}</a>
       </p>
     )}
     <p class="meta" id={anchor ? `${prefix}${anchor}` : undefined}>

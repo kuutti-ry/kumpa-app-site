@@ -1,6 +1,8 @@
 ---
 import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
 import { MARKS } from "../lib/marks.ts";
+import { sectionAnchor } from "../lib/page-html.ts";
 import { SITE } from "../site.ts";
 
 interface Props {
@@ -9,21 +11,22 @@ interface Props {
 }
 
 const { locale, slug } = Astro.props;
+// Code from Finland has a badge in Finnish and one in English.
 const fi = locale === "fi";
-const contact = fi ? "Ota yhteyttä" : "Contact";
+const contact = t(locale, "menu.contact");
 const links = [
-  ["legal/privacy", fi ? "Tietosuoja" : "Privacy policy"],
-  ["legal/terms", fi ? "Käyttöehdot" : "Terms of use"],
+  ["legal/privacy", t(locale, "footer.privacy")],
+  ["legal/terms", t(locale, "footer.terms")],
 ];
 ---
 
 <footer class="site-footer">
   <div class="footer-inner">
     <a class="brand" href="/">Kumpa</a>
-    <nav class="footer-nav" aria-label={fi ? "Alatunniste" : "Footer"}>
+    <nav class="footer-nav" aria-label={t(locale, "footer.label")}>
       <ul>
         <li>
-          <a class="footer-contact-wide" href={fi ? "/about/#contact" : "/about/#en-contact"}>{contact}</a>
+          <a class="footer-contact-wide" href={`/about/#${sectionAnchor(locale, "contact")}`}>{contact}</a>
           <a class="footer-contact-compact" href="/about/contact/" aria-current={slug === "about/contact" ? "page" : undefined}>{contact}</a>
         </li>
         {links.map(([path, label]) => (
@@ -32,7 +35,7 @@ const links = [
       </ul>
     </nav>
     <div class="footer-end">
-      <ul class="channels" aria-label={fi ? "Sosiaalinen media" : "Kumpa’s channels"}>
+      <ul class="channels" aria-label={t(locale, "footer.channels")}>
         {SITE.social.map((channel) => (
           <li>
             <a href={channel.href} target="_blank" rel="noopener noreferrer" aria-label={channel.name}>
@@ -46,7 +49,7 @@ const links = [
       <a class="member-badge" href={fi ? "https://koodiasuomesta.fi/" : SITE.codeFromFinland} target="_blank" rel="noopener noreferrer">
         <img
           src={fi ? "/badges/koodia-suomesta-kumppanijasen.svg" : "/badges/code-from-finland-community-member.svg"}
-          alt={fi ? "Koodia Suomesta – kumppanijäsen" : "Code from Finland community member"}
+          alt={t(locale, "footer.badge")}
           width="60"
           height="60"
         />

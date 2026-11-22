@@ -56,7 +56,7 @@ test("somebody without a photo has their initials in the circle, and names are e
   assert.doesNotMatch(html, /<img/);
 });
 
-test("on the Finnish page every role of the team is in Finnish, and on the English page in English", () => {
+test("on the Finnish and the Swedish page every role of the team has its own name, and on the English page it is as written", () => {
   const rolesOf = (html: string): string[] =>
     [...html.matchAll(/<p class="team-role">(.*?)<\/p>/g)].flatMap((m) =>
       (m[1] ?? "").split("<br>"),
@@ -70,6 +70,20 @@ test("on the Finnish page every role of the team is in Finnish, and on the Engli
   assert.deepEqual(rolesOf(drawTeam("<p>@team</p>", "en")), english);
   assert.ok(fi.includes("Toiminta ja kumppanuudet"));
   assert.ok(english.includes("Operations &amp; Partnerships"));
+  const sv = rolesOf(drawTeam("<p>@team</p>", "sv"));
+  assert.equal(sv.length, english.length);
+  for (const role of ["Teamledare", "Styrelseordförande", "Verksamhet och partnerskap", "Design"])
+    assert.ok(sv.includes(role), role);
+  assert.ok(!sv.includes("Lead"));
+});
+
+test("a role with no name in a language stops the build, never shown in English", () => {
+  for (const locale of ["fi", "sv"] as const) {
+    assert.throws(() => drawTeam("<p>@team</p>", locale, [ada]), {
+      message: `the role "Chair" has no name in ${locale}`,
+    });
+  }
+  assert.match(drawTeam("<p>@team</p>", "en", [ada]), /Lead<br>Chair/);
 });
 
 test("a text without the marker stays as it is", () => {

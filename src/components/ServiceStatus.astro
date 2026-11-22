@@ -1,13 +1,13 @@
 ---
 import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
 
 interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const fi = locale === "fi";
-const unknown = fi ? "Ei tiedossa" : "Unknown";
-const unknownSummary = fi ? "Palvelimen tila ei ole tiedossa" : "Service status unavailable";
+const unknown = t(locale, "status.unknownValue");
+const unknownSummary = t(locale, "status.unknown");
 ---
 
 <div class="service-status" data-service-status data-state="unknown">
@@ -15,39 +15,39 @@ const unknownSummary = fi ? "Palvelimen tila ei ole tiedossa" : "Service status 
     <span class="service-status-dot" aria-hidden="true"></span>
     <strong
       data-status-summary
-      data-ok={fi ? "Palvelin toimii" : "Service operational"}
-      data-degraded={fi ? "Palvelimessa on häiriö" : "Service disruption"}
-      data-checking={fi ? "Tarkistetaan palvelimen tilaa…" : "Checking service status…"}
+      data-ok={t(locale, "status.ok")}
+      data-degraded={t(locale, "status.degraded")}
+      data-checking={t(locale, "status.checking")}
       data-unknown={unknownSummary}
-    >{fi ? "Tilaa ei ole vielä tarkistettu" : "Status hasn’t been checked yet"}</strong>
+    >{t(locale, "status.unchecked")}</strong>
   </p>
   <dl class="service-status-components">
     <div>
-      <dt>{fi ? "Tietokantayhteys" : "Database connection"}</dt>
+      <dt>{t(locale, "status.db")}</dt>
       <dd
         data-status-db
         data-state="unknown"
-        data-ok={fi ? "Toimii" : "Connected"}
-        data-unreachable={fi ? "Ei yhteyttä" : "Unreachable"}
+        data-ok={t(locale, "status.dbOk")}
+        data-unreachable={t(locale, "status.dbUnreachable")}
         data-unknown={unknown}
       >{unknown}</dd>
     </div>
     <div>
-      <dt>{fi ? "Tietokannan päivitykset" : "Database updates"}</dt>
+      <dt>{t(locale, "status.migrations")}</dt>
       <dd
         data-status-migrations
         data-state="unknown"
-        data-current={fi ? "Ajan tasalla" : "Up to date"}
-        data-pending={fi ? "Odottaa päivitystä" : "Pending"}
+        data-current={t(locale, "status.current")}
+        data-pending={t(locale, "status.pending")}
         data-unknown={unknown}
       >{unknown}</dd>
     </div>
   </dl>
   <div class="service-status-foot">
-    <small data-status-timestamp hidden>{fi ? "Tarkistettu" : "Checked"} <time data-status-checked></time></small>
+    <small data-status-timestamp hidden>{t(locale, "status.checked")} <time data-status-checked></time></small>
     <div class="service-status-actions">
-      <button type="button" data-status-refresh hidden>{fi ? "Tarkista uudelleen" : "Check again"}</button>
-      <a href="https://api.kumpa.fi/health" target="_blank" rel="noopener noreferrer">{fi ? "Palvelimen vastaus" : "Raw status"}</a>
+      <button type="button" data-status-refresh hidden>{t(locale, "status.refresh")}</button>
+      <a href="https://api.kumpa.fi/health" target="_blank" rel="noopener noreferrer">{t(locale, "status.raw")}</a>
     </div>
   </div>
 </div>

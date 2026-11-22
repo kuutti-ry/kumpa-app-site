@@ -11,6 +11,9 @@ listing:
   en:
     title: Bylaws
     description: The association's bylaws - purpose, members, board, meetings, and what the association may not do.
+  sv:
+    title: Kuutti ry:s stadgar
+    description: "Föreningens stadgar: syfte, medlemmar, styrelse, möten och vad föreningen inte får göra."
 ---
 
 ## 1. Yhdistyksen nimi, kotipaikka ja kieli

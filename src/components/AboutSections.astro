@@ -1,5 +1,6 @@
 ---
 import type { Locale } from "../i18n/locales.ts";
+import { t } from "../i18n/ui.ts";
 import { allPages } from "../lib/content.ts";
 import { aboutSections, pageHtml, sectionAnchor } from "../lib/page-html.ts";
 
@@ -23,7 +24,7 @@ const sections = aboutSections.map((name) => {
   </li>)}
 </ul>
 <div class="about-long">
-  <nav class="about-jumps" aria-label={locale === "fi" ? "Tällä sivulla" : "On this page"}>
+  <nav class="about-jumps" aria-label={t(locale, "about.onThisPage")}>
     <ul>{sections.map(({ page, anchor }) => <li><a href={`#${anchor}`}>{page.data.title}</a></li>)}</ul>
   </nav>
   {sections.map(({ name, page, anchor }) => (

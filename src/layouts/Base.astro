@@ -2,8 +2,8 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
-import { t } from "../i18n/ui.ts";
+import { DEFAULT_LOCALE, HIDDEN_LOCALES, LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
+import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
 import { hasSaiga } from "../lib/saiga.ts";
 import { languageIntegrity, statusIntegrity, waitlistIntegrity } from "../lib/script-integrity.ts";
@@ -17,6 +17,9 @@ const { slug, head, noindex } = Astro.props;
 const title = (locale: Locale) => (slug ? `${head[locale].title} · Kumpa` : head[locale].title);
 const site = Astro.site ?? new URL("https://kumpa.fi");
 const hasWaitlist = slug === "" || slug === "app";
+// public/language.js reads each language's title and description from these.
+const each = (value: (locale: Locale) => string) =>
+  Object.fromEntries(LOCALES.map((locale) => [`data-${locale}`, value(locale)]));
 ---
 
 <!doctype html>
@@ -24,8 +27,8 @@ const hasWaitlist = slug === "" || slug === "app";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-fi={title("fi")} data-en={title("en")}>{title("fi")}</title>
-    <meta name="description" content={head.fi.description} data-fi={head.fi.description} data-en={head.en.description} />
+    <title {...each(title)}>{title(DEFAULT_LOCALE)}</title>
+    <meta name="description" content={head[DEFAULT_LOCALE].description} {...each((locale) => head[locale].description)} />
     {noindex && <meta name="robots" content="noindex" />}
     {slug !== "404" && <link rel="canonical" href={new URL(pathOf("fi", slug), site).href} />}
     {hasSaiga() && <link rel="stylesheet" href="/fonts/saiga.css" />}
@@ -42,8 +45,7 @@ const hasWaitlist = slug === "" || slug === "app";
   </head>
   <body>
     {LOCALES.map(locale => <div data-lang={locale} lang={locale}><a class="skip" href="#content">{t(locale, "skip")}</a></div>)}
-    <input class="visually-hidden" id="lang-fi" type="radio" name="language" value="fi" aria-label="Suomi" lang="fi" checked autocomplete="off" />
-    <input class="visually-hidden" id="lang-en" type="radio" name="language" value="en" aria-label="English" lang="en" autocomplete="off" />
+    {LOCALES.map(locale => <input class="visually-hidden" id={`lang-${locale}`} type="radio" name="language" value={locale} aria-label={LANGUAGE_NAME[locale]} lang={locale} checked={locale === DEFAULT_LOCALE} hidden={HIDDEN_LOCALES.has(locale)} autocomplete="off" />)}
     {LOCALES.map(locale => <div data-lang={locale} lang={locale}><Header locale={locale} slug={slug} /></div>)}
     <main id="content" tabindex="-1"><slot /></main>
     {LOCALES.map(locale => <div data-lang={locale} lang={locale}><Footer locale={locale} slug={slug}/></div>)}

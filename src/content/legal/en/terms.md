@@ -6,6 +6,10 @@ status: in_force
 consent_version: "2026-11-1"
 dated: 2026-11-16
 binding: true
+listing:
+  sv:
+    title: Användarvillkor
+    description: Avtalet mellan Kuutti ry och den som använder appen Kumpa.
 ---
 
 ## 1. Parties

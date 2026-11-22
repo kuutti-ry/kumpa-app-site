@@ -1,7 +1,7 @@
-import type { Locale } from "../i18n/locales.ts";
+import { byLocale, DEFAULT_LOCALE, LOCALES, type Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
 import { EARLIER } from "./consent.ts";
-import { allLegal, allPages, type Page, placeOf, writtenIn } from "./content.ts";
+import { allLegal, allPages, legalShelf, type Page, placeOf, writtenIn } from "./content.ts";
 
 type PageInfo = { title: string; description: string };
 
@@ -17,14 +17,17 @@ export async function routes() {
   const pages = await allPages();
   const texts = await allLegal();
   const result: RouteProps[] = [];
-  for (const page of pages.filter((entry) => placeOf(entry.id).locale === "fi")) {
+  for (const page of pages.filter((entry) => placeOf(entry.id).locale === DEFAULT_LOCALE)) {
     const { slug } = placeOf(page.id);
-    const english = pages.find((entry) => entry.id === `en/${slug}`);
-    if (!english) throw new Error(`Missing English page: ${slug}`);
+    const versions = byLocale((locale) => {
+      const version = pages.find((entry) => entry.id === `${locale}/${slug}`);
+      if (!version) throw new Error(`Missing page: ${locale}/${slug}`);
+      return version;
+    });
     result.push({
       slug: slug === "home" ? "" : slug,
-      head: { fi: page.data, en: english.data },
-      pages: { fi: page, en: english },
+      head: byLocale((locale) => versions[locale].data),
+      pages: versions,
     });
   }
 
@@ -35,23 +38,25 @@ export async function routes() {
     });
     result.push({
       slug: name === "legal" ? name : EARLIER,
-      head: { fi: info("fi"), en: info("en") },
+      head: byLocale(info),
       noindex: name === "earlier",
     });
   }
+  const shelves = await Promise.all(LOCALES.map((locale) => legalShelf(locale)));
   for (const slug of new Set(texts.map((entry) => writtenIn(entry.id).slug))) {
     const versions = texts.filter((entry) => writtenIn(entry.id).slug === slug);
     // A newly proposed draft may have no binding version yet.
     const original = versions.find((entry) => entry.data.binding) ?? versions[0];
     if (!original) throw new Error(`Missing legal text: ${slug}`);
+    // A language the text is not written in names it as its shelf does.
     const info = (locale: Locale) => {
-      const version = versions.find((entry) => entry.id === `${locale}/${slug}`);
-      if (!version) throw new Error(`Missing legal text: ${locale}/${slug}`);
-      return { title: version.data.title, description: version.data.description };
+      const item = shelves[LOCALES.indexOf(locale)]?.find((entry) => entry.slug === slug);
+      if (!item) throw new Error(`Missing legal text: ${locale}/${slug}`);
+      return { title: item.title, description: item.description };
     };
     result.push({
       slug: `legal/${slug}`,
-      head: { fi: info("fi"), en: info("en") },
+      head: byLocale(info),
       noindex: original.data.status === "draft",
       lastmod: original.data.dated.toISOString().slice(0, 10),
     });

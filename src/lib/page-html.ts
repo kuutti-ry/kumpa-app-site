@@ -1,4 +1,4 @@
-import type { Locale } from "../i18n/locales.ts";
+import { DEFAULT_LOCALE, type Locale } from "../i18n/locales.ts";
 import { drawFlags } from "./flag.ts";
 import { drawTeam } from "./team.ts";
 
@@ -6,7 +6,7 @@ export const aboutSections = ["people", "contact", "details", "media"] as const;
 
 type AboutSection = (typeof aboutSections)[number];
 export const sectionAnchor = (locale: Locale, section: AboutSection) =>
-  locale === "fi" ? section : `en-${section}`;
+  locale === DEFAULT_LOCALE ? section : `${locale}-${section}`;
 
 /** Use the same Markdown for a standalone page and its section in the desktop About view. */
 export function pageHtml(
