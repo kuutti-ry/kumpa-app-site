@@ -23,7 +23,7 @@ Dina bankkoder är bara dina: enligt finländsk lag får du inte låna ut dem ti
 
 ## Anmälan och åtgärder
 
-Anmäl en profil, en bild eller en konversation där du ser den i appen. Moderatorerna går igenom varje anmälan inom 24 timmar och tittar först på anmälningar som gäller barn.
+Anmäl en profil, en bild eller en konversation där du ser den i appen. Moderatorerna går igenom varje anmälan inom 24 timmar.
 
 Kumpa granskar bilder automatiskt innan andra kan se dem, också bilder som skickas i en konversation. När vi får kännedom om material som visar sexuella övergrepp mot barn, eller om att någon använder Kumpa för att söka upp eller utnyttja ett barn, tar vi bort materialet, stänger kontot permanent och anmäler saken till polisen i Finland. Vi svarar på lagliga begäranden från förundersökningsmyndigheter och följer de lagar om barns säkerhet som gäller.
 
