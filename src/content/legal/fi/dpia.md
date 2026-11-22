@@ -3,7 +3,7 @@ title: Miten arvioimme tietosuojariskit
 description: Yhteenveto Kumpa-sovelluksen tietosuojaa koskevasta vaikutustenarvioinnista, siinä havaituista riskeistä ja keinoista vähentää niitä.
 order: 4
 status: in_force
-dated: 2026-11-21
+dated: 2026-11-22
 binding: false
 machine: true
 ---
@@ -26,7 +26,7 @@ Arvioimme kaiken, mitä sovellus, palvelimemme ja moderaattorimme tekevät tiedo
 
 ## Miten vähennämme riskejä
 
-- Emme tallenna henkilötunnustasi, nimeäsi emmekä syntymäpäivääsi. Pankkisi vahvistaa, että olet oikea, täysi-ikäinen henkilö. Säilytämme vain syntymävuotesi ja -kuukautesi sekä tunnisteen, josta henkilötunnustasi ei voi palauttaa.
+- Emme tallenna henkilötunnustasi, nimeäsi emmekä syntymäpäivääsi. Pankkisi vahvistaa, että olet oikea, täysi-ikäinen henkilö. Säilytämme vain syntymävuotesi ja -kuukautesi sekä tunnisteen, josta henkilötunnustasi ei voi palauttaa ilman salaista avaintamme.
 - Tallennamme asuinpaikkasi vähintään 3 000 asukkaan alueen tarkkuudella. Etäisyydestä näkyy vain karkea etäisyysluokka.
 - Tietoa siitä, kenen seuraa etsit, käytetään vain nimenomaisella suostumuksellasi, eikä sitä näytetä profiilissasi. Jos profiilisi näytetään toiselle käyttäjälle, hän voi päätellä, että saatat olla kiinnostunut hänen kaltaisistaan ihmisistä. Sama pätee toisinpäin.
 - Kaikki käyttäjät tunnistautuvat pankkinsa kautta, joten tietoja väärinkäyttävä henkilö voidaan saattaa vastuuseen. Voit tehdä ilmoituksen tai estää käyttäjän missä tahansa profiilissa tai keskustelussa.

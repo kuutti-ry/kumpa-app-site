@@ -3,7 +3,7 @@ title: How we assessed the risks to your privacy
 description: A summary of Kumpa's data protection impact assessment, with the risks found and what is done about them.
 order: 4
 status: in_force
-dated: 2026-11-21
+dated: 2026-11-22
 binding: true
 listing:
   sv:
@@ -29,7 +29,7 @@ Everything the app, our server and our moderators do with your data, from sign-i
 
 ## What we do about them
 
-- We never store your personal identity code, your name or your date of birth. Your bank confirms that you are a real adult, and we keep only your year and month of birth and an identifier that cannot be turned back into your identity code.
+- We never store your personal identity code, your name or your date of birth. Your bank confirms that you are a real adult, and we keep only your year and month of birth and an identifier that cannot be turned back into your identity code without our secret key.
 - Your home is kept as an area of at least 3,000 people, and distance is shown only as a rough band.
 - Whom you seek is used only with your explicit consent and is never written on your profile. Being shown to someone does tell them that you might be interested in people like them, and the same is true the other way round.
 - Everyone is identified through their bank, so a person who misuses what they see can be held to account. You can report and block from any profile or conversation.
