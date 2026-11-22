@@ -19,7 +19,10 @@ export function pageHtml(
   let html = page.rendered.html
     .replace(/ id="([^"]+)"/g, ` id="${prefix}-$1"`)
     .replace(/ href="#([^"]+)"/g, ` href="#${prefix}-$1"`)
-    .replace(/<a href="https:\/\//g, '<a target="_blank" rel="noopener noreferrer" href="https://');
+    .replace(/<a href="https:\/\//g, '<a target="_blank" rel="noopener noreferrer" href="https://')
+    // A dot between two links gets room on both sides (`.between`): a space
+    // of the display face is too narrow to part them, an arrow least of all.
+    .replace(/<\/a> · (?=<a )/g, '</a> <span class="between">·</span> ');
 
   if (section) {
     // The section title is an h2, so its own subheadings start at h3.

@@ -1188,6 +1188,12 @@ h1 + .waitlist {
   min-width: 32px;
 }
 
+/* The dot between two links of a row (src/lib/page-html.ts): a space wider
+   on each side, so that the links read as apart. */
+.between {
+  margin-inline: 0.3em;
+}
+
 /* --- The folded menu (src/components/Header.astro) ----------------------- */
 
 /* Words for a screen reader alone. */
