@@ -1,5 +1,5 @@
 ---
-title: "We’re finishing the app for you"
+title: "We’re finalizing the app"
 description: "Join the waiting list for more information when Kumpa launches, and see how the app works."
 ---
 

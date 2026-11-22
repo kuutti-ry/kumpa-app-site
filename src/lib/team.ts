@@ -11,7 +11,7 @@ export interface Person {
   photo: string | null;
   linkedin?: string;
   github?: string;
-  /** A user of the association's Google Workspace, never an alias. */
+  /** At kumpa.fi: an alias of the person's user at the association's Google Workspace (decision 39). */
   email?: string;
 }
 
@@ -27,7 +27,7 @@ export const TEAM: readonly Person[] = [
     photo: "/team/nikolai.jpg",
     linkedin: "https://www.linkedin.com/in/nikolaidenissov/",
     github: "https://github.com/superseacat",
-    email: "nikolai@kuutti.app",
+    email: "nikolai@kumpa.fi",
   },
   {
     name: "Olli",
@@ -35,7 +35,7 @@ export const TEAM: readonly Person[] = [
     photo: "/team/olli.jpg",
     linkedin: "https://www.linkedin.com/in/olli-kiljunen/",
     github: "https://github.com/OlliKiljunen",
-    email: "olli@kuutti.app",
+    email: "olli@kumpa.fi",
   },
   {
     name: "Denis",
@@ -57,15 +57,15 @@ export const TEAM: readonly Person[] = [
     photo: "/team/gaiane.jpg",
     linkedin: "https://www.linkedin.com/in/gaiane-pogosova/",
     github: "https://github.com/gaianep",
-    email: "gaiane@kuutti.app",
+    email: "gaiane@kumpa.fi",
   },
   {
     name: "Hilal",
-    roles: ["Volunteer"],
+    roles: ["Operations & Partnerships"],
     photo: "/team/hilal.jpg",
     linkedin: "https://www.linkedin.com/in/hilalnurgercek/",
     github: "https://github.com/hilalnurgercek",
-    email: "hilal@kuutti.app",
+    email: "hilal@kumpa.fi",
   },
   {
     name: "Hilma",
@@ -80,7 +80,7 @@ export const TEAM: readonly Person[] = [
     photo: "/team/ilya.jpg",
     linkedin: "https://www.linkedin.com/in/ilya-nekrasov/",
     github: "https://github.com/ilya-wd",
-    email: "ilya@kuutti.app",
+    email: "ilya@kumpa.fi",
   },
   {
     name: "Jaakko",
@@ -95,14 +95,14 @@ export const TEAM: readonly Person[] = [
     photo: "/team/nanna.jpg",
     linkedin: "https://www.linkedin.com/in/nanna-ruotsalainen-095306294/",
     github: "https://github.com/nannaruotsalainen",
-    email: "nanna@kuutti.app",
+    email: "nanna@kumpa.fi",
   },
   {
     name: "Sini",
     roles: ["CX Lead"],
     photo: "/team/sini.jpg",
     linkedin: "https://www.linkedin.com/in/sini-parkkinen-100/",
-    email: "sini@kuutti.app",
+    email: "sini@kumpa.fi",
   },
 ];
 
@@ -174,6 +174,7 @@ const finnishRole: Record<string, string> = {
   Advisor: "Neuvonantaja",
   "Tech Advisor": "Tekninen neuvonantaja",
   "CX Lead": "Asiakaskokemus",
+  "Operations & Partnerships": "Toiminta ja kumppanuudet",
 };
 
 /** One person: the face in its circle, the name, the role, and the marks that lead to them. */

@@ -1,5 +1,5 @@
 ---
-title: "Viimeistelemme sovellusta sinulle"
+title: "Viimeistelemme sovellusta"
 description: "Liity odotuslistalle, niin saat lisätietoja, kun Kumpa julkaistaan. Katso myös, miten sovellus toimii."
 machine: true
 ---

@@ -224,6 +224,8 @@ The maintainer's word of 15/11/2026: show the people of Kuutti on "About Us", ea
 - **Their own addresses.** Nikolai, Olli, Gaiane, Hilal, Ilya, Nanna and Sini have mailboxes at the association's Google Workspace: users and not aliases, on his word, so Google for Nonprofits' rule of 22 holds. They are on "About Us", in the team; `hello@kuutti.app` stays the association's address everywhere else. This sets aside 22's "one address".
 - **Three to a line** at most, two on a 320 px screen, and one at large text there.
 
+Set aside in part by 39 (22/11/2026): Hilal's role, and the team's addresses at `kumpa.fi`, aliases of their users.
+
 ## 26. The same site at kumpa.fi (2026-11-16)
 
 The maintainer's word of 16/11/2026: the site is served at `kumpa.fi` too, the same pages from the same build, and `kuutti.app` stays its home.
@@ -356,3 +358,12 @@ The maintainer's proof-reading of 22/11/2026, as comments and one edit on the sn
 - **24 hours stays.** The snapshot's "within several days" was weighed against Apple's 24 hours for reports (34), and the maintainer kept 24 hours.
 - **The waiting list asks for launch updates.** A signup consents to launch-related updates by email, no longer to one email, and the service records the wording as `launch-v2` (kuutti-ry/kumpa-app's `infra/envs/prod/waitlist/handler.py`); a `launch-v1` signup still gets the one email it agreed to. Details are used until the person withdraws or a year has passed since signup. The button says "Join the list". The site's wording goes live before the service's version, so that nobody is recorded as agreeing to more than they read.
 - **Teo's marks in the sentence.** The design credit draws Teo Tuominen's LinkedIn and GitHub as the team's marks, beside his name, in place of the words "You can also find Teo on GitHub and LinkedIn". `@links(key)` in a page's Markdown draws them from `CREDITED` in `src/lib/team.ts`; a key it does not name stops the build.
+
+## 39. The team at kumpa.fi, Hilal's role, and the app page's heading (2026-11-22)
+
+The maintainer's word of 22/11/2026: Hilal's role is "Operations & Partnerships"; the app page's heading is "We’re finalizing the app"; and every personal address on the website moves from `name@kuutti.app` to `name@kumpa.fi`, which he made as aliases in Google's admin console the same day. It sets aside 25's "Volunteer" for Hilal and its "users and not aliases".
+
+- **Hilal's role.** "Operations & Partnerships" in English and "Toiminta ja kumppanuudet" on the Finnish page, his pick of three proposed, in the style of "Muotoilu" and "Asiakaskokemus". Jaakko and Nanna are still "Volunteer" and Gaiane "Design".
+- **A Finnish name for every role.** A role missing from the Finnish names fell back to English on the Finnish page without a word. A test now holds every role of the team to one.
+- **The team's addresses.** Nikolai, Olli, Gaiane, Hilal, Ilya, Nanna and Sini are written to at `name@kumpa.fi` on "People" and wherever About Us draws the team; the test holds every personal address to `kumpa.fi`. Each is an alias of the person's user at the association's Workspace, so 22's rule from Google for Nonprofits (an address the site names is a user, not an alias) no longer holds for them, on his word. The home page, the page 22 says their reviewer reads, names only `hello@kumpa.fi` (37).
+- **The app page's heading.** "We’re finalizing the app", his words, in place of "We’re finishing the app for you"; its tab title follows. The Finnish page follows the English as 38 says, "Viimeistelemme sovellusta" in place of "Viimeistelemme sovellusta sinulle", still `machine: true`.
