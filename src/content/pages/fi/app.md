@@ -1,6 +1,6 @@
 ---
 title: "Viimeistelemme sovellusta sinulle"
-description: "Liity odotuslistalle, niin saat yhden sähköpostin, kun Kumpa julkaistaan. Katso myös, miten sovellus toimii."
+description: "Liity odotuslistalle, niin saat lisätietoja, kun Kumpa julkaistaan. Katso myös, miten sovellus toimii."
 machine: true
 ---
 
@@ -12,7 +12,7 @@ Kumpa on suljetussa betatestissä. Jos haluat mukaan testaamaan, laita meille vi
 
 ### Tee oma profiili
 
-Kirjaudu suomalaisilla pankkitunnuksilla. Niiden avulla tarkistamme ikäsi ja varmistamme, että jokaisella on vain yksi tili. Mukaan pääset, kun olet täyttänyt 18. Päätät itse, mikä nimi profiilissasi näkyy. Lisää kuvasi ja kerro vähän itsestäsi. Valitse vielä, millaista seuraa etsit.
+Rekisteröidy suomalaisilla pankkitunnuksilla. Niiden avulla tarkistamme ikäsi ja varmistamme, että jokaisella on vain yksi tili. Mukaan pääset, kun olet täyttänyt 18. Päätät itse, mikä nimi profiilissasi näkyy. Lisää kuvasi ja kerro vähän itsestäsi. Valitse vielä, millaista seuraa etsit.
 
 ### Selaa omaan tahtiin
 
@@ -22,6 +22,6 @@ Voit selata, kunnes olet nähnyt kaikki, jotka sopivat hakutoiveisiisi. Tykkäyk
 
 ### Kun tykkäätte toisistanne
 
-Voitte jutella sovelluksessa ja vaihtaa yhteystietoja, jos haluatte. Jos joku käyttäytyy asiattomasti, voit estää hänet tai tehdä ilmoituksen suoraan profiilista tai keskustelusta.
+Voitte jutella sovelluksessa ja päättää itse, milloin vaihdatte muita yhteystietoja, kuten Telegram- tai Snapchat-tunnuksia. Jos joku käyttäytyy asiattomasti, voit estää hänet tai tehdä ilmoituksen suoraan profiilista tai keskustelusta.
 
 [Apua sovelluksen käyttöön](/help/) · [Lasten turvallisuus](/child-safety/) · [Näin poistat tilisi](/delete-account/)

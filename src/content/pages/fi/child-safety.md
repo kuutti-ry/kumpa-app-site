@@ -19,6 +19,8 @@ Jokainen tunnistautuu suomalaisilla pankkitunnuksilla. Alle 18-vuotias ei voi lu
 
 Säännöt sisältyvät myös [käyttöehtoihin](/legal/terms/).
 
+Pankkitunnuksesi ovat vain sinun: laki kieltää luovuttamasta niitä kenenkään muun käyttöön, ja toisen tunnusten käyttäminen voi olla identiteettivarkaus.
+
 ## Mitä ilmoitukselle tapahtuu?
 
 Voit tehdä ilmoituksen suoraan profiilista, kuvasta tai keskustelusta. Moderaattorit tarkistavat jokaisen ilmoituksen 24 tunnin kuluessa ja käsittelevät lapsia koskevat ilmoitukset ensin.

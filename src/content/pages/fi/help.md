@@ -1,14 +1,16 @@
 ---
 title: "Ohjeet"
-description: "Mitä tehdä, jos et pääse kirjautumaan, haluat ilmoittaa ongelmasta tai tarvitset kopion tiedoistasi."
+description: "Mitä tehdä, jos rekisteröityminen ei onnistu, haluat ilmoittaa ongelmasta tai tarvitset kopion tiedoistasi."
 machine: true
 ---
 
 Jos tarvitset apua sovelluksen kanssa, kirjoita meille osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi).
 
-## En pääse kirjautumaan
+## Rekisteröityminen ei onnistu
 
-Kirjautumista varten tarvitset suomalaiset pankkitunnukset ja sinun pitää olla vähintään 18-vuotias. Jos pankin tunnistussivu ei toimi, kokeile myöhemmin uudelleen. Jos sovellus estää kirjautumisen, se kertoo syyn. Jos poistit tilisi äskettäin, sovellus näyttää, milloin voit luoda uuden.
+Rekisteröidyt kerran suomalaisilla pankkitunnuksilla. Sen jälkeen pysyt kirjautuneena, ja voit lukita sovelluksen pääsykoodilla, kasvoillasi tai sormenjäljelläsi. Tunnistaudut pankkitunnuksilla uudelleen vain, jos kirjaudut ulos, asennat sovelluksen uudelleen tai Kumpan tiimi pyytää sitä.
+
+Sinun pitää olla vähintään 18-vuotias. Jos pankin tunnistussivu ei toimi, kokeile myöhemmin uudelleen. Jos sovellus ei hyväksy rekisteröitymistä, se kertoo syyn. Jos poistit tilisi äskettäin, sovellus näyttää, milloin voit luoda uuden.
 
 ## Haluan tehdä ilmoituksen
 

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
-import { drawTeam, type Person, TEAM } from "../src/lib/team.ts";
+import { CREDITED, type Credited, drawTeam, type Person, TEAM } from "../src/lib/team.ts";
 
 // The team on About Us (src/lib/team.ts).
 
@@ -65,6 +65,51 @@ test("the marker inside a sentence is refused, never shown", () => {
     () => drawTeam("<p>See @team below.</p>", "en", [ada]),
     /@team is a paragraph of its own/,
   );
+});
+
+const cy: Credited = {
+  name: "Cy <C>",
+  linkedin: "https://www.linkedin.com/in/cy/",
+  github: "https://github.com/cy",
+};
+
+test("@links(key) in a sentence becomes the marks of the one credited, in place and in the reader's language", () => {
+  const html = drawTeam(
+    '<p>Drawn by <a href="https://cy.example/">Cy</a> @links(cy) of Type.</p>',
+    "fi",
+    [],
+    { cy },
+  );
+  assert.match(
+    html,
+    /^<p>Drawn by <a href="https:\/\/cy\.example\/">Cy<\/a> <span class="channels inline-links"><a href="https:\/\/www\.linkedin\.com\/in\/cy\/" aria-label="Cy &lt;C&gt; LinkedInissä" title="Cy &lt;C&gt; LinkedInissä" target="_blank" rel="noopener noreferrer"><svg [\s\S]*?<\/a><a href="https:\/\/github\.com\/cy" aria-label="Cy &lt;C&gt; GitHubissa"[\s\S]*?<\/a><\/span> of Type\.<\/p>$/,
+  );
+  assert.doesNotMatch(html, /<li>/);
+});
+
+test("@links(key) shows only the ways the credited person has", () => {
+  const html = drawTeam("<p>@links(cy)</p>", "en", [], {
+    cy: { name: "Cy", github: "https://github.com/cy" },
+  });
+  assert.equal(html.match(/<a /g)?.length, 1);
+  assert.match(html, /aria-label="Cy on GitHub"/);
+});
+
+test("@links with a key nobody is credited by is refused, never shown", () => {
+  assert.throws(
+    () => drawTeam("<p>By @links(nobody).</p>", "en", [], { cy }),
+    /@links\(nobody\) names nobody credited/,
+  );
+  assert.throws(
+    () => drawTeam("<p>By @links(constructor).</p>", "en", [], { cy }),
+    /names nobody credited/,
+  );
+});
+
+test("Teo is credited with his LinkedIn and GitHub", () => {
+  assert.equal(CREDITED.teo?.name, "Teo Tuominen");
+  assert.match(CREDITED.teo?.linkedin ?? "", /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/$/);
+  assert.match(CREDITED.teo?.github ?? "", /^https:\/\/github\.com\/[^/]+$/);
 });
 
 test("the maintainer first, Olli second, the rest by first name", () => {

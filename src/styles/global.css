@@ -1141,6 +1141,17 @@ h1 + .waitlist {
   color: hsl(var(--muted-foreground));
 }
 
+/* A credited person's marks inside a sentence (`@links(key)`): the targets
+   keep their 44 px, and give back what they would add to the line. */
+.inline-links {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  vertical-align: middle;
+  margin-block: -0.5rem;
+  color: hsl(var(--muted-foreground));
+}
+
 /* --- The folded menu (src/components/Header.astro) ----------------------- */
 
 /* Words for a screen reader alone. */

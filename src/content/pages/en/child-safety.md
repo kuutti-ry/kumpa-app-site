@@ -18,6 +18,8 @@ Everyone must verify their identity with Finnish bank credentials. Anyone under 
 
 These rules also form part of the [terms of use](/legal/terms/).
 
+Your bank ID is yours alone: Finnish law forbids lending it to anyone, and using someone else’s can be identity theft.
+
 ## Reporting and response
 
 Report a profile, photo or conversation where you see it in the app. Moderators review every report within 24 hours and look at reports involving children first.

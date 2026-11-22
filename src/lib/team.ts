@@ -132,10 +132,37 @@ const initials = (name: string): string =>
     .toUpperCase();
 
 const icon = (href: string, label: string, path: string, evenodd = false): string =>
-  `<li><a href="${escaped(href)}" aria-label="${escaped(label)}" title="${escaped(label)}"` +
+  `<a href="${escaped(href)}" aria-label="${escaped(label)}" title="${escaped(label)}"` +
   (href.startsWith("https://") ? ' target="_blank" rel="noopener noreferrer">' : ">") +
   '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">' +
-  `<path${evenodd ? ' fill-rule="evenodd"' : ""} d="${path}"></path></svg></a></li>`;
+  `<path${evenodd ? ' fill-rule="evenodd"' : ""} d="${path}"></path></svg></a>`;
+
+/** The marks that lead to a person, in the team's order: LinkedIn, GitHub, e-mail. */
+const marksOf = (person: Credited & Pick<Person, "email">, locale: Locale): string[] =>
+  [
+    person.linkedin &&
+      icon(person.linkedin, t(locale, "team.linkedin", { name: person.name }), MARKS.linkedin),
+    person.github &&
+      icon(person.github, t(locale, "team.github", { name: person.name }), MARKS.github),
+    person.email &&
+      icon(`mailto:${person.email}`, t(locale, "team.mail", { name: person.name }), ENVELOPE, true),
+  ].filter((mark): mark is string => Boolean(mark));
+
+/** Someone a page credits who is not of the team, and where to find them. */
+export type Credited = Pick<Person, "name" | "linkedin" | "github">;
+
+/**
+ * Who a page credits by name, by the key an author writes as `@links(key)`
+ * in a sentence: their marks are drawn there, as the team's are on their
+ * cards (the maintainer's word of 22/11/2026).
+ */
+export const CREDITED: Readonly<Record<string, Credited>> = {
+  teo: {
+    name: "Teo Tuominen",
+    linkedin: "https://www.linkedin.com/in/teo-tuominen-31a81223/",
+    github: "https://github.com/teotuominen",
+  },
+};
 
 const finnishRole: Record<string, string> = {
   Lead: "Tiiminvetäjä",
@@ -156,17 +183,12 @@ function card(person: Person, locale: Locale): string {
     person.photo === null
       ? `<span class="team-face team-initials" aria-hidden="true">${escaped(initials(person.name))}</span>`
       : `<img class="team-face" src="${escaped(person.photo)}" alt="" width="400" height="400" loading="lazy" decoding="async">`;
-  const links = [
-    person.linkedin &&
-      icon(person.linkedin, t(locale, "team.linkedin", { name: person.name }), MARKS.linkedin),
-    person.github &&
-      icon(person.github, t(locale, "team.github", { name: person.name }), MARKS.github),
-    person.email &&
-      icon(`mailto:${person.email}`, t(locale, "team.mail", { name: person.name }), ENVELOPE, true),
-  ].filter(Boolean);
+  const links = marksOf(person, locale);
   return (
     `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map((role) => escaped(locale === "fi" ? (finnishRole[role] ?? role) : role)).join("<br>")}</p>` +
-    (links.length > 0 ? `<ul class="channels team-links">${links.join("")}</ul>` : "") +
+    (links.length > 0
+      ? `<ul class="channels team-links">${links.map((link) => `<li>${link}</li>`).join("")}</ul>`
+      : "") +
     "</li>"
   );
 }
@@ -175,13 +197,26 @@ function card(person: Person, locale: Locale): string {
  * The HTML of a rendered text with the team drawn where the author wrote
  * `@team` as a paragraph of its own (About Us), so
  * that the page carries no HTML (the site's rule) and the team has one copy.
- * The marker anywhere else is refused, never shown.
+ * The marker anywhere else is refused, never shown. `@links(key)` in a
+ * sentence becomes the marks of the one CREDITED names by that key; a key it
+ * does not name is refused.
  */
-export function drawTeam(html: string, locale: Locale, team: readonly Person[] = TEAM): string {
-  const done = html.replaceAll(
-    MARKER,
-    `<ul class="team" aria-label="${escaped(t(locale, "team.label"))}">${team.map((person) => card(person, locale)).join("")}</ul>`,
-  );
+export function drawTeam(
+  html: string,
+  locale: Locale,
+  team: readonly Person[] = TEAM,
+  credited: Readonly<Record<string, Credited>> = CREDITED,
+): string {
+  const done = html
+    .replaceAll(
+      MARKER,
+      `<ul class="team" aria-label="${escaped(t(locale, "team.label"))}">${team.map((person) => card(person, locale)).join("")}</ul>`,
+    )
+    .replace(/@links\(([a-z]+)\)/g, (_, key: string) => {
+      const person = Object.hasOwn(credited, key) ? credited[key] : undefined;
+      if (!person) throw new Error(`@links(${key}) names nobody credited`);
+      return `<span class="channels inline-links">${marksOf(person, locale).join("")}</span>`;
+    });
   if (done.includes("@team")) throw new Error("@team is a paragraph of its own");
   return done;
 }
