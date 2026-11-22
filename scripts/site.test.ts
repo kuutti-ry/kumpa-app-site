@@ -235,14 +235,8 @@ test("a file kept elsewhere by its address carries a fingerprint that changes wi
   }
 });
 
-test("each look's share image and icons are named by their fingerprints", () => {
-  for (const file of [
-    "/kuutti.png",
-    "/favicon.png",
-    "/si-art/share.png",
-    "/si-art/favicon.png",
-    "/si-art/apple-touch-icon.png",
-  ]) {
+test("the share image and the icon are named by their fingerprints", () => {
+  for (const file of ["/kuutti.png", "/favicon.png"]) {
     assert.match(fingerprinted(file, join(import.meta.dirname, "..")), /\?v=[0-9a-f]{8}$/, file);
   }
 });

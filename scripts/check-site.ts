@@ -117,36 +117,21 @@ for (const path of pages) {
   } else if (wearsIt) {
     problems.push(`${page}: wears the look of the /si/ copy`);
   }
-  // Each look wears its own mark (docs/decisions.md, 46): the /si/ copy the
-  // snowflake, in its header, on its tab, on a home screen and in a link's
-  // preview; the site the seal.
-  if (/<a class="brand"/.test(html)) {
-    const links = (rel: string) =>
-      [...html.matchAll(/<link\b[^>]*>/gi)]
-        .filter(([tag]) => attribute(tag, "rel") === rel)
-        .map(([tag]) => attribute(tag, "href"));
-    const share = /<meta property="og:image" content="([^"]*)"/.exec(html)?.[1];
-    const worn = [
-      ...new Set(
-        [...html.matchAll(/<a class="brand"[^>]*>\s*(<img\b[^>]*>)/gi)].map(([, tag = ""]) =>
-          attribute(tag, "src"),
-        ),
-      ),
-      ...links("icon"),
-      ...links("apple-touch-icon"),
-      share && new URL(share).href.slice(ORIGIN.length),
-    ].join(" ");
-    const own = (
-      isSi(here)
-        ? [
-            "/si-art/mark.svg",
-            ...["favicon", "apple-touch-icon", "share"].map((name) =>
-              fingerprinted(`/si-art/${name}.png`),
-            ),
-          ]
-        : ["/logo.png", fingerprinted("/favicon.png"), fingerprinted("/kuutti.png")]
-    ).join(" ");
-    if (worn !== own) problems.push(`${page}: wears ${worn} where its look's mark is ${own}`);
+  // The home of the /si/ copy reads in the order it is seen in (docs/decisions.md,
+  // 48): the name, the picture, the way to the app, then the waiting list, in
+  // every language. The page's own order, so no style has to move anything.
+  if (isSi(here) && /class="si-art si-art-home"/.test(html)) {
+    const parts = /<h1[\s>]|class="si-art si-art-home"|class="explore-app"|<form class="waitlist"/g;
+    const order = [...html.matchAll(parts)].map(([part]) => part.replace(/^<h1.$/, "<h1"));
+    const one = [
+      "<h1",
+      'class="si-art si-art-home"',
+      'class="explore-app"',
+      '<form class="waitlist"',
+    ];
+    const every = LOCALES.flatMap(() => one);
+    if (order.join(" ") !== every.join(" "))
+      problems.push(`${page}: the home's parts come as ${order.join(" ")}`);
   }
   const hasWaitlist = twin === "/" || twin === "/app/";
   const forms = [...html.matchAll(/<form\b[^>]*>/gi)];

@@ -38,13 +38,12 @@ const each = (value: (locale: Locale) => string) =>
     {noindex && <meta name="robots" content="noindex" />}
     {slug !== "404" && <link rel="canonical" href={new URL(pathOf("fi", slug), site).href} />}
     {hasSaiga() && <link rel="stylesheet" href="/fonts/saiga.css" />}
-    <link rel="icon" type="image/png" href={fingerprinted(si ? "/si-art/favicon.png" : "/favicon.png")} />
-    {si && <link rel="apple-touch-icon" href={fingerprinted("/si-art/apple-touch-icon.png")} />}
+    <link rel="icon" type="image/png" href={fingerprinted("/favicon.png")} />
     <meta name="theme-color" content={si ? "#fff6f0" : "#ffffff"} />
     <meta property="og:title" content={title("fi")} />
     <meta property="og:description" content={head.fi.description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL(fingerprinted(si ? "/si-art/share.png" : "/kuutti.png"), site).href} />
+    <meta property="og:image" content={new URL(fingerprinted("/kuutti.png"), site).href} />
     <meta name="referrer" content={hasWaitlist ? "strict-origin" : "no-referrer"} />
     <script is:inline defer src={fingerprinted("/language.js")} integrity={languageIntegrity}></script>
     {(slug === "about" || slug === "about/details") && <script is:inline type="module" src={fingerprinted("/status.js")} integrity={statusIntegrity}></script>}
