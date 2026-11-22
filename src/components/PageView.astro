@@ -4,8 +4,10 @@ import { t } from "../i18n/ui.ts";
 import type { Page } from "../lib/content.ts";
 import { opened } from "../lib/home.ts";
 import { pageHtml } from "../lib/page-html.ts";
+import { isSi, stepped } from "../lib/si.ts";
 import AboutSections from "./AboutSections.astro";
 import PageBody from "./PageBody.astro";
+import SiArt from "./SiArt.astro";
 import StoreBadges from "./StoreBadges.astro";
 import Waitlist from "./Waitlist.astro";
 
@@ -15,7 +17,10 @@ interface Props {
   page: Page;
 }
 const { locale, slug, page } = Astro.props;
-const html = pageHtml(page, locale);
+// The /si/ copy draws the same texts with the design's pictures (src/lib/si.ts).
+const si = isSi(Astro.url.pathname);
+const siApp = si && slug === "app";
+const html = siApp ? stepped(pageHtml(page, locale)) : pageHtml(page, locale);
 const home = slug === "";
 const aboutChild = slug.startsWith("about/");
 const appChild = ["help", "child-safety", "delete-account"].includes(slug);
@@ -36,14 +41,28 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
         <Waitlist locale={locale} />
         <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
       </div>
-      <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>
+      {si
+        ? <SiArt kind="home" />
+        : <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>}
     </section>
     {rest && <section class="prose" set:html={rest} />}
   </>
 ) : (
   <article class="prose">
-    <h1>{page.data.title}</h1>
-    {slug === "app" && <Waitlist locale={locale} />}
+    {siApp ? (
+      <div class="si-lead">
+        <div class="si-lead-copy">
+          <h1>{page.data.title}</h1>
+          <Waitlist locale={locale} />
+        </div>
+        <SiArt kind="app" />
+      </div>
+    ) : (
+      <>
+        <h1>{page.data.title}</h1>
+        {slug === "app" && <Waitlist locale={locale} />}
+      </>
+    )}
     <PageBody html={html} locale={locale} />
     {slug === "about" && <AboutSections locale={locale} />}
     {slug === "app" && <StoreBadges locale={locale} />}

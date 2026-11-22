@@ -15,6 +15,7 @@ export const UI = {
     "waitlist.purpose":
       "Lähetämme sinulle lisätietoja sähköpostitse, kun Kumpa-sovellus julkaistaan.",
     "waitlist.email": "Sähköpostiosoite",
+    "waitlist.emailExample": "nimi@esimerkki.fi",
     "waitlist.emailMissing": "Kirjoita sähköpostiosoitteesi.",
     "waitlist.emailInvalid": "Tarkista osoite. Kirjoita se muodossa nimi@esimerkki.fi.",
     "waitlist.submit": "Liity listalle",
@@ -114,6 +115,7 @@ export const UI = {
     "waitlist.title": "Skriv upp dig på väntelistan",
     "waitlist.purpose": "Vi skickar dig mer information per e-post när Kumpa lanseras.",
     "waitlist.email": "E-postadress",
+    "waitlist.emailExample": "namn@exempel.fi",
     "waitlist.emailMissing": "Skriv din e-postadress.",
     "waitlist.emailInvalid": "Kontrollera adressen. Skriv den i formen namn@exempel.fi.",
     "waitlist.submit": "Skriv upp mig",
@@ -213,6 +215,7 @@ export const UI = {
     "waitlist.title": "Join the waiting list",
     "waitlist.purpose": "We’ll email you more information when Kumpa launches.",
     "waitlist.email": "Email address",
+    "waitlist.emailExample": "name@example.com",
     "waitlist.emailMissing": "Enter your email address.",
     "waitlist.emailInvalid": "Check the address. Use a format like name@example.com.",
     "waitlist.submit": "Join the list",

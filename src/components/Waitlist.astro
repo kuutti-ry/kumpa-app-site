@@ -38,7 +38,7 @@ const regulator = {
     <label for={email}>{t(locale, "waitlist.email")}</label>
     <div class="waitlist-fields">
       <div class="waitlist-address">
-        <input id={email} type="email" name="email" autocomplete="email" maxlength="254" pattern={".+@.+\\..+"} required aria-describedby={emailError} />
+        <input id={email} type="email" name="email" autocomplete="email" placeholder={t(locale, "waitlist.emailExample")} maxlength="254" pattern={".+@.+\\..+"} required aria-describedby={emailError} />
         <p id={emailError} class="waitlist-email-error" aria-live="polite" data-missing={t(locale, "waitlist.emailMissing")} data-invalid={t(locale, "waitlist.emailInvalid")}></p>
       </div>
       <button type="submit">{t(locale, "waitlist.submit")}</button>

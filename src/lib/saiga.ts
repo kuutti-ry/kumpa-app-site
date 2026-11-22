@@ -26,6 +26,8 @@ export const SAIGA_SOURCE = {
  * Spoke delivered (Saiga 1.002). The headings and the header are drawn in
  * two of them today (docs/decisions.md, 28): Regular for the navigation, and
  * Bold for the headings, since Saiga has no 600 and their 650 is drawn in Bold.
+ * The /si/ copy (src/lib/si.ts) reads in Regular and draws its headlines in
+ * Black Italic and its wordmark in Black, as Sini's design does.
  */
 export const SAIGA_FILES = [
   {
@@ -51,6 +53,18 @@ export const SAIGA_FILES = [
     weight: 700,
     style: "normal",
     sha256: "c072666c13379a24c24b1350d921626f92334d6d04c2e572a125e8f908ea4951",
+  },
+  {
+    file: "Saiga-Black.woff2",
+    weight: 900,
+    style: "normal",
+    sha256: "77aebf6edf809ecbc6eaf64168f689b400096dc4d0342ea63fb7336d69e2bf12",
+  },
+  {
+    file: "Saiga-BlackItalic.woff2",
+    weight: 900,
+    style: "italic",
+    sha256: "64b752d4da05964f62b7a2894ff29c6c11f29fd72cc37bf2dff8f6f5cc80f294",
   },
 ] as const;
 

@@ -38,6 +38,22 @@
   src: url("/fonts/saiga/Saiga-Bold.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: Saiga;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/saiga/Saiga-Black.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Saiga;
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/saiga/Saiga-BlackItalic.woff2") format("woff2");
+}
+
 /*
  * What the site draws in Saiga reads this (src/styles/global.css): Saiga
  * first, then the site's own stack, Inter and then the system's.

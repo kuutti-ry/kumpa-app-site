@@ -52,6 +52,7 @@ import {
   statusIntegrity,
   waitlistIntegrity,
 } from "../src/lib/script-integrity.ts";
+import { isSi, SI } from "../src/lib/si.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -96,7 +97,22 @@ for (const path of pages) {
   for (const banned of ["iframe", "object", "embed"]) {
     if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
   }
-  const hasWaitlist = here === "/" || here === "/app/";
+  // A page of the /si/ copy is held to what its twin is (src/lib/si.ts), and
+  // the copy is a try nobody is led to: a page of it wears the look, is left
+  // alone by search engines and has a page of the site behind it, and no other
+  // page wears the look (docs/decisions.md, 41).
+  const twin = isSi(here) ? here.slice(SI.length) : here;
+  const wearsIt = /<html\b[^>]*\sclass="si"/.test(html);
+  if (isSi(here)) {
+    if (!fileOf(twin)) problems.push(`${page}: a page of the /si/ copy with no ${twin} behind it`);
+    if (!wearsIt) problems.push(`${page}: a page of the /si/ copy without its look`);
+    if (!/<meta name="robots" content="noindex"/.test(html)) {
+      problems.push(`${page}: a page of the /si/ copy that a search engine may index`);
+    }
+  } else if (wearsIt) {
+    problems.push(`${page}: wears the look of the /si/ copy`);
+  }
+  const hasWaitlist = twin === "/" || twin === "/app/";
   const forms = [...html.matchAll(/<form\b[^>]*>/gi)];
   if (
     forms.length !== (hasWaitlist ? LOCALES.length : 0) ||
@@ -141,7 +157,10 @@ for (const path of pages) {
       problems.push(`${page}: expected a static redirect to ${destination}`);
     continue;
   }
-  const hasStatus = here === "/about/" || here === "/about/details/";
+  if (!isSi(here) && page !== "/404.html" && !fileOf(`${SI}${here}`)) {
+    problems.push(`${page}: no copy of it under ${SI}/`);
+  }
+  const hasStatus = twin === "/about/" || twin === "/about/details/";
   const expected = [{ file: "language.js", integrity: languageIntegrity }];
   if (hasStatus) expected.push({ file: "status.js", integrity: statusIntegrity });
   if (hasWaitlist) expected.push({ file: "waitlist.js", integrity: waitlistIntegrity });
@@ -211,6 +230,9 @@ for (const path of pages) {
       if (!target.startsWith("/")) {
         problems.push(`${page}: a relative link, ${href}; links inside the site begin with /`);
         continue;
+      }
+      if (isSi(here) && target.endsWith("/") && !isSi(target)) {
+        problems.push(`${page}: ${href} leads out of the /si/ copy`);
       }
       file = target.endsWith("/") ? join(dist, target, "index.html") : join(dist, target);
       if (!existsSync(file) || statSync(file).isDirectory()) {
