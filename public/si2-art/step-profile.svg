@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="330" viewBox="0 0 540 330" fill="none"><title>Decoration</title><g>
+<path d="M45 183C105 111 198 12 294 12C378 15 444 84 453 174C462 279 366 327 261 321C135 327 9 279 45 183Z" fill="#F6F593"/>
+<g>
+<path d="M258 171C279.539 171 297 153.539 297 132C297 110.461 279.539 93 258 93C236.461 93 219 110.461 219 132C219 153.539 236.461 171 258 171Z" fill="#FFF6F0" stroke-width="10.8" stroke-linejoin="round" stroke="#19083E"/>
+<path d="M180 255C180 204 216 186 255 186C297 186 336 219 336 255C285 249 234 255 180 255Z" fill="#FFF6F0" stroke-width="10.8" stroke-linejoin="round" stroke="#19083E"/>
+</g>
+<path d="M360 75L378 27M387 87L426 39M414 102L459 87" stroke-width="10.5" stroke-linecap="round" stroke="#19083E"/>
+</g></svg>

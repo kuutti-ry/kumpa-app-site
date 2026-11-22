@@ -3,25 +3,38 @@
  * (docs/decisions.md, 41): the same pages, texts and scripts, drawn by
  * src/styles/si.css. It is a try for the team to look at, so no page of it is
  * indexed, the sitemap leaves it out, and nothing on the site links to it.
+ * /si2/ is /si/ once more in a softer yellow, a try of the same kind
+ * (docs/decisions.md, 49): its pages wear both classes, and
+ * src/styles/si2.css changes only the yellow and the drawings that carry it.
  */
 export const SI = "/si";
 
-/** Whether an address is of the /si/ copy. */
-export const isSi = (pathname: string): boolean => pathname === SI || pathname.startsWith(`${SI}/`);
+/** The copies: where each one's pages are, and the classes they wear. */
+export const COPIES = [
+  { prefix: SI, look: "si" },
+  { prefix: "/si2", look: "si si2" },
+] as const;
+
+/** The copy an address is of, if it is of one. */
+export const copyOf = (pathname: string): (typeof COPIES)[number] | undefined =>
+  COPIES.find(({ prefix }) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+
+/** Whether an address is of a copy, and so in the look of Sini's design. */
+export const isSi = (pathname: string): boolean => copyOf(pathname) !== undefined;
 
 /**
- * A page's HTML with its links kept inside /si/: every link to a page of the
- * site leads to that page's /si/ twin. A page's address ends in a slash and a
- * file's does not, so files, anchors of the page itself and other sites stay
- * as they are.
+ * A page's HTML with its links kept inside its copy, /si/ unless another is
+ * named: every link to a page of the site leads to that page's twin there. A
+ * page's address ends in a slash and a file's does not, so files, anchors of
+ * the page itself and other sites stay as they are.
  */
-export function linksInSi(html: string): string {
+export function linksInSi(html: string, prefix: string = SI): string {
   return html.replace(
     /(<a\b[^>]*?\shref=")(\/[^"]*)"/g,
     (whole, before: string, address: string) => {
       const [path = ""] = address.split(/[?#]/);
       if (isSi(path) || !path.endsWith("/")) return whole;
-      return `${before}${SI}${address}"`;
+      return `${before}${prefix}${address}"`;
     },
   );
 }

@@ -1,0 +1,23 @@
+---
+// Every page of the site once more, as /si/ draws it, in a softer yellow
+// (src/lib/si.ts, docs/decisions.md 49): the same routes, never indexed.
+import "../../styles/si2.css";
+import LegalView from "../../components/LegalView.astro";
+import PageView from "../../components/PageView.astro";
+import { LOCALES } from "../../i18n/locales.ts";
+import Base from "../../layouts/Base.astro";
+import { type RouteProps, routes } from "../../lib/routes.ts";
+
+type Props = RouteProps;
+export const getStaticPaths = routes;
+const { slug, head, pages } = Astro.props;
+---
+<Base slug={slug} head={head} noindex>
+  {LOCALES.map(locale => (
+    <div data-lang={locale} lang={locale}>
+      {pages
+        ? <PageView locale={locale} slug={slug} page={pages[locale]} />
+        : <LegalView locale={locale} slug={slug} />}
+    </div>
+  ))}
+</Base>

@@ -1,16 +1,70 @@
 import assert from "node:assert/strict";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { test } from "node:test";
-import { cutAtHeading, isSi, linksInSi, stepped } from "../src/lib/si.ts";
+import { COPIES, copyOf, cutAtHeading, isSi, linksInSi, stepped } from "../src/lib/si.ts";
 
-// The /si/ copy of the site (docs/decisions.md, 41 and 43).
+// The /si/ and /si2/ copies of the site (docs/decisions.md, 41, 43 and 49).
 
-test("an address is of the /si/ copy only under /si/", () => {
-  assert.equal(isSi("/si/"), true);
-  assert.equal(isSi("/si"), true);
-  assert.equal(isSi("/si/legal/privacy/"), true);
-  assert.equal(isSi("/"), false);
-  assert.equal(isSi("/sitemap.xml"), false);
-  assert.equal(isSi("/simple/"), false);
+const [si, si2] = COPIES;
+
+test("an address is of the copy whose address begins it, and of none where none does", () => {
+  for (const [address, copy] of [
+    ["/si/", si],
+    ["/si", si],
+    ["/si/legal/privacy/", si],
+    ["/si2/", si2],
+    ["/si2", si2],
+    ["/si2/legal/privacy/", si2],
+    ["/si2/si/", si2],
+    ["/si/si2/", si],
+    ["/", undefined],
+    ["/sitemap.xml", undefined],
+    ["/simple/", undefined],
+    ["/si22/", undefined],
+    ["/si3/", undefined],
+    ["/si2.html", undefined],
+    ["/about/si2/", undefined],
+    ["", undefined],
+  ] as const) {
+    assert.equal(copyOf(address), copy, address);
+    assert.equal(isSi(address), copy !== undefined, address);
+  }
+});
+
+test("a link on a page of /si2/ leads to its /si2/ twin", () => {
+  assert.equal(linksInSi('<a href="/">Home</a>', "/si2"), '<a href="/si2/">Home</a>');
+  assert.equal(
+    linksInSi('<p><a href="/help/">a</a> · <a href="/legal/privacy/#v-2">b</a></p>', "/si2"),
+    '<p><a href="/si2/help/">a</a> · <a href="/si2/legal/privacy/#v-2">b</a></p>',
+  );
+  for (const html of [
+    '<a href="/si2/app/">App</a>',
+    '<a href="/legal/versions.json">versions</a>',
+    '<a class="skip" href="#content">Skip</a>',
+  ]) {
+    assert.equal(linksInSi(html, "/si2"), html);
+  }
+});
+
+test("each drawing of /si2/ is its /si/ twin in the softer yellow", () => {
+  const folder = (name: string) => join(import.meta.dirname, "..", "public", name);
+  // The lime's name went with the colour (docs/decisions.md, 49).
+  const twin: Record<string, string> = {
+    "blob-yellow.svg": "blob-lime.svg",
+    "blob-yellow-wide.svg": "blob-lime-wide.svg",
+    "wave-yellow.svg": "wave-lime.svg",
+  };
+  const drawings = readdirSync(folder("si2-art")).filter((name) => name.endsWith(".svg"));
+  assert.notEqual(drawings.length, 0);
+  for (const name of drawings) {
+    const lime = readFileSync(join(folder("si-art"), twin[name] ?? name), "utf8");
+    assert.equal(
+      readFileSync(join(folder("si2-art"), name), "utf8"),
+      lime.replace(/#(?:E1FE22|E4FE22)\b/gi, "#F6F593"),
+      name,
+    );
+  }
 });
 
 test("a link to a page of the site leads to its /si/ twin", () => {
