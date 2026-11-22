@@ -10,7 +10,7 @@ Finnish page files with `machine: true` still need a native reader. This include
 rg -l '^machine: true$' src/content/pages/fi
 ```
 
-After checking a page against the English copy and the app’s terminology, replace its `machine: true` with `reviewedBy` naming the reader. The field records an actual review.
+After checking a page against the English copy and the app’s terminology, replace its `machine: true` with `reviewedBy`. It names the reader only when they have asked to be named (`CLAUDE.md`, rule 5); otherwise it says `native speaker`. The field records an actual review.
 
 ## Legal texts
 

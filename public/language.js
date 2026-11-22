@@ -1,7 +1,6 @@
 // The language choice stays in this tab. Deep links open the published wording
 // they name without changing the reader's preference for the rest of the site.
-// A link ending in a language's code ("#sv") chooses that language for the tab:
-// the one way to Swedish, which the switch does not offer yet (docs/decisions.md, 40).
+// A link ending in a language's code ("#sv") chooses that language for the tab.
 (() => {
   const languages = ["fi", "sv", "en"];
   const radios = document.querySelectorAll('input[name="language"]');

@@ -1,7 +1,7 @@
 ---
 title: "Om oss"
 description: "Möt de finländska frivilliga bakom Kumpa och föreningen som håller appen gratis."
-machine: true
+reviewedBy: "native speaker"
 ---
 
 Vi är en grupp frivilliga som bygger en dejtingapp som vi själva skulle vilja använda. Vi grundade Kuutti ry för att Kumpa ska kunna förbli gratis, även om den växer.

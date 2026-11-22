@@ -1,7 +1,7 @@
 ---
 title: "Barns säkerhet"
 description: "Kumpas regler mot sexuella övergrepp mot och sexuell exploatering av barn, och hur du gör en anmälan."
-machine: true
+reviewedBy: "native speaker"
 ---
 
 Kumpa är för vuxna. Sexuella övergrepp mot och sexuell exploatering av barn är förbjudna i alla former. Om du är orolig för ett barn kan du göra en anmälan i appen eller skriva till [hello@kumpa.fi](mailto:hello@kumpa.fi), även om du inte har något konto.

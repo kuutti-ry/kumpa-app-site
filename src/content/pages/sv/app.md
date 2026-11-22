@@ -1,7 +1,7 @@
 ---
 title: "Vi lägger sista handen vid appen"
 description: "Skriv upp dig på väntelistan så får du mer information när Kumpa lanseras, och se hur appen fungerar."
-machine: true
+reviewedBy: "native speaker"
 ---
 
 ## Så fungerar Kumpa
