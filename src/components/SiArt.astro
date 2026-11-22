@@ -1,22 +1,26 @@
 ---
 // The pictures of the /si/ pages (src/lib/si.ts): the shapes of Sini's design,
-// toned down a little, as files of the site. Decoration only.
+// toned down a little, as files of the site. Decoration only. Each copy has a
+// folder of its own, /si-art/ or /si2-art/.
+import { copyOf, SI } from "../lib/si.ts";
+
 interface Props {
   kind: "home" | "app";
 }
 const { kind } = Astro.props;
+const art = `${copyOf(Astro.url.pathname)?.prefix ?? SI}-art`;
 ---
 
 {kind === "home" ? (
   <div class="si-art si-art-home" aria-hidden="true">
-    <img class="si-layer" src="/si-art/home-back.svg" alt="" width="1066" height="948" />
-    <img class="si-woman" src="/si-art/emma.webp" alt="" width="1000" height="962" />
-    <img class="si-man" src="/si-art/man.webp" alt="" width="480" height="489" />
-    <img class="si-layer" src="/si-art/home-front.svg" alt="" width="1066" height="948" />
+    <img class="si-layer" src={`${art}/home-back.svg`} alt="" width="1066" height="948" />
+    <img class="si-woman" src={`${art}/emma.webp`} alt="" width="1000" height="962" />
+    <img class="si-man" src={`${art}/man.webp`} alt="" width="480" height="489" />
+    <img class="si-layer" src={`${art}/home-front.svg`} alt="" width="1066" height="948" />
   </div>
 ) : (
   <div class="si-art si-art-app" aria-hidden="true">
-    <img class="si-layer" src="/si-art/app-art.svg" alt="" width="1026" height="1283" />
+    <img class="si-layer" src={`${art}/app-art.svg`} alt="" width="1026" height="1283" />
     <span class="si-word">Kumpa</span>
   </div>
 )}

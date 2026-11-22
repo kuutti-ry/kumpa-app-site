@@ -1,12 +1,14 @@
 import { defineMiddleware } from "astro:middleware";
-import { isSi, linksInSi } from "./lib/si.ts";
+import { copyOf, linksInSi } from "./lib/si.ts";
 
-// Runs while the pages are built, never in a browser: a page of /si/ links to
-// /si/ (src/lib/si.ts), whoever wrote the link, a component or a text.
+// Runs while the pages are built, never in a browser: a page of a copy links
+// inside that copy, /si/ or /si2/ (src/lib/si.ts), whoever wrote the link, a
+// component or a text.
 export const onRequest = defineMiddleware(async ({ url }, next) => {
   const response = await next();
-  if (!isSi(url.pathname) || !response.headers.get("content-type")?.includes("text/html")) {
+  const copy = copyOf(url.pathname);
+  if (!copy || !response.headers.get("content-type")?.includes("text/html")) {
     return response;
   }
-  return new Response(linksInSi(await response.text()), response);
+  return new Response(linksInSi(await response.text(), copy.prefix), response);
 });

@@ -57,7 +57,7 @@ import {
   statusIntegrity,
   waitlistIntegrity,
 } from "../src/lib/script-integrity.ts";
-import { isSi, SI } from "../src/lib/si.ts";
+import { COPIES, copyOf, isSi } from "../src/lib/si.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -102,19 +102,22 @@ for (const path of pages) {
   for (const banned of ["iframe", "object", "embed"]) {
     if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
   }
-  // A page of the /si/ copy is held to what its twin is (src/lib/si.ts), and
-  // the copy is a try nobody is led to: a page of it wears the look, is left
-  // alone by search engines and has a page of the site behind it, and no other
-  // page wears the look (docs/decisions.md, 41).
-  const twin = isSi(here) ? here.slice(SI.length) : here;
-  const wearsIt = /<html\b[^>]*\sclass="si"/.test(html);
-  if (isSi(here)) {
-    if (!fileOf(twin)) problems.push(`${page}: a page of the /si/ copy with no ${twin} behind it`);
-    if (!wearsIt) problems.push(`${page}: a page of the /si/ copy without its look`);
+  // A page of a copy, /si/ or /si2/, is held to what its twin is
+  // (src/lib/si.ts), and a copy is a try nobody is led to: a page of it wears
+  // the copy's look, is left alone by search engines and has a page of the
+  // site behind it, and no other page wears the look (docs/decisions.md, 41
+  // and 49).
+  const copy = copyOf(here);
+  const twin = copy ? here.slice(copy.prefix.length) : here;
+  const look = /<html\b[^>]*\sclass="([^"]*)"/.exec(html)?.[1];
+  if (copy) {
+    const of = `a page of the ${copy.prefix}/ copy`;
+    if (!fileOf(twin)) problems.push(`${page}: ${of} with no ${twin} behind it`);
+    if (look !== copy.look) problems.push(`${page}: ${of} without its look`);
     if (!/<meta name="robots" content="noindex"/.test(html)) {
-      problems.push(`${page}: a page of the /si/ copy that a search engine may index`);
+      problems.push(`${page}: ${of} that a search engine may index`);
     }
-  } else if (wearsIt) {
+  } else if (look?.split(" ").includes("si")) {
     problems.push(`${page}: wears the look of the /si/ copy`);
   }
   // The home of the /si/ copy reads in the order it is seen in (docs/decisions.md,
@@ -168,6 +171,10 @@ for (const path of pages) {
     else if (address.startsWith("/") && !existsSync(join(dist, address.split(/[?#]/)[0] ?? ""))) {
       problems.push(`${page}: ${address} is not in the site`);
     }
+    // A copy draws with pictures of its own where it has them (src/components/SiArt.astro).
+    const own = copy ? address.replace(/^\/si-art\//, `${copy.prefix}-art/`) : address;
+    if (own !== address && fileOf(own))
+      problems.push(`${page}: ${address}, where the copy has ${own}`);
   }
 
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
@@ -178,8 +185,10 @@ for (const path of pages) {
       problems.push(`${page}: expected a static redirect to ${destination}`);
     continue;
   }
-  if (!isSi(here) && page !== "/404.html" && !fileOf(`${SI}${here}`)) {
-    problems.push(`${page}: no copy of it under ${SI}/`);
+  if (!copy && page !== "/404.html") {
+    for (const { prefix } of COPIES) {
+      if (!fileOf(`${prefix}${here}`)) problems.push(`${page}: no copy of it under ${prefix}/`);
+    }
   }
   const hasStatus = twin === "/about/" || twin === "/about/details/";
   const expected = [{ file: "language.js", integrity: languageIntegrity }];
@@ -286,8 +295,8 @@ for (const path of pages) {
         problems.push(`${page}: a relative link, ${href}; links inside the site begin with /`);
         continue;
       }
-      if (isSi(here) && target.endsWith("/") && !isSi(target)) {
-        problems.push(`${page}: ${href} leads out of the /si/ copy`);
+      if (copy && target.endsWith("/") && copyOf(target) !== copy) {
+        problems.push(`${page}: ${href} leads out of the ${copy.prefix}/ copy`);
       }
       file = target.endsWith("/") ? join(dist, target, "index.html") : join(dist, target);
       if (!existsSync(file) || statSync(file).isDirectory()) {
@@ -490,11 +499,18 @@ for (const kind of CONSENT_KINDS) {
   }
 }
 
-// A link to an anchor lands where it points and stays there when the fonts arrive.
+// A style sheet fetches only files of the site (Saiga's own, only in a build
+// that has them), and a link to an anchor lands where it points and stays
+// there when the fonts arrive.
 for (const path of styleSheets) {
-  for (const problem of landingProblems(readFileSync(path, "utf8"))) {
-    problems.push(`/${relative(dist, path)}: ${problem}`);
+  const sheet = `/${relative(dist, path)}`;
+  const css = readFileSync(path, "utf8");
+  if (saiga || sheet !== "/fonts/saiga.css") {
+    for (const [, address = ""] of css.matchAll(/url\(\s*["']?(\/[^"')?#]*)/g)) {
+      if (!fileOf(address)) problems.push(`${sheet}: ${address} is not in the site`);
+    }
   }
+  for (const problem of landingProblems(css)) problems.push(`${sheet}: ${problem}`);
 }
 
 if (problems.length > 0) {
