@@ -1,0 +1,50 @@
+---
+// About Us under /si/, after the design's calmer drawing (docs/decisions.md,
+// 43): the site's own texts in one column, the facts as a ticked list, and
+// colour on two cards and the last band only.
+import type { Locale } from "../i18n/locales.ts";
+import { allPages, type Page } from "../lib/content.ts";
+import { aboutSections, pageHtml, sectionAnchor } from "../lib/page-html.ts";
+import { cutAtHeading } from "../lib/si.ts";
+import PageBody from "./PageBody.astro";
+
+interface Props {
+  locale: Locale;
+  page: Page;
+}
+const { locale, page } = Astro.props;
+const pages = await allPages();
+const sections = aboutSections.map((name) => {
+  const section = pages.find((entry) => entry.id === `${locale}/about/${name}`);
+  if (!section) throw new Error(`Missing About section: ${locale}/${name}`);
+  const html = pageHtml(section, locale, name);
+  // A card holds a section's opening and the band the media's last part; the people's text stays whole.
+  const [first, rest] =
+    name === "people" ? [html, ""] : cutAtHeading(html, name === "media" ? "last" : "first");
+  return { name, title: section.data.title, anchor: sectionAnchor(locale, name), first, rest };
+});
+---
+
+<article class="prose calm">
+  <h1>{page.data.title}</h1>
+  <PageBody html={pageHtml(page, locale)} locale={locale} />
+  {sections.map(({ name, title, anchor, first, rest }) => (
+    <section class={`calm-${name}`} aria-labelledby={anchor}>
+      {name === "contact" || name === "details" ? (
+        <>
+          <div class="calm-card">
+            <h2 id={anchor}>{title}</h2>
+            <Fragment set:html={first} />
+          </div>
+          <PageBody html={rest} locale={locale} />
+        </>
+      ) : (
+        <>
+          <h2 id={anchor}>{title}</h2>
+          <PageBody html={first} locale={locale} />
+          {rest && <div class="calm-band" set:html={rest} />}
+        </>
+      )}
+    </section>
+  ))}
+</article>

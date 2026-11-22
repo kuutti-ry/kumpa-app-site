@@ -45,3 +45,15 @@ export function stepped(html: string): string {
   const drawn = steps.map((step) => `<div class="si-step">${step.trim()}</div>`).join("");
   return `${html.slice(0, first)}<div class="si-steps">${drawn}</div>${after}`;
 }
+
+/**
+ * A text cut in two at a third-level heading, the first or the last one: what
+ * stands before it and the rest. About Us in the design's calmer drawing sets
+ * a section's opening on a card and the media's last part on a band
+ * (docs/decisions.md, 43). A text without such a heading is all opening.
+ */
+export function cutAtHeading(html: string, which: "first" | "last"): [string, string] {
+  const starts = [...html.matchAll(/<h3[\s>]/g)].map((found) => found.index);
+  const at = which === "first" ? starts.at(0) : starts.at(-1);
+  return at === undefined ? [html, ""] : [html.slice(0, at), html.slice(at)];
+}
