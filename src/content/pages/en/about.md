@@ -9,4 +9,4 @@ We’re a group of volunteers building a dating app we’d want to use. We found
 
 Kuutti ry is a Finnish nonprofit based in Espoo. Its purpose is to reduce loneliness and help people meet on equal terms. Its bylaws rule out advertising and commercial use of people’s data. The association was founded on 1 October 2026 and registered on 6 October 2026 under business ID 3659478-7.
 
-[Read the bylaws](/legal/bylaws/) · [View the public register entry](https://tietopalvelu.ytj.fi/yritys/3659478-7)
+[Read the bylaws](/legal/bylaws/) · [View the public register entry](https://tietopalvelu.ytj.fi/yritys/3659478-7?lng=en)

@@ -12,4 +12,4 @@ Kuutti ry on espoolainen yhdistys. Haluamme vähentää yksinäisyyttä ja antaa
 
 Perustimme yhdistyksen 1.10.2026. Se rekisteröitiin 6.10.2026. Y-tunnuksemme on 3659478-7.
 
-[Yhdistyksen säännöt](/legal/bylaws/) · [Yhdistyksen tiedot YTJ:ssä](https://tietopalvelu.ytj.fi/yritys/3659478-7)
+[Yhdistyksen säännöt](/legal/bylaws/) · [Yhdistyksen tiedot YTJ:ssä](https://tietopalvelu.ytj.fi/yritys/3659478-7?lng=fi)

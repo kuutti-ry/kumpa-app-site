@@ -44,6 +44,25 @@ test("embedded About sections keep a heading hierarchy and link within the reade
   }
 });
 
+test("a dot between two links gets its room, and no other dot does", () => {
+  const html = (body: string) => pageHtml({ id: "en/x", rendered: { html: body } }, "en");
+  assert.equal(
+    html('<p><a href="/a/">A</a> · <a href="https://b.example/">B</a> · <a href="/c/">C</a></p>'),
+    '<p><a href="/a/">A</a> <span class="between">·</span> <a target="_blank" rel="noopener noreferrer" href="https://b.example/">B</a> <span class="between">·</span> <a href="/c/">C</a></p>',
+  );
+  for (const plain of [
+    "<p>One · two</p>",
+    '<p><a href="/a/">A</a> · two</p>',
+    '<p>One · <a href="/a/">A</a></p>',
+    '<p><a href="/a/">A</a>·<a href="/b/">B</a></p>',
+    '<p><a href="/a/">A</a> <a href="/b/">B</a></p>',
+  ]) {
+    assert.equal(html(plain), plain);
+  }
+  const css = readFileSync(join(import.meta.dirname, "..", "src", "styles", "global.css"), "utf8");
+  assert.match(css, /\.between \{\s*margin-inline: 0\.3em;\s*\}/);
+});
+
 test("a language is one of the site's and nothing else", () => {
   for (const locale of LOCALES) assert.equal(isLocale(locale), true);
   for (const other of ["", "EN", "SV", "en-FI", "sv-FI", "de", "legal"]) {
