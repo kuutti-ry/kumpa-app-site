@@ -70,7 +70,7 @@ export const TEAM: readonly Person[] = [
   {
     name: "Hilma",
     roles: ["Advisor"],
-    photo: null,
+    photo: "/team/hilma.jpg",
     linkedin: "https://www.linkedin.com/in/hilma-kokkoniemi/",
     github: "https://github.com/himpu-k",
   },
