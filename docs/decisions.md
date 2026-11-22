@@ -508,3 +508,10 @@ The maintainer's word of 22/11/2026: "move the website under /si/ as main, witho
 - **What the old look leaves behind.** The home's and About Us's old markup and the component that drew the old About Us are removed. `src/styles/global.css` is still the sheet under `si.css`, with rules the look overrides, and `src/lib/saiga.ts` still knows the old look's first fonts: the two sheets become one, and those go, in a change of its own, since every rule taken out has to be shown to move nothing.
 - **Unchanged.** The tab's icon (51), the share image and the header's seal file, the texts, the scripts and the policy. `pnpm check:site` holds every page to the look and each `/si/` and `/si2/` address to its redirect.
 
+
+## 53. The register's entry in the reader's language (2026-11-22)
+
+The maintainer's word: YTJ's page has the site's three languages, so match them. "About Us" links to the association's entry with `?lng=fi`, `?lng=sv` or `?lng=en`, the language of the page the link is on (22 set the link).
+
+- **Tried, not promised.** YTJ documents no such parameter: it is how the library behind its page reads a language, and each of the three was opened and read on 22/11/2026. If YTJ stops reading it, the link still opens the entry, in Finnish.
+- **Finnish says so too.** YTJ keeps the language a link asked for in the reader's browser, so a bare address would show a reader who once came from the Swedish page Swedish again.

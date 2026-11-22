@@ -10,4 +10,4 @@ Vi är en grupp frivilliga som bygger en dejtingapp som vi själva skulle vilja 
 
 Kuutti ry är en finländsk ideell förening med hemort i Esbo. Föreningens syfte är att minska ensamhet och hjälpa människor att träffas på lika villkor. Enligt stadgarna får föreningen inte syssla med reklam eller använda människors uppgifter kommersiellt. Föreningen grundades 1.10.2026 och registrerades 6.10.2026 med FO-numret 3659478-7.
 
-[Läs stadgarna](/legal/bylaws/) · [Se uppgifterna i det offentliga registret](https://tietopalvelu.ytj.fi/yritys/3659478-7)
+[Läs stadgarna](/legal/bylaws/) · [Se uppgifterna i det offentliga registret](https://tietopalvelu.ytj.fi/yritys/3659478-7?lng=sv)
