@@ -17,7 +17,7 @@ Kaikki alkoi keskustelusta, joka tiivistyi yhteen kysymykseen: jos deittailu on 
 - **Epäkaupallinen.** Yhdistyksen [säännöt](/legal/bylaws/) kieltävät kaiken kaupallisuuden: ei maksullisia tilauksia, ei mainoksia, ei tietojen myyntiä, ei mitään.
 - **Poliittisesti ja uskonnollisesti sitoutumaton.**
 - **Avoin lähdekoodi.** Kaikki koodimme on [julkista](https://github.com/kuutti-ry) copyleft-lisenssillä.
-- **Vain oikeita ihmisiä.** Rekisteröityä voi vain suomalaisilla pankkitunnuksilla, joten jokainen käyttäjä on yksi oikea ihminen, ihan oikeasti. Se on vastauksemme valeprofiileihin, romanssihuijauksiin ja häirintään.
+- **Vain oikeita ihmisiä.** Rekisteröityä voi vain suomalaisilla pankkitunnuksilla, joten jokainen käyttäjä on yksi oikea ihminen, ihan oikeasti. Se on vastauksemme valeprofiileihin, romanssihuijauksiin, botteihin ja häirintään.
 - **Tehty Suomessa, Suomea varten.** 🇫🇮
 - **Kehitystyö.** Aloitimme syyskuussa 2026. Uusimmat generatiivisen tekoälyn työkalut kirjoittavat jo kelpo koodia, ja sen ansiosta meidän kaltaisemme vapaaehtoisporukka pystyy tekemään kokonaisen deittisovelluksen.
 

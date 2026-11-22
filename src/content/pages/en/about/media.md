@@ -16,7 +16,7 @@ It started with a conversation that came down to one question: if dating is brok
 - **Non-commercial.** The association’s [bylaws](/legal/bylaws/) rule out any commercial use: no subscriptions, no ads, no selling data, nothing.
 - **Politically and religiously unaffiliated.**
 - **Open source.** All our code is [public](https://github.com/kuutti-ry) under a copyleft licence.
-- **Real people only.** Signing up works only with Finnish bank ID, so every user is one real person, for real. It’s our answer to catfishing, romance scams and harassment.
+- **Real people only.** Signing up works only with Finnish bank ID, so every user is one real person, for real. It’s our answer to catfishing, romance scams, bots and harassment.
 - **Made in Finland, for Finland.** 🇫🇮
 - **Development.** We started in September 2026. The latest generative AI tools produce code of decent quality, which enables a volunteer team like ours to build a complete dating app.
 

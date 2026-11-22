@@ -13,4 +13,4 @@ Journalists can reach us at the same address. Our [media kit](/about/media/) has
 
 ## App support
 
-[Help](/help/) covers sign-in and reporting. You can also [request account deletion](/delete-account/) by email if you can’t use the app.
+[Help](/help/) covers registration and reporting. You can also [request account deletion](/delete-account/) by email if you can’t use the app.

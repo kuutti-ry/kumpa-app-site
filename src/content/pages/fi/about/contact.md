@@ -14,4 +14,4 @@ Samasta osoitteesta voit sopia haastattelun tai pyytää meitä esittelemään s
 
 ## Tarvitsetko apua?
 
-[Ohjeet](/help/) auttavat kirjautumisessa ja ilmoituksen tekemisessä. Jos haluat [poistaa tilisi](/delete-account/) etkä pääse sovellukseen, voit pyytää poistoa sähköpostilla.
+[Ohjeet](/help/) auttavat rekisteröitymisessä ja ilmoituksen tekemisessä. Jos haluat [poistaa tilisi](/delete-account/) etkä pääse sovellukseen, voit pyytää poistoa sähköpostilla.
