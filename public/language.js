@@ -2,7 +2,7 @@
 // they name without changing the reader's preference for the rest of the site.
 // A link ending in a language's code ("#sv") chooses that language for the tab.
 (() => {
-  const languages = ["fi", "sv", "en"];
+  const languages = ["fi", "en", "sv"];
   const radios = document.querySelectorAll('input[name="language"]');
   const title = document.querySelector("title");
   const description = document.querySelector('meta[name="description"]');
