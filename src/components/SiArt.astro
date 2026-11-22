@@ -1,14 +1,12 @@
 ---
 // The pictures of the home and the app page (src/lib/si.ts): the shapes of
 // Sini's design, toned down a little, as files of the site. Decoration only.
-// A copy has a folder of its own, /si2-art/.
-import { ART, copyOf } from "../lib/si.ts";
+import { ART as art } from "../lib/si.ts";
 
 interface Props {
   kind: "home" | "app";
 }
 const { kind } = Astro.props;
-const art = copyOf(Astro.url.pathname)?.art ?? ART;
 ---
 
 {kind === "home" ? (
