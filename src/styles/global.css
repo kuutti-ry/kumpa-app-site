@@ -210,17 +210,14 @@ hr {
   top: 0.5rem;
 }
 
-/* The switch also works with scripts disabled. Native radios own focus and state.
-   Swedish is offered to nobody yet (docs/decisions.md, 40): its label shows only
-   once a link has selected it. */
+/* The switch also works with scripts disabled. Native radios own focus and state. */
 [data-lang] {
   display: contents;
 }
 
 body:has(#lang-fi:checked) [data-lang]:not([data-lang="fi"]),
 body:has(#lang-sv:checked) [data-lang]:not([data-lang="sv"]),
-body:has(#lang-en:checked) [data-lang]:not([data-lang="en"]),
-body:not(:has(#lang-sv:checked)) label[for="lang-sv"] {
+body:has(#lang-en:checked) [data-lang]:not([data-lang="en"]) {
   display: none;
 }
 
@@ -355,7 +352,10 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
 @media (min-width: 44rem) {
   .header-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    /* The name and the switch keep their own width, and the links between them
+       give way and wrap: with text at twice its size and three languages in
+       the switch, a row of fixed parts was wider than the window. */
+    grid-template-columns: minmax(min-content, 1fr) minmax(0, auto) minmax(min-content, 1fr);
     min-height: 5rem;
   }
 
@@ -383,6 +383,19 @@ body:has(#lang-en:focus-visible) label[for="lang-en"] {
 @media (max-width: 22rem) {
   .header-inner .brand img {
     width: 2.25rem;
+  }
+}
+
+/* Three languages beside the name and the menu's button are wider than a
+   narrow phone: there a label is 32 px wide and still 44 px high, so the
+   header stays one row (docs/decisions.md, 45). */
+@media (max-width: 23.5rem) {
+  .language-switch {
+    padding-inline: 0;
+  }
+
+  .language-switch label {
+    min-width: 2rem;
   }
 }
 

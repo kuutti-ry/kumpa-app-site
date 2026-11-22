@@ -2,7 +2,7 @@
 
 The Finnish-first website for Kumpa, a free dating app for adults in Finland. Its home is [kumpa.fi](https://kumpa.fi). The same site is served at kuutti.app. The app itself is at [kuutti-ry/kumpa-app](https://github.com/kuutti-ry/kumpa-app).
 
-Astro builds static pages containing Finnish and English at the same URL, and Swedish, which is not offered to visitors yet (`docs/decisions.md`, 40). A local script remembers the chosen language in the current tab. The site uses only its own assets and sets no cookies. Body text uses Inter under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). Headings and navigation use Teo Tuominen’s Saiga when the licensed files are available during the build. Amplify fetches them privately. Local builds fall back to Inter.
+Astro builds static pages containing Finnish, Swedish and English at the same URL (`docs/decisions.md`, 45). A local script remembers the chosen language in the current tab. The site uses only its own assets and sets no cookies. Body text uses Inter under the SIL Open Font License 1.1 (`public/fonts/LICENSE-Inter.txt`). Headings and navigation use Teo Tuominen’s Saiga when the licensed files are available during the build. Amplify fetches them privately. Local builds fall back to Inter.
 
 ## Run it
 

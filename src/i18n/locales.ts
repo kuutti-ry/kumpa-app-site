@@ -2,12 +2,13 @@ export const LOCALES = ["fi", "sv", "en"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "fi";
 /**
- * Built into every page and offered to nobody (docs/decisions.md, 40): its
- * radio is hidden, and the style sheet hides its label and its text unless it
- * is selected. Only a link that asks for it selects it: one ending in its
- * code ("#sv"), which the tab then keeps, or one to an anchor in its text.
+ * A language built into every page and offered to nobody: its radio is hidden,
+ * and the style sheet hides its label and its text unless it is selected (a
+ * rule of its own in global.css, which a test asks for). Only a link that asks
+ * for it selects it: one ending in its code, or one to an anchor in its text.
+ * Swedish was here until its native reading (docs/decisions.md, 40 and 45).
  */
-export const HIDDEN_LOCALES: ReadonlySet<Locale> = new Set(["sv"]);
+export const HIDDEN_LOCALES: ReadonlySet<Locale> = new Set();
 export const isLocale = (value: string): value is Locale =>
   (LOCALES as readonly string[]).includes(value);
 

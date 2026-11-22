@@ -299,7 +299,7 @@ for (const path of pages) {
     if (at === -1 || (groups[at + 1]?.match(/<h1[\s>]/g) ?? []).length !== 1)
       problems.push(`${page}: expected one heading in the ${locale} version`);
   }
-  // A language offered to nobody yet is built with its switch hidden (decision 40).
+  // A language offered to nobody is built with its switch hidden (decisions 40 and 45).
   for (const locale of LOCALES) {
     const radio = new RegExp(`<input\\b[^>]*\\sid="lang-${locale}"[^>]*>`).exec(html)?.[0];
     if (!radio) problems.push(`${page}: no switch to ${locale}`);
