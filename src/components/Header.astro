@@ -1,6 +1,7 @@
 ---
 import { LOCALES, type Locale } from "../i18n/locales.ts";
 import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
+import { isSi } from "../lib/si.ts";
 
 interface Props {
   locale: Locale;
@@ -34,13 +35,15 @@ const groups = [
 
 const home = t(locale, "nav.home");
 const brand = t(locale, "site.name");
+// The /si/ copy wears the snowflake (docs/decisions.md, 46); the site keeps the seal.
+const si = isSi(Astro.url.pathname);
 const current = (page: string) => (page === slug ? "page" : undefined);
 ---
 
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="/" aria-label={`${brand} · ${home}`}>
-      <img src="/logo.png" alt="" width="59" height="40" />
+      {si ? <img src="/si-art/mark.svg" alt="" width="40" height="40" /> : <img src="/logo.png" alt="" width="59" height="40" />}
       <span>{brand}</span>
     </a>
 

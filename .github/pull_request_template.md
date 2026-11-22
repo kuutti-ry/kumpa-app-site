@@ -10,7 +10,7 @@ Refs kuutti-ry/kumpa-app#
 
 - [ ] Every commit is signed off (`git commit -s`, DCO).
 - [ ] New or changed Finnish and Swedish text carries `machine: true` (written by a machine, an agent, or anyone but a native reader); `reviewedBy` is written only for a native reader who approves this pull request.
-- [ ] No legal text was written or translated by a machine into a language it did not exist in.
+- [ ] A legal text translated by a machine carries `machine: true` and links to its original; no binding wording changed without a new version.
 - [ ] Nobody is named who has not asked to be.
 - [ ] The site still runs no script and loads nothing from anybody else (`pnpm build && pnpm check:site`).
 - [ ] Looked at on a phone-sized screen and at the largest text size.

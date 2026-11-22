@@ -6,10 +6,6 @@ status: in_force
 consent_version: "2026-11-1"
 dated: 2026-11-16
 binding: true
-listing:
-  sv:
-    title: Dataskyddsbeskrivning
-    description: Hur Kuutti ry behandlar personuppgifter i appen Kumpa och på den här webbplatsen.
 ---
 
 ## 1. Controller

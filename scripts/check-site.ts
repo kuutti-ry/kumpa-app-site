@@ -8,6 +8,8 @@
  * - Every link inside the site leads to a page or a file that exists, and an
  *   anchor to an id that is there.
  * - Every bilingual page has one h1 per language and unique anchors.
+ * - A translated legal text names its original's language in a link to it,
+ *   and a consent's wording shown in another language is marked as that one.
  * - The home page, made of several pages' texts, has no id twice, so that an
  *   anchor leads to one place.
  * - The sitemap names every page search engines may index and no other, and
@@ -114,6 +116,37 @@ for (const path of pages) {
     }
   } else if (wearsIt) {
     problems.push(`${page}: wears the look of the /si/ copy`);
+  }
+  // Each look wears its own mark (docs/decisions.md, 46): the /si/ copy the
+  // snowflake, in its header, on its tab, on a home screen and in a link's
+  // preview; the site the seal.
+  if (/<a class="brand"/.test(html)) {
+    const links = (rel: string) =>
+      [...html.matchAll(/<link\b[^>]*>/gi)]
+        .filter(([tag]) => attribute(tag, "rel") === rel)
+        .map(([tag]) => attribute(tag, "href"));
+    const share = /<meta property="og:image" content="([^"]*)"/.exec(html)?.[1];
+    const worn = [
+      ...new Set(
+        [...html.matchAll(/<a class="brand"[^>]*>\s*(<img\b[^>]*>)/gi)].map(([, tag = ""]) =>
+          attribute(tag, "src"),
+        ),
+      ),
+      ...links("icon"),
+      ...links("apple-touch-icon"),
+      share && new URL(share).href.slice(ORIGIN.length),
+    ].join(" ");
+    const own = (
+      isSi(here)
+        ? [
+            "/si-art/mark.svg",
+            ...["favicon", "apple-touch-icon", "share"].map((name) =>
+              fingerprinted(`/si-art/${name}.png`),
+            ),
+          ]
+        : ["/logo.png", fingerprinted("/favicon.png"), fingerprinted("/kuutti.png")]
+    ).join(" ");
+    if (worn !== own) problems.push(`${page}: wears ${worn} where its look's mark is ${own}`);
   }
   const hasWaitlist = twin === "/" || twin === "/app/";
   const forms = [...html.matchAll(/<form\b[^>]*>/gi)];
@@ -299,6 +332,37 @@ for (const path of pages) {
     if (at === -1 || (groups[at + 1]?.match(/<h1[\s>]/g) ?? []).length !== 1)
       problems.push(`${page}: expected one heading in the ${locale} version`);
   }
+  // A translated legal text names the language of its original in a notice
+  // that links to it, since Swedish translates the bylaws from Finnish and the
+  // rest from English (docs/decisions.md, 47).
+  const versionIn = (locale: string) => groups[groups.indexOf(locale) + 1] ?? "";
+  const original = LOCALES.find((locale) => /\sid="original"/.test(versionIn(locale)));
+  if (original) {
+    for (const locale of LOCALES.filter((other) => other !== original)) {
+      const notice = /<p class="notice" role="note">[^<]*<a href="#original">([^<]*)<\/a>/.exec(
+        versionIn(locale),
+      )?.[1];
+      if (!notice?.includes(LANGUAGE_IN[locale][original])) {
+        problems.push(
+          `${page}: the ${locale} translation does not say, in a link to the original, that it is ${LANGUAGE_IN.en[original]}`,
+        );
+      }
+    }
+  }
+  // A consent's wording shown in another language's version, as the Swedish
+  // privacy policy shows the English one the app asks, is marked as the
+  // language it is in, heading and all, so that a screen reader reads it so.
+  for (const locale of LOCALES) {
+    for (const [, section = ""] of versionIn(locale).matchAll(/<section>([\s\S]*?)<\/section>/g)) {
+      const wording = /<blockquote lang="([^"]+)">/.exec(section)?.[1];
+      const heading = /<h3\b[^>]*>/.exec(section)?.[0];
+      if (wording && heading && (attribute(heading, "lang") ?? locale) !== wording) {
+        problems.push(
+          `${page}: the ${locale} version heads a consent's wording in ${wording} as if it were ${attribute(heading, "lang") ?? locale}`,
+        );
+      }
+    }
+  }
   // A language offered to nobody is built with its switch hidden (decisions 40 and 45).
   for (const locale of LOCALES) {
     const radio = new RegExp(`<input\\b[^>]*\\sid="lang-${locale}"[^>]*>`).exec(html)?.[0];
@@ -453,5 +517,5 @@ if (problems.length > 0) {
   process.exit(1);
 }
 console.log(
-  `the site holds: ${pages.length} pages, only pinned first-party scripts, nothing from elsewhere, no dead link, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
+  `the site holds: ${pages.length} pages, only pinned first-party scripts, nothing from elsewhere, no dead link, every translated legal text names its original's language, the sitemap names what may be indexed, /legal/versions.json leads to every version, every pinned version has its anchor (the newest on its text's page, the rest on the page of earlier versions), ${styleSheets.length} style sheets that let a link land where it points, and ${saiga ? "every page links Saiga" : "no page asks for Saiga, which this build has not"}`,
 );
