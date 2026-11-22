@@ -1,7 +1,7 @@
 ---
 title: "Teamet"
 description: "Möt de frivilliga som bygger Kumpa och formgivarna bakom appens utseende."
-machine: true
+reviewedBy: "native speaker"
 ---
 
 Ungefär femton frivilliga arbetar med Kumpa. Många av oss träffades vid Aalto-universitetet, och vi driver projektet självständigt.

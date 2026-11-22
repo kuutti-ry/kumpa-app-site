@@ -4,8 +4,8 @@
  *
  * - A page exists in every language, under the same slug.
  * - Every Finnish and Swedish page says who wrote it: `machine: true`, or
- *   `reviewedBy` with the native reader's name. English is the source and
- *   carries neither.
+ *   `reviewedBy` with the native reader's name, or "native speaker" for one
+ *   who has not asked to be named. English is the source and carries neither.
  * - Each current legal document has Finnish and English (CLAUDE.md, rule 3).
  *   Swedish names one it does not have through a version's `listing`, which
  *   the build holds. A machine translation names its status and can never be

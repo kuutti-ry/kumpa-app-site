@@ -1,7 +1,7 @@
 ---
 title: "För medier"
 description: "Fakta för journalister om hur Kumpa kom till, vilka som gör appen och hur den utvecklas, och hur du ber om en intervju eller en demonstration."
-machine: true
+reviewedBy: "native speaker"
 ---
 
 Kumpa är en gratis dejtingapp för vuxna i Finland och är nu i sluten betatestning. För intervjuer, en demonstration eller pressbilder, skriv till [hello@kumpa.fi](mailto:hello@kumpa.fi).

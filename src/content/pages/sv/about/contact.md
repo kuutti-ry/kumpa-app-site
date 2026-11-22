@@ -1,7 +1,7 @@
 ---
 title: "Kontakt"
 description: "Kontakta Kumpa om appen, dina uppgifter, frivilligarbete eller en intervju."
-machine: true
+reviewedBy: "native speaker"
 ---
 
 Skriv till [hello@kumpa.fi](mailto:hello@kumpa.fi) om du har frågor om appen eller en begäran som gäller dina personuppgifter.
