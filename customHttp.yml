@@ -16,3 +16,16 @@ customHeaders:
         value: "same-origin"
       - key: Cross-Origin-Resource-Policy
         value: "same-origin"
+  # A font file is the browser's for a week (docs/decisions.md, 44). By default
+  # Amplify has the browser ask again for every file on every page, and a page
+  # that waits for that answer paints once without its fonts and moves when
+  # they come. A week and not a year: a file's address does not change with
+  # what is in it, so a face drawn again reaches everybody within the week.
+  - pattern: "/fonts/*.woff2"
+    headers:
+      - key: Cache-Control
+        value: "public, max-age=604800, s-maxage=31536000"
+  - pattern: "/fonts/saiga/*.woff2"
+    headers:
+      - key: Cache-Control
+        value: "public, max-age=604800, s-maxage=31536000"

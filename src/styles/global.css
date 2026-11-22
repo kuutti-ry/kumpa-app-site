@@ -1144,12 +1144,18 @@ h1 + .waitlist {
   color: hsl(var(--muted-foreground));
 }
 
+/* The marks stand between the face and the name, so a row's marks are on one
+   level whatever the roles' lengths (docs/decisions.md, 44). */
 .team-links {
   justify-content: center;
   flex-wrap: wrap;
   gap: 0;
   margin-top: 0.25rem;
   color: hsl(var(--muted-foreground));
+}
+
+.team-links + .team-name {
+  margin-top: 0.25rem;
 }
 
 /* A credited person's marks inside a sentence (`@links(key)`): the targets
@@ -1161,6 +1167,12 @@ h1 + .waitlist {
   vertical-align: middle;
   margin-block: -0.5rem;
   color: hsl(var(--muted-foreground));
+}
+
+/* Beside each other in a sentence the marks are 12 px apart, half the cards'
+   24 px: a target 32 px wide and still 44 px high. */
+.inline-links a {
+  min-width: 32px;
 }
 
 /* --- The folded menu (src/components/Header.astro) ----------------------- */

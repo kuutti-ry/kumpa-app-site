@@ -31,6 +31,19 @@ test("the marker becomes the team, each with a face, a name and a role, in the o
   );
 });
 
+test("a person's marks stand between the face and the name, and somebody without any has the name under the face", () => {
+  const html = drawTeam("<p>@team</p>", "en", [ada, bo]);
+  assert.match(
+    html,
+    /<img class="team-face"[^>]*><ul class="channels team-links">(<li><a .*?<\/a><\/li>){3}<\/ul><p class="team-name">Ada Lovelace<\/p>/,
+  );
+  assert.match(
+    html,
+    /<span class="team-face team-initials"[^>]*>[^<]*<\/span><p class="team-name">Bo /,
+  );
+  assert.match(html, /<p class="team-role">Design<\/p><\/li><\/ul>$/);
+});
+
 test("each way to reach a person is a mark with its words for a screen reader, and only the ways they have", () => {
   const html = drawTeam("<p>@team</p>", "en", [ada, bo]);
   assert.match(
