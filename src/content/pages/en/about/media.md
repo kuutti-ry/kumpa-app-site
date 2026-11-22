@@ -11,13 +11,13 @@ It started with a conversation that came down to one question: if dating is brok
 
 ## Facts at a glance
 
-- **Registered association.** Kumpa is made by Kuutti ry, a Finnish registered non-profit association (ry).
-- **Volunteer-run.** Everyone on the team, around fifteen people, is a volunteer. Many of us met at Aalto University, but the project is independent of it.
-- **Non-commercial.** The association’s [bylaws](/legal/bylaws/) rule out any commercial use: no subscriptions, no ads, no selling data, nothing.
+- **Made in Finland, for Finland.** 🇫🇮
 - **Politically and religiously unaffiliated.**
 - **Open source.** All our code is [public](https://github.com/kuutti-ry) under a copyleft licence.
+- **Registered association.** Kumpa is made by Kuutti ry, a Finnish registered non-profit association (ry).
+- **Non-commercial.** The association’s [bylaws](/legal/bylaws/) rule out any commercial use: no subscriptions, no ads, no selling data, nothing.
+- **Volunteer-run.** Everyone on the team, around fifteen people, is a volunteer. Many of us met at Aalto University, but the project is independent of it.
 - **Real people only.** Signing up works only with Finnish bank ID, so every user is one real person, for real. It’s our answer to catfishing, romance scams, bots and harassment.
-- **Made in Finland, for Finland.** 🇫🇮
 - **Development.** We started in September 2026. The latest generative AI tools produce code of decent quality, which enables a volunteer team like ours to build a complete dating app.
 
 ## Source material

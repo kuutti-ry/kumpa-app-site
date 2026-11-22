@@ -101,13 +101,17 @@ html.si .site-header :where(.brand) img {
   display: none;
 }
 
+/* Every link has the line's room, so the current page's pill moves nothing. */
 html.si .site-nav a,
-html.si .menu-branch > summary {
+html.si .menu-branch > summary,
+html.si .site-menu > summary {
+  border: 2px solid transparent;
   border-radius: 2rem;
   font-weight: 700;
 }
 
 html.si .site-nav a[aria-current] {
+  border-color: var(--si-ink);
   background: var(--si-lime);
   text-decoration: none;
 }
@@ -136,6 +140,7 @@ html.si body:has(#lang-en:checked) label[for="lang-en"] {
 
 html.si .site-menu > summary:where(:hover),
 html.si .site-menu:where([open]) > summary {
+  border-color: var(--si-ink);
   background: var(--si-lime);
 }
 
@@ -189,12 +194,56 @@ html.si .notice {
   background: var(--si-lime);
 }
 
+/*
+ * The server's state in this look's own colours: the words say it, in ink,
+ * and the strip and the lamps repeat it, lime for working and coral for a
+ * fault. The site's green and red are not colours of this look.
+ */
 html.si .service-status {
+  --status-color: hsl(var(--muted-foreground));
+  --status-tint: hsl(var(--muted));
   overflow: hidden;
 }
 
+html.si .service-status:is([data-state="ok"], [data-state="degraded"]) {
+  --status-color: var(--si-ink);
+}
+
+html.si .service-status[data-state="ok"] {
+  --status-tint: var(--si-lime);
+}
+
+html.si .service-status[data-state="degraded"] {
+  --status-tint: var(--si-coral);
+}
+
 html.si .service-status-summary {
+  border-bottom: 2px solid var(--si-ink);
   border-radius: 0;
+}
+
+html.si .service-status-components dd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+html.si .service-status-components dd:not([data-state="unknown"]) {
+  color: var(--si-ink);
+}
+
+html.si .service-status-components dd:not([data-state="unknown"])::after {
+  content: "";
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--si-ink);
+  border-radius: 50%;
+  background: var(--si-coral);
+}
+
+html.si .service-status-components dd:is([data-state="ok"], [data-state="current"])::after {
+  background: var(--si-lime);
 }
 
 html.si .documents > li {
@@ -271,9 +320,10 @@ html.si .waitlist {
   max-width: 38rem;
   margin-block-start: 1.5rem;
   padding: 1.6rem 1.5rem 1.4rem;
-  border: 0;
+  border: var(--si-line);
   border-radius: 2rem;
   background: var(--si-lime);
+  box-shadow: var(--si-drop);
 }
 
 html.si .waitlist h2 {
@@ -356,8 +406,10 @@ html.si .waitlist-privacy summary {
   html.si .waitlist {
     margin-inline-start: -1.25rem;
     padding: 2.7rem 3.4rem 2.5rem 2.6rem;
+    border: 0;
     border-radius: 0;
     background: url("/si-art/blob-lime.svg") center / 100% 100% no-repeat;
+    box-shadow: none;
   }
 
   html.si .hero .waitlist {
@@ -432,19 +484,25 @@ html.si .si-man {
   height: 38.9%;
 }
 
+/*
+ * The word lies on the phone's screen, after the header's arrow. The phone is
+ * drawn flat and set on the picture by one turn and one lean (the matrix of
+ * app-art.svg), and the word takes the same two, so the picture has one
+ * horizon. The lean is its slant: no italic on top of it.
+ */
 html.si .si-word {
   position: absolute;
-  left: 42.86%;
-  top: 13.59%;
-  width: 17.21%;
-  height: 4.82%;
+  left: 38.44%;
+  top: 11.32%;
+  width: 24.44%;
+  height: 4.62%;
   display: grid;
-  place-items: center;
-  font-size: 4.78cqw;
-  font-style: italic;
+  place-items: center start;
+  font-size: 5.11cqw;
   font-weight: 900;
   line-height: 1;
-  transform: rotate(-6deg);
+  transform: rotate(-3deg) skewX(-12deg);
+  transform-origin: 0 0;
 }
 
 /* The trail sits on the text's own left edge: its width is counted in the
@@ -563,19 +621,51 @@ html.si .si-step > :last-child {
   }
 }
 
-/* When the association was founded: the design's lime note with a calendar. */
+/*
+ * When the association was founded: the design's lime note with a calendar.
+ * It is as wide as its words and never wider than the page, so on a narrow
+ * screen with large text a long word breaks instead of leaving the window.
+ */
 html.si[data-page="about"] .prose > h2:first-of-type + p + p {
   width: fit-content;
+  max-width: 100%;
   padding: 1rem 1.4rem 1rem 4.4rem;
+  border: var(--si-line);
   border-radius: 1.5rem;
   background: var(--si-lime) url("/si-art/icon-calendar.svg") 1.2rem center / 2.3rem no-repeat;
+  box-shadow: var(--si-drop);
   font-weight: 700;
 }
 
+/*
+ * Rows of faces that differ by one at most, for a team of eleven or twelve:
+ * two to a row on a phone, then three, then four, and six where the long page
+ * gives the list its whole width. Each step up waits until a column holds the
+ * longest role in one piece, and where the text is large a row takes fewer
+ * faces instead of narrower columns. Five or seven to a row would leave a
+ * short last row, so no step has them.
+ */
 html.si .team {
-  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
-  gap: 1.75rem 1.1rem;
+  --team-row: 2;
+  --team-least: 8rem;
+  --team-gap: 1.1rem;
+  --team-share: calc((100% - (var(--team-row) - 1) * var(--team-gap)) / var(--team-row));
+  grid-template-columns: repeat(auto-fill, minmax(max(var(--team-least), var(--team-share)), 1fr));
+  gap: 1.75rem var(--team-gap);
   text-align: start;
+}
+
+@media (min-width: 32rem) {
+  html.si .team {
+    --team-row: 3;
+    --team-least: 9rem;
+  }
+}
+
+@media (min-width: 44rem) {
+  html.si .team {
+    --team-row: 4;
+  }
 }
 
 html.si .team > li {
@@ -622,6 +712,12 @@ html.si .about-long > section:nth-of-type(3) > h2 {
   padding-inline-end: 3.2rem;
 }
 
+html.si .about-long > section:nth-of-type(2),
+html.si .about-long > section:nth-of-type(3) {
+  border: var(--si-line);
+  box-shadow: var(--si-drop);
+}
+
 html.si .about-long > section:nth-of-type(2) {
   border-radius: 3rem 2.2rem 3.4rem 2.4rem / 2.4rem 3.2rem 2.2rem 3rem;
   background-color: var(--si-lime);
@@ -629,11 +725,9 @@ html.si .about-long > section:nth-of-type(2) {
 }
 
 html.si .about-long > section:nth-of-type(3) {
-  border: var(--si-line);
   border-radius: 1.75rem;
   background-color: var(--si-lavender-soft);
   background-image: url("/si-art/icon-laptop.svg");
-  box-shadow: var(--si-drop);
 }
 
 /* Kumpa in short: each fact a card of its own. */
@@ -656,6 +750,11 @@ html.si .about-long > section:last-of-type ul:not([class]) > li {
 }
 
 @media (min-width: 60rem) {
+  html.si .team {
+    --team-gap: 1.75rem;
+    row-gap: 3.25rem;
+  }
+
   html.si .about-long {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -665,6 +764,13 @@ html.si .about-long > section:last-of-type ul:not([class]) > li {
 
   html.si .about-long > :is(nav, section:first-of-type, section:last-of-type) {
     grid-column: 1 / -1;
+  }
+}
+
+/* The long page's list is as wide as the page; the page of its own is a text column, and stays at four. */
+@media (min-width: 72rem) {
+  html.si .about-long .team {
+    --team-row: 6;
   }
 }
 
@@ -717,15 +823,9 @@ html.si .footer-nav a {
     background-image: none;
   }
 
-  html.si .waitlist,
-  html.si .site-nav a[aria-current],
-  html.si .about-long > section:nth-of-type(2),
-  html.si[data-page="about"] .prose > h2:first-of-type + p + p {
+  html.si .waitlist {
     border: var(--si-line);
     border-radius: 1.5rem;
-  }
-
-  html.si .waitlist {
     background-image: none;
   }
 }
