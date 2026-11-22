@@ -12,7 +12,7 @@ const ada: Person = {
   photo: "/team/ada.jpg",
   linkedin: "https://www.linkedin.com/in/ada/",
   github: "https://github.com/ada",
-  email: "ada@kuutti.app",
+  email: "ada@kumpa.fi",
 };
 const bo: Person = { name: 'Bo <B> & "Co"', roles: ["Design"], photo: null };
 
@@ -43,7 +43,7 @@ test("each way to reach a person is a mark with its words for a screen reader, a
   );
   assert.match(
     html,
-    /<a href="mailto:ada@kuutti\.app" aria-label="E-mail Ada Lovelace" title="E-mail Ada Lovelace">/,
+    /<a href="mailto:ada@kumpa\.fi" aria-label="E-mail Ada Lovelace" title="E-mail Ada Lovelace">/,
   );
   assert.equal(html.match(/<a /g)?.length, 3);
   assert.equal(html.match(/class="channels team-links"/g)?.length, 1);
@@ -138,7 +138,7 @@ test("the maintainer first, Olli second, the rest by first name", () => {
   );
 });
 
-test("everybody has a role, every face is in the site, and every way to reach a person is a profile or a kuutti.app address", () => {
+test("everybody has a role, every face is in the site, and every way to reach a person is a profile or a kumpa.fi address", () => {
   for (const person of TEAM) {
     assert.ok(person.roles.length > 0, `${person.name} has no role`);
     if (person.photo !== null) {
@@ -150,6 +150,6 @@ test("everybody has a role, every face is in the site, and every way to reach a 
     if (person.linkedin)
       assert.match(person.linkedin, /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/$/);
     if (person.github) assert.match(person.github, /^https:\/\/github\.com\/[A-Za-z0-9-]+$/);
-    if (person.email) assert.match(person.email, /^[a-z]+@kuutti\.app$/);
+    if (person.email) assert.match(person.email, /^[a-z]+@kumpa\.fi$/);
   }
 });
