@@ -12,13 +12,13 @@ Det började med ett samtal som kokade ner till en fråga: om dejtandet inte fun
 
 ## Fakta i korthet
 
-- **Registrerad förening.** Kumpa görs av Kuutti ry, en finländsk registrerad ideell förening (ry).
-- **Drivs av frivilliga.** Alla i teamet, ungefär femton personer, är frivilliga. Många av oss träffades vid Aalto-universitetet, men projektet är oberoende av universitetet.
-- **Icke-kommersiell.** Föreningens [stadgar](/legal/bylaws/) utesluter all kommersiell användning: inga abonnemang, inga annonser, ingen försäljning av uppgifter, ingenting.
+- **Gjord i Finland, för Finland.** 🇫🇮
 - **Politiskt och religiöst obunden.**
 - **Öppen källkod.** All vår kod är [offentlig](https://github.com/kuutti-ry) under en copyleft-licens.
+- **Registrerad förening.** Kumpa görs av Kuutti ry, en finländsk registrerad ideell förening (ry).
+- **Icke-kommersiell.** Föreningens [stadgar](/legal/bylaws/) utesluter all kommersiell användning: inga abonnemang, inga annonser, ingen försäljning av uppgifter, ingenting.
+- **Drivs av frivilliga.** Alla i teamet, ungefär femton personer, är frivilliga. Många av oss träffades vid Aalto-universitetet, men projektet är oberoende av universitetet.
 - **Bara riktiga människor.** Man kan bara registrera sig med finländska bankkoder, så varje användare är en verklig person, på riktigt. Det är vårt svar på falska profiler, romansbedrägerier, bottar och trakasserier.
-- **Gjord i Finland, för Finland.** 🇫🇮
 - **Utveckling.** Vi började i september 2026. De senaste verktygen för generativ AI skriver kod av hygglig kvalitet, och därför kan ett frivilligteam som vårt bygga en hel dejtingapp.
 
 ## Källmaterial

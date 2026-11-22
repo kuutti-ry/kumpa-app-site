@@ -12,13 +12,13 @@ Kaikki alkoi keskustelusta, joka tiivistyi yhteen kysymykseen: jos deittailu on 
 
 ## Kumpa lyhyesti
 
-- **Rekisteröity yhdistys.** Kumpa-sovellusta tekee Kuutti ry, suomalainen voittoa tavoittelematon rekisteröity yhdistys.
-- **Vapaaehtoisvoimin.** Koko tiimi, noin viisitoista ihmistä, tekee työtä vapaaehtoisina. Moni meistä tutustui Aalto-yliopistossa, mutta emme ole sidoksissa yliopistoon.
-- **Epäkaupallinen.** Yhdistyksen [säännöt](/legal/bylaws/) kieltävät kaiken kaupallisuuden: ei maksullisia tilauksia, ei mainoksia, ei tietojen myyntiä, ei mitään.
+- **Tehty Suomessa, Suomea varten.** 🇫🇮
 - **Poliittisesti ja uskonnollisesti sitoutumaton.**
 - **Avoin lähdekoodi.** Kaikki koodimme on [julkista](https://github.com/kuutti-ry) copyleft-lisenssillä.
+- **Rekisteröity yhdistys.** Kumpa-sovellusta tekee Kuutti ry, suomalainen voittoa tavoittelematon rekisteröity yhdistys.
+- **Epäkaupallinen.** Yhdistyksen [säännöt](/legal/bylaws/) kieltävät kaiken kaupallisuuden: ei maksullisia tilauksia, ei mainoksia, ei tietojen myyntiä, ei mitään.
+- **Vapaaehtoisvoimin.** Koko tiimi, noin viisitoista ihmistä, tekee työtä vapaaehtoisina. Moni meistä tutustui Aalto-yliopistossa, mutta emme ole sidoksissa yliopistoon.
 - **Vain oikeita ihmisiä.** Rekisteröityä voi vain suomalaisilla pankkitunnuksilla, joten jokainen käyttäjä on yksi oikea ihminen, ihan oikeasti. Se on vastauksemme valeprofiileihin, romanssihuijauksiin, botteihin ja häirintään.
-- **Tehty Suomessa, Suomea varten.** 🇫🇮
 - **Kehitystyö.** Aloitimme syyskuussa 2026. Uusimmat generatiivisen tekoälyn työkalut kirjoittavat jo kelpo koodia, ja sen ansiosta meidän kaltaisemme vapaaehtoisporukka pystyy tekemään kokonaisen deittisovelluksen.
 
 ## Kuvia ja taustaa
