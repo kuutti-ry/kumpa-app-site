@@ -8,7 +8,7 @@ machine: true
 
 ## Näin sovellus on tehty
 
-Käytämme iPhone- ja Android-sovelluksen tekemiseen React Nativea ja Expoa. Palvelimen koodi on TypeScriptiä ja tietokanta on PostgreSQL. Kirjautumisessa käytämme Telian tunnistuspalvelua, joka kuuluu suomalaiseen tunnistuspalveluiden luottamusverkostoon. Palvelimemme, tietokantamme ja käyttäjien kuvat ovat Saksassa.
+Käytämme iPhone- ja Android-sovelluksen tekemiseen React Nativea ja Expoa. Palvelimen koodi on TypeScriptiä ja tietokanta on PostgreSQL. Kirjautumisessa käytämme Telian tunnistuspalvelua, joka kuuluu suomalaiseen tunnistuspalveluiden luottamusverkostoon. Palvelimemme, tietokantamme ja käyttäjien kuvat sijaitsevat Saksassa.
 
 Koodin lisenssi on [GNU Affero General Public License](https://github.com/kuutti-ry/kumpa-app/blob/main/LICENSE). Siihen kuuluu [sovelluskauppoja koskeva poikkeus](https://github.com/kuutti-ry/kumpa-app/blob/main/LICENSE-EXCEPTION).
 
