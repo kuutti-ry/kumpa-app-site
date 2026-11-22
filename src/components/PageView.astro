@@ -68,12 +68,13 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 ) : (
   <article class="prose">
     {siApp ? (
+      // In the order it is read on a phone (docs/decisions.md, 50): the title,
+      // the picture, then the waiting list. One order in the page and on the
+      // screen; from 52rem a style stands the picture beside the other two.
       <div class="si-lead">
-        <div class="si-lead-copy">
-          <h1>{page.data.title}</h1>
-          <Waitlist locale={locale} />
-        </div>
+        <h1>{page.data.title}</h1>
         <SiArt kind="app" />
+        <Waitlist locale={locale} />
       </div>
     ) : (
       <>

@@ -479,3 +479,13 @@ The maintainer's word of 22/11/2026: a `/si2/` version of the site, without touc
 - **The front page's two pictures, cleaned.** Emma's picture had rays of the design baked into the photo, offset under the drawn ones, and they showed as a lime edge above her; `/si2/`'s picture has none. The man's picture had a sliver of the design's lime under his shirt's hem; it is taken out as a matte, the hem's own colour kept. `/si/` keeps both as they were.
 - **More contrast.** On `/si/` the front page's form keeps its lime shape when more contrast is asked for, since the rule that draws it there outranks the one that takes the colours away. On `/si2/` it steps back as `si.css` says the colours do.
 - **Untouched.** The site and `/si/`: built from `main` and from this change, every file outside `/si2/` and `/si2-art/` is the same, byte for byte.
+
+## 50. The app page of /si/ in the designer's order, and no children among the reports on Help (2026-11-22)
+
+The maintainer's "fix this one here too" of 22/11/2026, with the designer's note on `/si/app/`: on a phone the heading, the picture, then the waiting list; and her question about Help's "moderators handle reports about children first": there are no children in the app, so it is not said like that.
+
+- **The order.** On the app page of `/si/` and `/si2/`: the title, the picture of the phone, the waiting list, and how the address is used. Before, the picture came after the whole form. As in 48, the parts are in that order in the markup and no style moves anything on a phone; from 52rem the picture stands on the right beside the title and the list, which are where they were to the pixel at the text's own size. `pnpm check:site` holds the order in every language.
+- **Only the copies.** The site's own app page has no picture and keeps its markup.
+- **Help.** In the three languages the sentence ends at "within 24 hours". A reader of Help met children there with nothing before it to say why; the link to the child safety standards stays in the same paragraph.
+- **The child safety standards keep it.** That page is the one the stores ask for, and there the sentence stands under "Adults only" and the prohibitions, where it reads as what it is. Its words are unchanged.
+

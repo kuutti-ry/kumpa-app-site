@@ -136,6 +136,18 @@ for (const path of pages) {
     if (order.join(" ") !== every.join(" "))
       problems.push(`${page}: the home's parts come as ${order.join(" ")}`);
   }
+  // So does the app page's lead (50): the title, the picture, then the waiting list.
+  if (isSi(here) && /class="si-art si-art-app"/.test(html)) {
+    const parts = /<h1[\s>]|class="si-art si-art-app"|<form class="waitlist"/g;
+    const order = [...html.matchAll(parts)].map(([part]) => part.replace(/^<h1.$/, "<h1"));
+    const every = LOCALES.flatMap(() => [
+      "<h1",
+      'class="si-art si-art-app"',
+      '<form class="waitlist"',
+    ]);
+    if (order.join(" ") !== every.join(" "))
+      problems.push(`${page}: the app page's parts come as ${order.join(" ")}`);
+  }
   const hasWaitlist = twin === "/" || twin === "/app/";
   const forms = [...html.matchAll(/<form\b[^>]*>/gi)];
   if (

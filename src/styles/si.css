@@ -567,12 +567,20 @@ html.si[data-page="about"] .prose > :is(h2, p) {
   max-width: var(--column);
 }
 
+/* The app page's lead in the order of its markup (docs/decisions.md, 50): the
+   title, the picture, then the waiting list, one under the other on a phone.
+   From 52rem the picture stands on the right beside both, and the rows above
+   and below take what is left, so the two stay in the middle together. */
 html.si .si-lead {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: 2rem;
+  column-gap: 2rem;
   margin-block-end: 2.5rem;
+}
+
+html.si .si-lead .si-art-app {
+  margin-block: 1.5rem 0.5rem;
 }
 
 html.si .si-lead h1 {
@@ -619,6 +627,26 @@ html.si .si-step > :last-child {
 @media (min-width: 52rem) {
   html.si .si-lead {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-rows: 1fr auto auto auto 1fr;
+  }
+
+  html.si .si-lead h1 {
+    grid-area: 2 / 1;
+  }
+
+  /* Rows of a grid keep both margins; the title's own is the space between. */
+  html.si .si-lead .waitlist {
+    grid-area: 3 / 1;
+    margin-block-start: 0;
+  }
+
+  html.si .si-lead .waitlist-privacy {
+    grid-area: 4 / 1;
+  }
+
+  html.si .si-lead .si-art-app {
+    grid-area: 1 / 2 / -1 / 3;
+    margin-block: 0;
   }
 
   html.si .si-steps {

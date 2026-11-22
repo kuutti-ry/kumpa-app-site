@@ -13,7 +13,7 @@ If your bank’s identification page fails, try again later. If Kumpa refuses yo
 
 ## I want to report someone
 
-You can report a profile, photo or conversation in the app. Moderators review reports within 24 hours and prioritise reports about children. Blocking someone stops you from seeing each other. Read our [child safety standards](/child-safety/).
+You can report a profile, photo or conversation in the app. Moderators review reports within 24 hours. Blocking someone stops you from seeing each other. Read our [child safety standards](/child-safety/).
 
 ## I want a copy of my data
 
