@@ -479,3 +479,13 @@ The maintainer's word of 22/11/2026: a `/si2/` version of the site, without touc
 - **The front page's two pictures, cleaned.** Emma's picture had rays of the design baked into the photo, offset under the drawn ones, and they showed as a lime edge above her; `/si2/`'s picture has none. The man's picture had a sliver of the design's lime under his shirt's hem; it is taken out as a matte, the hem's own colour kept. `/si/` keeps both as they were.
 - **More contrast.** On `/si/` the front page's form keeps its lime shape when more contrast is asked for, since the rule that draws it there outranks the one that takes the colours away. On `/si2/` it steps back as `si.css` says the colours do.
 - **Untouched.** The site and `/si/`: built from `main` and from this change, every file outside `/si2/` and `/si2-art/` is the same, byte for byte.
+
+## 51. The name in a circle as the icon (2026-11-22)
+
+The maintainer's word of 22/11/2026: the website's favicon from the folder of logos he gave, the name "Kumpa" in navy (#0C0C1D) on an off-white circle (#FFF6F0). It takes the seal pup's place in the tab (7), on the site and on its `/si/` copies alike. (50 is the app page's order, in a pull request of its own.)
+
+- **Three files, as given.** `public/favicon.svg` is the drawing, for the browsers that take one, with a title added, which the linter asks of every drawing. `public/favicon.png` is the same circle at 48 px, for those that do not. `public/apple-touch-icon.png` is the name on an off-white square of 180 px, since iOS rounds the corners itself and puts a transparent icon on black. The site had no touch icon before.
+- **Named by their fingerprints**, like the icon before them (7), so a browser fetches the new one by itself.
+- **The share image stays.** A link's preview still shows the seal pup's face (`public/kuutti.png`): only the icon was asked for.
+- **Small.** Five letters across 16 px are a shape more than a word; at 32 px the name reads.
+
