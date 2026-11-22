@@ -498,3 +498,13 @@ The maintainer's word of 22/11/2026: the website's favicon from the folder of lo
 - **The share image stays.** A link's preview still shows the seal pup's face (`public/kuutti.png`): only the icon was asked for.
 - **Small.** Five letters across 16 px are a shape more than a word; at 32 px the name reads.
 
+## 52. The look of /si/ is the site's (2026-11-22)
+
+The maintainer's word of 22/11/2026: "move the website under /si/ as main, without that extra piece (replacing the original one)". The try of 41 is the site: every page at its own address wears the look of Sini's design, and the look the site had is gone from its pages.
+
+- **The same pages.** Each page is built as its `/si/` twin was: the same markup, apart from links that no longer carry `/si/` and the search engines' leave, which a page of the site has and a try had not. Compared as pictures with the `/si/` pages of the day before, 16 pages at 320, 390, 1,000 and 1,440 px and in the dark scheme: not a pixel apart. The page for an address that is not there wears the look too.
+- **/si/ leads on.** An address under `/si/` redirects to the page itself, so the links the team passed around still open. Nothing else links there and no search engine was let in.
+- **/si2/ stays** as it was (49), the softer yellow beside the site, pixel for pixel: it was not asked to go.
+- **What the old look leaves behind.** The home's and About Us's old markup and the component that drew the old About Us are removed. `src/styles/global.css` is still the sheet under `si.css`, with rules the look overrides, and `src/lib/saiga.ts` still knows the old look's first fonts: the two sheets become one, and those go, in a change of its own, since every rule taken out has to be shown to move nothing.
+- **Unchanged.** The tab's icon (51), the share image and the header's seal file, the texts, the scripts and the policy. `pnpm check:site` holds every page to the look, the copy to its own, and each `/si/` address to its redirect.
+

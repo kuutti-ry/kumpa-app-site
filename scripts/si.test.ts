@@ -2,22 +2,22 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
-import { COPIES, copyOf, cutAtHeading, isSi, linksInSi, stepped } from "../src/lib/si.ts";
+import { COPIES, copyOf, cutAtHeading, linksInCopy, stepped } from "../src/lib/si.ts";
 
-// The /si/ and /si2/ copies of the site (docs/decisions.md, 41, 43 and 49).
+// The site's look and its /si2/ copy (docs/decisions.md, 41, 43, 49 and 52).
 
-const [si, si2] = COPIES;
+const [si2] = COPIES;
 
 test("an address is of the copy whose address begins it, and of none where none does", () => {
   for (const [address, copy] of [
-    ["/si/", si],
-    ["/si", si],
-    ["/si/legal/privacy/", si],
+    ["/si/", undefined],
+    ["/si", undefined],
+    ["/si/legal/privacy/", undefined],
     ["/si2/", si2],
     ["/si2", si2],
     ["/si2/legal/privacy/", si2],
     ["/si2/si/", si2],
-    ["/si/si2/", si],
+    ["/si/si2/", undefined],
     ["/", undefined],
     ["/sitemap.xml", undefined],
     ["/simple/", undefined],
@@ -28,14 +28,17 @@ test("an address is of the copy whose address begins it, and of none where none 
     ["", undefined],
   ] as const) {
     assert.equal(copyOf(address), copy, address);
-    assert.equal(isSi(address), copy !== undefined, address);
   }
 });
 
 test("a link on a page of /si2/ leads to its /si2/ twin", () => {
-  assert.equal(linksInSi('<a href="/">Home</a>', "/si2"), '<a href="/si2/">Home</a>');
+  assert.equal(linksInCopy('<a href="/">Home</a>', "/si2"), '<a href="/si2/">Home</a>');
   assert.equal(
-    linksInSi('<p><a href="/help/">a</a> · <a href="/legal/privacy/#v-2">b</a></p>', "/si2"),
+    linksInCopy('<a class="brand" href="/about/#contact" aria-current="page">x</a>', "/si2"),
+    '<a class="brand" href="/si2/about/#contact" aria-current="page">x</a>',
+  );
+  assert.equal(
+    linksInCopy('<p><a href="/help/">a</a> · <a href="/legal/privacy/#v-2">b</a></p>', "/si2"),
     '<p><a href="/si2/help/">a</a> · <a href="/si2/legal/privacy/#v-2">b</a></p>',
   );
   for (const html of [
@@ -43,7 +46,7 @@ test("a link on a page of /si2/ leads to its /si2/ twin", () => {
     '<a href="/legal/versions.json">versions</a>',
     '<a class="skip" href="#content">Skip</a>',
   ]) {
-    assert.equal(linksInSi(html, "/si2"), html);
+    assert.equal(linksInCopy(html, "/si2"), html);
   }
 });
 
@@ -67,30 +70,18 @@ test("each drawing of /si2/ is its /si/ twin in the softer yellow", () => {
   }
 });
 
-test("a link to a page of the site leads to its /si/ twin", () => {
-  assert.equal(linksInSi('<a href="/">Home</a>'), '<a href="/si/">Home</a>');
-  assert.equal(
-    linksInSi('<a class="brand" href="/about/#contact" aria-current="page">x</a>'),
-    '<a class="brand" href="/si/about/#contact" aria-current="page">x</a>',
-  );
-  assert.equal(
-    linksInSi('<p><a href="/help/">a</a> · <a href="/legal/privacy/#v-2">b</a></p>'),
-    '<p><a href="/si/help/">a</a> · <a href="/si/legal/privacy/#v-2">b</a></p>',
-  );
-});
-
 test("a file, an anchor of the page, another site and a link already inside stay as they are", () => {
   for (const html of [
     '<a href="/legal/versions.json">versions</a>',
     '<a class="skip" href="#content">Skip</a>',
     '<a href="https://github.com/kuutti-ry/">GitHub</a>',
     '<a href="mailto:hello@kumpa.fi">hello@kumpa.fi</a>',
-    '<a href="/si/app/">App</a>',
+    '<a href="/si2/app/">App</a>',
     '<link rel="canonical" href="https://kumpa.fi/app/">',
     '<link rel="stylesheet" href="/fonts/saiga.css">',
     '<img src="/logo.png" alt="">',
   ]) {
-    assert.equal(linksInSi(html), html);
+    assert.equal(linksInCopy(html, "/si2"), html);
   }
 });
 

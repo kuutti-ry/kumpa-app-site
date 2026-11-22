@@ -1,39 +1,37 @@
 /**
- * The whole site once more under /si/, in the look of Sini's webpage design
- * (docs/decisions.md, 41): the same pages, texts and scripts, drawn by
- * src/styles/si.css. It is a try for the team to look at, so no page of it is
- * indexed, the sitemap leaves it out, and nothing on the site links to it.
- * /si2/ is /si/ once more in a softer yellow, a try of the same kind
+ * The site wears the look of Sini's webpage design: src/styles/si.css under
+ * `html.si`, over src/styles/global.css. It was a try under /si/
+ * (docs/decisions.md, 41) and is the site's own look since 52; an address
+ * under /si/ leads to the page itself (src/lib/redirects.ts).
+ * /si2/ is the whole site once more in a softer yellow, a try for the team
  * (docs/decisions.md, 49): its pages wear both classes, and
  * src/styles/si2.css changes only the yellow and the drawings that carry it.
+ * No page of it is indexed, the sitemap leaves it out, and nothing links to it.
  */
-export const SI = "/si";
+export const LOOK = "si";
+
+/** The folder of the look's pictures; a copy has one of its own beside it. */
+export const ART = "/si-art";
 
 /** The copies: where each one's pages are, and the classes they wear. */
-export const COPIES = [
-  { prefix: SI, look: "si" },
-  { prefix: "/si2", look: "si si2" },
-] as const;
+export const COPIES = [{ prefix: "/si2", look: "si si2", art: "/si2-art" }] as const;
 
 /** The copy an address is of, if it is of one. */
 export const copyOf = (pathname: string): (typeof COPIES)[number] | undefined =>
   COPIES.find(({ prefix }) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 
-/** Whether an address is of a copy, and so in the look of Sini's design. */
-export const isSi = (pathname: string): boolean => copyOf(pathname) !== undefined;
-
 /**
- * A page's HTML with its links kept inside its copy, /si/ unless another is
- * named: every link to a page of the site leads to that page's twin there. A
+ * A page's HTML with its links kept inside its copy: every link to a page of
+ * the site leads to that page's twin there. A
  * page's address ends in a slash and a file's does not, so files, anchors of
  * the page itself and other sites stay as they are.
  */
-export function linksInSi(html: string, prefix: string = SI): string {
+export function linksInCopy(html: string, prefix: string): string {
   return html.replace(
     /(<a\b[^>]*?\shref=")(\/[^"]*)"/g,
     (whole, before: string, address: string) => {
       const [path = ""] = address.split(/[?#]/);
-      if (isSi(path) || !path.endsWith("/")) return whole;
+      if (copyOf(path) || !path.endsWith("/")) return whole;
       return `${before}${prefix}${address}"`;
     },
   );

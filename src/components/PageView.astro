@@ -4,9 +4,8 @@ import { t } from "../i18n/ui.ts";
 import type { Page } from "../lib/content.ts";
 import { opened } from "../lib/home.ts";
 import { pageHtml } from "../lib/page-html.ts";
-import { isSi, stepped } from "../lib/si.ts";
+import { stepped } from "../lib/si.ts";
 import AboutCalm from "./AboutCalm.astro";
-import AboutSections from "./AboutSections.astro";
 import PageBody from "./PageBody.astro";
 import SiArt from "./SiArt.astro";
 import StoreBadges from "./StoreBadges.astro";
@@ -18,11 +17,10 @@ interface Props {
   page: Page;
 }
 const { locale, slug, page } = Astro.props;
-// The /si/ copy draws the same texts with the design's pictures (src/lib/si.ts).
-const si = isSi(Astro.url.pathname);
-const siApp = si && slug === "app";
-// About Us has a drawing of its own there, without the trail above it.
-const siAbout = si && slug === "about";
+// The app page and About Us have drawings of their own (src/lib/si.ts); About
+// Us stands without the trail above it.
+const siApp = slug === "app";
+const siAbout = slug === "about";
 const html = siApp ? stepped(pageHtml(page, locale)) : pageHtml(page, locale);
 const home = slug === "";
 const aboutChild = slug.startsWith("about/");
@@ -37,30 +35,18 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
 </nav>}
 {home ? (
   <>
-    {si ? (
-      // Sini's order (docs/decisions.md, 48): the picture under the name, and the
-      // way to the app before the waiting list. One order in the page and on the
-      // screen, so a keyboard and a screen reader go as the eye does.
-      <section class="hero">
-        <h1>{page.data.title}</h1>
-        <SiArt kind="home" />
-        <div class="hero-copy">
-          <Fragment set:html={opening} />
-          <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
-          <Waitlist locale={locale} />
-        </div>
-      </section>
-    ) : (
-      <section class="hero">
-        <div class="hero-copy">
-          <h1>{page.data.title}</h1>
-          <Fragment set:html={opening} />
-          <Waitlist locale={locale} />
-          <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
-        </div>
-        <div class="hero-art" aria-hidden="true"><img src="/logo.png" alt="" width="840" height="572" /></div>
-      </section>
-    )}
+    {/* Sini's order (docs/decisions.md, 48): the picture under the name, and the
+        way to the app before the waiting list. One order in the page and on the
+        screen, so a keyboard and a screen reader go as the eye does. */}
+    <section class="hero">
+      <h1>{page.data.title}</h1>
+      <SiArt kind="home" />
+      <div class="hero-copy">
+        <Fragment set:html={opening} />
+        <a class="explore-app" href="/app/">{t(locale, "home.action")}</a>
+        <Waitlist locale={locale} />
+      </div>
+    </section>
     {rest && <section class="prose" set:html={rest} />}
   </>
 ) : siAbout ? (
@@ -77,13 +63,9 @@ const { opening, rest } = home ? opened(html) : { opening: "", rest: "" };
         <Waitlist locale={locale} />
       </div>
     ) : (
-      <>
-        <h1>{page.data.title}</h1>
-        {slug === "app" && <Waitlist locale={locale} />}
-      </>
+      <h1>{page.data.title}</h1>
     )}
     <PageBody html={html} locale={locale} />
-    {slug === "about" && <AboutSections locale={locale} />}
-    {slug === "app" && <StoreBadges locale={locale} />}
+    {siApp && <StoreBadges locale={locale} />}
   </article>
 )}
