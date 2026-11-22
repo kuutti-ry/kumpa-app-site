@@ -48,7 +48,7 @@ export async function routes() {
     // A newly proposed draft may have no binding version yet.
     const original = versions.find((entry) => entry.data.binding) ?? versions[0];
     if (!original) throw new Error(`Missing legal text: ${slug}`);
-    // A language the text is not written in names it as its shelf does.
+    // Each language names the text as its shelf does.
     const info = (locale: Locale) => {
       const item = shelves[LOCALES.indexOf(locale)]?.find((entry) => entry.slug === slug);
       if (!item) throw new Error(`Missing legal text: ${locale}/${slug}`);

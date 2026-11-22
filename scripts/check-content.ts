@@ -6,10 +6,9 @@
  * - Every Finnish and Swedish page says who wrote it: `machine: true`, or
  *   `reviewedBy` with the native reader's name, or "native speaker" for one
  *   who has not asked to be named. English is the source and carries neither.
- * - Each current legal document has Finnish and English (CLAUDE.md, rule 3).
- *   Swedish names one it does not have through a version's `listing`, which
- *   the build holds. A machine translation names its status and can never be
- *   the binding text.
+ * - Each current legal document has Finnish, Swedish and English (CLAUDE.md,
+ *   rule 3). A machine translation names its status and can never be the
+ *   binding text.
  * - A text a person agrees to in the app (src/lib/consent.ts) names its
  *   `consent_version`, the same in every language, and no other text does.
  *   A consent read on another text's page (src/content/consents) is one of
@@ -114,7 +113,7 @@ for (const slug of new Set(legal.map((text) => text.slug))) {
   if (new Set(versions.map((text) => text.front.get("status"))).size > 1) {
     problems.push(`legal/*/${slug}.md: one status in one language and another in another`);
   }
-  for (const locale of ["fi", "en"] as const) {
+  for (const locale of LOCALES) {
     if (!versions.some((text) => text.locale === locale))
       problems.push(`legal/${locale}/${slug}.md is missing`);
   }

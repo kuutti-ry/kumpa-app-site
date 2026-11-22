@@ -14,6 +14,10 @@ After checking a page against the English copy and the app’s terminology, repl
 
 ## Legal texts
 
-The Finnish versions of the terms, privacy policy and DPIA summary are machine translations of the English originals. The English bylaws are a machine translation of the registered Finnish original. Each translation opens with its status and a link to the version that takes precedence. The sensitive-answers consent uses the app’s wording, with English controlling the current version.
+The Finnish and Swedish versions of the terms, privacy policy and DPIA summary are machine translations of the English originals. The English and Swedish bylaws are machine translations of the registered Finnish original. Each translation opens with its status and a link to the version that takes precedence; the Swedish one names the original’s language, since Swedish translates from both. The sensitive-answers consent uses the app’s wording, with English controlling the current version. The app has no Swedish wording, so the Swedish privacy page shows the English one (`docs/decisions.md`, 47).
 
-Correct a translation in its own file. Keep binding wording, consent fingerprints and previously published versions intact when reviewing translations.
+```bash
+rg -l '^machine: true$' src/content/legal
+```
+
+Correct a translation in its own file. Keep binding wording, consent fingerprints and previously published versions intact when reviewing translations. In the Swedish bylaws, look first at “årsredogörelsen” for the Finnish “vuosilaskelma”.
