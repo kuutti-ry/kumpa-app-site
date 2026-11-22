@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/si.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { DEFAULT_LOCALE, HIDDEN_LOCALES, LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
@@ -7,7 +8,7 @@ import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
 import { fontsAskedFirst, hasSaiga } from "../lib/saiga.ts";
 import { languageIntegrity, statusIntegrity, waitlistIntegrity } from "../lib/script-integrity.ts";
-import { copyOf } from "../lib/si.ts";
+import { copyOf, LOOK } from "../lib/si.ts";
 
 interface Props {
   slug: string;
@@ -18,9 +19,8 @@ const { slug, head, noindex } = Astro.props;
 const title = (locale: Locale) => (slug ? `${head[locale].title} · Kumpa` : head[locale].title);
 const site = Astro.site ?? new URL("https://kumpa.fi");
 const hasWaitlist = slug === "" || slug === "app";
-// The copies, /si/ and /si2/ (src/lib/si.ts): their style sheets read the classes and the page's name.
-const copy = copyOf(Astro.url.pathname);
-const si = copy !== undefined;
+// The look and the /si2/ copy (src/lib/si.ts): the style sheets read the classes and the page's name.
+const look = copyOf(Astro.url.pathname)?.look ?? LOOK;
 // HTML's `blocking="render"` on a script, which Astro's types do not name yet.
 const holdsFirstPaint = { blocking: "render" };
 // public/language.js reads each language's title and description from these.
@@ -29,11 +29,11 @@ const each = (value: (locale: Locale) => string) =>
 ---
 
 <!doctype html>
-<html lang="fi" class={copy?.look} data-page={si ? slug || "home" : undefined}>
+<html lang="fi" class={look} data-page={slug || "home"}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {fontsAskedFirst(si).map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
+    {fontsAskedFirst(true).map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
     <title {...each(title)}>{title(DEFAULT_LOCALE)}</title>
     <meta name="description" content={head[DEFAULT_LOCALE].description} {...each((locale) => head[locale].description)} />
     {noindex && <meta name="robots" content="noindex" />}
@@ -42,7 +42,7 @@ const each = (value: (locale: Locale) => string) =>
     <link rel="icon" type="image/png" sizes="48x48" href={fingerprinted("/favicon.png")} />
     <link rel="icon" type="image/svg+xml" href={fingerprinted("/favicon.svg")} />
     <link rel="apple-touch-icon" href={fingerprinted("/apple-touch-icon.png")} />
-    <meta name="theme-color" content={si ? "#fff6f0" : "#ffffff"} />
+    <meta name="theme-color" content="#fff6f0" />
     <meta property="og:title" content={title("fi")} />
     <meta property="og:description" content={head.fi.description} />
     <meta property="og:type" content="website" />

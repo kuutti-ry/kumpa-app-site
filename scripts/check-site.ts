@@ -57,7 +57,7 @@ import {
   statusIntegrity,
   waitlistIntegrity,
 } from "../src/lib/script-integrity.ts";
-import { COPIES, copyOf, isSi } from "../src/lib/si.ts";
+import { COPIES, copyOf, LOOK } from "../src/lib/si.ts";
 import { landingProblems } from "./landing.ts";
 
 const dist = join(import.meta.dirname, "..", "dist");
@@ -102,11 +102,20 @@ for (const path of pages) {
   for (const banned of ["iframe", "object", "embed"]) {
     if (new RegExp(`<${banned}[\\s>]`, "i").test(html)) problems.push(`${page}: a <${banned}>`);
   }
-  // A page of a copy, /si/ or /si2/, is held to what its twin is
-  // (src/lib/si.ts), and a copy is a try nobody is led to: a page of it wears
-  // the copy's look, is left alone by search engines and has a page of the
-  // site behind it, and no other page wears the look (docs/decisions.md, 41
-  // and 49).
+  // An address of the site, or one under /si/, where its look was first tried
+  // (docs/decisions.md, 52), that only leads on: a static redirect and nothing else.
+  const destination = here.startsWith("/si/")
+    ? here.slice("/si".length)
+    : Object.entries(redirects).find(([from]) => from === here)?.[1];
+  if (destination) {
+    if (/<script\b/i.test(html) || !html.includes(`url=${destination}"`) || !fileOf(destination))
+      problems.push(`${page}: expected a static redirect to ${destination}`);
+    continue;
+  }
+  // A page of the /si2/ copy is held to what its twin is (src/lib/si.ts), and
+  // a copy is a try nobody is led to: a page of it wears the copy's look, is
+  // left alone by search engines and has a page of the site behind it. Every
+  // other page wears the site's own look (docs/decisions.md, 49 and 52).
   const copy = copyOf(here);
   const twin = copy ? here.slice(copy.prefix.length) : here;
   const look = /<html\b[^>]*\sclass="([^"]*)"/.exec(html)?.[1];
@@ -117,13 +126,13 @@ for (const path of pages) {
     if (!/<meta name="robots" content="noindex"/.test(html)) {
       problems.push(`${page}: ${of} that a search engine may index`);
     }
-  } else if (look?.split(" ").includes("si")) {
-    problems.push(`${page}: wears the look of the /si/ copy`);
+  } else if (look !== LOOK) {
+    problems.push(`${page}: without the site's look`);
   }
-  // The home of the /si/ copy reads in the order it is seen in (docs/decisions.md,
+  // The home reads in the order it is seen in (docs/decisions.md,
   // 48): the name, the picture, the way to the app, then the waiting list, in
   // every language. The page's own order, so no style has to move anything.
-  if (isSi(here) && /class="si-art si-art-home"/.test(html)) {
+  if (/class="si-art si-art-home"/.test(html)) {
     const parts = /<h1[\s>]|class="si-art si-art-home"|class="explore-app"|<form class="waitlist"/g;
     const order = [...html.matchAll(parts)].map(([part]) => part.replace(/^<h1.$/, "<h1"));
     const one = [
@@ -137,7 +146,7 @@ for (const path of pages) {
       problems.push(`${page}: the home's parts come as ${order.join(" ")}`);
   }
   // So does the app page's lead (50): the title, the picture, then the waiting list.
-  if (isSi(here) && /class="si-art si-art-app"/.test(html)) {
+  if (/class="si-art si-art-app"/.test(html)) {
     const parts = /<h1[\s>]|class="si-art si-art-app"|<form class="waitlist"/g;
     const order = [...html.matchAll(parts)].map(([part]) => part.replace(/^<h1.$/, "<h1"));
     const every = LOCALES.flatMap(() => [
@@ -184,19 +193,12 @@ for (const path of pages) {
       problems.push(`${page}: ${address} is not in the site`);
     }
     // A copy draws with pictures of its own where it has them (src/components/SiArt.astro).
-    const own = copy ? address.replace(/^\/si-art\//, `${copy.prefix}-art/`) : address;
+    const own = copy ? address.replace(/^\/si-art\//, `${copy.art}/`) : address;
     if (own !== address && fileOf(own))
       problems.push(`${page}: ${address}, where the copy has ${own}`);
   }
 
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
-  const redirect = Object.entries(redirects).find(([from]) => from === here);
-  if (redirect) {
-    const [, destination] = redirect;
-    if (scripts.length || !html.includes(`url=${destination}`) || !fileOf(destination))
-      problems.push(`${page}: expected a static redirect to ${destination}`);
-    continue;
-  }
   if (!copy && page !== "/404.html") {
     for (const { prefix } of COPIES) {
       if (!fileOf(`${prefix}${here}`)) problems.push(`${page}: no copy of it under ${prefix}/`);
@@ -260,7 +262,7 @@ for (const path of pages) {
   // The fonts of the first screen are asked for with the page, as a font and
   // as the style sheet will ask (crossorigin): asked for otherwise, a file is
   // fetched twice, and one more than is drawn is fetched for nothing.
-  const first = fontsAskedFirst(isSi(here), saiga);
+  const first = fontsAskedFirst(true, saiga);
   const asked = [...html.matchAll(/<link\b[^>]*>/gi)]
     .map(([tag]) => tag)
     .filter((tag) => attribute(tag, "rel") === "preload");
