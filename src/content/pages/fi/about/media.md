@@ -4,7 +4,7 @@ description: "Mistä Kumpa sai alkunsa, ketkä sitä tekevät ja miten voit sopi
 machine: true
 ---
 
-Kumpa on ilmainen deittisovellus Suomessa asuville aikuisille, ja se on nyt suljetussa betatestissä. Jos haluat haastatella meitä, nähdä sovelluksen tai saada kuvia juttuusi, kirjoita osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi).
+Kumpa on ilmainen deittisovellus Suomessa asuville aikuisille, ja se on tällä hetkellä suljetussa betatestissä. Jos haluat haastatella meitä, nähdä sovelluksen tai saada kuvia juttuusi, kirjoita osoitteeseen [hello@kumpa.fi](mailto:hello@kumpa.fi).
 
 ## Mistä idea lähti?
 

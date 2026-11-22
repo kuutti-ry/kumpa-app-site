@@ -8,7 +8,7 @@ Jos tarvitset apua sovelluksen kanssa, kirjoita meille osoitteeseen [hello@kumpa
 
 ## Rekisteröityminen ei onnistu
 
-Rekisteröidyt kerran suomalaisilla pankkitunnuksilla. Sen jälkeen pysyt kirjautuneena, ja voit lukita sovelluksen pääsykoodilla, kasvoillasi tai sormenjäljelläsi. Tunnistaudut pankkitunnuksilla uudelleen vain, jos kirjaudut ulos, asennat sovelluksen uudelleen tai Kumpan tiimi pyytää sitä.
+Rekisteröidyt kerran suomalaisilla pankkitunnuksilla. Sen jälkeen pysyt kirjautuneena, ja voit lukita sovelluksen pääsykoodilla tai kasvojen-/sormenjäljentunnistuksella. Tunnistaudut pankkitunnuksilla uudelleen vain, jos kirjaudut ulos, asennat sovelluksen uudelleen tai Kumpan tiimi pyytää sitä.
 
 Sinun pitää olla vähintään 18-vuotias. Jos pankin tunnistussivu ei toimi, kokeile myöhemmin uudelleen. Jos sovellus ei hyväksy rekisteröitymistä, se kertoo syyn. Jos poistit tilisi äskettäin, sovellus näyttää, milloin voit luoda uuden.
 

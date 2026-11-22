@@ -13,7 +13,7 @@ Jokainen tunnistautuu suomalaisilla pankkitunnuksilla. Alle 18-vuotias ei voi lu
 ## Kielletty toiminta
 
 - Lapsiin kohdistuvaa seksuaaliväkivaltaa kuvaavan aineiston luominen, jakaminen, pyytäminen tai siihen linkittäminen. Kielto koskee myös piirrettyä ja tekoälyllä tuotettua aineistoa.
-- Yritys ottaa yhteyttä alle 18-vuotiaaseen suoraan tai toisen ihmisen kautta.
+- Yritykset ottaa yhteyttä alle 18-vuotiaaseen suoraan tai toisen ihmisen kautta.
 - Lapsen houkutteleminen seksuaalisiin tarkoituksiin, seksualisointi, uhkailu tai kiristäminen sekä lapsen hyväksikäytön tai lapseen kohdistuvan ihmiskaupan järjestäminen.
 - Oman tilin antaminen alle 18-vuotiaan käyttöön.
 

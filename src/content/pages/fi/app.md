@@ -18,7 +18,7 @@ Rekisteröidy suomalaisilla pankkitunnuksilla. Niiden avulla tarkistamme ikäsi 
 
 Näet yhden profiilin kerrallaan. Ensin tulevat vastaan ne, jotka ovat jo tykänneet sinusta. Paina **Tykkää** tai **Ohita**. Jos haluat palata profiiliin, valitse **Myöhemmin**. Profiili jää listalle, jonka näet vain sinä.
 
-Voit selata, kunnes olet nähnyt kaikki, jotka sopivat hakutoiveisiisi. Tykkäyksiä on käytössä rajallinen määrä päivässä.
+Voit selata, kunnes olet nähnyt kaikki hakutoiveisiisi sopivat profiilit. Tykkäyksiä on käytössä rajallinen määrä päivässä.
 
 ### Kun tykkäätte toisistanne
 
