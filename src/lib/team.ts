@@ -61,7 +61,7 @@ export const TEAM: readonly Person[] = [
   },
   {
     name: "Hilal",
-    roles: ["Volunteer"],
+    roles: ["Operations & Partnerships"],
     photo: "/team/hilal.jpg",
     linkedin: "https://www.linkedin.com/in/hilalnurgercek/",
     github: "https://github.com/hilalnurgercek",
@@ -174,6 +174,7 @@ const finnishRole: Record<string, string> = {
   Advisor: "Neuvonantaja",
   "Tech Advisor": "Tekninen neuvonantaja",
   "CX Lead": "Asiakaskokemus",
+  "Operations & Partnerships": "Toiminta ja kumppanuudet",
 };
 
 /** One person: the face in its circle, the name, the role, and the marks that lead to them. */

@@ -56,6 +56,22 @@ test("somebody without a photo has their initials in the circle, and names are e
   assert.doesNotMatch(html, /<img/);
 });
 
+test("on the Finnish page every role of the team is in Finnish, and on the English page in English", () => {
+  const rolesOf = (html: string): string[] =>
+    [...html.matchAll(/<p class="team-role">(.*?)<\/p>/g)].flatMap((m) =>
+      (m[1] ?? "").split("<br>"),
+    );
+  const english = TEAM.flatMap((person) => person.roles).map((role) =>
+    role.replaceAll("&", "&amp;"),
+  );
+  const fi = rolesOf(drawTeam("<p>@team</p>", "fi"));
+  assert.equal(fi.length, english.length);
+  for (const role of fi) assert.ok(!english.includes(role), `"${role}" has no Finnish name`);
+  assert.deepEqual(rolesOf(drawTeam("<p>@team</p>", "en")), english);
+  assert.ok(fi.includes("Toiminta ja kumppanuudet"));
+  assert.ok(english.includes("Operations &amp; Partnerships"));
+});
+
 test("a text without the marker stays as it is", () => {
   assert.equal(drawTeam("<p>Nobody here.</p>", "en", [ada]), "<p>Nobody here.</p>");
 });
