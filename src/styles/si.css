@@ -622,28 +622,12 @@ html.si .si-step > :last-child {
 }
 
 /*
- * When the association was founded: the design's lime note with a calendar.
- * It is as wide as its words and never wider than the page, so on a narrow
- * screen with large text a long word breaks instead of leaving the window.
- */
-html.si[data-page="about"] .prose > h2:first-of-type + p + p {
-  width: fit-content;
-  max-width: 100%;
-  padding: 1rem 1.4rem 1rem 4.4rem;
-  border: var(--si-line);
-  border-radius: 1.5rem;
-  background: var(--si-lime) url("/si-art/icon-calendar.svg") 1.2rem center / 2.3rem no-repeat;
-  box-shadow: var(--si-drop);
-  font-weight: 700;
-}
-
-/*
- * Rows of faces that differ by one at most, for a team of eleven or twelve:
- * two to a row on a phone, then three, then four, and six where the long page
- * gives the list its whole width. Each step up waits until a column holds the
- * longest role in one piece, and where the text is large a row takes fewer
- * faces instead of narrower columns. Five or seven to a row would leave a
- * short last row, so no step has them.
+ * The team's faces in circles, in rows that differ by one at most, for a team
+ * of eleven or twelve: two to a row on a phone, then three, then four, and six
+ * where About Us gives the list the page's whole width. Each step up waits
+ * until a column holds the longest role in one piece, and where the text is
+ * large a row takes fewer faces instead of narrower columns. Five or seven to
+ * a row would leave a short last row, so no step has them.
  */
 html.si .team {
   --team-row: 2;
@@ -673,9 +657,9 @@ html.si .team > li {
 }
 
 html.si .team-face {
-  width: 100%;
-  border: var(--si-line);
-  border-radius: 1.5rem;
+  width: 7.5rem;
+  max-width: 100%;
+  border: 2px solid var(--si-ink);
   background: var(--si-lavender-soft);
 }
 
@@ -694,59 +678,126 @@ html.si .team-links {
   margin-inline-start: -0.75rem;
 }
 
-html.si .about-long > section {
-  margin-block-start: 3rem;
-  padding-block-start: 0;
-  border-top: 0;
+/*
+ * About Us in the design's calmer drawing (docs/decisions.md, 43): the site's
+ * texts in one column as they are, and colour on two cards and the last band
+ * only.
+ */
+html.si .calm > :not(section),
+html.si .calm > section > :not(.team) {
+  max-width: var(--column);
 }
 
-/* Contact on the design's lime, with its envelope; the details on its lavender card, with its laptop. */
-html.si .about-long > section:nth-of-type(2),
-html.si .about-long > section:nth-of-type(3) {
-  padding: 1.75rem 1.5rem 1.25rem;
-  background: no-repeat right 1.4rem top 1.5rem / 2.4rem;
+html.si .calm > section {
+  margin-block-start: 3.5rem;
 }
 
-html.si .about-long > section:nth-of-type(2) > h2,
-html.si .about-long > section:nth-of-type(3) > h2 {
-  padding-inline-end: 3.2rem;
+html.si .calm .team {
+  margin-block: 2rem 2.5rem;
 }
 
-html.si .about-long > section:nth-of-type(2),
-html.si .about-long > section:nth-of-type(3) {
-  border: var(--si-line);
-  box-shadow: var(--si-drop);
+/* A section's opening on the design's colour, its picture and a line beside the words. */
+html.si .calm-card {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  column-gap: 1.1rem;
+  width: fit-content;
+  max-width: min(100%, 36rem);
+  margin-block-end: 2rem;
+  padding: 1.5rem 1.75rem 1.1rem;
 }
 
-html.si .about-long > section:nth-of-type(2) {
+html.si .calm .calm-card > h2 {
+  grid-column: 1 / -1;
+  margin-block: 0 0.7rem;
+}
+
+html.si .calm-card > :not(h2) {
+  grid-column: 2;
+  margin-block: 0 0.6rem;
+}
+
+html.si .calm-card::before {
+  content: "";
+  grid-area: 2 / 1 / span 3;
+  margin-block-end: 0.6rem;
+  border-inline-end: 2px solid var(--si-ink);
+  background: left 0.2rem / 2.4rem no-repeat;
+}
+
+html.si .calm-contact .calm-card {
   border-radius: 3rem 2.2rem 3.4rem 2.4rem / 2.4rem 3.2rem 2.2rem 3rem;
-  background-color: var(--si-lime);
+  background: var(--si-lime);
+}
+
+html.si .calm-contact .calm-card::before {
   background-image: url("/si-art/icon-envelope.svg");
 }
 
-html.si .about-long > section:nth-of-type(3) {
+html.si .calm-details .calm-card {
   border-radius: 1.75rem;
-  background-color: var(--si-lavender-soft);
+  background: var(--si-lavender);
+  box-shadow: var(--si-drop);
+}
+
+html.si .calm-details .calm-card::before {
   background-image: url("/si-art/icon-laptop.svg");
 }
 
-/* Kumpa in short: each fact a card of its own. */
-html.si[data-page="about/media"] .prose > ul:not([class]),
-html.si .about-long > section:last-of-type ul:not([class]) {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-  gap: 0.9rem;
+/* Kumpa in short: a ticked list, on About Us and on the media's own page. */
+html.si .calm-media ul:not([class]),
+html.si[data-page="about/media"] .prose > ul:not([class]) {
   padding: 0;
   list-style: none;
 }
 
-html.si[data-page="about/media"] .prose > ul:not([class]) > li,
-html.si .about-long > section:last-of-type ul:not([class]) > li {
+html.si .calm-media ul:not([class]) > li,
+html.si[data-page="about/media"] .prose > ul:not([class]) > li {
+  margin-block: 0.7rem;
+  padding-inline-start: 2.1rem;
+  background: url("/si-art/icon-check.svg") left 0.2em / 1.3rem no-repeat;
+}
+
+/*
+ * Pictures and background: the design's last band. Its picture and the line
+ * before its links come where a screen has the room; with large text on a
+ * narrow one a long word of it breaks instead of leaving the window.
+ */
+html.si .calm > section > .calm-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.5rem;
+  max-width: none;
+  margin-block-start: 2.5rem;
+  padding: 1rem clamp(1rem, 5vw, 1.75rem);
+  border-radius: 2rem;
+  background: var(--si-lavender-soft);
+}
+
+html.si .calm-band > :is(h3, p) {
+  min-width: 0;
   margin: 0;
-  padding: 0.9rem 1.1rem;
-  border: 2px solid var(--si-ink);
-  border-radius: 1.25rem;
-  background: hsl(var(--card));
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 32rem) {
+  html.si .calm > section > .calm-band {
+    border-radius: 2.5rem;
+  }
+
+  html.si .calm-band > h3 {
+    display: flex;
+    align-items: center;
+    min-height: 2.4rem;
+    padding-inline-start: 3.2rem;
+    background: url("/si-art/icon-picture.svg") left center / 2.4rem no-repeat;
+  }
+
+  html.si .calm-band > p {
+    padding-inline-start: 1.5rem;
+    border-inline-start: 2px solid var(--si-ink);
+  }
 }
 
 @media (min-width: 60rem) {
@@ -754,22 +805,11 @@ html.si .about-long > section:last-of-type ul:not([class]) > li {
     --team-gap: 1.75rem;
     row-gap: 3.25rem;
   }
-
-  html.si .about-long {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    gap: 0 2rem;
-  }
-
-  html.si .about-long > :is(nav, section:first-of-type, section:last-of-type) {
-    grid-column: 1 / -1;
-  }
 }
 
-/* The long page's list is as wide as the page; the page of its own is a text column, and stays at four. */
+/* About Us gives the list the page's whole width; the team's own page is a text column, and stays at four. */
 @media (min-width: 72rem) {
-  html.si .about-long .team {
+  html.si .calm .team {
     --team-row: 6;
   }
 }
