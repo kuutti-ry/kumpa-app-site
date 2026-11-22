@@ -202,7 +202,12 @@ function roleIn(role: string, locale: Locale): string {
   return named;
 }
 
-/** One person: the face in its circle, the name, the role, and the marks that lead to them. */
+/**
+ * One person: the face in its circle, the marks that lead to them, the name
+ * and the role. The marks come straight under the face, above the text, so
+ * that they stand on one level along a row however many lines a role takes
+ * (docs/decisions.md, 44).
+ */
 function card(person: Person, locale: Locale): string {
   const name = escaped(person.name);
   const face =
@@ -211,11 +216,11 @@ function card(person: Person, locale: Locale): string {
       : `<img class="team-face" src="${escaped(person.photo)}" alt="" width="400" height="400" loading="lazy" decoding="async">`;
   const links = marksOf(person, locale);
   return (
-    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map((role) => escaped(roleIn(role, locale))).join("<br>")}</p>` +
+    `<li>${face}` +
     (links.length > 0
       ? `<ul class="channels team-links">${links.map((link) => `<li>${link}</li>`).join("")}</ul>`
       : "") +
-    "</li>"
+    `<p class="team-name">${name}</p><p class="team-role">${person.roles.map((role) => escaped(roleIn(role, locale))).join("<br>")}</p></li>`
   );
 }
 

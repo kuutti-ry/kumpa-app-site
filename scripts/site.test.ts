@@ -8,6 +8,7 @@ import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { MARKS } from "../src/lib/marks.ts";
 import { pageHtml } from "../src/lib/page-html.ts";
+import { fontsAskedFirst, SAIGA_FILES } from "../src/lib/saiga.ts";
 import {
   languageIntegrity,
   statusIntegrity,
@@ -177,6 +178,44 @@ test("the content security policy pins all scripts and scopes waitlist requests"
   assert.deepEqual(directives.get("worker-src"), ["'none'"]);
   for (const directive of ["script-src-elem", "script-src-attr"])
     assert.equal(directives.has(directive), false);
+});
+
+test("every font file of the site is the browser's for a week, and nothing else has a header of its own", () => {
+  const headers = readFileSync(join(import.meta.dirname, "..", "customHttp.yml"), "utf8");
+  const entries = [
+    ...headers.matchAll(/- pattern: "([^"]+)"\n\s+headers:\n((?:\s+(?:- key|value): .*\n)+)/g),
+  ].map(([, pattern = "", body = ""]) => ({
+    pattern,
+    keys: [...body.matchAll(/- key: (\S+)\n\s+value: "([^"]*)"/g)].map(([, key, value]) => [
+      key,
+      value,
+    ]),
+  }));
+  assert.equal(entries[0]?.pattern, "**");
+  const kept = entries.slice(1);
+  assert.ok(kept.length > 0);
+  for (const { keys } of kept)
+    assert.deepEqual(keys, [["Cache-Control", "public, max-age=604800, s-maxage=31536000"]]);
+  // A pattern's star stands for a file's name, whatever else Amplify lets it stand for.
+  const matches = (pattern: string, address: string) =>
+    new RegExp(`^${pattern.replaceAll(".", "\\.").replaceAll("*", "[^/]*")}$`).test(address);
+  const fonts = [
+    ...fontsAskedFirst(false, false),
+    ...SAIGA_FILES.map(({ file }) => `/fonts/saiga/${file}`),
+  ];
+  for (const address of fonts)
+    assert.ok(
+      kept.some(({ pattern }) => matches(pattern, address)),
+      `${address} is asked for again on every page`,
+    );
+  for (const address of [
+    "/",
+    "/fonts/saiga.css",
+    "/waitlist.js",
+    "/_astro/Base.css",
+    "/team/a.jpg",
+  ])
+    assert.ok(!kept.some(({ pattern }) => matches(pattern, address)), `${address} is kept`);
 });
 
 test("a file kept elsewhere by its address carries a fingerprint that changes with it, and only then", () => {

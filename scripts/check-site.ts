@@ -24,6 +24,9 @@
  *   files, and on no page of a build that has not (docs/decisions.md, 28).
  * - A link to an anchor lands where it points and stays there: no style sheet
  *   scrolls smoothly or measures a length on the font (scripts/landing.ts).
+ * - A page is painted once, as it stays (docs/decisions.md, 44): it asks in
+ *   its head for the fonts its first screen draws and no other, and the
+ *   waiting list's script holds the first paint until it has run.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -46,7 +49,7 @@ import {
 } from "../src/lib/consent.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { redirects } from "../src/lib/redirects.ts";
-import { SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
+import { fontsAskedFirst, SAIGA_DIR, SAIGA_FILES } from "../src/lib/saiga.ts";
 import {
   languageIntegrity,
   statusIntegrity,
@@ -179,6 +182,18 @@ for (const path of pages) {
   ) {
     problems.push(`${page}: unexpected or missing script`);
   }
+  // The form is drawn after its script has chosen what to show, or the page
+  // is painted with the address to write to and then swaps it for the field.
+  if (
+    hasWaitlist &&
+    !scripts.some(
+      ([tag]) =>
+        attribute(tag, "src") === fingerprinted("/waitlist.js") &&
+        attribute(tag, "blocking") === "render",
+    )
+  ) {
+    problems.push(`${page}: the waiting list's script does not hold the first paint`);
+  }
   if (
     (html.match(/ data-service-status(?:[ =>])/g) ?? []).length !==
       (hasStatus ? LOCALES.length : 0) ||
@@ -201,6 +216,28 @@ for (const path of pages) {
   }
   if (!saiga && linked) {
     problems.push(`${page}: links /fonts/saiga.css, and the build has not every file of Saiga`);
+  }
+
+  // The fonts of the first screen are asked for with the page, as a font and
+  // as the style sheet will ask (crossorigin): asked for otherwise, a file is
+  // fetched twice, and one more than is drawn is fetched for nothing.
+  const first = fontsAskedFirst(isSi(here), saiga);
+  const asked = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map(([tag]) => tag)
+    .filter((tag) => attribute(tag, "rel") === "preload");
+  if (
+    asked.length !== first.length ||
+    asked.some(
+      (tag, index) =>
+        attribute(tag, "href") !== first[index] ||
+        attribute(tag, "as") !== "font" ||
+        attribute(tag, "type") !== "font/woff2" ||
+        !/\scrossorigin(?=[\s>=])/i.test(tag),
+    )
+  ) {
+    problems.push(
+      `${page}: does not ask first for the fonts its first screen draws (${first.join(", ")}), each as a font`,
+    );
   }
 
   // The share image, which a messenger fetches for a link's preview: a file of the site.

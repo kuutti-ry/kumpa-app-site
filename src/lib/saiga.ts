@@ -76,3 +76,37 @@ export const SAIGA_FILES = [
  */
 export const hasSaiga = (root: string = process.cwd()): boolean =>
   SAIGA_FILES.every(({ file }) => existsSync(join(root, SAIGA_DIR, file)));
+
+/** Inter, the site's own text face: a file of this repository (src/styles/global.css). */
+const INTER = "/fonts/inter-latin-wght-normal.woff2";
+
+type SaigaFile = (typeof SAIGA_FILES)[number]["file"];
+
+/**
+ * The faces of Saiga every page of a look draws on its first screen, as
+ * measured on 22/11/2026 on thirteen pages at 1440 and 390 px: the site's own
+ * look has its header in Regular and its headings in Bold; the /si/ copy
+ * reads in Regular, has its header in Bold, its wordmark in Black and its
+ * headlines in Black Italic.
+ */
+const FIRST_FACES: Record<"site" | "si", readonly SaigaFile[]> = {
+  site: ["Saiga-Regular.woff2", "Saiga-Bold.woff2"],
+  si: ["Saiga-Regular.woff2", "Saiga-Bold.woff2", "Saiga-Black.woff2", "Saiga-BlackItalic.woff2"],
+};
+
+/**
+ * The font files a page asks for in its head, together with its style sheets
+ * and not after them. A page that learns of its fonts from a style sheet
+ * asks one round to the server later, paints once in the system's font, and
+ * moves a frame later when they arrive: at every change of page, since the
+ * browser asks again each time (docs/decisions.md, 44). Only what a first
+ * screen draws is named, since a file asked for and not drawn is fetched for
+ * nothing. The /si/ copy draws nothing in Inter where the build has Saiga.
+ */
+export function fontsAskedFirst(si: boolean, saiga: boolean = hasSaiga()): string[] {
+  if (!saiga) return [INTER];
+  const faces = FIRST_FACES[si ? "si" : "site"].map(
+    (file) => `/${SAIGA_DIR.slice("public/".length)}/${file}`,
+  );
+  return si ? faces : [INTER, ...faces];
+}

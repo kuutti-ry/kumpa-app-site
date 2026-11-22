@@ -5,7 +5,7 @@ import Header from "../components/Header.astro";
 import { DEFAULT_LOCALE, HIDDEN_LOCALES, LOCALES, type Locale, pathOf } from "../i18n/locales.ts";
 import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
-import { hasSaiga } from "../lib/saiga.ts";
+import { fontsAskedFirst, hasSaiga } from "../lib/saiga.ts";
 import { languageIntegrity, statusIntegrity, waitlistIntegrity } from "../lib/script-integrity.ts";
 import { isSi } from "../lib/si.ts";
 
@@ -20,6 +20,8 @@ const site = Astro.site ?? new URL("https://kumpa.fi");
 const hasWaitlist = slug === "" || slug === "app";
 // The /si/ copy (src/lib/si.ts): its style sheet reads the class and the page's name.
 const si = isSi(Astro.url.pathname);
+// HTML's `blocking="render"` on a script, which Astro's types do not name yet.
+const holdsFirstPaint = { blocking: "render" };
 // public/language.js reads each language's title and description from these.
 const each = (value: (locale: Locale) => string) =>
   Object.fromEntries(LOCALES.map((locale) => [`data-${locale}`, value(locale)]));
@@ -30,6 +32,7 @@ const each = (value: (locale: Locale) => string) =>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {fontsAskedFirst(si).map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
     <title {...each(title)}>{title(DEFAULT_LOCALE)}</title>
     <meta name="description" content={head[DEFAULT_LOCALE].description} {...each((locale) => head[locale].description)} />
     {noindex && <meta name="robots" content="noindex" />}
@@ -44,7 +47,8 @@ const each = (value: (locale: Locale) => string) =>
     <meta name="referrer" content={hasWaitlist ? "strict-origin" : "no-referrer"} />
     <script is:inline defer src={fingerprinted("/language.js")} integrity={languageIntegrity}></script>
     {(slug === "about" || slug === "about/details") && <script is:inline type="module" src={fingerprinted("/status.js")} integrity={statusIntegrity}></script>}
-    {hasWaitlist && <script is:inline type="module" src={fingerprinted("/waitlist.js")} integrity={waitlistIntegrity}></script>}
+    {/* The waiting list's form is drawn once its script has chosen what to show: a page painted before that shows the address to write to, and then swaps it for the field (docs/decisions.md, 44). */}
+    {hasWaitlist && <script is:inline type="module" {...holdsFirstPaint} src={fingerprinted("/waitlist.js")} integrity={waitlistIntegrity}></script>}
   </head>
   <body>
     {LOCALES.map(locale => <div data-lang={locale} lang={locale}><a class="skip" href="#content">{t(locale, "skip")}</a></div>)}

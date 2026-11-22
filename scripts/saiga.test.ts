@@ -4,7 +4,13 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { hasSaiga, SAIGA_DIR, SAIGA_FILES, SAIGA_SOURCE } from "../src/lib/saiga.ts";
+import {
+  fontsAskedFirst,
+  hasSaiga,
+  SAIGA_DIR,
+  SAIGA_FILES,
+  SAIGA_SOURCE,
+} from "../src/lib/saiga.ts";
 import { fontProblem } from "./check-fonts.ts";
 import { fetchSaiga } from "./saiga.ts";
 
@@ -152,6 +158,27 @@ test("what is drawn in Saiga reads the one value Saiga's style sheet sets, so a 
     [["h1", "h2", "h3", "h4", ".site-header"], "font-family: var(--display, var(--font));"],
   ]);
   assert.doesNotMatch(site, /saiga/i, "the site's own style sheet asks for no file of Saiga");
+});
+
+test("a page asks first for the faces its first screen draws: Inter with two of Saiga in the site's look, four of Saiga under /si/, Inter alone in a build without Saiga", () => {
+  const saigaOf = (...files: string[]) => files.map((file) => `/fonts/saiga/Saiga-${file}.woff2`);
+  const inter = "/fonts/inter-latin-wght-normal.woff2";
+  assert.deepEqual(fontsAskedFirst(false, true), [inter, ...saigaOf("Regular", "Bold")]);
+  assert.deepEqual(fontsAskedFirst(true, true), saigaOf("Regular", "Bold", "Black", "BlackItalic"));
+  assert.deepEqual(fontsAskedFirst(false, false), [inter]);
+  assert.deepEqual(fontsAskedFirst(true, false), [inter]);
+  // With nothing said, as the build has it: this checkout's own files decide.
+  assert.deepEqual(fontsAskedFirst(false), fontsAskedFirst(false, hasSaiga()));
+
+  // Each is an address a style sheet asks for, to the letter: asked for by another, the file is fetched twice.
+  const read = (...path: string[]) =>
+    readFileSync(join(import.meta.dirname, "..", ...path), "utf8");
+  const named = [read("public", "fonts", "saiga.css"), read("src", "styles", "global.css")].flatMap(
+    (css) => [...css.matchAll(/url\("([^"]+\.woff2)"\)/g)].map(([, address]) => address),
+  );
+  for (const si of [true, false])
+    for (const address of fontsAskedFirst(si, true))
+      assert.ok(named.includes(address), `${address} is in no style sheet`);
 });
 
 test("no font but Inter's may be committed, whatever its name", () => {
