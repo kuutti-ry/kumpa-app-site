@@ -504,7 +504,7 @@ The maintainer's word of 22/11/2026: "move the website under /si/ as main, witho
 
 - **The same pages.** Each page is built as its `/si/` twin was: the same markup, apart from links that no longer carry `/si/` and the search engines' leave, which a page of the site has and a try had not. Compared as pictures with the `/si/` pages of the day before, 16 pages at 320, 390, 1,000 and 1,440 px and in the dark scheme: not a pixel apart. The page for an address that is not there wears the look too.
 - **/si/ leads on.** An address under `/si/` redirects to the page itself, so the links the team passed around still open. Nothing else links there and no search engine was let in.
-- **/si2/ stays** as it was (49), the softer yellow beside the site, pixel for pixel: it was not asked to go.
+- **/si2/ is removed**, on his "Remove /si2/" the same evening: the softer yellow of 49 with its style sheet, its pictures and the rewriting of a copy's links. Its addresses lead on as `/si/`'s do.
 - **What the old look leaves behind.** The home's and About Us's old markup and the component that drew the old About Us are removed. `src/styles/global.css` is still the sheet under `si.css`, with rules the look overrides, and `src/lib/saiga.ts` still knows the old look's first fonts: the two sheets become one, and those go, in a change of its own, since every rule taken out has to be shown to move nothing.
-- **Unchanged.** The tab's icon (51), the share image and the header's seal file, the texts, the scripts and the policy. `pnpm check:site` holds every page to the look, the copy to its own, and each `/si/` address to its redirect.
+- **Unchanged.** The tab's icon (51), the share image and the header's seal file, the texts, the scripts and the policy. `pnpm check:site` holds every page to the look and each `/si/` and `/si2/` address to its redirect.
 
