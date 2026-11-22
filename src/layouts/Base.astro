@@ -7,6 +7,7 @@ import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
 import { fingerprinted } from "../lib/fingerprint.ts";
 import { hasSaiga } from "../lib/saiga.ts";
 import { languageIntegrity, statusIntegrity, waitlistIntegrity } from "../lib/script-integrity.ts";
+import { isSi } from "../lib/si.ts";
 
 interface Props {
   slug: string;
@@ -17,13 +18,15 @@ const { slug, head, noindex } = Astro.props;
 const title = (locale: Locale) => (slug ? `${head[locale].title} · Kumpa` : head[locale].title);
 const site = Astro.site ?? new URL("https://kumpa.fi");
 const hasWaitlist = slug === "" || slug === "app";
+// The /si/ copy (src/lib/si.ts): its style sheet reads the class and the page's name.
+const si = isSi(Astro.url.pathname);
 // public/language.js reads each language's title and description from these.
 const each = (value: (locale: Locale) => string) =>
   Object.fromEntries(LOCALES.map((locale) => [`data-${locale}`, value(locale)]));
 ---
 
 <!doctype html>
-<html lang="fi">
+<html lang="fi" class={si ? "si" : undefined} data-page={si ? slug || "home" : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +36,7 @@ const each = (value: (locale: Locale) => string) =>
     {slug !== "404" && <link rel="canonical" href={new URL(pathOf("fi", slug), site).href} />}
     {hasSaiga() && <link rel="stylesheet" href="/fonts/saiga.css" />}
     <link rel="icon" type="image/png" href={fingerprinted("/favicon.png")} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content={si ? "#fff6f0" : "#ffffff"} />
     <meta property="og:title" content={title("fi")} />
     <meta property="og:description" content={head.fi.description} />
     <meta property="og:type" content="website" />

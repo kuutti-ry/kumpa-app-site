@@ -1,0 +1,731 @@
+/*
+ * The look of the /si/ copy of the site (src/lib/si.ts, docs/decisions.md 41):
+ * Sini's webpage design, its colours toned down a little toward the cream of
+ * its page. The design draws the home page, the app page and About Us; every
+ * other page is that look carried over: the app's own cards, pills and chips,
+ * as its Kumpa look draws them.
+ *
+ * Every rule begins with html.si, the class the layout gives a page of /si/,
+ * so this sheet says nothing to the site's other pages, and wins over
+ * global.css whichever of the two a browser reads first. The shapes are files
+ * of the site (public/si-art/). No length here is measured on the font
+ * (scripts/landing.ts).
+ */
+
+html.si {
+  --si-ink: #19083e;
+  --si-cream: #fff6f0;
+  --si-lime: #e1fe22;
+  --si-lavender: #d9aefd;
+  --si-lavender-soft: #ecd9fb;
+  --si-coral: #ff8469;
+  --si-sky: #92d0f0;
+  --si-purple: #4b117e;
+  --si-field: #fff8f8;
+  --si-line: 3px solid var(--si-ink);
+  --si-drop: 0 5px 0 var(--si-ink);
+
+  --background: 24 100% 97%;
+  --foreground: 259 77% 14%;
+  --card: 0 100% 99%;
+  --primary: 272 76% 28%;
+  --primary-foreground: 24 100% 97%;
+  --muted: 24 60% 93%;
+  --muted-foreground: 259 35% 30%;
+  --border: 259 30% 80%;
+  --ring: 257 98% 60%;
+  --dawn: 24 100% 97%;
+  --sea: 24 100% 97%;
+  --wide: 76rem;
+
+  font-family: var(--display, var(--font));
+}
+
+html.si body {
+  background-image: none;
+  overflow-x: clip;
+}
+
+/* --- Words ---------------------------------------------------------------- */
+
+html.si :is(h1, h2) {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+}
+
+html.si h1 {
+  font-size: clamp(2.2rem, 1.6rem + 3.2vw, 4.2rem);
+}
+
+html.si :is(h3, h4) {
+  font-weight: 700;
+}
+
+/*
+ * The three strokes beside a headline. They take no room in the line, so
+ * they never wrap to a line of their own.
+ */
+html.si h1::after,
+html.si:not([data-page^="legal"]) :is(.prose, .hero) h2:not(.documents *)::after {
+  content: "";
+  display: inline-block;
+  width: 0.72em;
+  height: 0.72em;
+  margin-inline: 0.14em -0.86em;
+  vertical-align: 0.45em;
+  background: url("/si-art/rays.svg") center / contain no-repeat;
+}
+
+html.si strong,
+html.si .prose dt {
+  font-weight: 700;
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+html.si .site-header {
+  border-bottom: 0;
+  background: var(--si-cream);
+}
+
+html.si .brand {
+  font-weight: 900;
+  font-size: clamp(1.75rem, 1.45rem + 1.5vw, 2.6rem);
+  letter-spacing: -0.02em;
+}
+
+/* The design's header is the name alone. */
+html.si .site-header :where(.brand) img {
+  display: none;
+}
+
+html.si .site-nav a,
+html.si .menu-branch > summary {
+  border-radius: 2rem;
+  font-weight: 700;
+}
+
+html.si .site-nav a[aria-current] {
+  background: var(--si-lime);
+  text-decoration: none;
+}
+
+html.si .site-wide a {
+  padding-inline: 1.1rem;
+}
+
+html.si .language-switch {
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: var(--si-line);
+  background: var(--si-cream);
+  font-family: inherit;
+  font-weight: 700;
+}
+
+html.si body:has(#lang-fi:checked) label[for="lang-fi"],
+html.si body:has(#lang-sv:checked) label[for="lang-sv"],
+html.si body:has(#lang-en:checked) label[for="lang-en"] {
+  color: var(--si-ink);
+  background: var(--si-lime);
+  box-shadow: inset 0 0 0 2px var(--si-ink);
+  font-weight: 700;
+}
+
+html.si .site-menu > summary:where(:hover),
+html.si .site-menu:where([open]) > summary {
+  background: var(--si-lime);
+}
+
+html.si .site-menu > nav {
+  background: var(--si-cream);
+  border-bottom: var(--si-line);
+  box-shadow: none;
+}
+
+@media (min-width: 44rem) {
+  html.si .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    min-height: 5.5rem;
+  }
+}
+
+/* --- Pills, cards and chips, as the app draws them ------------------------- */
+
+html.si .explore-app,
+html.si .service-status-actions button {
+  padding: 0.45rem 1.4rem;
+  border: var(--si-line);
+  border-radius: 3rem;
+  background: var(--si-cream);
+  box-shadow: var(--si-drop);
+  color: var(--si-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+html.si .explore-app {
+  margin-top: 1rem;
+}
+
+html.si .explore-app:hover,
+html.si .service-status-actions button:hover:enabled {
+  background: var(--si-lime);
+}
+
+html.si .notice,
+html.si .service-status,
+html.si .documents > li,
+html.si .page-links a {
+  border: var(--si-line);
+  border-radius: 1.25rem;
+  background: hsl(var(--card));
+  box-shadow: var(--si-drop);
+}
+
+html.si .notice {
+  background: var(--si-lime);
+}
+
+html.si .service-status {
+  overflow: hidden;
+}
+
+html.si .service-status-summary {
+  border-radius: 0;
+}
+
+html.si .documents > li {
+  margin-block-end: 1.1rem;
+  padding: 1.1rem 1.25rem;
+}
+
+html.si .documents h2 {
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+html.si .tag {
+  margin-inline-start: 0;
+  border: 2px solid var(--si-ink);
+  background: var(--si-lavender);
+  font-weight: 700;
+}
+
+html.si .page-links {
+  border-top: 0;
+}
+
+html.si .page-links :where(li) + li {
+  margin-block-start: 1rem;
+}
+
+html.si .page-links a {
+  padding: 1rem 3rem 1rem 1.25rem;
+}
+
+html.si .page-links a::after {
+  inset-inline-end: 1.3rem;
+}
+
+html.si .about-jumps ul {
+  gap: 0.6rem;
+}
+
+html.si .about-jumps a {
+  padding-inline: 1.1rem;
+  border: 2px solid var(--si-ink);
+  border-radius: 3rem;
+  background: var(--si-lavender);
+  color: var(--si-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+html.si .about-jumps a:hover {
+  background: var(--si-lime);
+}
+
+html.si .prose blockquote {
+  border-inline-start-color: var(--si-lavender);
+  color: inherit;
+}
+
+html.si .prose th {
+  background: var(--si-lavender-soft);
+}
+
+html.si .prose .lead,
+html.si .hero-copy > p,
+html.si .waitlist-privacy,
+html.si .page-links span {
+  color: inherit;
+}
+
+/* --- The waiting list ------------------------------------------------------ */
+
+html.si .waitlist {
+  max-width: 38rem;
+  margin-block-start: 1.5rem;
+  padding: 1.6rem 1.5rem 1.4rem;
+  border: 0;
+  border-radius: 2rem;
+  background: var(--si-lime);
+}
+
+html.si .waitlist h2 {
+  font-size: var(--step-2);
+}
+
+html.si .waitlist label[for] {
+  font-weight: 700;
+}
+
+html.si .waitlist-fields {
+  gap: 0.85rem 0.75rem;
+}
+
+/* The field has room for a whole address beside the button. */
+html.si .waitlist-address {
+  flex: 3 1 14rem;
+}
+
+html.si .waitlist-fields input,
+html.si .waitlist-fields button {
+  min-height: 3.25rem;
+  border: var(--si-line);
+  border-radius: 3rem;
+  box-shadow: var(--si-drop);
+}
+
+html.si .waitlist-fields input {
+  padding-inline: 1.3rem;
+  background: var(--si-field);
+}
+
+/* An example, lighter than an address somebody typed. */
+html.si .waitlist-fields input::placeholder {
+  color: hsl(259 22% 46%);
+}
+
+html.si .waitlist-fields input[aria-invalid="true"] {
+  border-color: var(--waitlist-error);
+}
+
+html.si .waitlist-fields button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-inline: 1.5rem;
+  background: var(--si-purple);
+  color: var(--si-cream);
+  font-weight: 700;
+}
+
+html.si .waitlist-fields button::after {
+  content: "";
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  background: url("/si-art/arrow.svg") center / contain no-repeat;
+}
+
+html.si .waitlist-fields button:hover:enabled {
+  background: var(--si-ink);
+}
+
+html.si .waitlist-email-error:not(:empty) {
+  margin-top: 0.75rem;
+}
+
+html.si .waitlist-privacy {
+  max-width: 38rem;
+  margin-top: 0.6rem;
+}
+
+html.si .waitlist-privacy summary {
+  font-weight: 700;
+}
+
+@media (min-width: 44rem) {
+  /* The design's lime shape, stretched to the form. */
+  html.si .waitlist {
+    margin-inline-start: -1.25rem;
+    padding: 2.7rem 3.4rem 2.5rem 2.6rem;
+    border-radius: 0;
+    background: url("/si-art/blob-lime.svg") center / 100% 100% no-repeat;
+  }
+
+  html.si .hero .waitlist {
+    background-image: url("/si-art/blob-lime-wide.svg");
+  }
+
+  html.si .waitlist-privacy {
+    padding-inline-start: 1.35rem;
+  }
+}
+
+/* A long text reads calmer with upright headings under its title. */
+html.si[data-page^="legal/"] .prose h2 {
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* --- Home and the app page: the design's own pages -------------------------- */
+
+html.si .hero-copy {
+  max-width: min(100%, 38rem);
+}
+
+html.si .hero h1 {
+  font-size: clamp(3.2rem, 1.9rem + 6.4vw, 6.6rem);
+  letter-spacing: -0.04em;
+}
+
+html.si .si-art {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  justify-self: center;
+}
+
+html.si .si-art img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+html.si .si-art-home {
+  max-width: 38rem;
+  aspect-ratio: 1066 / 948;
+}
+
+html.si .si-art-app {
+  max-width: 27rem;
+  aspect-ratio: 1026 / 1283;
+}
+
+html.si .si-layer {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Where the design's frame has each picture, in parts of the whole. */
+html.si .si-woman {
+  left: 0.75%;
+  top: 6.17%;
+  width: 74.3%;
+  height: 80.34%;
+}
+
+html.si .si-man {
+  left: 65.28%;
+  top: 13.68%;
+  width: 33.97%;
+  height: 38.9%;
+}
+
+html.si .si-word {
+  position: absolute;
+  left: 42.86%;
+  top: 13.59%;
+  width: 17.21%;
+  height: 4.82%;
+  display: grid;
+  place-items: center;
+  font-size: 4.78cqw;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(-6deg);
+}
+
+/* The trail sits on the text's own left edge: its width is counted in the
+ * text's size, and only its words are smaller. */
+html.si .breadcrumbs {
+  font-size: inherit;
+}
+
+html.si .breadcrumbs > * {
+  font-size: var(--step--1);
+}
+
+html.si[data-page="app"] :is(.prose, .breadcrumbs),
+html.si[data-page="about"] :is(.prose, .breadcrumbs) {
+  max-width: var(--wide);
+}
+
+html.si[data-page="app"] .prose > :is(h2, p),
+html.si[data-page="about"] .prose > :is(h2, p) {
+  max-width: var(--column);
+}
+
+html.si .si-lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  margin-block-end: 2.5rem;
+}
+
+html.si .si-lead h1 {
+  margin-top: 0.2em;
+  font-size: clamp(2.5rem, 1.7rem + 4vw, 5rem);
+}
+
+html.si .si-steps {
+  display: grid;
+  gap: 2.5rem;
+  margin-block: 2rem 2.5rem;
+}
+
+html.si .si-step::before {
+  content: "";
+  display: block;
+  width: min(100%, 15rem);
+  aspect-ratio: 540 / 330;
+  margin: 0 auto 0.4rem;
+  background: center / contain no-repeat;
+}
+
+html.si .si-step:nth-child(1)::before {
+  background-image: url("/si-art/step-profile.svg");
+}
+
+html.si .si-step:nth-child(2)::before {
+  background-image: url("/si-art/step-browse.svg");
+}
+
+html.si .si-step:nth-child(3)::before {
+  background-image: url("/si-art/step-talk.svg");
+}
+
+html.si .si-step h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+html.si .si-step > :last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 52rem) {
+  html.si .si-lead {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+
+  html.si .si-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  html.si .si-step {
+    padding-inline: 1.75rem;
+  }
+
+  html.si .si-step:first-child {
+    padding-inline-start: 0;
+  }
+
+  html.si .si-step:last-child {
+    padding-inline-end: 0;
+  }
+
+  html.si .si-step + .si-step {
+    border-inline-start: var(--si-line);
+  }
+}
+
+/* The waves beside "how it works", where a window has room outside the page. */
+@media (min-width: 96rem) {
+  html.si[data-page="app"] body {
+    background:
+      url("/si-art/waves-mid.svg") right 62% / calc((100vw - var(--wide)) / 2) auto no-repeat;
+  }
+}
+
+/* --- About Us, and the pages the design has not drawn ---------------------- */
+
+@media (min-width: 72rem) {
+  html.si:not([data-page="home"], [data-page="app"]) main {
+    background: url("/si-art/corner.svg") right var(--gap) top 1rem / 17rem auto no-repeat;
+  }
+
+  html.si[data-page="about"] main {
+    background-size: 26rem auto;
+  }
+}
+
+/* When the association was founded: the design's lime note with a calendar. */
+html.si[data-page="about"] .prose > h2:first-of-type + p + p {
+  width: fit-content;
+  padding: 1rem 1.4rem 1rem 4.4rem;
+  border-radius: 1.5rem;
+  background: var(--si-lime) url("/si-art/icon-calendar.svg") 1.2rem center / 2.3rem no-repeat;
+  font-weight: 700;
+}
+
+html.si .team {
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 1.75rem 1.1rem;
+  text-align: start;
+}
+
+html.si .team > li {
+  align-items: flex-start;
+}
+
+html.si .team-face {
+  width: 100%;
+  border: var(--si-line);
+  border-radius: 1.5rem;
+  background: var(--si-lavender-soft);
+}
+
+html.si .team-initials {
+  color: var(--si-ink);
+}
+
+html.si .team-role,
+html.si .team-links,
+html.si .inline-links {
+  color: inherit;
+}
+
+html.si .team-links {
+  justify-content: flex-start;
+  margin-inline-start: -0.75rem;
+}
+
+html.si .about-long > section {
+  margin-block-start: 3rem;
+  padding-block-start: 0;
+  border-top: 0;
+}
+
+/* Contact on the design's lime, with its envelope; the details on its lavender card, with its laptop. */
+html.si .about-long > section:nth-of-type(2),
+html.si .about-long > section:nth-of-type(3) {
+  padding: 1.75rem 1.5rem 1.25rem;
+  background: no-repeat right 1.4rem top 1.5rem / 2.4rem;
+}
+
+html.si .about-long > section:nth-of-type(2) > h2,
+html.si .about-long > section:nth-of-type(3) > h2 {
+  padding-inline-end: 3.2rem;
+}
+
+html.si .about-long > section:nth-of-type(2) {
+  border-radius: 3rem 2.2rem 3.4rem 2.4rem / 2.4rem 3.2rem 2.2rem 3rem;
+  background-color: var(--si-lime);
+  background-image: url("/si-art/icon-envelope.svg");
+}
+
+html.si .about-long > section:nth-of-type(3) {
+  border: var(--si-line);
+  border-radius: 1.75rem;
+  background-color: var(--si-lavender-soft);
+  background-image: url("/si-art/icon-laptop.svg");
+  box-shadow: var(--si-drop);
+}
+
+/* Kumpa in short: each fact a card of its own. */
+html.si[data-page="about/media"] .prose > ul:not([class]),
+html.si .about-long > section:last-of-type ul:not([class]) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.9rem;
+  padding: 0;
+  list-style: none;
+}
+
+html.si[data-page="about/media"] .prose > ul:not([class]) > li,
+html.si .about-long > section:last-of-type ul:not([class]) > li {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border: 2px solid var(--si-ink);
+  border-radius: 1.25rem;
+  background: hsl(var(--card));
+}
+
+@media (min-width: 60rem) {
+  html.si .about-long {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 0 2rem;
+  }
+
+  html.si .about-long > :is(nav, section:first-of-type, section:last-of-type) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- Footer: the design's two waves ---------------------------------------- */
+
+html.si .site-footer {
+  padding-block-end: clamp(3.5rem, 9vw, 7.5rem);
+  border-top: 0;
+  background:
+    url("/si-art/wave-lavender.svg") left bottom / clamp(11rem, 34vw, 30rem) auto no-repeat,
+    url("/si-art/wave-lime.svg") right bottom / clamp(11rem, 36vw, 32rem) auto no-repeat,
+    var(--si-cream);
+  color: var(--si-ink);
+}
+
+html.si .site-footer .brand {
+  font-size: 1.75rem;
+}
+
+html.si .footer-nav a {
+  font-weight: 700;
+}
+
+/* --- More contrast: the colours step back, the lines stay ------------------ */
+
+@media (prefers-contrast: more) {
+  html.si {
+    --si-ink: #000;
+    --si-cream: #fff;
+    --si-lime: #fff;
+    --si-lavender: #fff;
+    --si-lavender-soft: #fff;
+    --si-field: #fff;
+    --si-purple: #000;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --primary: 272 90% 20%;
+    --muted: 0 0% 100%;
+    --muted-foreground: 0 0% 15%;
+    --border: 0 0% 0%;
+    --ring: 272 90% 20%;
+    --dawn: 0 0% 100%;
+    --sea: 0 0% 100%;
+  }
+
+  html.si body,
+  html.si main,
+  html.si .site-footer {
+    background-image: none;
+  }
+
+  html.si .waitlist,
+  html.si .site-nav a[aria-current],
+  html.si .about-long > section:nth-of-type(2),
+  html.si[data-page="about"] .prose > h2:first-of-type + p + p {
+    border: var(--si-line);
+    border-radius: 1.5rem;
+  }
+
+  html.si .waitlist {
+    background-image: none;
+  }
+}
