@@ -28,7 +28,13 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { PINNED } from "../src/consent-versions.ts";
-import { DEFAULT_LOCALE, isTextLanguage, LOCALES, pathOf } from "../src/i18n/locales.ts";
+import {
+  DEFAULT_LOCALE,
+  HIDDEN_LOCALES,
+  isTextLanguage,
+  LOCALES,
+  pathOf,
+} from "../src/i18n/locales.ts";
 import { LANGUAGE_IN, t } from "../src/i18n/ui.ts";
 import {
   anchorOf,
@@ -155,7 +161,8 @@ for (const path of pages) {
     problems.push(`${page}: unexpected or missing script`);
   }
   if (
-    (html.match(/ data-service-status(?:[ =>])/g) ?? []).length !== (hasStatus ? 2 : 0) ||
+    (html.match(/ data-service-status(?:[ =>])/g) ?? []).length !==
+      (hasStatus ? LOCALES.length : 0) ||
     html.includes("<p>@status</p>")
   ) {
     problems.push(`${page}: missing or unexpected service status panel`);
@@ -226,11 +233,21 @@ for (const path of pages) {
   if (!/<meta name="description" content="[^"]+"/.test(html))
     problems.push(`${page}: no description`);
   const main = /<main\b[^>]*>([\s\S]*?)<\/main>/.exec(html)?.[1] ?? "";
-  const groups = main.split(/<div data-lang="(fi|en)" lang="(?:fi|en)">/);
+  const languages = LOCALES.join("|");
+  const groups = main.split(new RegExp(`<div data-lang="(${languages})" lang="(?:${languages})">`));
   for (const locale of LOCALES) {
     const at = groups.indexOf(locale);
     if (at === -1 || (groups[at + 1]?.match(/<h1[\s>]/g) ?? []).length !== 1)
       problems.push(`${page}: expected one heading in the ${locale} version`);
+  }
+  // A language offered to nobody yet is built with its switch hidden (decision 40).
+  for (const locale of LOCALES) {
+    const radio = new RegExp(`<input\\b[^>]*\\sid="lang-${locale}"[^>]*>`).exec(html)?.[0];
+    if (!radio) problems.push(`${page}: no switch to ${locale}`);
+    else if (/\shidden\b/.test(radio) !== HIDDEN_LOCALES.has(locale))
+      problems.push(
+        `${page}: the switch to ${locale} is ${HIDDEN_LOCALES.has(locale) ? "offered" : "hidden"}`,
+      );
   }
   const ids = [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id = ""]) => id);
   for (const id of new Set(ids.filter((id, at) => ids.indexOf(id) !== at))) {
@@ -238,6 +255,11 @@ for (const path of pages) {
   }
   if (!/<meta name="viewport" content="width=device-width, initial-scale=1"/.test(html)) {
     problems.push(`${page}: no viewport for a phone`);
+  }
+  // Astro drops the line break between a sentence's last link and the next
+  // link: "hello@kumpa.fi.Du kan" reads as one word.
+  for (const [joined] of html.matchAll(/<\/a>[.,;:!?]<a\b/g)) {
+    problems.push(`${page}: no space after a link's sentence, ${joined}`);
   }
   // A text's marker (src/lib/team.ts) is replaced before a page is written:
   // one left standing is a page that lost its wiring.

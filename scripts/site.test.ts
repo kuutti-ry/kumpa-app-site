@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSyn
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
-import { DEFAULT_LOCALE, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
+import { DEFAULT_LOCALE, HIDDEN_LOCALES, isLocale, LOCALES, pathOf } from "../src/i18n/locales.ts";
 import { formatDate, LANGUAGE_IN, t, UI } from "../src/i18n/ui.ts";
 import { fingerprinted } from "../src/lib/fingerprint.ts";
 import { MARKS } from "../src/lib/marks.ts";
@@ -36,7 +36,7 @@ test("embedded About sections keep a heading hierarchy and link within the reade
     const id = `${locale}-people-credit`;
     assert.ok(html.includes(`<h3 id="${id}">Credit</h3>`));
     assert.ok(html.includes(`href="#${id}"`));
-    assert.ok(html.includes(`href="${locale === "fi" ? "#contact" : "#en-contact"}"`));
+    assert.ok(html.includes(`href="${locale === "fi" ? "#contact" : `#${locale}-contact`}"`));
     const standalone = pageHtml(page, locale);
     assert.ok(standalone.includes(`<h2 id="${locale}-credit">Credit</h2>`));
     assert.ok(standalone.includes('href="/about/contact/"'));
@@ -45,9 +45,37 @@ test("embedded About sections keep a heading hierarchy and link within the reade
 
 test("a language is one of the site's and nothing else", () => {
   for (const locale of LOCALES) assert.equal(isLocale(locale), true);
-  for (const other of ["", "EN", "en-FI", "sv", "de", "legal"]) {
+  for (const other of ["", "EN", "SV", "en-FI", "sv-FI", "de", "legal"]) {
     assert.equal(isLocale(other), false);
   }
+});
+
+// Swedish is built and offered to nobody (decision 40): the switch shows only
+// the language the reader is in and those offered, and the script knows every
+// language, so that a link can still choose one.
+test("each language hides the others, a hidden language's label shows only once it is chosen, and the script knows them all", () => {
+  const root = join(import.meta.dirname, "..");
+  const css = readFileSync(join(root, "src", "styles", "global.css"), "utf8");
+  const hiding = /([^{}]*)\{\s*display: none;\s*\}/g;
+  const hidden = [...css.matchAll(hiding)].flatMap(([, selectors = ""]) =>
+    selectors.split(",").map((selector) => selector.trim()),
+  );
+  for (const locale of LOCALES) {
+    assert.ok(
+      hidden.includes(`body:has(#lang-${locale}:checked) [data-lang]:not([data-lang="${locale}"])`),
+      `${locale} does not hide the other languages`,
+    );
+    assert.equal(
+      hidden.includes(`body:not(:has(#lang-${locale}:checked)) label[for="lang-${locale}"]`),
+      HIDDEN_LOCALES.has(locale),
+      `${locale}'s label`,
+    );
+  }
+  assert.ok(!HIDDEN_LOCALES.has(DEFAULT_LOCALE));
+  const script = readFileSync(join(root, "public", "language.js"), "utf8");
+  assert.deepEqual(JSON.parse(/const languages = (\[[^\]]*\]);/.exec(script)?.[1] ?? "[]"), [
+    ...LOCALES,
+  ]);
 });
 
 test("every language has every one of the site's words, and no other", () => {
@@ -77,6 +105,8 @@ test("values are put into the text, and a value that is missing is left to be se
 test("dates are written as Finland writes them", () => {
   const day = new Date("2026-09-25T00:00:00Z");
   assert.equal(formatDate("en", day), "25 September 2026");
+  assert.equal(formatDate("sv", day), "25 september 2026");
+  assert.equal(formatDate("fi", day), "25. syyskuuta 2026");
 });
 
 test("each language names each language", () => {

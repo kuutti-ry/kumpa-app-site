@@ -13,10 +13,10 @@ export function interpretHealth(code, body) {
   return unknown;
 }
 
-// Dates are written as Finland writes them in both languages (CLAUDE.md), in
+// Dates are written as Finland writes them in every language (CLAUDE.md), in
 // the reader's own time zone: "en" alone would print 11/20/26, 1:57 AM.
 export function checkTime(date, language) {
-  return date.toLocaleString(language === "fi" ? "fi-FI" : "en-FI", {
+  return date.toLocaleString(`${language}-FI`, {
     dateStyle: "short",
     timeStyle: "short",
   });

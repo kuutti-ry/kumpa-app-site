@@ -42,6 +42,7 @@ test("the time of a check is written as Finland writes it, in the reader's time 
   process.env.TZ = "Europe/Helsinki";
   assert.equal(checkTime(at, "fi"), "20.11.2026 klo 2.08");
   assert.equal(checkTime(at, "en"), "20/11/2026, 2.08");
+  assert.equal(checkTime(at, "sv"), "20.11.2026 2.08");
   process.env.TZ = "UTC";
   assert.equal(checkTime(at, "en"), "20/11/2026, 0.08");
 });

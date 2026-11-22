@@ -210,13 +210,17 @@ hr {
   top: 0.5rem;
 }
 
-/* The switch also works with scripts disabled. Native radios own focus and state. */
+/* The switch also works with scripts disabled. Native radios own focus and state.
+   Swedish is offered to nobody yet (docs/decisions.md, 40): its label shows only
+   once a link has selected it. */
 [data-lang] {
   display: contents;
 }
 
-body:has(#lang-fi:checked) [data-lang="en"],
-body:has(#lang-en:checked) [data-lang="fi"] {
+body:has(#lang-fi:checked) [data-lang]:not([data-lang="fi"]),
+body:has(#lang-sv:checked) [data-lang]:not([data-lang="sv"]),
+body:has(#lang-en:checked) [data-lang]:not([data-lang="en"]),
+body:not(:has(#lang-sv:checked)) label[for="lang-sv"] {
   display: none;
 }
 
@@ -333,6 +337,7 @@ body {
 }
 
 body:has(#lang-fi:checked) label[for="lang-fi"],
+body:has(#lang-sv:checked) label[for="lang-sv"],
 body:has(#lang-en:checked) label[for="lang-en"] {
   color: hsl(var(--background));
   background: hsl(var(--foreground));
@@ -341,6 +346,7 @@ body:has(#lang-en:checked) label[for="lang-en"] {
 }
 
 body:has(#lang-fi:focus-visible) label[for="lang-fi"],
+body:has(#lang-sv:focus-visible) label[for="lang-sv"],
 body:has(#lang-en:focus-visible) label[for="lang-en"] {
   outline: 3px solid hsl(var(--ring));
   outline-offset: 2px;

@@ -1,6 +1,6 @@
 ---
-import type { Locale } from "../i18n/locales.ts";
-import { t } from "../i18n/ui.ts";
+import { LOCALES, type Locale } from "../i18n/locales.ts";
+import { LANGUAGE_NAME, t } from "../i18n/ui.ts";
 
 interface Props {
   locale: Locale;
@@ -8,27 +8,26 @@ interface Props {
 }
 
 const { locale, slug } = Astro.props;
-const fi = locale === "fi";
 const groups = [
   {
     slug: "app",
     label: t(locale, "nav.app"),
     pages: [
-      ["app", fi ? "Näin Kumpa toimii" : "How Kumpa works"],
-      ["help", fi ? "Ohjeet" : "Help"],
-      ["delete-account", fi ? "Tilin poistaminen" : "Delete your account"],
-      ["child-safety", fi ? "Lasten turvallisuus" : "Child safety"],
+      ["app", t(locale, "menu.app")],
+      ["help", t(locale, "menu.help")],
+      ["delete-account", t(locale, "menu.deleteAccount")],
+      ["child-safety", t(locale, "menu.childSafety")],
     ],
   },
   {
     slug: "about",
     label: t(locale, "nav.about"),
     pages: [
-      ["about", fi ? "Tietoa meistä" : "About us"],
-      ["about/people", fi ? "Tekijät" : "People"],
-      ["about/contact", fi ? "Ota yhteyttä" : "Contact"],
-      ["about/details", fi ? "Tekniikka" : "Technical details"],
-      ["about/media", fi ? "Medialle" : "For the media"],
+      ["about", t(locale, "menu.about")],
+      ["about/people", t(locale, "menu.people")],
+      ["about/contact", t(locale, "menu.contact")],
+      ["about/details", t(locale, "menu.details")],
+      ["about/media", t(locale, "menu.media")],
     ],
   },
 ] as const;
@@ -63,9 +62,10 @@ const current = (page: string) => (page === slug ? "page" : undefined);
       </ul>
     </nav>
 
-    <div class="language-switch" role="group" aria-label={fi ? "Kieli" : "Language"}>
-      <label for="lang-fi" lang="fi" title="Suomi">FI</label>
-      <label for="lang-en" lang="en" title="English">EN</label>
+    <div class="language-switch" role="group" aria-label={t(locale, "nav.language")}>
+      {LOCALES.map((language) => (
+        <label for={`lang-${language}`} lang={language} title={LANGUAGE_NAME[language]}>{language.toUpperCase()}</label>
+      ))}
     </div>
 
     <details class="site-menu">

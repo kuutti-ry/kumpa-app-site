@@ -11,10 +11,12 @@ const title = `${locale}-waitlist`;
 const email = `${locale}-waitlist-email`;
 const emailError = `${email}-error`;
 const description = `${locale}-waitlist-purpose`;
-const regulator =
-  locale === "fi"
-    ? "https://tietosuoja.fi/ilmoitus-tietosuojavaltuutetulle"
-    : "https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman";
+// The Data Protection Ombudsman's own page in each language (its hreflang links).
+const regulator = {
+  fi: "https://tietosuoja.fi/ilmoitus-tietosuojavaltuutetulle",
+  sv: "https://tietosuoja.fi/sv/anmalan-till-dataombudsmannen",
+  en: "https://tietosuoja.fi/en/notification-to-the-data-protection-ombudsman",
+}[locale];
 ---
 
 <form
@@ -51,7 +53,7 @@ const regulator =
   <p>{t(locale, "waitlist.storage")}</p>
   <p>{t(locale, "waitlist.retention")}</p>
   <p>
-    {t(locale, "waitlist.rights")} <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+    {t(locale, "waitlist.rights")} <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.{" "}
     <a href={regulator} rel="noreferrer">{t(locale, "waitlist.complaint")}</a>.
   </p>
 </details>

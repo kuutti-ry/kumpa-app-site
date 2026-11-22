@@ -164,18 +164,43 @@ export const CREDITED: Readonly<Record<string, Credited>> = {
   },
 };
 
-const finnishRole: Record<string, string> = {
-  Lead: "Tiiminvetäjä",
-  "Chair of the Board": "Hallituksen puheenjohtaja",
-  "Member of the Board": "Hallituksen jäsen",
-  Developer: "Ohjelmistokehittäjä",
-  Design: "Muotoilu",
-  Volunteer: "Vapaaehtoinen",
-  Advisor: "Neuvonantaja",
-  "Tech Advisor": "Tekninen neuvonantaja",
-  "CX Lead": "Asiakaskokemus",
-  "Operations & Partnerships": "Toiminta ja kumppanuudet",
+/**
+ * Each role as the cards name it in a language besides English. A role
+ * missing here stops the build, rather than showing in English (decision 39).
+ */
+const ROLE_IN: Record<Exclude<Locale, "en">, Record<string, string>> = {
+  fi: {
+    Lead: "Tiiminvetäjä",
+    "Chair of the Board": "Hallituksen puheenjohtaja",
+    "Member of the Board": "Hallituksen jäsen",
+    Developer: "Ohjelmistokehittäjä",
+    Design: "Muotoilu",
+    Volunteer: "Vapaaehtoinen",
+    Advisor: "Neuvonantaja",
+    "Tech Advisor": "Tekninen neuvonantaja",
+    "CX Lead": "Asiakaskokemus",
+    "Operations & Partnerships": "Toiminta ja kumppanuudet",
+  },
+  sv: {
+    Lead: "Teamledare",
+    "Chair of the Board": "Styrelseordförande",
+    "Member of the Board": "Styrelseledamot",
+    Developer: "Utvecklare",
+    Design: "Design",
+    Volunteer: "Frivillig",
+    Advisor: "Rådgivare",
+    "Tech Advisor": "Teknisk rådgivare",
+    "CX Lead": "Kundupplevelse",
+    "Operations & Partnerships": "Verksamhet och partnerskap",
+  },
 };
+
+function roleIn(role: string, locale: Locale): string {
+  if (locale === "en") return role;
+  const named = ROLE_IN[locale][role];
+  if (named === undefined) throw new Error(`the role "${role}" has no name in ${locale}`);
+  return named;
+}
 
 /** One person: the face in its circle, the name, the role, and the marks that lead to them. */
 function card(person: Person, locale: Locale): string {
@@ -186,7 +211,7 @@ function card(person: Person, locale: Locale): string {
       : `<img class="team-face" src="${escaped(person.photo)}" alt="" width="400" height="400" loading="lazy" decoding="async">`;
   const links = marksOf(person, locale);
   return (
-    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map((role) => escaped(locale === "fi" ? (finnishRole[role] ?? role) : role)).join("<br>")}</p>` +
+    `<li>${face}<p class="team-name">${name}</p><p class="team-role">${person.roles.map((role) => escaped(roleIn(role, locale))).join("<br>")}</p>` +
     (links.length > 0
       ? `<ul class="channels team-links">${links.map((link) => `<li>${link}</li>`).join("")}</ul>`
       : "") +

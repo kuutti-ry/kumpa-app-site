@@ -1,5 +1,5 @@
 ---
-import { LOCALES, type Locale } from "../i18n/locales.ts";
+import { byLocale, LOCALES, type Locale } from "../i18n/locales.ts";
 import { t } from "../i18n/ui.ts";
 import Base from "../layouts/Base.astro";
 
@@ -9,7 +9,7 @@ const info = (locale: Locale) => ({
 });
 ---
 
-<Base slug="404" head={{ fi: info("fi"), en: info("en") }} noindex>
+<Base slug="404" head={byLocale(info)} noindex>
   {LOCALES.map(locale => (
     <div data-lang={locale} lang={locale}>
       <section class="prose">

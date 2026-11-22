@@ -5,6 +5,10 @@ order: 4
 status: in_force
 dated: 2026-11-21
 binding: true
+listing:
+  sv:
+    title: Hur vi bedömde riskerna för ditt integritetsskydd
+    description: En sammanfattning av konsekvensbedömningen avseende dataskydd för Kumpa, med riskerna som hittades och vad som görs åt dem.
 ---
 
 *A summary of Kumpa's data protection impact assessment of 17 November 2026.*
