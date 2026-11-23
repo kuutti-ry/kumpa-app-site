@@ -522,3 +522,14 @@ The maintainer's word: a space before and after each dot between links. Where a 
 
 - **In the page's making, not in the texts.** `pageHtml` wraps a dot that stands between two links (`.between`), and the style sheet gives it 0.3em on each side: 8.5 px from each link at the text's own size, and growing with it. The Markdown keeps its plain " · ", so a new row gets the room without anybody remembering a special space, and a dot anywhere else is as it was.
 - **Looked at** in a build with Saiga, in English on About Us, at 800 px and at 320 px, where the row wraps as before and nothing runs past the window.
+
+## 55. Where Kumpa was written about (2026-11-23)
+
+The maintainer's word: it is time to say that Helsingin Sanomat wrote about Kumpa, with room for more. "For the media" has a part "Kumpa in the media" before its source material, so About Us has it too.
+
+- **An entry** is a paragraph: the outlet's name in words, the day, what kind of piece it is and its language where the page's is another, then the piece's own headline as the link. Newest first. A new piece is one paragraph in each language's `about/media.md`.
+- **The headline as printed.** The first piece is about two Finnish non-commercial dating apps and its headline is about the other one's maker. It stays as the paper wrote it: the part says Kumpa was written about, not that the piece is Kumpa's.
+- **No logo, no picture, no quote.** A paper's logo is its trademark and its pictures and text are its own; the site loads nothing from elsewhere anyway (rule 1). The piece is for subscribers, and the link says nothing else.
+- **Not a list.** A list on this page is the ticked facts, and a tick beside a headline would read as a claim.
+- **Swedish.** The Swedish page's new words are an agent's, so the page says `machine: true` again until a native speaker has read them (rule 4; 45 had it read).
+- **Later.** A page of its own, and a line on the home page, when there are about five pieces.

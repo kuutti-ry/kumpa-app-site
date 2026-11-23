@@ -21,6 +21,10 @@ Kaikki alkoi keskustelusta, joka tiivistyi yhteen kysymykseen: jos deittailu on 
 - **Vain oikeita ihmisiä.** Rekisteröityä voi vain suomalaisilla pankkitunnuksilla, joten jokainen käyttäjä on yksi oikea ihminen, ihan oikeasti. Se on vastauksemme valeprofiileihin, romanssihuijauksiin, botteihin ja häirintään.
 - **Kehitystyö.** Aloitimme syyskuussa 2026. Uusimmat generatiivisen tekoälyn työkalut kirjoittavat jo kelpo koodia, ja sen ansiosta meidän kaltaisemme vapaaehtoisporukka pystyy tekemään kokonaisen deittisovelluksen.
 
+## Kumpa mediassa
+
+**Helsingin Sanomat**, 23.11.2026. Artikkeli: [Suomalaismies turhautui Tinderiin ja päätti kehittää oman](https://www.hs.fi/suomi/art-2000012418768.html)
+
 ## Kuvia ja taustaa
 
 [Tekijät](/about/people/) · [Sovelluksen lähdekoodi](https://github.com/kuutti-ry/kumpa-app) · [Logot](https://github.com/kuutti-ry/kumpa-app/tree/main/docs/design/logo)

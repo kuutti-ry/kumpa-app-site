@@ -20,6 +20,10 @@ It started with a conversation that came down to one question: if dating is brok
 - **Real people only.** Signing up works only with Finnish bank ID, so every user is one real person, for real. It’s our answer to catfishing, romance scams, bots and harassment.
 - **Development.** We started in September 2026. The latest generative AI tools produce code of decent quality, which enables a volunteer team like ours to build a complete dating app.
 
+## Kumpa in the media
+
+**Helsingin Sanomat**, 23 November 2026. Article, in Finnish: [Suomalaismies turhautui Tinderiin ja päätti kehittää oman](https://www.hs.fi/suomi/art-2000012418768.html)
+
 ## Source material
 
 [Meet the team](/about/people/) · [App source code](https://github.com/kuutti-ry/kumpa-app) · [Logo artwork](https://github.com/kuutti-ry/kumpa-app/tree/main/docs/design/logo)
