@@ -533,3 +533,12 @@ The maintainer's word: it is time to say that Helsingin Sanomat wrote about Kump
 - **Not a list.** A list on this page is the ticked facts, and a tick beside a headline would read as a claim.
 - **Swedish.** The Swedish page's new words are an agent's, so the page says `machine: true` again until a native speaker has read them (rule 4; 45 had it read).
 - **Later.** A page of its own, and a line on the home page, when there are about five pieces.
+
+## 56. The postal address beside the business ID (2026-11-24)
+
+The maintainer's word of 24/11/2026: put the association's postal address on About Us, right by the business ID, so the register's details are on the site together. The Finnish-first site of 36 had dropped it from the footer, "Contact" and About Us, so the site showed it only inside the legal texts.
+
+- **Where.** The paragraph on the association in each language ends with the business ID and then the address: "Tontunmäentie 22 E, 02200 Espoo, Finland", in Finnish "Tontunmäentie 22 E, 02200 Espoo", in Swedish "Tontunmäentie 22 E, 02200 Esbo". It is the register's form (12, 15), with no-break spaces in "22 E" and the postal code.
+- **Once.** The line written twice of 19 ("22 E" and "22E") was for the footer and "Contact", which no longer carry it; a sentence of prose has the register's form only.
+- **Swedish.** The sentence is an agent's, so the Swedish page says `machine: true` until a native speaker has read it again (rule 4, as in 55).
+- **Unchanged.** The footer, "Contact" and the legal texts.
