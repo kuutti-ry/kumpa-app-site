@@ -10,6 +10,6 @@ Olemme joukko vapaaehtoisia. Teemme deittisovellusta, jota käyttäisimme itseki
 
 Kuutti ry on espoolainen yhdistys. Haluamme vähentää yksinäisyyttä ja antaa kaikille samat mahdollisuudet tutustua uusiin ihmisiin. Emme tavoittele voittoa. Yhdistyksen säännöt kieltävät mainonnan ja käyttäjien tietojen kaupallisen käytön.
 
-Perustimme yhdistyksen 1.10.2026. Se rekisteröitiin 6.10.2026. Y-tunnuksemme on 3659478-7.
+Perustimme yhdistyksen 1.10.2026. Se rekisteröitiin 6.10.2026. Y-tunnuksemme on 3659478-7. Osoitteemme on Tontunmäentie 22&nbsp;E, 02200&nbsp;Espoo.
 
 [Yhdistyksen säännöt](/legal/bylaws/) · [Yhdistyksen tiedot YTJ:ssä](https://tietopalvelu.ytj.fi/yritys/3659478-7?lng=fi)
