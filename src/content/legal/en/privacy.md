@@ -3,8 +3,8 @@ title: Privacy policy
 description: How Kuutti ry processes personal data in the Kumpa app and on this website.
 order: 3
 status: in_force
-consent_version: "2026-11-1"
-dated: 2026-11-16
+consent_version: "2026-11-2"
+dated: 2026-11-26
 binding: true
 ---
 
@@ -14,7 +14,7 @@ The controller is Kuutti ry (business ID 3659478-7), Tontunmäentie 22 E, 02200 
 
 ## 2. Personal data and its sources
 
-**From the identification service.** When you identify yourself, the identification broker service of Telia Finland Oyj sends the association your personal identity code, your name and your date of birth, and the time, method, assurance level and reference identifiers of the identification. The association stores an identifier computed from the identity code, from which the code cannot be recovered; the year and month of your birth; and the time, method, assurance level and reference identifiers of your latest identification. It does not store the identity code, the name or the date of birth.
+**From the identification service.** When you identify yourself, the identification broker service of Telia Finland Oyj sends the association your personal identity code, your name and your date of birth, and the time, method, assurance level and reference identifiers of the identification. The association stores an identifier computed from the identity code with a secret key, from which the code cannot be recovered without that key; the year and month of your birth; and the time, method, assurance level and reference identifiers of your latest identification. It does not store the identity code, the name or the date of birth.
 
 **From you.** Your gender; your place of residence, as a postal code area or a municipality; whom you seek, the ages you seek and your other preferences; your display name and the texts and answers of your profile, which can include the political parties you could vote for and your religion; your photos and their captions; the messages and photos you send; contact details that you store in order to share them; your e-mail address, if you give one; and the reports and feedback you send.
 
