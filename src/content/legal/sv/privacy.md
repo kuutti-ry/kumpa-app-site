@@ -3,8 +3,8 @@ title: Dataskyddsbeskrivning
 description: Hur Kuutti ry behandlar personuppgifter i appen Kumpa och på den här webbplatsen.
 order: 3
 status: in_force
-consent_version: "2026-11-1"
-dated: 2026-11-16
+consent_version: "2026-11-2"
+dated: 2026-11-26
 binding: false
 machine: true
 ---
@@ -15,7 +15,7 @@ Personuppgiftsansvarig är Kuutti ry (FO-nummer 3659478-7), Tontunmäentie 22 E,
 
 ## 2. Personuppgifter och deras källor
 
-**Från identifieringstjänsten.** När du identifierar dig skickar Telia Finland Oyj:s förmedlingstjänst för identifiering din personbeteckning, ditt namn och ditt födelsedatum till föreningen, samt tidpunkten, metoden, tillitsnivån och referensidentifierarna för identifieringen. Föreningen lagrar en identifierare som har beräknats utifrån personbeteckningen och från vilken beteckningen inte kan återställas; ditt födelseår och din födelsemånad; samt tidpunkten, metoden, tillitsnivån och referensidentifierarna för din senaste identifiering. Den lagrar inte personbeteckningen, namnet eller födelsedatumet.
+**Från identifieringstjänsten.** När du identifierar dig skickar Telia Finland Oyj:s förmedlingstjänst för identifiering din personbeteckning, ditt namn och ditt födelsedatum till föreningen, samt tidpunkten, metoden, tillitsnivån och referensidentifierarna för identifieringen. Föreningen lagrar en identifierare som har beräknats utifrån personbeteckningen med en hemlig nyckel och från vilken beteckningen inte kan återställas utan den nyckeln; ditt födelseår och din födelsemånad; samt tidpunkten, metoden, tillitsnivån och referensidentifierarna för din senaste identifiering. Den lagrar inte personbeteckningen, namnet eller födelsedatumet.
 
 **Från dig.** Ditt kön; din bostadsort, som ett postnummerområde eller en kommun; vem du söker, de åldrar du söker och dina övriga preferenser; ditt visningsnamn samt texterna och svaren i din profil, som kan omfatta de politiska partier som du skulle kunna rösta på och din religion; dina bilder och deras bildtexter; de meddelanden och bilder som du skickar; kontaktuppgifter som du sparar för att dela dem; din e-postadress, om du uppger en; samt de anmälningar och den respons som du skickar.
 

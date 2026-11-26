@@ -3,8 +3,8 @@ title: Tietosuojaseloste
 description: Miten Kuutti ry käsittelee henkilötietoja Kumpa-sovelluksessa ja tällä verkkosivustolla.
 order: 3
 status: in_force
-consent_version: "2026-11-1"
-dated: 2026-11-16
+consent_version: "2026-11-2"
+dated: 2026-11-26
 binding: false
 machine: true
 ---
@@ -15,7 +15,7 @@ Rekisterinpitäjä on Kuutti ry (Y-tunnus 3659478-7, Tontunmäentie 22 E, 02200 
 
 ## 2. Henkilötiedot ja niiden lähteet
 
-**Tunnistuspalvelusta saatavat tiedot.** Kun tunnistaudut, Telia Finland Oyj:n tunnistusvälityspalvelu toimittaa yhdistykselle henkilötunnuksesi, nimesi ja syntymäaikasi sekä tunnistautumisen ajankohdan, menetelmän, varmuustason ja viitetunnisteet. Yhdistys tallentaa henkilötunnuksesta lasketun tunnisteen, josta henkilötunnusta ei voi palauttaa, syntymävuotesi ja -kuukautesi sekä viimeisimmän tunnistautumisesi ajankohdan, menetelmän, varmuustason ja viitetunnisteet. Yhdistys ei tallenna henkilötunnustasi, nimeäsi eikä tarkkaa syntymäaikaasi.
+**Tunnistuspalvelusta saatavat tiedot.** Kun tunnistaudut, Telia Finland Oyj:n tunnistusvälityspalvelu toimittaa yhdistykselle henkilötunnuksesi, nimesi ja syntymäaikasi sekä tunnistautumisen ajankohdan, menetelmän, varmuustason ja viitetunnisteet. Yhdistys tallentaa henkilötunnuksesta salaisella avaimella lasketun tunnisteen, josta henkilötunnusta ei voi palauttaa ilman tätä avainta, syntymävuotesi ja -kuukautesi sekä viimeisimmän tunnistautumisesi ajankohdan, menetelmän, varmuustason ja viitetunnisteet. Yhdistys ei tallenna henkilötunnustasi, nimeäsi eikä tarkkaa syntymäaikaasi.
 
 **Sinun antamasi tiedot.** Sukupuolesi, asuinpaikkasi postinumeroalueen tai kunnan tarkkuudella, kenen seuraa etsit, minkä ikäisten seuraa etsit ja muut toiveesi. Näihin tietoihin kuuluvat myös näyttönimesi, profiilisi tekstit ja vastaukset (esimerkiksi mitä puolueita voisit äänestää ja mikä on uskontosi), valokuvasi ja niiden kuvatekstit, lähettämäsi viestit ja valokuvat, jaettavaksi tallentamasi yhteystiedot, sähköpostiosoitteesi jos annat sen sekä lähettämäsi ilmoitukset ja palaute.
 

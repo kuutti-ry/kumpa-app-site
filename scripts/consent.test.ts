@@ -69,7 +69,7 @@ const appModule = (versions: Record<string, string>) =>
   'export const CONSENT_TEXT_HASHES: Readonly<Record<string, string>> = {\n  "terms": "a947eb54ce1338cd",\n};\n';
 
 const APP_TODAY = {
-  privacy: "2026-11-1",
+  privacy: "2026-11-2",
   special_category: "2026-11-1",
   terms: "2026-11-1",
 };
@@ -527,7 +527,7 @@ test("the app at an earlier version of the site's is following, not wrong", () =
   const { problems, behind } = mirror(pinned, APP_TODAY);
   assert.deepEqual(problems, []);
   assert.deepEqual(behind, [
-    "privacy: the app is at 2026-11-1, an earlier version of the site's; it follows with 2027-01-1",
+    "privacy: the app is at 2026-11-2, an earlier version of the site's; it follows with 2027-01-1",
   ]);
 });
 
